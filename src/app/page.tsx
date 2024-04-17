@@ -1,113 +1,104 @@
-import Image from "next/image";
+"use client"
+import Link from "next/link";
+import { useState } from "react";
+import { useRouter } from 'next/navigation'
+import { LoaderImage } from "@/components/custom/loader-image";
+import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { DirectionAwareHover } from "@/components/ui/direction-aware-hover";
+import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
+import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect";
+import { TypographyP } from "@/components/ui/typography-p";
+import { ChevronUp, Github, Mail } from "lucide-react";
+import { CollapsibleAnimate } from "@/components/custom/collapsible-animate";
+import TransitionCpn from "@/components/custom/transition-cpn";
 
-export default function Home() {
+export default function Page() {
+  const router = useRouter()
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-balance text-sm opacity-50">
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    <div className="w-full h-full grid grid-cols-1 md:grid-cols-3 justify-center items-center gap-5 md:gap-0 bg-[#F6F6F6] dark:bg-[#060606] p-2 md:p-5 lg:p-10 rounded-xl overflow-hidden">
+      <TransitionCpn variants={{hidden: { opacity: 0, x: 0, y: -200 }, enter: { opacity: 1, x: 0, y: 0 }}}>
+        <CardContainer className="inter-var w-full col-span-1">
+          <CardBody className="bg-gray-50 relative group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:bg-[#030712] dark:border-white/[0.2] border-black/[0.1] w-full sm:w-[30rem] h-[550px] rounded-xl p-6 border  ">
+            <CardItem
+              translateZ="50"
+              className="text-xl font-bold text-neutral-600 dark:text-white"
+            >
+              <TextGenerateEffect words="Hi! I'm Hip :&gt;" />
+            </CardItem>
+            <CardItem
+              as="p"
+              translateZ="60"
+              className="text-neutral-500 text-sm max-w-sm mt-2 dark:text-neutral-300"
+            >
+              Welcome to my website, enjoy!
+            </CardItem>
+            <CardItem translateZ="100" className="w-full h-[400px] mt-4 rounded-lg">
+              <LoaderImage src="/smoke.gif"
+                isLoader={false}
+                alt="Smoke"
+                width={4513}
+                height={3009}
+                className="w-full h-full object-cover object-center rounded-lg"
+              />
+            </CardItem>
+          </CardBody>
+        </CardContainer>
+      </TransitionCpn>
+      <TransitionCpn className="w-full max-h-[550px] col-span-1 md:col-span-2">
+        <Card>
+          <CardHeader>
+            <TypewriterEffectSmooth className="my-2 md:my-6 text-2xl leading-7" words={[{ text: "Portfolio" }]} />
+          </CardHeader>
+          <CardContent>
+            <div className="w-full min-h-[200px] md:min-h-[370px] flex flex-col justify-between items-start">
+              <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">My name is Thuan Austin, call me Hip. Life is prosaicly ...</code>
+              <div className="mt-3 w-full flex flex-wrap justify-start items-center gap-5 md:hidden">
+                <CollapsibleAnimate trigger={<h3 className="cursor-pointer underline">My projects</h3>}
+                  content={<div>
+                    <p>Test</p>
+                    <p>Test</p>
+                    <p>Test</p>
+                  </div>
+                  }
+                  isOpen={isOpen} setIsOpen={setIsOpen} />
+              </div>
+              <div className="w-full md:grid grid-cols-3 md:grid-cols-4 justify-start items-center gap-3 md:gap-5 hidden">
+                <div className="w-full max-h-[220px] col-span-2 md:col-span-3">
+                  <DirectionAwareHover className="h-[220px]" imageUrl="/background.jpg">
+                    <TypographyP className="font-bold text-xl" title="Quote" />
+                    <TypographyP className="font-normal text-sm" title="🫀Stop for a moment..." />
+                  </DirectionAwareHover>
+                </div>
+                <div className="w-full h-full flex flex-col justify-center items-center col-span-1">
+                  <div className="relative flex flex-col justify-center items-center w-full h-full rounded-t-lg bg-[#DCF2F1] dark:text-black cursor-pointer group" onClick={() => router.push("/project")}>
+                    <h1 className="text-lg md:text-xl lg:text-4xl font-extrabold">3</h1>
+                    <TypographyP title="Projects" />
+                    <ChevronUp className="text-gray-400 absolute group-hover:top-1 group-hover:right-0 top-2 right-1 w-[18px] md:w-[24px] lg:w-[32px] h-[18px] md:h-[24px] lg:h-[32px] rotate-45 transition-all duration-300 ease-in-out" />
+                  </div>
+                  <div className="relative flex flex-col justify-center items-center w-full h-full rounded-b-lg text-white dark:text-black bg-[#365486] group cursor-pointer">
+                    <h1 className="text-lg md:text-xl lg:text-4xl font-extrabold">3</h1>
+                    <TypographyP title="Blogs" />
+                    <ChevronUp className="text-gray-400 absolute group-hover:bottom-1 group-hover:left-0 bottom-2 left-1 w-[18px] md:w-[24px] lg:w-[32px] h-[18px] md:h-[24px] lg:h-[32px] rotate-[225deg] transition-all duration-300 ease-in-out" />
+                  </div>
+                </div>
+              </div>
+              <div className="w-full flex flex-wrap justify-start items-center gap-3 md:gap-5">
+                <Link href="mailto:thuanvuvan76@gmail.com" className="flex justify-center items-center gap-2 hover:gap-1 transition-all duration-300 ease-in-out">
+                  <Mail className="w-[14px] h-[14px]" />
+                  <TypographyP title="thuanvuvan76@gmail.com" className="text-sm font-light" />
+                </Link>
+                <Link href="https://github.com/VanThuan76" className="flex justify-center items-center gap-2 hover:gap-1 transition-all duration-300 ease-in-out">
+                  <Github className="w-[14px] h-[14px]" />
+                  <TypographyP title="VanThuan76" className="text-sm font-light" />
+                </Link>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </TransitionCpn>
+    </div >
   );
 }
