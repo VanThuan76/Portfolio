@@ -70,17 +70,10 @@
   * {
     @apply border-border;
   }
-  body {
+  html, body {
     @apply bg-background text-foreground;
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border;
-  }
-
-  body {
-    @apply bg-background text-foreground;
+    min-width: 100vw;
+    min-height: 100vh;
+    overflow-x: hidden;
   }
 }

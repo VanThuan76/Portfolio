@@ -16,10 +16,9 @@ import TransitionCpn from "@/components/custom/transition-cpn";
 export default function Page() {
   const router = useRouter()
   const [isOpen, setIsOpen] = useState(false);
-
   return (
     <div className="w-full h-full grid grid-cols-1 md:grid-cols-3 justify-center items-center gap-5 md:gap-0 bg-[#F6F6F6] dark:bg-[#060606] p-2 md:p-5 lg:p-10 rounded-xl overflow-hidden">
-      <TransitionCpn variants={{hidden: { opacity: 0, x: 0, y: -200 }, enter: { opacity: 1, x: 0, y: 0 }}}>
+      <TransitionCpn variants={{ hidden: { opacity: 0, x: 0, y: -200 }, enter: { opacity: 1, x: 0, y: 0 } }}>
         <CardContainer className="inter-var w-full col-span-1">
           <CardBody className="bg-gray-50 relative group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:bg-[#030712] dark:border-white/[0.2] border-black/[0.1] w-full sm:w-[30rem] h-[550px] rounded-xl p-6 border  ">
             <CardItem

@@ -1,3 +1,62 @@
+"use client"
+import TransitionCpn from "@/components/custom/transition-cpn";
+import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
+import { Clock } from "lucide-react";
+const Skeleton = () => (
+    <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br from-neutral-200 dark:from-neutral-900 dark:to-neutral-800 to-neutral-100"></div>
+);
+const items = [
+    {
+        title: "The Dawn of Innovation",
+        description: "Explore the birth of groundbreaking ideas and inventions.",
+        header: <Skeleton />,
+        icon: <Clock className="h-4 w-4 text-neutral-500" />,
+    },
+    {
+        title: "The Digital Revolution",
+        description: "Dive into the transformative power of technology.",
+        header: <Skeleton />,
+        icon: <Clock className="h-4 w-4 text-neutral-500" />,
+    },
+    {
+        title: "The Art of Design",
+        description: "Discover the beauty of thoughtful and functional design.",
+        header: <Skeleton />,
+        icon: <Clock className="h-4 w-4 text-neutral-500" />,
+    },
+    {
+        title: "The Power of Communication",
+        description:
+            "Understand the impact of effective communication in our lives.",
+        header: <Skeleton />,
+        icon: <Clock className="h-4 w-4 text-neutral-500" />,
+    },
+    {
+        title: "The Pursuit of Knowledge",
+        description: "Join the quest for understanding and enlightenment.",
+        header: <Skeleton />,
+        icon: <Clock className="h-4 w-4 text-neutral-500" />,
+    },
+    {
+    },
+];
 export default function Page() {
-    return <div className="w-full h-full grid grid-cols-1 md:grid-cols-3 justify-center items-center gap-5 md:gap-0 bg-[#F6F6F6] p-2 md:p-5 lg:p-10 rounded-lg overflow-hidden"></div>
+    return (
+        <div className="w-full h-full grid grid-cols-1 md:grid-cols-2 justify-center items-center gap-5 md:gap-0 bg-[#F6F6F6] dark:bg-[#060606] p-2 md:p-5 lg:p-10 rounded-xl overflow-hidden">
+            <TransitionCpn className="w-full h-auto md:max-h-[550px]">
+                <BentoGrid className="w-full h-full">
+                    {items.map((item, i) => (
+                        <BentoGridItem
+                            key={i}
+                            title={item.title}
+                            description={item.description}
+                            header={item.header}
+                            icon={item.icon}
+                            className={i === 3 || i === 6 ? "md:col-span-2" : ""}
+                        />
+                    ))}
+                </BentoGrid>
+            </TransitionCpn>
+        </div>
+    )
 }
