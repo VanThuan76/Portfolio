@@ -9,6 +9,7 @@ export function LoaderImage(props: {
     className?: string;
     width: number;
     height: number;
+    onClick?: () => void;
 }) {
     const loader: ImageLoader | undefined = props.isLoader ? freepikLoader : undefined;
     return (
@@ -18,8 +19,10 @@ export function LoaderImage(props: {
             alt={props.alt}
             width={props.width}
             height={props.height}
+            priority
             quality={60}
             sizes="100vw"
+            onClick={props.onClick && props.onClick}
             className={props.className}
         />
     );

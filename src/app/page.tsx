@@ -1,6 +1,6 @@
 "use client"
 import Link from "next/link";
-import { useState } from "react";
+import React from "react";
 import { useRouter } from 'next/navigation'
 import { LoaderImage } from "@/components/custom/loader-image";
 import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
@@ -10,14 +10,13 @@ import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect";
 import { TypographyP } from "@/components/ui/typography-p";
 import { ChevronUp, Github, Mail } from "lucide-react";
-import { CollapsibleAnimate } from "@/components/custom/collapsible-animate";
 import TransitionCpn from "@/components/custom/transition-cpn";
+import { TypographyH3 } from "@/components/ui/typography-h3";
 
 export default function Page() {
   const router = useRouter()
-  const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className="w-full h-full grid grid-cols-1 md:grid-cols-3 justify-center items-center gap-5 md:gap-0 bg-[#F6F6F6] dark:bg-[#060606] p-2 md:p-5 lg:p-10 rounded-xl overflow-hidden">
+    <div className="w-full h-full grid grid-cols-1 md:grid-cols-3 justify-center items-center gap-5 md:gap-0">
       <TransitionCpn variants={{ hidden: { opacity: 0, x: 0, y: -200 }, enter: { opacity: 1, x: 0, y: 0 } }}>
         <CardContainer className="inter-var w-full col-span-1">
           <CardBody className="bg-gray-50 relative group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:bg-[#030712] dark:border-white/[0.2] border-black/[0.1] w-full sm:w-[30rem] h-[550px] rounded-xl p-6 border  ">
@@ -53,16 +52,14 @@ export default function Page() {
           </CardHeader>
           <CardContent>
             <div className="w-full min-h-[200px] md:min-h-[370px] flex flex-col justify-between items-start">
-              <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">My name is Thuan Austin, call me Hip. Life is prosaicly ...</code>
-              <div className="mt-3 w-full flex flex-wrap justify-start items-center gap-5 md:hidden">
-                <CollapsibleAnimate trigger={<h3 className="cursor-pointer underline">My projects</h3>}
-                  content={<div>
-                    <p>Test</p>
-                    <p>Test</p>
-                    <p>Test</p>
-                  </div>
-                  }
-                  isOpen={isOpen} setIsOpen={setIsOpen} />
+              <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">My name is Austin Thuan, call me Hip. Life is prosaicly ...</code>
+              <div className="mt-3 w-full flex flex-col justify-start items-start gap-3 md:hidden">
+                <div onClick={() => router.push("/project")}>
+                  <TypographyH3 className="text-sm underline" title="My projects" />
+                </div>
+                <div onClick={() => router.push("/blog")}>
+                  <TypographyH3 className="text-sm underline" title="My blogs" />
+                </div>
               </div>
               <div className="w-full md:grid grid-cols-3 md:grid-cols-4 justify-start items-center gap-3 md:gap-5 hidden">
                 <div className="w-full max-h-[220px] col-span-2 md:col-span-3">
@@ -77,7 +74,7 @@ export default function Page() {
                     <TypographyP title="Projects" />
                     <ChevronUp className="text-gray-400 absolute group-hover:top-1 group-hover:right-0 top-2 right-1 w-[18px] md:w-[24px] lg:w-[32px] h-[18px] md:h-[24px] lg:h-[32px] rotate-45 transition-all duration-300 ease-in-out" />
                   </div>
-                  <div className="relative flex flex-col justify-center items-center w-full h-full rounded-b-lg text-white dark:text-black bg-[#365486] group cursor-pointer">
+                  <div className="relative flex flex-col justify-center items-center w-full h-full rounded-b-lg text-white dark:text-black bg-[#365486] group cursor-pointer" onClick={() => router.push("/blog")}>
                     <h1 className="text-lg md:text-xl lg:text-4xl font-extrabold">3</h1>
                     <TypographyP title="Blogs" />
                     <ChevronUp className="text-gray-400 absolute group-hover:bottom-1 group-hover:left-0 bottom-2 left-1 w-[18px] md:w-[24px] lg:w-[32px] h-[18px] md:h-[24px] lg:h-[32px] rotate-[225deg] transition-all duration-300 ease-in-out" />
@@ -98,6 +95,6 @@ export default function Page() {
           </CardContent>
         </Card>
       </TransitionCpn>
-    </div >
+    </div>
   );
 }

@@ -12,11 +12,11 @@ import {
     DropdownMenuSubTrigger,
 } from "@/components/ui/dropdown-menu"
 
-export function ModeToggle() {
+export function ModeTheme() {
     const { theme, setTheme } = useTheme()
     return (
         <DropdownMenuSub>
-            <DropdownMenuSubTrigger className="flex gap-3"> Theme: {theme === 'light' ? <SunIcon /> : <MoonIcon />}</DropdownMenuSubTrigger>
+            <DropdownMenuSubTrigger className="flex gap-3"> Theme - {theme === 'light' ? <SunIcon /> : <MoonIcon />}</DropdownMenuSubTrigger>
             <DropdownMenuPortal>
                 <DropdownMenuSubContent>
                     <DropdownMenuItem onClick={() => setTheme("light")}>

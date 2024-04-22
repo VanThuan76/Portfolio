@@ -36,14 +36,12 @@ const items = [
         description: "Join the quest for understanding and enlightenment.",
         header: <Skeleton />,
         icon: <Clock className="h-4 w-4 text-neutral-500" />,
-    },
-    {
-    },
+    }
 ];
 export default function Page() {
     return (
-        <div className="w-full h-full grid grid-cols-1 md:grid-cols-2 justify-center items-center gap-5 md:gap-0 bg-[#F6F6F6] dark:bg-[#060606] p-2 md:p-5 lg:p-10 rounded-xl overflow-hidden">
-            <TransitionCpn className="w-full h-auto md:max-h-[550px]">
+        <div className="w-full h-full grid grid-cols-1 md:grid-cols-3 justify-center items-center gap-5 md:gap-0 bg-[#F6F6F6] dark:bg-[#060606]rounded-xl overflow-hidden">
+            <TransitionCpn className="w-full h-auto col-span-2">
                 <BentoGrid className="w-full h-full">
                     {items.map((item, i) => (
                         <BentoGridItem
