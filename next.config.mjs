@@ -3,6 +3,7 @@ const hostnames = [
   "p9n2c8y2.rocketcdn.me",
   "assets.aceternity.com",
   "avatars.githubusercontent.com",
+  "ocjaxgkaarttotpzrodh.supabase.co",
 ];
 const nextConfig = {
   async rewrites() {

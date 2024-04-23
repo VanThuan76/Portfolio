@@ -4,168 +4,168 @@ export type Json =
   | boolean
   | null
   | { [key: string]: Json | undefined }
-  | Json[]
+  | Json[];
 
 export type Database = {
   public: {
     Tables: {
       blog: {
         Row: {
-          created_at: string
-          id: string
-          image_url: string
-          is_premium: boolean
-          is_published: boolean
-          title: string
-          updated_at: string
-        }
+          created_at: string;
+          id: string;
+          image_url: string;
+          is_premium: boolean;
+          is_published: boolean;
+          title: string;
+          updated_at: string;
+        };
         Insert: {
-          created_at?: string
-          id?: string
-          image_url: string
-          is_premium?: boolean
-          is_published?: boolean
-          title: string
-          updated_at?: string
-        }
+          created_at?: string;
+          id?: string;
+          image_url: string;
+          is_premium?: boolean;
+          is_published?: boolean;
+          title: string;
+          updated_at?: string;
+        };
         Update: {
-          created_at?: string
-          id?: string
-          image_url?: string
-          is_premium?: boolean
-          is_published?: boolean
-          title?: string
-          updated_at?: string
-        }
-        Relationships: []
-      }
+          created_at?: string;
+          id?: string;
+          image_url?: string;
+          is_premium?: boolean;
+          is_published?: boolean;
+          title?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
       blog_content: {
         Row: {
-          blog_id: string
-          content: string | null
-          created_at: string
-          updated_at: string
-        }
+          blog_id: string;
+          content: string | null;
+          created_at: string;
+          updated_at: string;
+        };
         Insert: {
-          blog_id?: string
-          content?: string | null
-          created_at?: string
-          updated_at?: string
-        }
+          blog_id?: string;
+          content?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
         Update: {
-          blog_id?: string
-          content?: string | null
-          created_at?: string
-          updated_at?: string
-        }
+          blog_id?: string;
+          content?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
         Relationships: [
           {
-            foreignKeyName: "public_blog_content_blog_id_fkey"
-            columns: ["blog_id"]
-            isOneToOne: true
-            referencedRelation: "blog"
-            referencedColumns: ["id"]
+            foreignKeyName: "public_blog_content_blog_id_fkey";
+            columns: ["blog_id"];
+            isOneToOne: true;
+            referencedRelation: "blog";
+            referencedColumns: ["id"];
           },
-        ]
-      }
+        ];
+      };
       blog_tag: {
         Row: {
-          blog_id: string
-          created_at: string
-          tag_id: string | null
-          updated_at: string
-        }
+          blog_id: string;
+          created_at: string;
+          tag_id: string | null;
+          updated_at: string;
+        };
         Insert: {
-          blog_id?: string
-          created_at?: string
-          tag_id?: string | null
-          updated_at?: string
-        }
+          blog_id?: string;
+          created_at?: string;
+          tag_id?: string | null;
+          updated_at?: string;
+        };
         Update: {
-          blog_id?: string
-          created_at?: string
-          tag_id?: string | null
-          updated_at?: string
-        }
+          blog_id?: string;
+          created_at?: string;
+          tag_id?: string | null;
+          updated_at?: string;
+        };
         Relationships: [
           {
-            foreignKeyName: "public_blog_tag_blog_id_fkey"
-            columns: ["blog_id"]
-            isOneToOne: true
-            referencedRelation: "blog"
-            referencedColumns: ["id"]
+            foreignKeyName: "public_blog_tag_blog_id_fkey";
+            columns: ["blog_id"];
+            isOneToOne: true;
+            referencedRelation: "blog";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: "public_blog_tag_tag_id_fkey"
-            columns: ["tag_id"]
-            isOneToOne: false
-            referencedRelation: "tag"
-            referencedColumns: ["id"]
+            foreignKeyName: "public_blog_tag_tag_id_fkey";
+            columns: ["tag_id"];
+            isOneToOne: false;
+            referencedRelation: "tag";
+            referencedColumns: ["id"];
           },
-        ]
-      }
+        ];
+      };
       tag: {
         Row: {
-          created_at: string
-          id: string
-          slug: string | null
-          title: string | null
-          updated_at: string | null
-        }
+          created_at: string;
+          id: string;
+          slug: string | null;
+          title: string | null;
+          updated_at: string | null;
+        };
         Insert: {
-          created_at?: string
-          id?: string
-          slug?: string | null
-          title?: string | null
-          updated_at?: string | null
-        }
+          created_at?: string;
+          id?: string;
+          slug?: string | null;
+          title?: string | null;
+          updated_at?: string | null;
+        };
         Update: {
-          created_at?: string
-          id?: string
-          slug?: string | null
-          title?: string | null
-          updated_at?: string | null
-        }
-        Relationships: []
-      }
+          created_at?: string;
+          id?: string;
+          slug?: string | null;
+          title?: string | null;
+          updated_at?: string | null;
+        };
+        Relationships: [];
+      };
       users: {
         Row: {
-          avatar_url: string | null
-          created_at: string
-          display_name: string | null
-          id: string
-        }
+          avatar_url: string | null;
+          created_at: string;
+          display_name: string | null;
+          id: string;
+        };
         Insert: {
-          avatar_url?: string | null
-          created_at?: string
-          display_name?: string | null
-          id?: string
-        }
+          avatar_url?: string | null;
+          created_at?: string;
+          display_name?: string | null;
+          id?: string;
+        };
         Update: {
-          avatar_url?: string | null
-          created_at?: string
-          display_name?: string | null
-          id?: string
-        }
-        Relationships: []
-      }
-    }
+          avatar_url?: string | null;
+          created_at?: string;
+          display_name?: string | null;
+          id?: string;
+        };
+        Relationships: [];
+      };
+    };
     Views: {
-      [_ in never]: never
-    }
+      [_ in never]: never;
+    };
     Functions: {
-      [_ in never]: never
-    }
+      [_ in never]: never;
+    };
     Enums: {
-      [_ in never]: never
-    }
+      [_ in never]: never;
+    };
     CompositeTypes: {
-      [_ in never]: never
-    }
-  }
-}
+      [_ in never]: never;
+    };
+  };
+};
 
-type PublicSchema = Database[Extract<keyof Database, "public">]
+type PublicSchema = Database[Extract<keyof Database, "public">];
 
 export type Tables<
   PublicTableNameOrOptions extends
@@ -178,7 +178,7 @@ export type Tables<
 > = PublicTableNameOrOptions extends { schema: keyof Database }
   ? (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
       Database[PublicTableNameOrOptions["schema"]]["Views"])[TableName] extends {
-      Row: infer R
+      Row: infer R;
     }
     ? R
     : never
@@ -186,11 +186,11 @@ export type Tables<
         PublicSchema["Views"])
     ? (PublicSchema["Tables"] &
         PublicSchema["Views"])[PublicTableNameOrOptions] extends {
-        Row: infer R
+        Row: infer R;
       }
       ? R
       : never
-    : never
+    : never;
 
 export type TablesInsert<
   PublicTableNameOrOptions extends
@@ -201,17 +201,17 @@ export type TablesInsert<
     : never = never,
 > = PublicTableNameOrOptions extends { schema: keyof Database }
   ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
-      Insert: infer I
+      Insert: infer I;
     }
     ? I
     : never
   : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
     ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
-        Insert: infer I
+        Insert: infer I;
       }
       ? I
       : never
-    : never
+    : never;
 
 export type TablesUpdate<
   PublicTableNameOrOptions extends
@@ -222,17 +222,17 @@ export type TablesUpdate<
     : never = never,
 > = PublicTableNameOrOptions extends { schema: keyof Database }
   ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
-      Update: infer U
+      Update: infer U;
     }
     ? U
     : never
   : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
     ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
-        Update: infer U
+        Update: infer U;
       }
       ? U
       : never
-    : never
+    : never;
 
 export type Enums<
   PublicEnumNameOrOptions extends
@@ -245,4 +245,4 @@ export type Enums<
   ? Database[PublicEnumNameOrOptions["schema"]]["Enums"][EnumName]
   : PublicEnumNameOrOptions extends keyof PublicSchema["Enums"]
     ? PublicSchema["Enums"][PublicEnumNameOrOptions]
-    : never
+    : never;

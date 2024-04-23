@@ -17,7 +17,7 @@ export function NavigationEvents() {
       nProgress.start();
       _push(href, options);
     };
-  }, [])
+  }, []);
 
   useEffect(() => {
     nProgress.done();
@@ -25,4 +25,3 @@ export function NavigationEvents() {
 
   return null;
 }
-

@@ -16,8 +16,8 @@ import Loading from "./loading";
 import "./globals.css";
 
 const nextFont = DM_Mono({
-  display: 'swap',
-  weight: ['300', '400', '500'],
+  display: "swap",
+  weight: ["300", "400", "500"],
   preload: false,
 });
 
@@ -28,15 +28,21 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-  user
+  user,
 }: Readonly<{
   children: React.ReactNode;
-  user?: IAuthSupabase | any
+  user?: IAuthSupabase | any;
 }>) {
   return (
-    <html lang="en" >
+    <html lang="en">
       <link rel="icon" href="/logo.png" sizes="any" />
-      <body className={cn("min-h-screen bg-background antialiased", nextFont.className)} suppressHydrationWarning>
+      <body
+        className={cn(
+          "min-h-screen bg-background antialiased",
+          nextFont.className,
+        )}
+        suppressHydrationWarning
+      >
         <ReduxProvider>
           <ThemeProvider
             attribute="class"
@@ -50,20 +56,18 @@ export default function RootLayout({
               skipDelayDuration={0}
             >
               <ContainerLayout>
-                <FrameScreen user={user || undefined}>
-                  {children}
-                </FrameScreen>
+                <FrameScreen>{children}</FrameScreen>
               </ContainerLayout>
               <Suspense fallback={<Loading />}>
                 <NavigationEvents />
                 <NavBarMenu />
-                <DropdownMenuApp user={user || undefined} />
+                <DropdownMenuApp user={user} />
               </Suspense>
               <ToasterProvider />
             </TooltipProvider>
           </ThemeProvider>
         </ReduxProvider>
       </body>
-    </html >
+    </html>
   );
 }

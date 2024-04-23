@@ -1,51 +1,24 @@
-"use client";
-import { HoverEffect } from "@/components/ui/card-hover-effect";
 import { LoaderImage } from "@/components/custom/loader-image";
 import { TypographyH3 } from "@/components/ui/typography-h3";
 import { TypographyP } from "@/components/ui/typography-p";
 import { Tabs } from "@/components/ui/tabs";
-import { Search } from "lucide-react";
+import { CardBlog } from "./components/card-blog";
+import { readBlog } from "@/server/actions/blog";
 import TransitionCpn from "@/components/custom/transition-cpn";
-import { HoverImageLink } from "@/components/ui/hover-image-link";
-const projects = [
-  {
-    title: "Stripe",
-    icon: <Search size={12} />,
-    image:
-      "https://p9n2c8y2.rocketcdn.me/wp-content/uploads/2022/03/Notion-for-Blogging.jpg",
-    link: "https://stripe.com",
-    tags: ["Test"],
-  },
-  {
-    title: "Netflix",
-    image:
-      "https://p9n2c8y2.rocketcdn.me/wp-content/uploads/2022/03/Notion-for-Blogging.jpg",
-    link: "https://netflix.com",
-    tags: [],
-  },
-  {
-    title: "Google",
-    image:
-      "https://p9n2c8y2.rocketcdn.me/wp-content/uploads/2022/03/Notion-for-Blogging.jpg",
-    link: "https://google.com",
-    tags: [],
-  },
-  {
-    title: "Meta",
-    image:
-      "https://p9n2c8y2.rocketcdn.me/wp-content/uploads/2022/03/Notion-for-Blogging.jpg",
-    link: "https://meta.com",
-    tags: [],
-  },
-];
-export default function Page() {
+import HoverImageLink from "@/components/ui/hover-image-link";
+
+export default async function Page() {
+  let { data: blogs } = await readBlog();
+  if (!blogs?.length) {
+    blogs = [];
+  }
   const tabs = [
     {
       title: "NextJs",
       value: "nextjs",
       content: (
         <div className="w-full h-full relative font-bold text-white">
-          <HoverEffect items={projects} />
+          <CardBlog items={blogs} />
         </div>
       ),
     },
@@ -54,7 +27,7 @@ export default function Page() {
       value: "php",
       content: (
         <div className="w-full h-full relative text-white">
-          <HoverEffect items={projects} />
+          <CardBlog items={blogs} />
         </div>
       ),
     },

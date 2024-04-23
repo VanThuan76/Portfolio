@@ -3,14 +3,17 @@ import { cn } from "@/lib/tw";
 import React, { useState } from "react";
 import { HoveredLink, Menu, MenuItem, ProductItem } from "../../ui/navbar-menu";
 import { TypographyP } from "@/components/ui/typography-p";
-import { useAppSelector } from "@/store"
+import { useAppSelector } from "@/store";
 
 export function NavBarMenu() {
-  const { showNavbarMenu } = useAppSelector((state) => state.app)
+  const { showNavbarMenu } = useAppSelector((state) => state.app);
   return (
     <div className="relative w-full flex items-center justify-center">
       {showNavbarMenu && <Navbar />}
-      <TypographyP title={`© Copyright ${new Date().getFullYear()} - Hip`} className="text-sm mt-2" />
+      <TypographyP
+        title={`© Copyright ${new Date().getFullYear()} - Hip`}
+        className="text-sm mt-2"
+      />
     </div>
   );
 }
@@ -19,7 +22,10 @@ function Navbar({ className }: { className?: string }) {
   const [active, setActive] = useState<string | null>(null);
   return (
     <div
-      className={cn("fixed bottom-4 h-[35px] inset-x-0 w-[80%] md:max-w-xl rounded-2xl mx-auto z-50 bg-white bg-opacity-50 backdrop-filter backdrop-blur-3xl flex items-center justify-center", className)}
+      className={cn(
+        "fixed bottom-4 h-[35px] inset-x-0 w-[80%] md:max-w-xl rounded-2xl mx-auto z-50 bg-white bg-opacity-50 backdrop-filter backdrop-blur-3xl flex items-center justify-center",
+        className,
+      )}
     >
       <Menu className="p-2" setActive={setActive}>
         <MenuItem setActive={setActive} active={active} item="Services">

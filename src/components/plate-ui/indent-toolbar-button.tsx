@@ -1,10 +1,10 @@
-import React from 'react';
-import { withRef } from '@udecode/cn';
-import { useIndentButton } from '@udecode/plate-indent';
+import React from "react";
+import { withRef } from "@udecode/cn";
+import { useIndentButton } from "@udecode/plate-indent";
 
-import { Icons } from '@/components/plate-ui/icons';
+import { Icons } from "@/components/plate-ui/icons";
 
-import { ToolbarButton } from './toolbar';
+import { ToolbarButton } from "./toolbar";
 
 export const IndentToolbarButton = withRef<typeof ToolbarButton>(
   (rest, ref) => {
@@ -15,5 +15,5 @@ export const IndentToolbarButton = withRef<typeof ToolbarButton>(
         <Icons.indent />
       </ToolbarButton>
     );
-  }
+  },
 );

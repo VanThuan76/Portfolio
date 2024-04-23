@@ -1,19 +1,24 @@
-"use client"
-import * as React from "react"
-import { Collapsible, CollapsibleTrigger } from "@/components/ui/collapsible"
-import { CollapsibleContent } from "@radix-ui/react-collapsible"
+"use client";
+import * as React from "react";
+import { Collapsible, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { CollapsibleContent } from "@radix-ui/react-collapsible";
 import { m, LazyMotion, domAnimation } from "framer-motion";
 
 interface Props {
   trigger: React.ReactNode;
   content: React.ReactNode;
   isOpen: boolean;
-  setIsOpen: any
+  setIsOpen: any;
 }
-export function CollapsibleAnimate({ trigger, content, isOpen, setIsOpen }: Props) {
+export function CollapsibleAnimate({
+  trigger,
+  content,
+  isOpen,
+  setIsOpen,
+}: Props) {
   const animate = {
     transition: { type: "tween" },
-    height: isOpen ? "auto" : 0
+    height: isOpen ? "auto" : 0,
   };
   return (
     <Collapsible
@@ -21,9 +26,7 @@ export function CollapsibleAnimate({ trigger, content, isOpen, setIsOpen }: Prop
       onOpenChange={setIsOpen}
       className="w-[350px] space-y-2"
     >
-      <CollapsibleTrigger asChild>
-        {trigger}
-      </CollapsibleTrigger>
+      <CollapsibleTrigger asChild>{trigger}</CollapsibleTrigger>
       <LazyMotion features={domAnimation} strict>
         <CollapsibleContent className="space-y-2">
           <m.div
@@ -37,5 +40,5 @@ export function CollapsibleAnimate({ trigger, content, isOpen, setIsOpen }: Prop
         </CollapsibleContent>
       </LazyMotion>
     </Collapsible>
-  )
+  );
 }
