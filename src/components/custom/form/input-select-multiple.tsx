@@ -7,7 +7,7 @@ import {
   MultiSelectorList,
   MultiSelectorItem,
 } from "@/components/ui/multi-select";
-import { UseFormReturn } from "react-hook-form";
+import { useForm, UseFormReturn } from "react-hook-form";
 import { FormField, FormItem, FormLabel } from "@/components/ui/form";
 
 type Props = {
@@ -18,10 +18,9 @@ type Props = {
   hint?: string;
   placeHolder?: string;
   options?: { value: any; label: string }[];
-  itemsSelect?: any[];
-  setItemsSelect?: any;
   disabled?: boolean;
 };
+
 const InputMultiSelect = ({
   className,
   form,
@@ -29,10 +28,14 @@ const InputMultiSelect = ({
   fieldName,
   placeHolder,
   options = [],
-  itemsSelect = [],
-  setItemsSelect,
   disabled = false,
 }: Props) => {
+  const watchFieldValue = (field: string) => {
+    return form?.watch(field);
+  };
+  const handleValuesChange = (newValues: any[]) => {
+    form?.setValue(fieldName, newValues);
+  };
   return (
     <FormField
       disabled={disabled}
@@ -42,8 +45,8 @@ const InputMultiSelect = ({
         <FormItem className={`w-full ${className}`}>
           {label && <FormLabel>{label}</FormLabel>}
           <MultiSelector
-            values={itemsSelect}
-            onValuesChange={setItemsSelect && setItemsSelect}
+            values={watchFieldValue(fieldName) || []}
+            onValuesChange={handleValuesChange}
             loop={false}
           >
             <MultiSelectorTrigger>

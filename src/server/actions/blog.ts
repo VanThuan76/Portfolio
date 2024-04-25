@@ -1,20 +1,7 @@
 "use server";
-import { supabaseServer } from "@/lib/supabase/server";
-import { Database } from "@/lib/supabase/types";
-import { createServerClient } from "@supabase/ssr";
-import { cookies } from "next/headers";
+import { supabaseBrowser } from "@/lib/supabase/browser";
 
-const supabase = createServerClient<Database>(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-  {
-    cookies: {
-      get(name: string) {
-        return cookies().get(name)?.value;
-      },
-    },
-  },
-);
+const supabase = supabaseBrowser();
 export async function createBlog(data: any) {
   const { ["content"]: excludedKey, ...blog } = data;
   const resultBlog = await supabase
@@ -34,11 +21,47 @@ export async function createBlog(data: any) {
   }
 }
 export async function readBlog() {
-  const supabase = supabaseServer();
-  const blogs = await supabase
+  const { data: blogs, error } = await supabase
     .from("blog")
     .select("*")
     .eq("is_published", true)
     .order("created_at", { ascending: true });
-  return blogs;
+
+  if (error) {
+    throw error;
+  }
+
+  const blogIds = blogs.map((blog) => blog.id);
+  const { data: blogTagsData, error: tagsError } = await supabase
+    .from("blog_tag")
+    .select("*")
+    .in("blog_id", blogIds);
+
+  if (tagsError) {
+    throw tagsError;
+  }
+  const tagIds = blogTagsData.map((tag) => tag.tag_id);
+  const { data: tagsData, error: tagsDataError } = await supabase
+    .from("tag")
+    .select("*")
+    .in("id", tagIds);
+
+  if (tagsDataError) {
+    throw tagsDataError;
+  }
+  const tagsById: Record<string, any> = {};
+  tagsData.forEach((tag) => {
+    tagsById[tag.id] = tag;
+  });
+  const blogsWithTags = blogs.map((blog) => {
+    const blogTags = blogTagsData
+      .filter((tag) => tag.blog_id === blog.id)
+      .map((tag) => tagsById[tag.tag_id!]);
+    return {
+      ...blog,
+      tags: blogTags || [],
+    };
+  });
+
+  return blogsWithTags;
 }

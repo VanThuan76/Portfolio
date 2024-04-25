@@ -16,7 +16,7 @@ import { TypographyH3 } from "@/components/ui/typography-h3";
 export default function Page() {
   const router = useRouter();
   return (
-    <div className="w-full h-full grid grid-cols-1 md:grid-cols-3 justify-center items-center gap-5 md:gap-0">
+    <div className="w-full min-h-[100vh] grid grid-cols-1 md:grid-cols-3 justify-center items-center gap-5 md:gap-0">
       <TransitionCpn
         variants={{
           hidden: { opacity: 0, x: 0, y: -200 },
@@ -65,7 +65,7 @@ export default function Page() {
           <CardContent>
             <div className="w-full min-h-[200px] md:min-h-[370px] flex flex-col justify-between items-start">
               <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">
-                My name is Austin Thuan, call me Hip. Life is prosaicly ...
+                My name is Austin Vu, call me Austin. Life is prosaicly ...
               </code>
               <div className="mt-3 w-full flex flex-col justify-start items-start gap-3 md:hidden">
                 <div onClick={() => router.push("/project")}>

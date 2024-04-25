@@ -21,7 +21,7 @@ const NavigationExtApple = () => {
   });
 
   return (
-    <div className="absolute top-1 right-3 flex items-center space-x-1 text-black dark:text-white font-semibold">
+    <div className="flex items-center justify-end space-x-1 text-black dark:text-white font-semibold">
       <ModeAIAssistant />
       <div className="relative min-w-[70px] h-[35px] rounded-lg hidden md:flex items-center justify-center overflow-hidden">
         <motion.div

@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const hostnames = [
   "p9n2c8y2.rocketcdn.me",
+  "aceternity.com",
   "assets.aceternity.com",
   "avatars.githubusercontent.com",
   "ocjaxgkaarttotpzrodh.supabase.co",

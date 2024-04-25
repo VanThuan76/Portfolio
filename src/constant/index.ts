@@ -4,6 +4,13 @@ export const APP_SAVE_KEY = {
   TOKEN_KEY: process.env.NEXT_PUBLIC_APP_NAME + "::token_key",
   LOGIN_STATUS: process.env.NEXT_PUBLIC_APP_NAME + "::login_status",
 };
+export const breakpoints = {
+  0: "xs",
+  600: "sm",
+  960: "md",
+  1280: "lg",
+  1920: "xl",
+};
 export const initialValueByCreatingBlog = [
   {
     type: "h1",

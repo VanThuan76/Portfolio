@@ -4,7 +4,7 @@ import ChatBotHead from "@/app/extensions/chatbot/components/chatbot-head";
 import ChatBotBody from "@/app/extensions/chatbot/components/chatbot-body";
 
 export default async function Page() {
-  const supabase = supabaseServer();
+  const supabase = await supabaseServer();
   const {
     data: { user },
   } = await supabase.auth.getUser();

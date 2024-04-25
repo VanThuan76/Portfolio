@@ -1,11 +1,3 @@
-export type Json =
-  | string
-  | number
-  | boolean
-  | null
-  | { [key: string]: Json | undefined }
-  | Json[];
-
 export type Database = {
   public: {
     Tables: {
@@ -16,6 +8,7 @@ export type Database = {
           image_url: string;
           is_premium: boolean;
           is_published: boolean;
+          slug: string;
           title: string;
           updated_at: string;
         };
@@ -25,6 +18,7 @@ export type Database = {
           image_url: string;
           is_premium?: boolean;
           is_published?: boolean;
+          slug?: string;
           title: string;
           updated_at?: string;
         };
@@ -34,6 +28,7 @@ export type Database = {
           image_url?: string;
           is_premium?: boolean;
           is_published?: boolean;
+          slug?: string;
           title?: string;
           updated_at?: string;
         };
@@ -44,25 +39,28 @@ export type Database = {
           blog_id: string;
           content: string | null;
           created_at: string;
+          id: string;
           updated_at: string;
         };
         Insert: {
           blog_id?: string;
           content?: string | null;
           created_at?: string;
+          id?: string;
           updated_at?: string;
         };
         Update: {
           blog_id?: string;
           content?: string | null;
           created_at?: string;
+          id?: string;
           updated_at?: string;
         };
         Relationships: [
           {
             foreignKeyName: "public_blog_content_blog_id_fkey";
             columns: ["blog_id"];
-            isOneToOne: true;
+            isOneToOne: false;
             referencedRelation: "blog";
             referencedColumns: ["id"];
           },
@@ -104,6 +102,39 @@ export type Database = {
           },
         ];
       };
+      project: {
+        Row: {
+          created_at: string;
+          description: string;
+          id: string;
+          image_url: string;
+          slug: string;
+          tech_stack: string;
+          title: string;
+          updated_at: string;
+        };
+        Insert: {
+          created_at?: string;
+          description: string;
+          id?: string;
+          image_url: string;
+          slug: string;
+          tech_stack: string;
+          title: string;
+          updated_at?: string;
+        };
+        Update: {
+          created_at?: string;
+          description?: string;
+          id?: string;
+          image_url?: string;
+          slug?: string;
+          tech_stack?: string;
+          title?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
       tag: {
         Row: {
           created_at: string;
@@ -134,18 +165,21 @@ export type Database = {
           created_at: string;
           display_name: string | null;
           id: string;
+          role: string;
         };
         Insert: {
           avatar_url?: string | null;
           created_at?: string;
           display_name?: string | null;
           id?: string;
+          role?: string;
         };
         Update: {
           avatar_url?: string | null;
           created_at?: string;
           display_name?: string | null;
           id?: string;
+          role?: string;
         };
         Relationships: [];
       };
@@ -154,7 +188,10 @@ export type Database = {
       [_ in never]: never;
     };
     Functions: {
-      [_ in never]: never;
+      is_admin: {
+        Args: Record<PropertyKey, never>;
+        Returns: boolean;
+      };
     };
     Enums: {
       [_ in never]: never;

@@ -8,7 +8,7 @@ export interface IDefaultState {
 
 const initialState: IDefaultState = {
   showNavbarMenu: false,
-  hasFullScreen: false,
+  hasFullScreen: true,
 };
 
 export const appSlice = createSlice({

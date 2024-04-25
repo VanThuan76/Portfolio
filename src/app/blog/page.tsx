@@ -4,34 +4,20 @@ import { TypographyP } from "@/components/ui/typography-p";
 import { Tabs } from "@/components/ui/tabs";
 import { CardBlog } from "./components/card-blog";
 import { readBlog } from "@/server/actions/blog";
+import { readTag } from "@/server/actions/tag";
 import TransitionCpn from "@/components/custom/transition-cpn";
 import HoverImageLink from "@/components/ui/hover-image-link";
+import Link from "next/link";
 
 export default async function Page() {
-  let { data: blogs } = await readBlog();
+  let { data: tags } = await readTag();
+  let blogs = await readBlog();
   if (!blogs?.length) {
     blogs = [];
   }
-  const tabs = [
-    {
-      title: "NextJs",
-      value: "nextjs",
-      content: (
-        <div className="w-full h-full relative font-bold text-white">
-          <CardBlog items={blogs} />
-        </div>
-      ),
-    },
-    {
-      title: "Php",
-      value: "php",
-      content: (
-        <div className="w-full h-full relative text-white">
-          <CardBlog items={blogs} />
-        </div>
-      ),
-    },
-  ];
+  if (!tags?.length) {
+    tags = [];
+  }
   return (
     <TransitionCpn className="w-full h-auto">
       <div className="w-full h-auto flex flex-col justify-start items-start gap-5 md:gap-0">
@@ -47,15 +33,51 @@ export default async function Page() {
             />
           </div>
           <TypographyH3 className="mt-2" title="Hip Blog" />
-          <TypographyP
-            className="italic text-xs"
-            title="These're my social: Twitter | Intargram | Threads"
-          />
+          <div className="flex flex-wrap gap-2 justify-start items-center">
+            <TypographyP
+              className="italic text-xs"
+              title="These're my social: "
+            />
+            <Link href={"https://twitter.com/thuanhipp"} target="_blank">
+              <TypographyP
+                className="italic text-xs bg-gradient-to-r from-blue-400 to-blue-700 rounded-sm px-2 rotate-2 hover:underline"
+                title="Twitter"
+              />
+            </Link>
+            <Link href={"https://www.instagram.com/thuanhip76"} target="_blank">
+              <TypographyP
+                className="italic text-xs bg-gradient-to-r from-pink-500 to-purple-500 rounded-sm px-2 -rotate-1 hover:underline"
+                title="Intargram"
+              />
+            </Link>
+            <Link href={"https://www.threads.net/@thuanhip76"} target="_blank">
+              <TypographyP
+                className="italic text-xs bg-gradient-to-r from-gray-200 to-gray-500 rounded-sm px-2 rotate-12 hover:underline"
+                title="Threads"
+              />
+            </Link>
+          </div>
         </div>
         <div className="w-full h-full grid grid-cols-1 md:grid-cols-5 justify-start items-start gap-5">
           <div className="w-full h-full mx-auto col-span-1 md:col-span-4 py-5">
             <div className="min-h-[35rem] md:min-h-[25rem] [perspective:1000px] relative flex flex-col w-full items-start justify-start overflow-auto md:overflow-visible">
-              <Tabs tabs={tabs} />
+              <Tabs
+                tabs={tags.map((tag) => ({
+                  title: tag.title as string,
+                  value: tag.slug as string,
+                  content: (
+                    <div className="w-full h-full relative font-bold text-white">
+                      <CardBlog
+                        items={
+                          blogs.filter((blog) =>
+                            blog.tags.some((item) => item.slug === tag.slug),
+                          ) || []
+                        }
+                      />
+                    </div>
+                  ),
+                }))}
+              />
             </div>
           </div>
           <div className="w-full h-full mx-auto col-span-1 hidden md:flex flex-col justify-start items-end gap-3 py-5">

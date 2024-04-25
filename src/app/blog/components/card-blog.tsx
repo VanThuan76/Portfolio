@@ -6,6 +6,7 @@ import { useState } from "react";
 import { LoaderImage } from "@/components/custom/loader-image";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardTitle } from "@/components/ui/card-hover-effect";
+import { ITag } from "@/server/data/types/tag";
 
 export const CardBlog = ({
   items,
@@ -17,7 +18,7 @@ export const CardBlog = ({
     slug: string;
     icon?: React.ReactNode;
     image_url: string;
-    tags?: string[];
+    tags?: ITag[];
   }[];
   className?: string;
 }) => {
@@ -77,7 +78,7 @@ export const CardBlog = ({
                       className="bg-gray-300 font-normal rounded-sm text-black"
                       key={index}
                     >
-                      {item}
+                      {item.title}
                     </Badge>
                   );
                 })}

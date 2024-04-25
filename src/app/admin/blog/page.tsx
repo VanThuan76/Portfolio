@@ -4,7 +4,7 @@ import BreadCrumb from "@/app/admin/components/breadcrumb";
 
 const breadcrumbItems = [{ title: "Blog", link: "/admin/blog" }];
 export default async function Page() {
-  let { data: blogs } = await readBlog();
+  let blogs = await readBlog();
   if (!blogs?.length) {
     blogs = [];
   }

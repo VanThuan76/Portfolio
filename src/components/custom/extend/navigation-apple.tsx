@@ -9,7 +9,7 @@ const NavigationApple = () => {
   const { hasFullScreen } = useAppSelector((state) => state.app);
   const router = useRouter();
   return (
-    <div className="absolute top-3 left-3 flex space-x-1 z-50">
+    <div className="flex space-x-1 z-50">
       <div
         className="w-[12px] h-[12px] rounded-full bg-[#fe3645] group"
         onClick={() => router.back()}

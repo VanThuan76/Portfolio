@@ -21,16 +21,15 @@ export async function GET(request: Request): Promise<Response> {
     const blogContent = await supabase
       .from("blog_content")
       .select("*")
-      .eq("blog_id", blog.data.id)
+      .eq("blog_id", blog?.data!.id)
       .single();
     const result = {
       ...blog,
       data: {
         ...blog.data,
-        content: blogContent.data.content,
+        content: blogContent?.data?.content,
       },
     };
-    console.log(result);
     return new Response(JSON.stringify(result), {
       status: 200,
       headers: { "Content-Type": "application/json" },

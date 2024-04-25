@@ -1,10 +1,7 @@
 "use client";
-import { useCallback, useState, useTransition } from "react";
-import { SubmitHandler } from "react-hook-form";
-import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { cn } from "@/lib/tw";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useCallback, useEffect, useState, useTransition } from "react";
+import { SubmitHandler, UseFormReturn } from "react-hook-form";
 import { PlateEditor } from "@/components/plate-ui";
 import { Form } from "@/components/ui/form";
 import { blogCreateSchema } from "@/server/data/validations/blog";
@@ -12,27 +9,29 @@ import { initialValueByCreatingBlog } from "@/constant";
 import { IBlogCreate } from "@/server/data/types/blog";
 import { uploadImageToStorage } from "@/server/actions/upload-image";
 import { Button } from "@/components/ui/button";
+import { LoaderImage } from "@/components/custom/loader-image";
+import { cn } from "@/lib/tw";
+import { readTag } from "@/server/actions/tag";
 import InputText from "@/components/custom/form/input-text";
 import InputFile from "@/components/custom/form/input-file";
 import InputCheckBox from "@/components/custom/form/input-checkbox";
-import { LoaderImage } from "@/components/custom/loader-image";
 import generateSlug from "@/utils/helpers/generate-slug";
 import InputMultiSelect from "@/components/custom/form/input-select-multiple";
 
 interface Props {
   handleSubmit: SubmitHandler<IBlogCreate>;
+  form: UseFormReturn<any>;
 }
-const BlogForm = ({ handleSubmit }: Props) => {
+const BlogForm = ({ form, handleSubmit }: Props) => {
+  const [optionTags, setOptionTags] = useState<{ value: any; label: any }[]>(
+    [],
+  );
   const [imageCurr, setImageCurr] = useState<string | null>(null);
   const [contentCurr, setContentCurr] = useState<string>("");
   const handleChangeContent = useCallback((value: any) => {
     setContentCurr(value);
   }, []);
   const [isPending, startTransition] = useTransition();
-  const form = useForm<z.infer<typeof blogCreateSchema>>({
-    resolver: zodResolver(blogCreateSchema),
-    defaultValues: {},
-  });
   const handleFileChange = async (event: any) => {
     const file = event.target.files[0];
     if (file) {
@@ -58,6 +57,15 @@ const BlogForm = ({ handleSubmit }: Props) => {
       handleSubmit(body);
     });
   };
+  useEffect(() => {
+    const getTag = async () => {
+      const { data: tags } = await readTag();
+      if (tags) {
+        setOptionTags(tags.map((tag) => ({ value: tag.id, label: tag.title })));
+      }
+    };
+    getTag();
+  }, []);
   return (
     <Form {...form}>
       <form
@@ -83,6 +91,7 @@ const BlogForm = ({ handleSubmit }: Props) => {
         <InputText form={form} fieldName="title" placeHolder="Title Blog" />
         <InputMultiSelect
           form={form}
+          options={optionTags}
           fieldName="tags"
           placeHolder="Select blog's tag"
         />
