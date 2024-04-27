@@ -1,6 +1,6 @@
 import { readBlog } from "@/server/actions/blog";
-import { BlogTable } from "@/app/admin/components/blog/blog-table";
-import BreadCrumb from "@/app/admin/components/breadcrumb";
+import { BlogTable } from "@/app/(admin)/admin/@components/blog/blog-table";
+import BreadCrumb from "@/app/(admin)/admin/@components/breadcrumb";
 
 const breadcrumbItems = [{ title: "Blog", link: "/admin/blog" }];
 export default async function Page() {

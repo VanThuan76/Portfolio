@@ -44,6 +44,7 @@ const BlogForm = ({ form, handleSubmit }: Props) => {
   const onSubmit = (data: z.infer<typeof blogCreateSchema>) => {
     startTransition(() => {
       const body = {
+        tags: data.tags,
         title: data.title,
         slug: generateSlug(data.title),
         image_url: imageCurr as string,

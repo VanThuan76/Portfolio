@@ -1,7 +1,7 @@
 import React from "react";
 import TransitionCpn from "@/components/custom/transition-cpn";
-import CardProjectDesktop from "./components/card-project-desktop";
-import CardProjectMobile from "./components/card-project-mobile";
+import CardProjectDesktop from "./@components/card-project-desktop";
+import CardProjectMobile from "./@components/card-project-mobile";
 import { readProject } from "@/server/actions/project";
 export default async function Page() {
   let { data: projects } = await readProject();

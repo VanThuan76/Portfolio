@@ -1,22 +1,22 @@
 "use client";
 import React from "react";
 import { Plus } from "lucide-react";
-import Link from "next/link";
 import { ColumnDef } from "@tanstack/react-table";
 import { useRouter } from "next/navigation";
 import { DataTable } from "@/components/ui/data-table";
 import { Button } from "@/components/ui/button";
-import { Heading } from "@/app/admin/components/table-heading";
-import { CellAction } from "./blog-action";
-import { IBlog } from "@/server/data/types/blog";
+import { IProject } from "@/server/data/types/project";
+import { Heading } from "@/app/(admin)/admin/@components/table-heading";
+import { CellAction } from "./project-action";
+import Link from "next/link";
 
 interface ProductsClientProps {
-  data: IBlog[];
+  data: IProject[];
 }
 
-export const BlogTable: React.FC<ProductsClientProps> = ({ data }) => {
+export const ProjectTable: React.FC<ProductsClientProps> = ({ data }) => {
   const router = useRouter();
-  const columns: ColumnDef<IBlog>[] = [
+  const columns: ColumnDef<IProject>[] = [
     {
       accessorKey: "title",
       header: "Title",

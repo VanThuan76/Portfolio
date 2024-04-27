@@ -5,7 +5,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { createBlog } from "@/server/actions/blog";
 import { IBlogCreate } from "@/server/data/types/blog";
 import { blogCreateSchema } from "@/server/data/validations/blog";
-import BlogForm from "@/app/admin/components/blog/blog-form";
+import BlogForm from "@/app/(admin)/admin/@components/blog/blog-form";
 
 export default function Page() {
   const form = useForm<z.infer<typeof blogCreateSchema>>({

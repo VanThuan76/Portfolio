@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { supabaseServer } from "@/lib/supabase/server";
-import ChatBotHead from "@/app/extensions/chatbot/components/chatbot-head";
-import ChatBotBody from "@/app/extensions/chatbot/components/chatbot-body";
+import ChatBotHead from "@/app/(extend)/extensions/chatbot/components/chatbot-head";
+import ChatBotBody from "@/app/(extend)/extensions/chatbot/components/chatbot-body";
 
 export default async function Page() {
   const supabase = await supabaseServer();

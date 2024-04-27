@@ -22,7 +22,7 @@ export function DropdownMenuApp({ user }: Props) {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <div
-          className="max-w-sm fixed bottom-20 right-5 p-1 rounded-xl border border-black bg-dark dark:bg-white text-neutarl-700 text-sm hover:shadow-[4px_4px_0px_0px_rgba(0,0,0)] transition duration-200 cursor-pointer"
+          className="max-w-[50px] hidden md:block fixed bottom-20 right-5 p-1 rounded-xl border border-black bg-dark dark:bg-white text-neutarl-700 text-sm hover:shadow-[4px_4px_0px_0px_rgba(0,0,0)] transition duration-200 cursor-pointer"
           style={{ position: "-webkit-sticky" }}
         >
           <Ellipsis color="#555" />

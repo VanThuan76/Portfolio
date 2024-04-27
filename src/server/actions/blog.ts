@@ -12,12 +12,24 @@ export async function createBlog(data: any) {
   if (resultBlog.error) {
     return JSON.stringify(resultBlog);
   } else {
-    const result = await supabase
+    const resultBlogContent = await supabase
       .from("blog_content")
       .insert({ blog_id: resultBlog.data.id, content: data.content })
       .select("id")
       .single();
-    return JSON.stringify(result);
+    if (data.tags.length > 0) {
+      const blogTags = [];
+      for (const tag of data.tags) {
+        const blogTag = {
+          blog_id: resultBlog.data.id,
+          tag_slug: tag
+        };
+        const insertPromise = await supabase.from("blog_tag").insert(blogTag)
+        blogTags.push(insertPromise);
+      }
+      await Promise.all(blogTags);
+    }
+    return JSON.stringify(resultBlogContent);
   }
 }
 export async function readBlog() {
@@ -25,12 +37,10 @@ export async function readBlog() {
     .from("blog")
     .select("*")
     .eq("is_published", true)
-    .order("created_at", { ascending: true });
 
   if (error) {
     throw error;
   }
-
   const blogIds = blogs.map((blog) => blog.id);
   const { data: blogTagsData, error: tagsError } = await supabase
     .from("blog_tag")

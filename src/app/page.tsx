@@ -29,7 +29,7 @@ export default function Page() {
               translateZ="50"
               className="text-xl font-bold text-neutral-600 dark:text-white"
             >
-              <TextGenerateEffect words="Hi! I'm Hip :&gt;" />
+              <TextGenerateEffect words="Hi! I'm Austin :&gt;" />
             </CardItem>
             <CardItem
               as="p"

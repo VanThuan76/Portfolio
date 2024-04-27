@@ -2,7 +2,7 @@ import { LoaderImage } from "@/components/custom/loader-image";
 import { TypographyH3 } from "@/components/ui/typography-h3";
 import { TypographyP } from "@/components/ui/typography-p";
 import { Tabs } from "@/components/ui/tabs";
-import { CardBlog } from "./components/card-blog";
+import { CardBlog } from "./@components/card-blog";
 import { readBlog } from "@/server/actions/blog";
 import { readTag } from "@/server/actions/tag";
 import TransitionCpn from "@/components/custom/transition-cpn";
@@ -73,6 +73,7 @@ export default async function Page() {
                             blog.tags.some((item) => item.slug === tag.slug),
                           ) || []
                         }
+                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 py-5"
                       />
                     </div>
                   ),

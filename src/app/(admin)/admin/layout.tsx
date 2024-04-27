@@ -1,8 +1,8 @@
 import * as React from "react";
 import { supabaseServer } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
-import VerticalNavbar from "@/app/admin/components/vertical-navbar";
-import Head from "@/app/admin/components/head";
+import VerticalNavbar from "@/app/(admin)/admin/@components/vertical-navbar";
+import Head from "@/app/(admin)/admin/@components/head";
 
 export default async function LayoutAdmin({
   children,
