@@ -29,7 +29,7 @@ export default function InputCheckBox({
       name={fieldName}
       render={({ field }) => (
         <FormItem className="space-y-0">
-          <FormLabel className="text-base">{label}</FormLabel>
+          {label && <FormLabel className="text-sm">{label}</FormLabel>}
           <FormDescription>{description}</FormDescription>
           <FormField
             control={form?.control}

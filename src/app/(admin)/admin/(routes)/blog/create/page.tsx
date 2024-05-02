@@ -9,7 +9,7 @@ import BlogForm from "@/app/(admin)/admin/@components/blog/blog-form";
 import { useRouter } from "next/navigation";
 
 export default function Page() {
-  const router = useRouter()
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof blogCreateSchema>>({
     resolver: zodResolver(blogCreateSchema),
@@ -22,9 +22,9 @@ export default function Page() {
     if (error) {
       console.log(error?.message);
     }
-    form.reset()
-    router.refresh()
-    window.location.reload()
+    form.reset();
+    router.refresh();
+    window.location.reload();
   };
 
   return <BlogForm form={form} handleSubmit={handleSubmit} />;

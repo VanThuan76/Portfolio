@@ -16,8 +16,10 @@ const ContainerLayout = ({ children }: Props) => {
     ? "bg-[#F6F6F6] dark:bg-[#060606]"
     : "bg-[#E2E2E2] dark:bg-[#222222] p-4 md:p-8";
   const fixLayoutFullScreen =
-    hasFullScreen && !pathName.includes("/admin") &&
-    !pathName.includes("/extensions") && "px-4 md:px-12 py-4";
+    hasFullScreen &&
+    !pathName.includes("/admin") &&
+    !pathName.includes("/extensions") &&
+    "px-4 md:px-12 py-4";
   const fixLayoutMb = breakpoint === "xs" && "pb-12 mb-12";
   return (
     <main

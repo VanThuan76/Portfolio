@@ -10,26 +10,29 @@ import { FixedToolbarButtons } from "@/components/plate-ui/fixed-toolbar-buttons
 import { FloatingToolbar } from "@/components/plate-ui/floating-toolbar";
 import { FloatingToolbarButtons } from "@/components/plate-ui/floating-toolbar-buttons";
 import { plugins } from "@/lib/plate";
+import { cn } from "@/lib/tw";
 
 interface Props {
   handleChangeContent: any;
-  initialValue: any;
+  initialValue?: any;
+  placeholder?: string
+  className?: string
 }
-export function PlateEditor({ handleChangeContent, initialValue }: Props) {
+export function PlateEditor({ handleChangeContent, initialValue, placeholder, className }: Props) {
   return (
     <DndProvider backend={HTML5Backend}>
       <CommentsProvider users={{}} myUserId="1">
         <Plate
           plugins={plugins}
-          initialValue={initialValue}
+          initialValue={initialValue ? initialValue : ""}
           onChange={(value: any) => {
             handleChangeContent(value);
           }}
         >
-          <FixedToolbar className="sticky top-0">
+          <FixedToolbar className={cn("w-full max-h-[100px]", className)}>
             <FixedToolbarButtons />
           </FixedToolbar>
-          <Editor className="mt-10 md:mt-0 min-h-[550px]" />
+          <Editor placeholder={placeholder} className="mt-5 md:mt-0 min-h-[100px] focus-visible:ring-0 focus-within:ring-offset-0 border-t-0 rounded-t-none" />
           <FloatingToolbar>
             <FloatingToolbarButtons />
           </FloatingToolbar>

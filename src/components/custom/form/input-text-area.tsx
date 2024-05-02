@@ -33,7 +33,7 @@ export default function InputTextArea({
       name={fieldName}
       render={({ field }) => (
         <FormItem>
-          {label && <FormLabel>{label}</FormLabel>}
+          {label && <FormLabel className="text-sm">{label}</FormLabel>}
           <FormControl>
             <Textarea
               className={cn("resize-y", className)}

@@ -14,9 +14,9 @@ import { cn } from "@/lib/tw";
 import { readTag } from "@/server/actions/tag";
 import InputText from "@/components/custom/form/input-text";
 import InputFile from "@/components/custom/form/input-file";
-import InputCheckBox from "@/components/custom/form/input-checkbox";
 import generateSlug from "@/utils/helpers/generate-slug";
 import InputMultiSelect from "@/components/custom/form/input-select-multiple";
+import InputSwitch from "@/components/custom/form/input-switch";
 
 interface Props {
   handleSubmit: SubmitHandler<IBlogCreate>;
@@ -26,12 +26,16 @@ const BlogForm = ({ form, handleSubmit }: Props) => {
   const [optionTags, setOptionTags] = useState<{ value: any; label: any }[]>(
     [],
   );
+
   const [imageCurr, setImageCurr] = useState<string | null>(null);
   const [contentCurr, setContentCurr] = useState<string>("");
+
   const handleChangeContent = useCallback((value: any) => {
     setContentCurr(value);
   }, []);
+
   const [isPending, startTransition] = useTransition();
+
   const handleFileChange = async (event: any) => {
     const file = event.target.files[0];
     if (file) {
@@ -41,6 +45,7 @@ const BlogForm = ({ form, handleSubmit }: Props) => {
       return result;
     }
   };
+
   const onSubmit = (data: z.infer<typeof blogCreateSchema>) => {
     startTransition(() => {
       const body = {
@@ -58,6 +63,7 @@ const BlogForm = ({ form, handleSubmit }: Props) => {
       handleSubmit(body);
     });
   };
+
   useEffect(() => {
     const getTag = async () => {
       const { data: tags } = await readTag();
@@ -67,6 +73,7 @@ const BlogForm = ({ form, handleSubmit }: Props) => {
     };
     getTag();
   }, []);
+
   return (
     <Form {...form}>
       <form
@@ -76,14 +83,14 @@ const BlogForm = ({ form, handleSubmit }: Props) => {
         }}
         className="relative w-full flex flex-col justify-center items-center gap-5 min-h-[500px]"
       >
-        <div className="w-full flex justify-between items-center">
+        <div className="w-full flex justify-end items-center gap-5">
           <div className="flex gap-3">
-            <InputCheckBox
-              form={form}
+            <InputSwitch form={form}
               label="Publish"
-              fieldName="is_published"
-            />
-            <InputCheckBox form={form} label="Premium" fieldName="is_premium" />
+              fieldName="is_published" />
+            <InputSwitch form={form}
+              label="Premium"
+              fieldName="is_premium" />
           </div>
           <Button type="submit" className={cn({ "animate-spin": isPending })}>
             Create
@@ -118,6 +125,7 @@ const BlogForm = ({ form, handleSubmit }: Props) => {
         <PlateEditor
           handleChangeContent={handleChangeContent}
           initialValue={initialValueByCreatingBlog}
+          className="sticky top-0"
         />
       </form>
     </Form>

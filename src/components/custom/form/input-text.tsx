@@ -34,7 +34,7 @@ export default function InputText({
       name={fieldName}
       render={({ field }) => (
         <FormItem className="w-full text-start">
-          {label && <FormLabel>{label}</FormLabel>}
+          {label && <FormLabel className="text-sm">{label}</FormLabel>}
           <FormControl>
             <Input
               placeholder={placeHolder}

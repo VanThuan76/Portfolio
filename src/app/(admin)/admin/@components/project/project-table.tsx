@@ -59,12 +59,12 @@ export const ProjectTable: React.FC<ProductsClientProps> = ({ data }) => {
     <React.Fragment>
       <div className="flex items-start justify-between mb-5">
         <Heading
-          title={`Blogs (${data.length})`}
-          description="Manage blogs (Client side table functionalities.)"
+          title={`Projects (${data.length})`}
+          description="Manage projects (Client side table functionalities.)"
         />
         <Button
           className="text-xs md:text-sm"
-          onClick={() => router.push(`/admin/blog/create`)}
+          onClick={() => router.push(`/admin/project/create`)}
         >
           <Plus className="mr-2 h-4 w-4" /> Add New
         </Button>

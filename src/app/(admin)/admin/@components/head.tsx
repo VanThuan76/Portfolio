@@ -1,4 +1,3 @@
-"use client";
 import Link from "next/link";
 import Image from "next/image";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -20,12 +19,10 @@ import {
   Home,
   LineChart,
 } from "lucide-react";
-import { IAuthSupabase } from "@/server/data/types/supabase";
+import { currentProfile } from "@/server/actions/auth";
 
-interface Props {
-  user: IAuthSupabase | any;
-}
-const Head = ({ user }: Props) => {
+const Head = async () => {
+  const user = await currentProfile()
   return (
     <header className="sticky -top-5 mb-3 z-30 flex h-14 justify-between md:justify-end items-center md:items-end gap-4 border-b bg-background sm:static sm:h-auto sm:bg-transparent pb-2">
       <Sheet>

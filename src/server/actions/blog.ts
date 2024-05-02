@@ -22,9 +22,9 @@ export async function createBlog(data: any) {
       for (const tag of data.tags) {
         const blogTag = {
           blog_id: resultBlog.data.id,
-          tag_slug: tag
+          tag_slug: tag,
         };
-        const insertPromise = await supabase.from("blog_tag").insert(blogTag)
+        const insertPromise = await supabase.from("blog_tag").insert(blogTag);
         blogTags.push(insertPromise);
       }
       await Promise.all(blogTags);
@@ -36,7 +36,7 @@ export async function readBlog() {
   const { data: blogs, error } = await supabase
     .from("blog")
     .select("*")
-    .eq("is_published", true)
+    .eq("is_published", true);
 
   if (error) {
     throw error;
@@ -72,6 +72,26 @@ export async function readBlog() {
       tags: blogTags || [],
     };
   });
+  const { data: commentsData, error: commentsDataError } = await supabase.from('blog_comment').select("*").in("blog_id", blogIds)
 
-  return blogsWithTags;
+  if (commentsDataError) {
+    throw commentsDataError;
+  }
+
+  const commentsByBlogId: Record<string, any[]> = {};
+  commentsData.forEach((comment) => {
+    if (!commentsByBlogId[comment.blog_id]) {
+      commentsByBlogId[comment.blog_id] = [];
+    }
+    commentsByBlogId[comment.blog_id].push(comment);
+  });
+
+  const blogsCurrent = blogsWithTags.map((blog) => {
+    return {
+      ...blog,
+      comments: commentsByBlogId[blog.id] || [],
+    };
+  });
+
+  return blogsCurrent;
 }

@@ -25,9 +25,7 @@ export const CardBlog = ({
   let [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
-    <div
-      className={cn(className)}
-    >
+    <div className={cn(className)}>
       {items.map((item, idx) => (
         <Link
           href={"/blog/" + item.slug}

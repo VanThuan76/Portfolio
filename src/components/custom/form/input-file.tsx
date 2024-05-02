@@ -43,7 +43,7 @@ export default function InputFile({
       name={fieldName}
       render={({ field }) => (
         <FormItem className="w-full text-start">
-          {label && <FormLabel>{label}</FormLabel>}
+          {label && <FormLabel className="text-sm">{label}</FormLabel>}
           <FormControl>
             <div className="flex items-center">
               <label

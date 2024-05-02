@@ -43,7 +43,7 @@ const InputMultiSelect = ({
       name={fieldName}
       render={({ field }) => (
         <FormItem className={`w-full ${className}`}>
-          {label && <FormLabel>{label}</FormLabel>}
+          {label && <FormLabel className="text-sm">{label}</FormLabel>}
           <MultiSelector
             values={watchFieldValue(fieldName) || []}
             onValuesChange={handleValuesChange}
