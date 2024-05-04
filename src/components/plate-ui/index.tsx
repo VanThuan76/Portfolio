@@ -15,10 +15,17 @@ import { cn } from "@/lib/tw";
 interface Props {
   handleChangeContent: any;
   initialValue?: any;
-  placeholder?: string
-  className?: string
+  placeholder?: string;
+  className?: string;
+  modeEditor?: 'comment' | 'form'
 }
-export function PlateEditor({ handleChangeContent, initialValue, placeholder, className }: Props) {
+export function PlateEditor({
+  handleChangeContent,
+  initialValue,
+  placeholder,
+  className,
+  modeEditor = 'form'
+}: Props) {
   return (
     <DndProvider backend={HTML5Backend}>
       <CommentsProvider users={{}} myUserId="1">
@@ -30,9 +37,12 @@ export function PlateEditor({ handleChangeContent, initialValue, placeholder, cl
           }}
         >
           <FixedToolbar className={cn("w-full max-h-[100px]", className)}>
-            <FixedToolbarButtons />
+            <FixedToolbarButtons mode={modeEditor} />
           </FixedToolbar>
-          <Editor placeholder={placeholder} className="mt-5 md:mt-0 min-h-[100px] focus-visible:ring-0 focus-within:ring-offset-0 border-t-0 rounded-t-none" />
+          <Editor
+            placeholder={placeholder}
+            className="mt-5 md:mt-0 min-h-[100px] focus-visible:ring-0 focus-within:ring-offset-0 border-t-0 rounded-t-none"
+          />
           <FloatingToolbar>
             <FloatingToolbarButtons />
           </FloatingToolbar>

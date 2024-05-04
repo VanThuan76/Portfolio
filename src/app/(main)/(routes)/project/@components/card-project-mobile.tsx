@@ -7,26 +7,29 @@ interface Props {
 }
 const CardProjectMobile = ({ projects }: Props) => {
   return (
-    <BentoGrid className="flex md:hidden w-full h-full">
+    <BentoGrid className="flex flex-wrap md:hidden justify-start items-start w-full h-full">
       {projects
         .map((project) => ({
           title: project.title,
           description: project.description,
           header: (
-            <LoaderImage
-              isLoader={false}
-              src={project.image_url}
-              alt={""}
-              width={500}
-              height={250}
-            />
+            <div className="w-full h-full overflow-hidden">
+              <LoaderImage
+                isLoader={false}
+                src={project.image_url}
+                alt={project.title}
+                width={500}
+                height={150}
+                className="w-full h-[150px] object-cover object-top"
+              />
+            </div>
           ),
           icon: (
-            <div className="w-full flex flex-wrap gap-2">
+            <div className="w-full flex justify-start items-start flex-wrap gap-2">
               {project.tech_stack.split(",").map((tech, i) => (
                 <span
                   key={i}
-                  className="bg-[#153448] px-2 py-1 rounded-xl text-xs"
+                  className="bg-[#153448] text-white px-2 py-1 rounded-xl text-xs"
                 >
                   {tech}
                 </span>
@@ -41,7 +44,7 @@ const CardProjectMobile = ({ projects }: Props) => {
             description={item.description}
             header={item.header}
             icon={item.icon}
-            className={i === 3 || i === 6 ? "md:col-span-2" : ""}
+            className={i === 3 || i === 6 ? "md:col-span-1" : ""}
           />
         ))}
     </BentoGrid>

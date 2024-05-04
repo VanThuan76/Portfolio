@@ -72,7 +72,10 @@ export async function readBlog() {
       tags: blogTags || [],
     };
   });
-  const { data: commentsData, error: commentsDataError } = await supabase.from('blog_comment').select("*").in("blog_id", blogIds)
+  const { data: commentsData, error: commentsDataError } = await supabase
+    .from("blog_comment")
+    .select("*")
+    .in("blog_id", blogIds);
 
   if (commentsDataError) {
     throw commentsDataError;

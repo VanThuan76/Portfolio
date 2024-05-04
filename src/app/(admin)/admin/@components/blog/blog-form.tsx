@@ -85,12 +85,8 @@ const BlogForm = ({ form, handleSubmit }: Props) => {
       >
         <div className="w-full flex justify-end items-center gap-5">
           <div className="flex gap-3">
-            <InputSwitch form={form}
-              label="Publish"
-              fieldName="is_published" />
-            <InputSwitch form={form}
-              label="Premium"
-              fieldName="is_premium" />
+            <InputSwitch form={form} label="Publish" fieldName="is_published" />
+            <InputSwitch form={form} label="Premium" fieldName="is_premium" />
           </div>
           <Button type="submit" className={cn({ "animate-spin": isPending })}>
             Create

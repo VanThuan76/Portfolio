@@ -26,7 +26,7 @@ const CardProjectDesktop = ({ projects }: Props) => {
   return (
     <div
       ref={container}
-      className="hidden md:block w-[80%] h-full relative mt-12"
+      className="hidden md:block w-full lg:w-[80%] h-full relative mt-12"
     >
       {projects.map((project, i) => {
         const targetScale = 1 - (projects.length - i) * 0.05;

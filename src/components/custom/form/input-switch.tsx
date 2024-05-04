@@ -1,53 +1,58 @@
 import { UseFormReturn } from "react-hook-form";
 import {
-    FormControl,
-    FormDescription,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
 } from "@/components/ui/form";
 import { Switch } from "@/components/ui/switch";
 type Props = {
-    form: UseFormReturn<any> | undefined;
-    fieldName: string;
-    title?: string;
-    label?: string;
-    description?: string;
+  form: UseFormReturn<any> | undefined;
+  fieldName: string;
+  title?: string;
+  label?: string;
+  description?: string;
 };
 
 export default function InputSwitch({
-    form,
-    fieldName,
-    title,
-    label,
-    description,
+  form,
+  fieldName,
+  title,
+  label,
+  description,
 }: Props) {
-    return (
-        <FormField
+  return (
+    <FormField
+      control={form?.control}
+      name={fieldName}
+      render={({ field }) => (
+        <FormItem className="flex justify-center items-center gap-1 space-y-0">
+          {label && <FormLabel className="text-sm">{label}:</FormLabel>}
+          <FormDescription>{description}</FormDescription>
+          <FormField
             control={form?.control}
             name={fieldName}
-            render={({ field }) => (
-                <FormItem className="flex justify-center items-center gap-1 space-y-0">
-                    {label && <FormLabel className="text-sm">{label}:</FormLabel>}
-                    <FormDescription>{description}</FormDescription>
-                    <FormField
-                        control={form?.control}
-                        name={fieldName}
-                        render={({ field }) => {
-                            return (
-                                <FormItem className="flex flex-row items-center space-x-3 space-y-0">
-                                    <FormControl>
-                                        <Switch name={field.name} id={field.name} checked={field.value} onCheckedChange={field.onChange} />
-                                    </FormControl>
-                                    <FormLabel className="text-sm font-normal">{title}</FormLabel>
-                                </FormItem>
-                            );
-                        }}
+            render={({ field }) => {
+              return (
+                <FormItem className="flex flex-row items-center space-x-3 space-y-0">
+                  <FormControl>
+                    <Switch
+                      name={field.name}
+                      id={field.name}
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
                     />
-                    <FormMessage />
+                  </FormControl>
+                  <FormLabel className="text-sm font-normal">{title}</FormLabel>
                 </FormItem>
-            )}
-        />
-    );
+              );
+            }}
+          />
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  );
 }

@@ -157,8 +157,10 @@ export type Database = {
       }
       project: {
         Row: {
+          content: string | null
           created_at: string
           description: string
+          finished_date: string
           id: string
           image_url: string
           slug: string
@@ -167,8 +169,10 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          content?: string | null
           created_at?: string
           description: string
+          finished_date: string
           id?: string
           image_url: string
           slug: string
@@ -177,8 +181,10 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          content?: string | null
           created_at?: string
           description?: string
+          finished_date?: string
           id?: string
           image_url?: string
           slug?: string

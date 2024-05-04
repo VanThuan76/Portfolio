@@ -7,6 +7,5 @@ export async function readProject() {
   const projects = await supabase
     .from("project")
     .select("*")
-    .order("created_at", { ascending: true });
   return projects;
 }

@@ -11,7 +11,7 @@ import { cn } from "@/lib/tw";
 import { usePathname } from "next/navigation";
 
 const VerticalNavbar = () => {
-  const pathName = usePathname()
+  const pathName = usePathname();
 
   return (
     <aside className="sticky inset-y-0 z-10 hidden w-14 h-screen flex-col border rounded-md bg-background sm:flex">
@@ -32,7 +32,12 @@ const VerticalNavbar = () => {
           <TooltipTrigger asChild>
             <Link
               href="/admin"
-              className={cn(`flex h-9 w-9 items-center justify-center rounded-lg transition-colors hover:text-foreground md:h-8 md:w-8`, pathName === '/admin' ? 'text-muted-foreground' : 'text-accent-foreground')}
+              className={cn(
+                `flex h-9 w-9 items-center justify-center rounded-lg transition-colors hover:text-foreground md:h-8 md:w-8`,
+                pathName === "/admin"
+                  ? "text-muted-foreground"
+                  : "text-accent-foreground",
+              )}
             >
               <Home className="h-5 w-5" />
               <span className="sr-only">Dashboard</span>
@@ -44,7 +49,12 @@ const VerticalNavbar = () => {
           <TooltipTrigger asChild>
             <Link
               href="/admin/blog"
-              className={cn(`flex h-9 w-9 items-center justify-center rounded-lg transition-colors hover:text-foreground md:h-8 md:w-8`, pathName.includes('/admin/blog') ? 'text-muted-foreground' : 'text-accent-foreground')}
+              className={cn(
+                `flex h-9 w-9 items-center justify-center rounded-lg transition-colors hover:text-foreground md:h-8 md:w-8`,
+                pathName.includes("/admin/blog")
+                  ? "text-muted-foreground"
+                  : "text-accent-foreground",
+              )}
             >
               <NewspaperIcon className="h-5 w-5" />
               <span className="sr-only">Blog</span>
@@ -56,7 +66,12 @@ const VerticalNavbar = () => {
           <TooltipTrigger asChild>
             <Link
               href="/admin/project"
-              className={cn(`flex h-9 w-9 items-center justify-center rounded-lg transition-colors hover:text-foreground md:h-8 md:w-8`, pathName.includes('/admin/project') ? 'text-muted-foreground' : 'text-accent-foreground')}
+              className={cn(
+                `flex h-9 w-9 items-center justify-center rounded-lg transition-colors hover:text-foreground md:h-8 md:w-8`,
+                pathName.includes("/admin/project")
+                  ? "text-muted-foreground"
+                  : "text-accent-foreground",
+              )}
             >
               <FolderGit2 className="h-5 w-5" />
               <span className="sr-only">Project</span>
