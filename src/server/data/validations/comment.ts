@@ -1,4 +1,3 @@
 import * as z from "zod";
 
-export const commentSchema = z.object({
-});
+export const commentSchema = z.object({});

@@ -37,6 +37,9 @@ export function DropdownMenuApp({ user }: Props) {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={() => router.push("/extensions/git-roll")}>
+          Resume
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => router.push("/extensions/git-roll")}>
           Git Roll
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => router.push("/extensions/chatbot")}>

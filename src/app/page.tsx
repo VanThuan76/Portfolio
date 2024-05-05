@@ -43,7 +43,7 @@ export default function Page() {
               className="w-full h-[400px] mt-4 rounded-lg"
             >
               <LoaderImage
-                src="/smoke.gif"
+                src="/hi.jpg"
                 isLoader={false}
                 alt="Smoke"
                 width={4513}

@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React from "react";
 import { redirect, useRouter } from "next/navigation";
 import { supabaseBrowser } from "@/lib/supabase/browser";
@@ -33,7 +33,9 @@ const Auth = ({ user }: Props) => {
       {user ? (
         <div onClick={handleLogout}>Logout</div>
       ) : (
-        <div onClick={handleLoginWithGithub} className="cursor-pointer">Login</div>
+        <div onClick={handleLoginWithGithub} className="cursor-pointer">
+          Login
+        </div>
       )}
     </React.Fragment>
   );

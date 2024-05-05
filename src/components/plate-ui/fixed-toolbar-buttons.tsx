@@ -29,9 +29,11 @@ import { ToolbarGroup } from "./toolbar";
 import { TurnIntoDropdownMenu } from "./turn-into-dropdown-menu";
 
 interface FixedToolbarButtonsProps {
-  mode?: 'comment' | 'form'
+  mode?: "comment" | "form";
 }
-export function FixedToolbarButtons({ mode = 'form' }: FixedToolbarButtonsProps) {
+export function FixedToolbarButtons({
+  mode = "form",
+}: FixedToolbarButtonsProps) {
   const readOnly = useEditorReadOnly();
 
   return (
@@ -112,11 +114,11 @@ export function FixedToolbarButtons({ mode = 'form' }: FixedToolbarButtonsProps)
 
         <div className="grow" />
 
-        {mode === 'form' &&
+        {mode === "form" && (
           <ToolbarGroup noSeparator>
             <ModeDropdownMenu />
           </ToolbarGroup>
-        }
+        )}
       </div>
     </div>
   );

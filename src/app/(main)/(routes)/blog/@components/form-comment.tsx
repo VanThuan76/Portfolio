@@ -16,7 +16,7 @@ interface Props {
   blogId: string;
 }
 const FormComment = ({ user, blogId }: Props) => {
-  const [content, setContent] = useState()
+  const [content, setContent] = useState();
 
   const form = useForm<z.infer<typeof commentSchema>>({
     resolver: zodResolver(commentSchema),
@@ -28,8 +28,8 @@ const FormComment = ({ user, blogId }: Props) => {
       user_id: user.id,
       blog_id: blogId,
       content: content || "",
-      like: 0
-    }
+      like: 0,
+    };
     const result = await createComment(body);
     const { error } = JSON.parse(result);
     if (error) {
@@ -61,7 +61,10 @@ const FormComment = ({ user, blogId }: Props) => {
               modeEditor="comment"
               handleChangeContent={setContent}
             />
-            <button type="submit" className="absolute bottom-3 right-5 cursor-pointer hover:scale-110">
+            <button
+              type="submit"
+              className="absolute bottom-3 right-5 cursor-pointer hover:scale-110"
+            >
               <Send />
             </button>
           </div>

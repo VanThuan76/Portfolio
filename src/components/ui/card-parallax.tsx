@@ -2,6 +2,8 @@
 import { useTransform, motion, useScroll } from "framer-motion";
 import { useRef } from "react";
 import { LoaderImage } from "@/components/custom/loader-image";
+import { convertStringDay } from "@/utils/helpers/convert-time";
+import { Anchor, Spline } from "lucide-react";
 
 type Props = {
   i: number;
@@ -82,7 +84,10 @@ const CardParallax = ({
             </div>
           </div>
           <div className="relative w-[60%] h-full rounded-lg overflow-hidden">
-            <motion.div className="w-full h-[300px]" style={{ scale: imageScale }}>
+            <motion.div
+              className="w-full h-[300px]"
+              style={{ scale: imageScale }}
+            >
               <LoaderImage
                 isLoader={false}
                 src={image_url}
@@ -95,8 +100,18 @@ const CardParallax = ({
           </div>
         </div>
       </motion.div>
-      <div style={{ bottom: `calc(${(i * 10) + 224}px)` }} className="absolute left-0 bg-white dark:bg-[#222222] w-full p-4 shadow-md rounded-md">{description}</div>
-      <div className="absolute top-1/4 -right-56">{finished_date}</div>
+      <div
+        style={{ bottom: `calc(${i * 10 + 224}px)` }}
+        className="absolute left-0 bg-white dark:bg-[#222222] w-full p-4 shadow-md rounded-md"
+      >
+        {description}
+      </div>
+      <div style={{marginTop: `${i * 20}px`}} className="absolute top-1/4 -right-56">
+        <div className="w-full relative">
+          {i !==0 && <Spline className="absolute -top-4 -right-5 rotate-[105deg]"/>}
+        </div>
+        {convertStringDay(finished_date)}
+      </div>
     </div>
   );
 };

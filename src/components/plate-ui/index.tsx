@@ -17,14 +17,14 @@ interface Props {
   initialValue?: any;
   placeholder?: string;
   className?: string;
-  modeEditor?: 'comment' | 'form'
+  modeEditor?: "comment" | "form";
 }
 export function PlateEditor({
   handleChangeContent,
   initialValue,
   placeholder,
   className,
-  modeEditor = 'form'
+  modeEditor = "form",
 }: Props) {
   return (
     <DndProvider backend={HTML5Backend}>

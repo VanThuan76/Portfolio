@@ -19,7 +19,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
     `/api/blog?slug=${params.slug}`,
   );
   const blogs = await readBlog();
-  const comments = await readCommentByBlogId(blog && blog.id)
+  const comments = await readCommentByBlogId(blog && blog.id);
 
   return (
     <div className="w-full grid grid-cols-1 md:grid-cols-3 justify-between items-start px-4 mx-auto h-screen gap-10 overflow-auto">
@@ -46,32 +46,46 @@ export default async function Page({ params }: { params: { slug: string } }) {
           <TypographyH3 title="Top Comments" className="font-medium" />
           <Comment blogId={blog.id} />
           <div className="w-full h-full">
-            {comments.data && comments.data.length > 0 && comments.data?.map((comment, i) => {
-              return (
-                <div key={i} className="w-full flex flex-col justify-start items-start gap-2">
-                  <div className="w-full flex justify-start items-center gap-2">
-                    <Image
-                      src={comment.users?.avatar_url as string}
-                      width={24}
-                      height={24}
-                      alt="Avatar"
-                      className="overflow-hidden rounded-full"
-                    />
-                    <div className="w-full flex flex-col justify-start items-start border rounded-md p-4">
-                      <div className="flex items-center justify-start gap-2 w-full">
-                        <TypographyP title={comment.users?.display_name as string} className="font-medium" />
-                        <span className="text-xs text-zinc-500">{convertStringDay(comment.created_at)}</span>
+            {comments.data &&
+              comments.data.length > 0 &&
+              comments.data?.map((comment, i) => {
+                return (
+                  <div
+                    key={i}
+                    className="w-full flex flex-col justify-start items-start gap-2"
+                  >
+                    <div className="w-full flex justify-start items-center gap-2">
+                      <Image
+                        src={comment.users?.avatar_url as string}
+                        width={24}
+                        height={24}
+                        alt="Avatar"
+                        className="overflow-hidden rounded-full"
+                      />
+                      <div className="w-full flex flex-col justify-start items-start border rounded-md p-4">
+                        <div className="flex items-center justify-start gap-2 w-full">
+                          <TypographyP
+                            title={comment.users?.display_name as string}
+                            className="font-medium"
+                          />
+                          <span className="text-xs text-zinc-500">
+                            {convertStringDay(comment.created_at)}
+                          </span>
+                        </div>
+                        <ContentBlog
+                          content={JSON.parse(comment.content as string)}
+                        />
                       </div>
-                      <ContentBlog content={JSON.parse(comment.content as string)} />
+                    </div>
+                    <div className="flex justify-start items-center gap-2 ml-8">
+                      <Heart className="w-[16px] h-[16px]" />
+                      <span className="text-xs text-zinc-700">
+                        {comment.like} likes
+                      </span>
                     </div>
                   </div>
-                  <div className="flex justify-start items-center gap-2 ml-8">
-                    <Heart className="w-[16px] h-[16px]" />
-                    <span className="text-xs text-zinc-700">{comment.like} likes</span>
-                  </div>
-                </div>
-              )
-            })}
+                );
+              })}
           </div>
         </div>
       </div>
