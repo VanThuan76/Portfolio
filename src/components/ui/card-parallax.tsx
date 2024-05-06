@@ -106,9 +106,14 @@ const CardParallax = ({
       >
         {description}
       </div>
-      <div style={{marginTop: `${i * 20}px`}} className="absolute top-1/4 -right-56">
+      <div
+        style={{ marginTop: `${i * 20}px` }}
+        className="absolute top-1/4 -right-56"
+      >
         <div className="w-full relative">
-          {i !==0 && <Spline className="absolute -top-4 -right-5 rotate-[105deg]"/>}
+          {i !== 0 && (
+            <Spline className="absolute -top-4 -right-5 rotate-[105deg]" />
+          )}
         </div>
         {convertStringDay(finished_date)}
       </div>

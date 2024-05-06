@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import { useRouter } from "next/navigation";
 import { cn } from "@/lib/tw";
 import { TypographyP } from "@/components/ui/typography-p";
 import { useAppSelector } from "@/store";
@@ -10,10 +11,10 @@ import {
   HomeIcon,
   Newspaper,
   PlusCircle,
+  ShieldEllipsis,
 } from "lucide-react";
 import useBreakpoint from "@/hooks/break-point";
 import ActionDrawer from "@/components/custom/action-drawer";
-import { useRouter } from "next/navigation";
 
 export function NavBarMenu() {
   const breakpoint = useBreakpoint();
@@ -56,13 +57,20 @@ function Navbar({ className }: { className?: string }) {
               <PlusCircle className="group-hover:text-white transition" />
             }
             drawerContent={
-              <div className="flex justify-between items-center">
+              <div className="w-full flex justify-start gap-x-8">
                 <div
                   className="flex flex-col justify-center items-center"
                   onClick={() => router.push("/extensions/chatbot")}
                 >
                   <Bot />
-                  <p>Chat AI</p>
+                  <TypographyP className="text-xs" title="Chat AI" />
+                </div>
+                <div
+                  className="flex flex-col justify-center items-center"
+                  onClick={() => router.push("/extensions/git-roll")}
+                >
+                  <GithubIcon />
+                  <TypographyP title="Git Roll" className="text-xs p-0 m-0" />
                 </div>
               </div>
             }
@@ -77,10 +85,10 @@ function Navbar({ className }: { className?: string }) {
         </div>
         <div
           className="relative flex h-full flex-col items-center justify-center pt-4 pb-2"
-          onClick={() => router.push("/extensions/git-roll")}
+          onClick={() => router.push("/extensions/resume")}
         >
-          <GithubIcon />
-          <TypographyP title="Git Roll" className="text-xs p-0 m-0" />
+          <ShieldEllipsis />
+          <TypographyP title="Resume" className="text-xs p-0 m-0" />
         </div>
       </nav>
     </div>
