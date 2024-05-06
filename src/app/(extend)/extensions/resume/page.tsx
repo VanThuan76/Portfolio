@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -12,14 +12,13 @@ import InputText from "@/components/custom/form/input-text";
 import InputTextArea from "@/components/custom/form/input-text-area";
 
 export default function Page() {
-
   const form = useForm<z.infer<typeof resumeCreateSchema>>({
     resolver: zodResolver(resumeCreateSchema),
     defaultValues: {},
   });
 
   function onSubmit() {
-    console.log('HI')
+    console.log("HI");
   }
   return (
     <div className="w-full h-screen grid grid-cols-1 md:grid-cols-3 justify-center items-center p-4 gap-12">
@@ -43,13 +42,31 @@ export default function Page() {
             }}
             className="w-full h-full flex flex-col px-2 gap-5"
           >
-            <InputText form={form} fieldName="name" placeHolder="Your name" className="min-h-[50px]" />
-            <InputText form={form} fieldName="email" placeHolder="Your email" className="min-h-[50px]" />
-            <InputText form={form} fieldName="phone" placeHolder="Your phone" className="min-h-[50px]" />
-            <InputTextArea form={form} fieldName="message" placeHolder="Your message" className="min-h-[150px]" />
-            <Button type="submit">
-              Send
-            </Button>
+            <InputText
+              form={form}
+              fieldName="name"
+              placeHolder="Your name"
+              className="min-h-[50px]"
+            />
+            <InputText
+              form={form}
+              fieldName="email"
+              placeHolder="Your email"
+              className="min-h-[50px]"
+            />
+            <InputText
+              form={form}
+              fieldName="phone"
+              placeHolder="Your phone"
+              className="min-h-[50px]"
+            />
+            <InputTextArea
+              form={form}
+              fieldName="message"
+              placeHolder="Your message"
+              className="min-h-[150px]"
+            />
+            <Button type="submit">Send</Button>
           </form>
         </Form>
       </div>

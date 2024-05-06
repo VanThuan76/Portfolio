@@ -1,13 +1,18 @@
-import Script from 'next/script'
+import Script from "next/script";
 export default function ResumeLayout({
-    children,
+  children,
 }: Readonly<{
-    children: React.ReactNode;
+  children: React.ReactNode;
 }>) {
-    return (
-        <>
-            <Script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript" />
-            {children}
-        </>
-    );
+  return (
+    <>
+      <Script
+        src="https://platform.linkedin.com/badges/js/profile.js"
+        async
+        defer
+        type="text/javascript"
+      />
+      {children}
+    </>
+  );
 }
