@@ -1,5 +1,5 @@
 import "./globals.css";
-import dynamic from 'next/dynamic'
+import dynamic from "next/dynamic";
 import type { Metadata } from "next";
 import { DM_Mono } from "next/font/google";
 
@@ -15,7 +15,9 @@ import { TooltipProvider } from "@/components/plate-ui/tooltip";
 import FrameScreen from "@/components/custom/extend/frame-screen";
 import ContainerLayout from "@/components/custom/extend/container-layout";
 
-const NavigationEvents = dynamic(() => import('@/hooks/navigation-event'), { ssr: false })
+const NavigationEvents = dynamic(() => import("@/hooks/navigation-event"), {
+  ssr: false,
+});
 
 const nextFont = DM_Mono({
   display: "swap",
