@@ -1,13 +1,16 @@
+import Link from "next/link";
+
+import { readBlog } from "@/server/actions/blog";
+import { readTag } from "@/server/actions/tag";
+
 import { LoaderImage } from "@/components/custom/loader-image";
 import { TypographyH3 } from "@/components/ui/typography-h3";
 import { TypographyP } from "@/components/ui/typography-p";
 import { Tabs } from "@/components/ui/tabs";
-import { CardBlog } from "./@components/card-blog";
-import { readBlog } from "@/server/actions/blog";
-import { readTag } from "@/server/actions/tag";
 import TransitionCpn from "@/components/custom/transition-cpn";
 import HoverImageLink from "@/components/ui/hover-image-link";
-import Link from "next/link";
+
+import { CardBlog } from "./@components/card-blog";
 
 export default async function Page() {
   let { data: tags } = await readTag();

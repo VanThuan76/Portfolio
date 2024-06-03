@@ -47,8 +47,8 @@ export function FixedToolbarButtons({
         {!readOnly && (
           <>
             <ToolbarGroup noSeparator>
-              <InsertDropdownMenu />
-              <TurnIntoDropdownMenu />
+              {mode === "form" && <InsertDropdownMenu />}
+              {mode === "form" && <TurnIntoDropdownMenu />}
             </ToolbarGroup>
 
             <ToolbarGroup>
@@ -103,7 +103,7 @@ export function FixedToolbarButtons({
             <ToolbarGroup>
               <LinkToolbarButton />
 
-              <TableDropdownMenu />
+              {mode === "form" && <TableDropdownMenu />}
 
               <EmojiDropdownMenu />
 

@@ -1,93 +1,93 @@
-"use client";
+import Link from "next/link";
+import { cn } from "@/lib/tw";
+import { FileText } from "lucide-react";
 
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Form } from "@/components/ui/form";
-import { resumeCreateSchema } from "@/server/data/validations/resume";
 import { Separator } from "@/components/plate-ui/separator";
 import { TypographyH3 } from "@/components/ui/typography-h3";
-import { Button } from "@/components/plate-ui/button";
-import InputText from "@/components/custom/form/input-text";
-import InputTextArea from "@/components/custom/form/input-text-area";
+import { TypographyP } from "@/components/ui/typography-p";
+import { readInformationTask } from "@/server/actions/information";
+import { LoaderImage } from "@/components/custom/loader-image";
+import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import GitHubCalendar from "@/components/custom/github-calendar";
 
-export default function Page() {
-  const form = useForm<z.infer<typeof resumeCreateSchema>>({
-    resolver: zodResolver(resumeCreateSchema),
-    defaultValues: {},
-  });
+import FormTouch from "./@components/form-touch";
+import LinkedinScript from "./@components/linkedin-script";
 
-  function onSubmit() {
-    console.log("HI");
+export default async function Page() {
+  let { data: informationTasks } = await readInformationTask();
+
+  if (!informationTasks?.length) {
+    informationTasks = [];
   }
+  if (!informationTasks) return <></>;
   return (
-    <div className="w-full h-screen grid grid-cols-1 md:grid-cols-3 justify-center items-center p-4 gap-12">
-      <div className="w-full h-screen flex flex-wrap justify-start items-start gap-12 overflow-hidden">
-        <div
-          className="badge-base LI-profile-badge"
-          data-locale="en_US"
-          data-size="large"
-          data-theme="light"
-          data-type="HORIZONTAL"
-          data-vanity="vu-van-thuan-002839224"
-          data-version="v1"
-        />
+    <div className="w-full min-h-screen md:h-screen grid grid-cols-1 md:grid-cols-3 justify-center items-center p-4 gap-12">
+      <div className="w-full h-screen flex flex-wrap justify-start items-start gap-2 overflow-hidden">
+        <div className="space-y-2">
+          <LinkedinScript />
+          <Link
+            className="w-[150px] border light:border-zinc-50 dark:border-gray-50 rounded-md shadow-sm flex justify-start items-start gap-2 py-1 px-2 cursor-pointer hover:scale-y-105 transition-all ease-in-out mr-auto"
+            href="https://read.cv/austinvu"
+          >
+            <FileText className="rotate-45 w-[30px] h-[30px] shadow-lg p-1 rounded-full" />
+            <TypographyP
+              className="font-thin italic text-sm"
+              title="CV online"
+            />
+          </Link>
+        </div>
         <Separator className="w-full" />
         <TypographyH3 title="GET IN TOUCH" />
-        <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            onError={(e) => {
-              new Error(`Error ${e}`);
-            }}
-            className="w-full h-full flex flex-col px-2 gap-5"
-          >
-            <InputText
-              form={form}
-              fieldName="name"
-              placeHolder="Your name"
-              className="min-h-[50px]"
-            />
-            <InputText
-              form={form}
-              fieldName="email"
-              placeHolder="Your email"
-              className="min-h-[50px]"
-            />
-            <InputText
-              form={form}
-              fieldName="phone"
-              placeHolder="Your phone"
-              className="min-h-[50px]"
-            />
-            <InputTextArea
-              form={form}
-              fieldName="message"
-              placeHolder="Your message"
-              className="min-h-[150px]"
-            />
-            <Button type="submit">Send</Button>
-          </form>
-        </Form>
+        <FormTouch />
       </div>
-      <div className="w-full h-screen col-span-1 md:col-span-2 overflow-hidden rounded-md">
-        <iframe
-          className="h-[95%] !z-10"
-          src="https:&#x2F;&#x2F;www.canva.com&#x2F;design&#x2F;DAGDNtrwINE&#x2F;4vGz5myNp5aCd0AQstZ7Ow&#x2F;view?embed"
-          frameBorder="0"
-          allowFullScreen
-          allow="fullscreen"
-          style={{
-            overflow: "hidden",
-            overflowX: "hidden",
-            overflowY: "hidden",
-            width: "100%",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-          }}
-        ></iframe>
+      <div className="w-full h-screen col-span-1 md:col-span-2 overflow-hidden rounded-md space-y-4">
+        <TypographyH3 title="🚴🏻 Explore" />
+        <GitHubCalendar username="vanthuan76" />
+        <TypographyH3 title="💼 Work" />
+        <BentoGrid className="grid justify-start items-start w-full h-[500px] md:h-full overflow-y-auto">
+          {informationTasks &&
+            informationTasks
+              .map((informationTask) => ({
+                title: informationTask?.title_company,
+                description: informationTask?.task_company,
+                icon: informationTask?.image_company,
+                header: (
+                  <div className="w-full h-full overflow-hidden">
+                    <LoaderImage
+                      isLoader={false}
+                      src={informationTask?.image_project_company as string}
+                      alt={informationTask?.title_company as string}
+                      width={500}
+                      height={150}
+                      className="w-full h-full object-cover object-center rounded-lg"
+                    />
+                  </div>
+                ),
+              }))
+              .map((item, i) => (
+                <BentoGridItem
+                  key={i}
+                  title={item.title}
+                  description={item.description}
+                  header={item.header}
+                  icon={
+                    <Avatar>
+                      <AvatarImage
+                        src={item.icon as string}
+                        alt="@shadcn"
+                        className="shadow-sm"
+                      />
+                    </Avatar>
+                  }
+                  typeStyleImage="bottom"
+                  className={cn(
+                    i % 2 === 0 ? "md:col-span-2" : "md:col-span-1",
+                    "border border-zinc-200/50 shadow-sm h-[300px]",
+                  )}
+                />
+              ))}
+        </BentoGrid>
       </div>
     </div>
   );

@@ -2,9 +2,10 @@
 import useBreakpoint from "@/hooks/break-point";
 import { cn } from "@/lib/tw";
 import { useAppSelector } from "@/store";
-import { NavBarMenu } from "./navbar-menu";
-import HeadLayout from "./head-layout";
 import { usePathname } from "next/navigation";
+import { NavBarMenu } from "./navbar";
+import HeadLayout from "./head-layout";
+
 interface Props {
   children: React.ReactNode;
 }

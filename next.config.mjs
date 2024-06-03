@@ -7,6 +7,8 @@ const hostnames = [
   "ocjaxgkaarttotpzrodh.supabase.co",
 ];
 const nextConfig = {
+  reactStrictMode: true,
+  swcMinify: true,
   async rewrites() {
     return [
       {

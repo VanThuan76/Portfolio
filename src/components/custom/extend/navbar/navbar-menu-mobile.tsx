@@ -3,7 +3,6 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/tw";
 import { TypographyP } from "@/components/ui/typography-p";
-import { useAppSelector } from "@/store";
 import {
   Bot,
   FolderOpenDot,
@@ -13,20 +12,9 @@ import {
   PlusCircle,
   ShieldEllipsis,
 } from "lucide-react";
-import useBreakpoint from "@/hooks/break-point";
 import ActionDrawer from "@/components/custom/action-drawer";
 
-export function NavBarMenu() {
-  const breakpoint = useBreakpoint();
-  const { showNavbarMenu } = useAppSelector((state) => state.app);
-  return (
-    <div className="relative w-full flex items-center justify-center">
-      {breakpoint === "xs" ? <Navbar /> : showNavbarMenu && <Navbar />}
-    </div>
-  );
-}
-
-function Navbar({ className }: { className?: string }) {
+export function NavbarMenuMobile({ className }: { className?: string }) {
   const router = useRouter();
 
   return (

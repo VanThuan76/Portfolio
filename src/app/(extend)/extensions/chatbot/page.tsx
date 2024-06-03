@@ -1,5 +1,5 @@
-import ChatBotHead from "@/app/(extend)/extensions/chatbot/components/chatbot-head";
-import ChatBotBody from "@/app/(extend)/extensions/chatbot/components/chatbot-body";
+import ChatBotHead from "@/app/(extend)/extensions/chatbot/@components/chatbot-head";
+import ChatBotBody from "@/app/(extend)/extensions/chatbot/@components/chatbot-body";
 import { currentProfile } from "@/server/actions/auth";
 
 export default async function Page() {

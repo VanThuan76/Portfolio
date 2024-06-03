@@ -25,12 +25,14 @@ export const BentoGridItem = ({
   description,
   header,
   icon,
+  typeStyleImage = "top",
 }: {
   className?: string;
   title?: string | React.ReactNode;
   description?: string | React.ReactNode;
   header?: React.ReactNode;
   icon?: React.ReactNode;
+  typeStyleImage?: "top" | "bottom";
 }) => {
   return (
     <div
@@ -39,7 +41,7 @@ export const BentoGridItem = ({
         className,
       )}
     >
-      {header}
+      {typeStyleImage === "top" && header}
       <div className="group-hover/bento:translate-x-2 transition duration-200">
         {icon}
         <div className="font-sans font-bold text-neutral-600 dark:text-neutral-200 my-2 text-base">
@@ -49,6 +51,7 @@ export const BentoGridItem = ({
           {description}
         </div>
       </div>
+      {typeStyleImage === "bottom" && header}
     </div>
   );
 };

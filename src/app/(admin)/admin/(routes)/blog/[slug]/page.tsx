@@ -17,5 +17,6 @@ export default function Page() {
     const { error } = JSON.parse(result);
     console.log(error?.message);
   };
+
   return <BlogForm form={form} handleSubmit={handleSubmit} />;
 }

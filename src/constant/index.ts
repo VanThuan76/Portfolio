@@ -4,6 +4,13 @@ export const APP_SAVE_KEY = {
   TOKEN_KEY: process.env.NEXT_PUBLIC_APP_NAME + "::token_key",
   LOGIN_STATUS: process.env.NEXT_PUBLIC_APP_NAME + "::login_status",
 };
+export const API_URL = "https://github-contributions-api.jogruber.de/v4/";
+
+export const DEFAULT_THEME = {
+  light: ["#ebedf0", "#9be9a8", "#40c463", "#30a14e", "#216e39"],
+  dark: ["#ebedf0", "#0e4429", "#006d32", "#26a641", "#39d353"],
+};
+
 export const breakpoints = {
   0: "xs",
   600: "sm",

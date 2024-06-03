@@ -1,27 +1,39 @@
 "use client";
 
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import nProgress from "nprogress";
-import "nprogress/nprogress.css";
-import { useEffect } from "react";
+import { useContext, useEffect, useTransition } from "react";
+import { ActionQueueContext } from "next/dist/shared/lib/router/action-queue";
+import { LoaderIcon } from "lucide-react";
 
-export function NavigationEvents() {
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const router = useRouter();
+export default function NavigationEvents() {
+  const actionQueue = useContext(ActionQueueContext);
+  const [isPending, startTransition] = useTransition();
 
   useEffect(() => {
-    const _push = router.push.bind(router);
-
-    router.push = (href, options) => {
-      nProgress.start();
-      _push(href, options);
+    if (!actionQueue) {
+      return;
+    }
+    const originalDispatch = actionQueue.dispatch;
+    actionQueue.dispatch = (...args) => {
+      startTransition(() => {
+        originalDispatch.apply(actionQueue, args);
+      });
     };
-  }, []);
+    return () => {
+      actionQueue.dispatch = originalDispatch;
+    };
+  }, [actionQueue]);
 
-  useEffect(() => {
-    nProgress.done();
-  }, [pathname, searchParams]);
+  if (!isPending) {
+    return null;
+  }
 
-  return null;
+  return (
+    <div className="z-[99] fixed bottom-24 md:bottom-8 right-4 md:right-16 rounded border bg-slate-50 dark:bg-slate-700/50 p-4 shadow-2xl">
+      <div className="flex items-center gap-2 font-bold">
+        <LoaderIcon className="text-ba animate-spin" size={14} />
+        The page is redirecting
+      </div>
+      <span className="text-sm">Wait a minute, bro!</span>
+    </div>
+  );
 }

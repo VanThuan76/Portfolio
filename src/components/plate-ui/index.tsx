@@ -36,7 +36,7 @@ export function PlateEditor({
             handleChangeContent(value);
           }}
         >
-          <FixedToolbar className={cn("w-full max-h-[100px]", className)}>
+          <FixedToolbar className={cn("w-full max-h-[100px] z-30", className)}>
             <FixedToolbarButtons mode={modeEditor} />
           </FixedToolbar>
           <Editor

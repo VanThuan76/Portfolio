@@ -1,30 +1,44 @@
-import Image from "next/image";
 import { Heart } from "lucide-react";
+
+import { readBlog } from "@/server/actions/blog";
+import { IBlog } from "@/server/data/types/blog";
+import { IBaseResponse } from "@/server/data/types/base";
+import { currentProfile } from "@/server/actions/auth";
+import { readCommentByBlogId } from "@/server/actions/comment";
+
 import { LoaderImage } from "@/components/custom/loader-image";
 import { Separator } from "@/components/plate-ui/separator";
 import { TypographyH3 } from "@/components/ui/typography-h3";
 import { TypographyP } from "@/components/ui/typography-p";
-import { readBlog } from "@/server/actions/blog";
-import { readCommentByBlogId } from "@/server/actions/comment";
-import { IBaseResponse } from "@/server/data/types/base";
-import { IBlog } from "@/server/data/types/blog";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
 import { axiosInstance } from "@/utils/axios";
 import { convertStringDay } from "@/utils/helpers/convert-time";
+
 import { CardBlog } from "../@components/card-blog";
 import Comment from "../@components/comment";
 import ContentBlog from "../@components/content-blog";
 
-export default async function Page({ params }: { params: { slug: string } }) {
+async function getBlogAndCommentData(slugBlog: string) {
   const { data: blog } = await axiosInstance.get<IBaseResponse<IBlog>>(
-    `/api/blog?slug=${params.slug}`,
+    `/api/blog?slug=${slugBlog}`,
   );
-  const blogs = await readBlog();
   const comments = await readCommentByBlogId(blog && blog.id);
+  return {
+    blog,
+    comments,
+  };
+}
+
+export default async function Page({ params }: { params: { slug: string } }) {
+  const { blog, comments } = await getBlogAndCommentData(params.slug);
+  const user = await currentProfile();
+  const blogs = await readBlog();
 
   return (
-    <div className="w-full grid grid-cols-1 md:grid-cols-3 justify-between items-start px-4 mx-auto h-screen gap-10 overflow-auto">
+    <div className="w-full grid grid-cols-1 md:grid-cols-3 justify-between items-start px-0 md:px-4 mx-auto h-full gap-10">
       <div className="w-full h-auto relative col-span-1 md:col-span-2">
-        <div className="sticky top-0 z-40 backdrop-blur-sm bg-white/30 mb-5 p-2">
+        <div className="sticky top-[35px] md:top-9 z-50 backdrop-blur-sm bg-white/30 mb-5 p-2">
           <h1 className="text-3xl font-bold dark:text-gray-200">
             {blog.title}
           </h1>
@@ -41,10 +55,13 @@ export default async function Page({ params }: { params: { slug: string } }) {
           className="object-cover object-center rounded-md border-[0.5px] border-zinc-600"
         />
         <ContentBlog content={JSON.parse(blog.content as string)} />
-        <Separator className="w-full" />
-        <div className="w-full flex flex-col justify-start items-start py-4 px-2 gap-5 bg-white dark:bg-black">
-          <TypographyH3 title="Top Comments" className="font-medium" />
-          <Comment blogId={blog.id} />
+        <Separator className="w-full my-3" />
+        <div className="w-full flex flex-col justify-start items-start py-4 px-2 gap-5 bg-white dark:bg-black rounded-sm">
+          <TypographyH3
+            title={`Top Comments(${comments.data?.length})`}
+            className="font-medium text-lg"
+          />
+          <Comment user={user} blogId={blog.id} />
           <div className="w-full h-full">
             {comments.data &&
               comments.data.length > 0 &&
@@ -52,16 +69,16 @@ export default async function Page({ params }: { params: { slug: string } }) {
                 return (
                   <div
                     key={i}
-                    className="w-full flex flex-col justify-start items-start gap-2"
+                    className="w-full flex flex-col justify-start items-start gap-2 my-5"
                   >
-                    <div className="w-full flex justify-start items-center gap-2">
-                      <Image
-                        src={comment.users?.avatar_url as string}
-                        width={24}
-                        height={24}
-                        alt="Avatar"
-                        className="overflow-hidden rounded-full"
-                      />
+                    <div className="w-full flex justify-start items-start gap-2">
+                      <Avatar>
+                        <AvatarImage
+                          src={comment.users?.avatar_url as string}
+                          alt="@shadcn"
+                        />
+                        <AvatarFallback>CN</AvatarFallback>
+                      </Avatar>
                       <div className="w-full flex flex-col justify-start items-start border rounded-md p-4">
                         <div className="flex items-center justify-start gap-2 w-full">
                           <TypographyP
@@ -77,7 +94,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
                         />
                       </div>
                     </div>
-                    <div className="flex justify-start items-center gap-2 ml-8">
+                    <div className="flex justify-start items-center gap-2 ml-12">
                       <Heart className="w-[16px] h-[16px]" />
                       <span className="text-xs text-zinc-700">
                         {comment.like} likes
@@ -90,7 +107,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
         </div>
       </div>
       <CardBlog
-        className="sticky top-0 z-30 col-span-1 self-start"
+        className="sticky top-10 z-30 col-span-1 self-start"
         items={blogs && blogs.filter((blog) => blog.slug !== params.slug)}
       />
     </div>

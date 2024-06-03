@@ -9,7 +9,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ModeTheme } from "@/components/custom/extend/mode-theme";
-import { ModeNavbar } from "@/components/custom/extend/mode-navbar";
 import { useRouter } from "next/navigation";
 import Auth from "@/components/custom/auth";
 import { IAuthSupabase } from "@/server/data/types/supabase";
@@ -32,11 +31,8 @@ export function DropdownMenuApp({ user }: Props) {
         <DropdownMenuGroup>
           <ModeTheme />
         </DropdownMenuGroup>
-        <DropdownMenuGroup>
-          <ModeNavbar />
-        </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => router.push("/extensions/git-roll")}>
+        <DropdownMenuItem onClick={() => router.push("/extensions/resume")}>
           Resume
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => router.push("/extensions/git-roll")}>

@@ -1,13 +1,31 @@
 "use server";
 
 import { supabaseBrowser } from "@/lib/supabase/browser";
+import { Tables } from "@/lib/supabase/types/index";
+import { User } from "@/server/data/types/user";
+
+interface BlogCommentWithUser extends Tables<"blog_comment"> {
+  users: User;
+}
 
 const supabase = supabaseBrowser();
 export async function readCommentByBlogId(blogId: string) {
-  const comments = await supabase
+  const data = await supabase
     .from("blog_comment")
-    .select("*, users ( id, display_name, avatar_url )")
+    .select(
+      `
+    *,
+    users:user_id (
+      id,
+      display_name,
+      avatar_url
+    )
+  `,
+    )
     .eq("blog_id", blogId);
+
+  // @ts-ignore
+  const comments: { data: BlogCommentWithUser[] } = data;
   return comments;
 }
 export async function createComment(body: {

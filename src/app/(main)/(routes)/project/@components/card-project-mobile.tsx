@@ -1,6 +1,9 @@
+import { cn } from "@/lib/tw";
+
+import { IProject } from "@/server/data/types/project";
+
 import { LoaderImage } from "@/components/custom/loader-image";
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
-import { IProject } from "@/server/data/types/project";
 
 interface Props {
   projects: IProject[];
@@ -44,7 +47,10 @@ const CardProjectMobile = ({ projects }: Props) => {
             description={item.description}
             header={item.header}
             icon={item.icon}
-            className={i === 3 || i === 6 ? "md:col-span-1" : ""}
+            className={cn(
+              i === 3 || i === 6 ? "md:col-span-1" : "",
+              "border border-zinc-200/50 shadow-sm",
+            )}
           />
         ))}
     </BentoGrid>

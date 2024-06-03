@@ -155,6 +155,36 @@ export type Database = {
           },
         ];
       };
+      infomation_work: {
+        Row: {
+          created_at: string;
+          id: number;
+          image_company: string | null;
+          image_project_company: string | null;
+          task_company: string | null;
+          title_company: string | null;
+          updated_at: string | null;
+        };
+        Insert: {
+          created_at?: string;
+          id?: number;
+          image_company?: string | null;
+          image_project_company?: string | null;
+          task_company?: string | null;
+          title_company?: string | null;
+          updated_at?: string | null;
+        };
+        Update: {
+          created_at?: string;
+          id?: number;
+          image_company?: string | null;
+          image_project_company?: string | null;
+          task_company?: string | null;
+          title_company?: string | null;
+          updated_at?: string | null;
+        };
+        Relationships: [];
+      };
       project: {
         Row: {
           content: string | null;

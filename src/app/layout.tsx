@@ -1,19 +1,21 @@
-import { Suspense } from "react";
-import { cn } from "@/lib/tw";
+import "./globals.css";
+import dynamic from 'next/dynamic'
 import type { Metadata } from "next";
 import { DM_Mono } from "next/font/google";
+
+import { cn } from "@/lib/tw";
 import { ThemeProvider } from "@/utils/theme-provider";
-import ReduxProvider from "@/utils/redux-provider";
-import { NavigationEvents } from "@/hooks/navigation-event";
-import { NavBarMenu } from "@/components/custom/extend/navbar-menu";
-import { DropdownMenuApp } from "@/components/custom/extend";
-import FrameScreen from "@/components/custom/extend/frame-screen";
-import ContainerLayout from "@/components/custom/extend/container-layout";
-import { TooltipProvider } from "@/components/plate-ui/tooltip";
 import { IAuthSupabase } from "@/server/data/types/supabase";
 import { ToasterProvider } from "@/utils/toaster-provider";
-import Loading from "./loading";
-import "./globals.css";
+import ReduxProvider from "@/utils/redux-provider";
+
+import { NavBarMenu } from "@/components/custom/extend/navbar";
+import { DropdownMenuApp } from "@/components/custom/extend";
+import { TooltipProvider } from "@/components/plate-ui/tooltip";
+import FrameScreen from "@/components/custom/extend/frame-screen";
+import ContainerLayout from "@/components/custom/extend/container-layout";
+
+const NavigationEvents = dynamic(() => import('@/hooks/navigation-event'), { ssr: false })
 
 const nextFont = DM_Mono({
   display: "swap",
@@ -57,12 +59,11 @@ export default function RootLayout({
             >
               <ContainerLayout>
                 <FrameScreen>{children}</FrameScreen>
-              </ContainerLayout>
-              <Suspense fallback={<Loading />}>
                 <NavigationEvents />
-                <NavBarMenu />
-                <DropdownMenuApp user={user} />
-              </Suspense>
+              </ContainerLayout>
+              {/* //Other */}
+              <NavBarMenu />
+              <DropdownMenuApp user={user} />
               <ToasterProvider />
             </TooltipProvider>
           </ThemeProvider>

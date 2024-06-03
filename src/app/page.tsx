@@ -2,6 +2,8 @@
 import Link from "next/link";
 import React from "react";
 import { useRouter } from "next/navigation";
+import { ChevronUp, Github, Mail } from "lucide-react";
+
 import { LoaderImage } from "@/components/custom/loader-image";
 import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -9,9 +11,8 @@ import { DirectionAwareHover } from "@/components/ui/direction-aware-hover";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect";
 import { TypographyP } from "@/components/ui/typography-p";
-import { ChevronUp, Github, Mail } from "lucide-react";
-import TransitionCpn from "@/components/custom/transition-cpn";
 import { TypographyH3 } from "@/components/ui/typography-h3";
+import TransitionCpn from "@/components/custom/transition-cpn";
 
 export default function Page() {
   const router = useRouter();

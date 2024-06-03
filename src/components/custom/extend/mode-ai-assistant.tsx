@@ -35,10 +35,10 @@ const ModeAIAssistant = () => {
         setPermission(true);
         setStream(streamData);
       } catch (error: any) {
-        alert(error.message);
+        console.log(error.message);
       }
     } else {
-      alert("The MediaRecord AI is not supported in your browser");
+      console.log("The MediaRecord AI is not supported in your browse");
     }
   };
   useEffect(() => {
