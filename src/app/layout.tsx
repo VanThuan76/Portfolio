@@ -56,7 +56,7 @@ export default function RootLayout({
           >
             <TooltipProvider
               disableHoverableContent
-              delayDuration={500}
+              delayDuration={100}
               skipDelayDuration={0}
             >
               <ContainerLayout>

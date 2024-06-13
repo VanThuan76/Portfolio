@@ -4,33 +4,41 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import { ChevronUp, Github, Mail } from "lucide-react";
 
-import { LoaderImage } from "@/components/custom/loader-image";
 import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "@/components/ui/card";
 import { DirectionAwareHover } from "@/components/ui/direction-aware-hover";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect";
 import { TypographyP } from "@/components/ui/typography-p";
 import { TypographyH3 } from "@/components/ui/typography-h3";
+import { Highlight } from "@/components/ui/hero-highlight";
+
+import { LoaderImage } from "@/components/custom/loader-image";
 import TransitionCpn from "@/components/custom/transition-cpn";
 
-export default function Page() {
+export default function HomePage() {
   const router = useRouter();
   return (
-    <div className="w-full min-h-[100vh] grid grid-cols-1 md:grid-cols-3 justify-center items-center gap-5 md:gap-0">
+    <div className="m-auto w-full h-full grid grid-cols-1 lg:grid-cols-3 gap-5 md:gap-0 md:mt-3">
       <TransitionCpn
         variants={{
           hidden: { opacity: 0, x: 0, y: -200 },
           enter: { opacity: 1, x: 0, y: 0 },
         }}
+        className="col-span-1"
       >
-        <CardContainer className="inter-var w-full col-span-1">
-          <CardBody className="bg-gray-50 relative group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:bg-[#030712] dark:border-white/[0.2] border-black/[0.1] w-full sm:w-[30rem] h-[550px] rounded-xl p-6 border  ">
+        <CardContainer className="inter-var w-full h-full">
+          <CardBody className="bg-gray-50 relative group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:bg-[#030712] dark:border-white/[0.2] border-black/[0.1] w-full h-full rounded-xl p-6 border">
             <CardItem
               translateZ="50"
               className="text-xl font-bold text-neutral-600 dark:text-white"
             >
-              <TextGenerateEffect words="Hi! I'm Austin :&gt;" />
+              <TextGenerateEffect words="Hello 👋🏻 I'm Thuan" />
             </CardItem>
             <CardItem
               as="p"
@@ -41,7 +49,7 @@ export default function Page() {
             </CardItem>
             <CardItem
               translateZ="100"
-              className="w-full h-[400px] mt-4 rounded-lg"
+              className="w-full h-[300px] md:h-[500px] mt-4 rounded-lg"
             >
               <LoaderImage
                 src="/hi.jpg"
@@ -52,33 +60,83 @@ export default function Page() {
                 className="w-full h-full object-cover object-center rounded-lg"
               />
             </CardItem>
+            <CardItem
+              as="div"
+              translateZ="60"
+              className="w-full flex flex-wrap flex-col md:flex-row justify-start items-start md:items-center gap-3 md:gap-5 mt-5"
+            >
+              <Link
+                href="mailto:thuanvuvan76@gmail.com"
+                className="flex justify-center items-center gap-2 hover:gap-1 transition-all duration-300 ease-in-out"
+              >
+                <Mail className="w-[14px] h-[14px]" />
+                <TypographyP
+                  title="thuanvuvan76@gmail.com"
+                  className="text-sm font-light"
+                />
+              </Link>
+              <Link
+                href="https://github.com/VanThuan76"
+                className="flex justify-center items-center gap-2 hover:gap-1 transition-all duration-300 ease-in-out"
+              >
+                <Github className="w-[14px] h-[14px]" />
+                <TypographyP
+                  title="VanThuan76"
+                  className="text-sm font-light"
+                />
+              </Link>
+            </CardItem>
           </CardBody>
         </CardContainer>
       </TransitionCpn>
-      <TransitionCpn className="w-full max-h-[550px] col-span-1 md:col-span-2">
-        <Card>
+      <TransitionCpn className="col-span-1 md:col-span-2">
+        <Card className="w-full h-full">
           <CardHeader>
             <TypewriterEffectSmooth
-              className="my-2 md:my-6 text-2xl leading-7"
-              words={[{ text: "Portfolio" }]}
+              className="my-2 md:my-4 text-2xl leading-7"
+              words={[{ text: "Information..." }]}
             />
           </CardHeader>
           <CardContent>
-            <div className="w-full min-h-[200px] md:min-h-[370px] flex flex-col justify-between items-start">
-              <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">
-                My name is Austin Vu, call me Austin. Life is prosaicly ...
-              </code>
+            <div className="w-full min-h-[200px] md:min-h-[370px] flex gap-2 md:gap-3 flex-col justify-between items-start">
+              <p className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-normal">
+                My fullname is{" "}
+                <Highlight className="font-semibold text-black dark:text-white">
+                  Vu Van Thuan
+                </Highlight>
+                , but you can call me Austin. I recently graduated from UTM
+                University in Vietnam with a degree in Information Technology.
+                From 2022 to 2024, I&apos;ve been diving deep into the world of
+                web development, and I&apos;m now on a journey to become{" "}
+                <Highlight className="font-semibold text-black dark:text-white">
+                  a full-stack developer
+                </Highlight>
+                .
+              </p>
+              <p className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-normal">
+                My passion lies in taking on new challenges and continuously
+                expanding my skill set. I love contributing to innovative
+                projects and working with a team to create something amazing.
+                I&apos;m a quick learner and always ready to go the extra mile
+                to get things done.
+              </p>
+              <p className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-normal">
+                When I&apos;m not coding, you can find me exploring new
+                technologies, learning from online courses, and getting inspired
+                by the developer community. I&apos;m excited about the future
+                and looking forward to the opportunities ahead.
+              </p>
               <div className="mt-3 w-full flex flex-col justify-start items-start gap-3 md:hidden">
                 <div onClick={() => router.push("/project")}>
                   <TypographyH3
                     className="text-sm underline cursor-pointer"
-                    title="My projects"
+                    title="📂 My projects"
                   />
                 </div>
                 <div onClick={() => router.push("/blog")}>
                   <TypographyH3
                     className="text-sm underline cursor-pointer"
-                    title="My blogs"
+                    title="🗞️ My blogs"
                   />
                 </div>
               </div>
@@ -118,30 +176,14 @@ export default function Page() {
                   </div>
                 </div>
               </div>
-              <div className="w-full flex flex-col md:flex-row justify-start items-start md:items-center gap-3 md:gap-5 mt-5">
-                <Link
-                  href="mailto:thuanvuvan76@gmail.com"
-                  className="flex justify-center items-center gap-2 hover:gap-1 transition-all duration-300 ease-in-out"
-                >
-                  <Mail className="w-[14px] h-[14px]" />
-                  <TypographyP
-                    title="thuanvuvan76@gmail.com"
-                    className="text-sm font-light"
-                  />
-                </Link>
-                <Link
-                  href="https://github.com/VanThuan76"
-                  className="flex justify-center items-center gap-2 hover:gap-1 transition-all duration-300 ease-in-out"
-                >
-                  <Github className="w-[14px] h-[14px]" />
-                  <TypographyP
-                    title="VanThuan76"
-                    className="text-sm font-light"
-                  />
-                </Link>
-              </div>
             </div>
           </CardContent>
+          <CardFooter className="justify-end">
+            <TypographyP
+              title={`© Copyright ${new Date().getFullYear()} - Present Thuan`}
+              className="text-sm"
+            />
+          </CardFooter>
         </Card>
       </TransitionCpn>
     </div>

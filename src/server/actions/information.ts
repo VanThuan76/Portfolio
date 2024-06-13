@@ -1,7 +1,18 @@
 import { supabaseBrowser } from "@/lib/supabase/browser";
 
 const supabase = supabaseBrowser();
-export function readInformationTask() {
-  const informationTask = supabase.from("infomation_work").select("*");
-  return informationTask;
+
+export async function readInformationTask() {
+  try {
+    const { data, error } = await supabase.from("infomation_work").select("*");
+
+    if (error) {
+      throw error;
+    }
+
+    return { data, error: null };
+  } catch (error) {
+    console.error("Error reading information task:", error);
+    return { data: null, error };
+  }
 }

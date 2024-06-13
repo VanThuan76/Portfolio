@@ -1,4 +1,5 @@
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { cn } from "@/lib/tw";
 import { FileText } from "lucide-react";
 
@@ -9,21 +10,30 @@ import { readInformationTask } from "@/server/actions/information";
 import { LoaderImage } from "@/components/custom/loader-image";
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import GitHubCalendar from "@/components/custom/github-calendar";
+import { SkeletonCard } from "@/components/custom/skeleton-card";
+import TransitionCpn from "@/components/custom/transition-cpn";
 
 import FormTouch from "./@components/form-touch";
-import LinkedinScript from "./@components/linkedin-script";
+
+const LinkedinScript = dynamic(() => import("./@components/linkedin-script"), {
+  loading: () => <SkeletonCard />,
+  ssr: false,
+});
+
+const GitHubCalendar = dynamic(
+  () => import("@/components/custom/github-calendar"),
+  {
+    loading: () => <SkeletonCard />,
+    ssr: false,
+  },
+);
 
 export default async function Page() {
-  let { data: informationTasks } = await readInformationTask();
+  const { data: informationTasks } = await readInformationTask();
 
-  if (!informationTasks?.length) {
-    informationTasks = [];
-  }
-  if (!informationTasks) return <></>;
   return (
     <div className="w-full min-h-screen md:h-screen grid grid-cols-1 md:grid-cols-3 justify-center items-center p-4 gap-12">
-      <div className="w-full h-screen flex flex-wrap justify-start items-start gap-2 overflow-hidden">
+      <TransitionCpn className="w-full h-screen flex flex-wrap justify-start items-start gap-2 overflow-hidden">
         <div className="space-y-2">
           <LinkedinScript />
           <Link
@@ -40,13 +50,19 @@ export default async function Page() {
         <Separator className="w-full" />
         <TypographyH3 title="GET IN TOUCH" />
         <FormTouch />
-      </div>
-      <div className="w-full h-screen col-span-1 md:col-span-2 overflow-hidden rounded-md space-y-4">
+      </TransitionCpn>
+      <TransitionCpn
+        variants={{
+          hidden: { opacity: 0, x: 0, y: -200 },
+          enter: { opacity: 1, x: 0, y: 0 },
+        }}
+        className="w-full h-screen col-span-1 md:col-span-2 overflow-hidden rounded-md space-y-4"
+      >
         <TypographyH3 title="🚴🏻 Explore" />
         <GitHubCalendar username="vanthuan76" />
         <TypographyH3 title="💼 Work" />
         <BentoGrid className="grid justify-start items-start w-full h-[500px] md:h-full overflow-y-auto">
-          {informationTasks &&
+          {informationTasks ? (
             informationTasks
               .map((informationTask) => ({
                 title: informationTask?.title_company,
@@ -86,9 +102,15 @@ export default async function Page() {
                     "border border-zinc-200/50 shadow-sm h-[300px]",
                   )}
                 />
-              ))}
+              ))
+          ) : (
+            <div className="w-full flex flex-wrap justify-start items-start gap-5">
+              <SkeletonCard />
+              <SkeletonCard />
+            </div>
+          )}
         </BentoGrid>
-      </div>
+      </TransitionCpn>
     </div>
   );
 }

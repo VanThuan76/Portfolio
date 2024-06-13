@@ -11,6 +11,7 @@ export default async function LayoutAdmin({
     <div className="relative flex justify-start items-start gap-5 min-h-screen w-full bg-white dark:bg-[#030712] rounded-md p-2">
       <VerticalNavbar />
       <div className="w-full h-full">
+        {/* @ts-ignore */}
         <Head />
         {children}
       </div>

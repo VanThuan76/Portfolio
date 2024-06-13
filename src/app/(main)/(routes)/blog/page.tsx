@@ -22,7 +22,7 @@ export default async function Page() {
     tags = [];
   }
   return (
-    <TransitionCpn className="w-full h-auto">
+    <TransitionCpn className="w-full h-full">
       <div className="w-full h-auto flex flex-col justify-start items-start gap-5 md:gap-0">
         <div className="w-full h-full flex flex-col justify-start items-start col-span-1 md:col-span-5">
           <div className="ml-0 md:ml-3 w-[75px] h-[75px] border light:border-black dark:border-gray-400 rounded-full">

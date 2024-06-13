@@ -21,7 +21,7 @@ import {
 } from "lucide-react";
 import { authAdminServer } from "@/server/actions/auth";
 
-const Head = async () => {
+export default async function Head() {
   const user = await authAdminServer();
   return (
     <header className="sticky -top-5 mb-3 z-30 flex h-14 justify-between md:justify-end items-center md:items-end gap-4 border-b bg-background sm:static sm:h-auto sm:bg-transparent pb-2">
@@ -106,6 +106,4 @@ const Head = async () => {
       </DropdownMenu>
     </header>
   );
-};
-
-export default Head;
+}
