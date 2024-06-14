@@ -3,14 +3,20 @@ import React, { useEffect, useRef, useState } from "react";
 import { motion, useTransform, useScroll, useSpring } from "framer-motion";
 import { cn } from "@/lib/tw";
 
+interface TracingBeamProps {
+  children: React.ReactNode;
+  className?: string;
+  refProp?: React.RefObject<HTMLDivElement>;
+}
+
 export const TracingBeam = ({
   children,
   className,
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) => {
-  const ref = useRef<HTMLDivElement>(null);
+  refProp,
+}: TracingBeamProps) => {
+  const internalRef = useRef<HTMLDivElement>(null);
+  const ref = refProp || internalRef;
+
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
@@ -30,14 +36,14 @@ export const TracingBeam = ({
     {
       stiffness: 500,
       damping: 90,
-    },
+    }
   );
   const y2 = useSpring(
     useTransform(scrollYProgress, [0, 1], [50, svgHeight - 200]),
     {
       stiffness: 500,
       damping: 90,
-    },
+    }
   );
 
   return (

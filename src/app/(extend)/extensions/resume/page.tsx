@@ -14,19 +14,12 @@ import { SkeletonCard } from "@/components/custom/skeleton-card";
 import TransitionCpn from "@/components/custom/transition-cpn";
 
 import FormTouch from "./@components/form-touch";
+import GithubCalendar from "@/components/custom/github-calendar";
 
 const LinkedinScript = dynamic(() => import("./@components/linkedin-script"), {
   loading: () => <SkeletonCard />,
   ssr: false,
 });
-
-const GitHubCalendar = dynamic(
-  () => import("@/components/custom/github-calendar"),
-  {
-    loading: () => <SkeletonCard />,
-    ssr: false,
-  },
-);
 
 export default async function Page() {
   const { data: informationTasks } = await readInformationTask();
@@ -59,7 +52,7 @@ export default async function Page() {
         className="w-full h-screen col-span-1 md:col-span-2 overflow-hidden rounded-md space-y-4"
       >
         <TypographyH3 title="🚴🏻 Explore" />
-        <GitHubCalendar username="vanthuan76" />
+        <GithubCalendar username="vanthuan76" />
         <TypographyH3 title="💼 Work" />
         <BentoGrid className="grid justify-start items-start w-full h-[500px] md:h-full overflow-y-auto">
           {informationTasks ? (

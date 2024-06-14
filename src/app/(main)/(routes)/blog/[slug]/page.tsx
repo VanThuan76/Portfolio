@@ -19,7 +19,6 @@ import { cn } from "@/lib/tw";
 import { CardBlog } from "../@components/card-blog";
 import Comment from "../@components/comment";
 import ContentBlog from "../@components/content-blog";
-import { TracingBeam } from "@/components/ui/tracing-beam";
 
 const spaceMono = Space_Mono({
   subsets: ["latin-ext"],
@@ -54,14 +53,14 @@ export default async function Page({ params }: { params: { slug: string } }) {
             {new Date(blog.created_at).toDateString()}
           </p>
         </div>
-        <TracingBeam
+        <div
           className={cn(
             "w-full h-full dark:bg-grid-white/[0.2] bg-grid-black/[0.2]",
             spaceMono.className,
           )}
         >
           <ContentBlog content={JSON.parse(blog.content as string)} />
-        </TracingBeam>
+        </div>
         <Separator className="w-full my-3" />
         <div className="w-full flex flex-col justify-start items-start py-4 px-2 gap-5 bg-white dark:bg-black rounded-sm">
           <TypographyH3

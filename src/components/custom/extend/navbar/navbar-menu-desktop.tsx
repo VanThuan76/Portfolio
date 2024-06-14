@@ -1,7 +1,13 @@
-import React from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { cn } from "@/lib/tw";
+'use client'
+import React, { useRef } from "react";
+import {
+  MotionValue,
+  motion,
+  useMotionValue,
+  useSpring,
+  useTransform,
+} from "framer-motion";
+import { usePathname, useRouter } from "next/navigation";
 import {
   Bot,
   FolderOpenDot,
@@ -10,6 +16,8 @@ import {
   Newspaper,
   ShieldEllipsis,
 } from "lucide-react";
+
+import { cn } from "@/lib/tw";
 import {
   Tooltip,
   TooltipContent,
@@ -17,86 +25,93 @@ import {
 } from "@/components/plate-ui/tooltip";
 import { TypographyP } from "@/components/ui/typography-p";
 
-function ItemNavbar({
-  icon,
-  href,
-  title,
-}: {
-  icon: React.ReactNode;
-  href: string;
-  title: string;
-}) {
+const navbarItems = [
+  {
+    icon: <HomeIcon className="w-full h-full p-1" strokeWidth={1.75} />,
+    href: "/",
+    title: "Home",
+  },
+  {
+    icon: <FolderOpenDot className="w-full h-full p-1" strokeWidth={1.75}  />,
+    href: "/project",
+    title: "Project",
+  },
+  {
+    icon: <Bot className="w-full h-full p-1" strokeWidth={1.75}  />,
+    href: "/extensions/chatbot",
+    title: "ChatBot",
+  },
+  {
+    icon: <Newspaper className="w-full h-full p-1" strokeWidth={1.75}  />,
+    href: "/blog",
+    title: "Blog",
+  },
+  {
+    icon: <GithubIcon className="w-full h-full p-1" strokeWidth={1.75}  />,
+    href: "/extensions/git-roll",
+    title: "GitRoll",
+  },
+  {
+    icon: <ShieldEllipsis className="w-full h-full p-1" strokeWidth={1.75}  />,
+    href: "/extensions/resume",
+    title: "Resume",
+  },
+];
+
+function AppIcon({ mouseX, icon, href, title }: { mouseX: MotionValue, icon: React.ReactNode; href: string; title: string; }) {
+  const router = useRouter()
   const path = usePathname();
   const checkPath = path.split("/").slice(0, 3).join("/");
 
+  let ref = useRef<HTMLDivElement>(null);
+
+  let distance = useTransform(mouseX, (val) => {
+    let bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
+
+    return val - bounds.x - bounds.width / 2;
+  });
+
+  let widthSync = useTransform(distance, [-150, 0, 150], [40, 100, 40]);
+  let width = useSpring(widthSync, { mass: 0.1, stiffness: 150, damping: 12 });
+
   return (
     <Tooltip>
-      <TooltipTrigger className="relative">
-        <Link href={href}>
-          <div
-            className={cn(
-              "relative flex h-full flex-col items-center justify-center bg-muted shadow-md p-1 rounded-md transition-all ease-in-out",
-              checkPath === href ? "-translate-y-5" : "hover:-translate-y-0.5",
-            )}
-          >
-            <div className={checkPath === href ? "w-[30px] h-[30px]" : ""}>
-              {icon}
-            </div>
-            {checkPath === href && (
-              <div className="absolute -bottom-[10px] left-1/2 right-1/2 -translate-x-1/2 bg-sky-500/50 w-[7px] h-[7px] rounded-full"></div>
-            )}
+      <TooltipTrigger>
+        <motion.div
+          ref={ref}
+          style={{width}}
+          className={cn('relative aspect-square w-10 rounded-full bg-gray-200 dark:bg-zinc-600 flex items-center justify-center', checkPath === href ? "-translate-y-5" : "hover:-translate-y-0.5")}
+          onClick={() => router.push(href)}
+        >
+          <div className={checkPath === href ? "w-[30px] h-[30px]" : "w-[70%] h-[70%]"}>
+            {icon}
           </div>
-        </Link>
+          {checkPath === href && (
+            <div className="absolute -bottom-[10px] left-1/2 right-1/2 -translate-x-1/2 bg-black w-[5px] h-[5px] rounded-full"></div>
+          )}
+        </motion.div>
       </TooltipTrigger>
-      {checkPath !== href && (
-        <TooltipContent>
-          <TypographyP title={title} />
-        </TooltipContent>
-      )}
+      <TooltipContent>
+        <TypographyP title={title} />
+      </TooltipContent>
     </Tooltip>
   );
 }
 
 export function NavbarMenuDesktop({ className }: { className?: string }) {
+  let mouseX = useMotionValue(Infinity);
   return (
-    <div
+    <motion.div
+      onMouseMove={(e) => mouseX.set(e.pageX)}
+      onMouseLeave={() => mouseX.set(Infinity)}
       className={cn(
-        "fixed bottom-2 h-[50px] inset-x-0 max-w-[350px] mx-auto z-50 bg-zinc-300/50 dark:bg-zinc-800/70 backdrop-blur-2xl flex justify-center items-center shadow-lg rounded-2xl",
+        "fixed bottom-5 h-[50px] inset-x-0 max-w-[350px] mx-auto z-50 bg-white/50 dark:bg-zinc-800/70 backdrop-blur-2xl flex justify-center items-center shadow-lg rounded-3xl border border-gray-200/50 gap-2",
         className,
       )}
     >
-      <nav className="relative grid w-full grid-flow-col items-center justify-center gap-5 p-3">
-        <ItemNavbar
-          icon={<HomeIcon className="w-full h-full" />}
-          href="/"
-          title="Home"
-        />
-        <ItemNavbar
-          icon={<FolderOpenDot className="w-full h-full" />}
-          href="/project"
-          title="Project"
-        />
-        <ItemNavbar
-          icon={<Bot className="w-full h-full" />}
-          href="/extensions/chatbot"
-          title="ChatBot"
-        />
-        <ItemNavbar
-          icon={<Newspaper className="w-full h-full" />}
-          href="/blog"
-          title="Blog"
-        />
-        <ItemNavbar
-          icon={<GithubIcon className="w-full h-full" />}
-          href="/extensions/git-roll"
-          title="GitRoll"
-        />
-        <ItemNavbar
-          icon={<ShieldEllipsis className="w-full h-full" />}
-          href="/extensions/resume"
-          title="Resume"
-        />
-      </nav>
-    </div>
+      {navbarItems.map((item, index) => (
+        <AppIcon mouseX={mouseX} key={index} {...item} />
+      ))}
+    </motion.div>
   );
 }

@@ -6,11 +6,11 @@ import React, {
   useEffect,
   useState,
 } from "react";
+import dynamic from "next/dynamic";
 import Calendar, {
   type Props as ActivityCalendarProps,
   Skeleton,
 } from "react-activity-calendar";
-
 import { API_URL, DEFAULT_THEME } from "@/constant";
 import {
   Activity,
@@ -20,6 +20,7 @@ import {
   Year,
 } from "@/types";
 import { transformData } from "@/utils/helpers/github-calendar";
+import { SkeletonCard } from "@/components/custom/skeleton-card";
 
 export interface Props extends Omit<ActivityCalendarProps, "data" | "theme"> {
   username: string;
@@ -46,6 +47,7 @@ async function fetchCalendarData(
 
   return data as ApiResponse;
 }
+
 const GitHubCalendar: FunctionComponent<Props> = ({
   username,
   year = "last",
@@ -81,7 +83,7 @@ const GitHubCalendar: FunctionComponent<Props> = ({
   }
 
   if (loading || !data) {
-    return <Skeleton {...props} loading />;
+    return <SkeletonCard />;
   }
 
   const theme = props.theme ?? DEFAULT_THEME;
@@ -108,4 +110,7 @@ const GitHubCalendar: FunctionComponent<Props> = ({
   );
 };
 
-export default GitHubCalendar;
+export default dynamic(() => Promise.resolve(GitHubCalendar), {
+  loading: () => <SkeletonCard />,
+  ssr: false,
+});

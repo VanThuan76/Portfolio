@@ -22,10 +22,20 @@ export default async function Page() {
     tags = [];
   }
   return (
-    <TransitionCpn className="w-full h-full">
-      <div className="w-full h-auto flex flex-col justify-start items-start gap-5 md:gap-0">
+    <TransitionCpn className="w-full min-h-[100vh]">
+      <div className="w-full h-full flex flex-col justify-start items-start gap-5 md:gap-0">
         <div className="w-full h-full flex flex-col justify-start items-start col-span-1 md:col-span-5">
-          <div className="ml-0 md:ml-3 w-[75px] h-[75px] border light:border-black dark:border-gray-400 rounded-full">
+          <div className="w-full h-[200px] hidden md:block">
+            <LoaderImage
+              src="/bg-blog.jpg"
+              isLoader={false}
+              alt="Bg-Blog"
+              width={1280}
+              height={720}
+              className="w-full h-full object-cover object-top rounded-lg"
+            />
+          </div>
+          <div className="ml-0 md:ml-3 w-[75px] h-[75px] border light:border-black dark:border-gray-400 rounded-full translate-y-0 md:-translate-y-10">
             <LoaderImage
               isLoader={false}
               src="/my-cat.jpg"
@@ -35,8 +45,8 @@ export default async function Page() {
               height={355}
             />
           </div>
-          <TypographyH3 className="mt-2" title="Hip Blog" />
-          <div className="flex flex-wrap gap-2 justify-start items-center">
+          <TypographyH3 className="mt-2 translate-y-0 md:-translate-y-10" title="Hip Blog" />
+          <div className="flex flex-wrap gap-2 justify-start items-center translate-y-0 md:-translate-y-10">
             <TypographyP
               className="italic text-xs"
               title="These're my social: "
@@ -61,7 +71,7 @@ export default async function Page() {
             </Link>
           </div>
         </div>
-        <div className="w-full h-full grid grid-cols-1 md:grid-cols-5 justify-start items-start gap-5">
+        <div className="w-full h-full grid grid-cols-1 md:grid-cols-5 justify-start items-start gap-5 translate-y-0 md:-translate-y-10">
           <div className="w-full h-full mx-auto col-span-1 md:col-span-4 py-5">
             <div className="min-h-[35rem] md:min-h-[25rem] [perspective:1000px] relative flex flex-col w-full items-start justify-start overflow-auto md:overflow-visible">
               <Tabs

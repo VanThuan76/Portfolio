@@ -51,7 +51,7 @@ export const CardBlog = ({
               />
             )}
           </AnimatePresence>
-          <Card className="relative p-0 m-0 bg-[#393E46] dark:bg-white overflow-hidden shadow-lg">
+          <Card className="relative p-0 m-0 dark:bg-[#393E46] bg-white overflow-hidden shadow-lg">
             <LoaderImage
               isLoader={false}
               src={item.image_url}
@@ -61,7 +61,7 @@ export const CardBlog = ({
               height={355}
             />
             <div className="px-4 pb-4">
-              <CardTitle className="flex justify-start items-center gap-1 text-sm mb-1 light:text-white dark:text-black ">
+              <CardTitle className="flex justify-start items-center gap-1 text-sm mb-1 dark:text-white text-black font-medium">
                 {item.icon && item.icon}
                 {item.title}
               </CardTitle>

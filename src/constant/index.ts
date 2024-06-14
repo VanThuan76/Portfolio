@@ -18,6 +18,7 @@ export const breakpoints = {
   1280: "lg",
   1920: "xl",
 };
+
 export const initialValueByCreatingBlog = [
   {
     type: "h1",

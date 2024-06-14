@@ -1,9 +1,9 @@
 "use client";
-import { useTransform, motion, useScroll } from "framer-motion";
-import { useRef } from "react";
+import { useTransform, useScroll, motion, useMotionTemplate, useMotionValue } from "framer-motion";
+import { useRef, MouseEvent } from "react";
 import { LoaderImage } from "@/components/custom/loader-image";
 import { convertStringDay } from "@/utils/helpers/convert-time";
-import { Anchor, Spline } from "lucide-react";
+import { Spline } from "lucide-react";
 
 type Props = {
   i: number;
@@ -28,6 +28,8 @@ const CardParallax = ({
   targetScale,
   techStacks,
 }: Props) => {
+  let mouseX = useMotionValue(0);
+  let mouseY = useMotionValue(0);
   const container = useRef(null);
 
   const { scrollYProgress } = useScroll({
@@ -38,14 +40,27 @@ const CardParallax = ({
   const imageScale = useTransform(scrollYProgress, [0, 1], [2, 1]);
   const scale = useTransform(progress, range, [1, targetScale]);
 
+
+  function handleMouseMove({
+    currentTarget,
+    clientX,
+    clientY,
+  }: MouseEvent) {
+    let { left, top } = currentTarget.getBoundingClientRect();
+
+    mouseX.set(clientX - left);
+    mouseY.set(clientY - top);
+  }
+
   return (
     <div
       ref={container}
-      className="min-h-[90vh] w-full flex justify-center items-start sticky top-10 left-0"
+      className="min-h-[90vh] w-full flex justify-center items-start sticky top-20 left-0"
     >
       <motion.div
-        style={{ scale, top: `calc(-5vh + ${i * 25}px)` }}
-        className="bg-white dark:bg-black flex flex-col w-full h-[370px] px-4 py-2 rounded-md border-2 border-black dark:border-white text-neutarl-700 text-sm shadow-[8px_8px_0px_0px_rgba(0,0,0)] dark:shadow-[8px_8px_0px_0px_rgba(255,255,255)] transition duration-200 origin-top"
+        style={{ scale, top: `calc(-5vh + ${i * 50}px)` }}
+        className="group relative bg-white dark:bg-black flex flex-col w-full h-[370px] px-4 py-2 rounded-md border-2 border-black dark:border-white text-neutarl-700 text-sm shadow-[8px_8px_0px_0px_rgba(0,0,0)] dark:shadow-[8px_8px_0px_0px_rgba(255,255,255)] transition duration-200 origin-top"
+        onMouseMove={handleMouseMove}
       >
         <h2 className="text-center uppercase m-0 text-2xl font-medium">
           {title}
@@ -99,6 +114,18 @@ const CardParallax = ({
             </motion.div>
           </div>
         </div>
+        <motion.div
+          className="pointer-events-none absolute -inset-px rounded-xl opacity-0 transition duration-300 group-hover:opacity-100"
+          style={{
+            background: useMotionTemplate`
+            radial-gradient(
+              350px circle at ${mouseX}px ${mouseY}px,
+              rgba(14, 165, 233, 0.15),
+              transparent 80%
+            )
+          `,
+          }}
+        />
       </motion.div>
       <div
         style={{ bottom: `calc(${i * 10 + 224}px)` }}
