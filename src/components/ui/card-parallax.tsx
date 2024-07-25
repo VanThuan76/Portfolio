@@ -1,5 +1,11 @@
 "use client";
-import { useTransform, useScroll, motion, useMotionTemplate, useMotionValue } from "framer-motion";
+import {
+  useTransform,
+  useScroll,
+  motion,
+  useMotionTemplate,
+  useMotionValue,
+} from "framer-motion";
 import { useRef, MouseEvent } from "react";
 import { LoaderImage } from "@/components/custom/loader-image";
 import { convertStringDay } from "@/utils/helpers/convert-time";
@@ -40,12 +46,7 @@ const CardParallax = ({
   const imageScale = useTransform(scrollYProgress, [0, 1], [2, 1]);
   const scale = useTransform(progress, range, [1, targetScale]);
 
-
-  function handleMouseMove({
-    currentTarget,
-    clientX,
-    clientY,
-  }: MouseEvent) {
+  function handleMouseMove({ currentTarget, clientX, clientY }: MouseEvent) {
     let { left, top } = currentTarget.getBoundingClientRect();
 
     mouseX.set(clientX - left);

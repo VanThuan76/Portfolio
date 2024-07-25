@@ -3,7 +3,7 @@ import useBreakpoint from "@/hooks/break-point";
 import { cn } from "@/lib/tw";
 import { useAppSelector } from "@/store";
 import { usePathname } from "next/navigation";
-import { NavBarMenu } from "./navbar";
+import { NavBarMenu } from "../../../app/@bottomBar";
 import HeadLayout from "./head-layout";
 
 interface Props {

@@ -38,14 +38,17 @@ export default async function Page() {
           <div className="ml-0 md:ml-3 w-[75px] h-[75px] border light:border-black dark:border-gray-400 rounded-full translate-y-0 md:-translate-y-10">
             <LoaderImage
               isLoader={false}
-              src="/my-cat.jpg"
+              src="/avatar_chibi.jpg"
               alt="logo"
               className="w-full h-full object-cover rounded-full"
               width={355}
               height={355}
             />
           </div>
-          <TypographyH3 className="mt-2 translate-y-0 md:-translate-y-10" title="Hip Blog" />
+          <TypographyH3
+            className="mt-2 translate-y-0 md:-translate-y-10"
+            title="Hip Blog"
+          />
           <div className="flex flex-wrap gap-2 justify-start items-center translate-y-0 md:-translate-y-10">
             <TypographyP
               className="italic text-xs"

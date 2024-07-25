@@ -20,7 +20,7 @@ const ChatBotHead = () => {
               whileTap={{ scale: 0.9 }}
               transition={{ repeat: Infinity, repeatDelay: 5, duration: 1 }}
             />
-            <Dot color="#03CF02" className="absolute -top-5 -right-5" />
+            <Dot color="#03CF02" className="absolute -top-2 -right-3" />
           </motion.div>
           <div className="flex flex-col">
             <span className="font-medium">ChatBot</span>

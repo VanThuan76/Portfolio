@@ -1,7 +1,7 @@
 "use client";
-import { supabaseBrowser } from "@/lib/supabase/browser";
-import { redirect } from "next/navigation";
 import { useEffect } from "react";
+import { redirect } from "next/navigation";
+import { supabaseBrowser } from "@/lib/supabase/browser";
 
 const AuthPage = () => {
   const handleLoginWithGithub = async () => {

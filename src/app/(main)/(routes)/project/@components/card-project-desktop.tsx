@@ -6,6 +6,7 @@ import Lenis from "@studio-freight/lenis";
 
 import { TracingBeam } from "@/components/ui/tracing-beam";
 import CardParallax from "@/components/ui/card-parallax";
+import RetroGrid from "@/components/ui/retro-grid";
 
 interface Props {
   projects: IProject[];
@@ -28,8 +29,11 @@ const CardProjectDesktop = ({ projects }: Props) => {
   });
 
   return (
-    <TracingBeam refProp={container} className="relative hidden md:block w-full h-full">
-      <div ref={container} className="w-full h-full">
+    <TracingBeam
+      refProp={container}
+      className="relative hidden md:block w-full h-full"
+    >
+      <div ref={container} className="w-full h-full z-50">
         {projects.map((project, i) => {
           const targetScale = 1 - (projects.length - i) * 0.05;
           const arrTech = project.tech_stack.split(",");
@@ -50,6 +54,7 @@ const CardProjectDesktop = ({ projects }: Props) => {
           );
         })}
       </div>
+      <RetroGrid className="fixed top-0 left-0" />
     </TracingBeam>
   );
 };

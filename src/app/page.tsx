@@ -2,6 +2,7 @@
 import Link from "next/link";
 import React from "react";
 import { useRouter } from "next/navigation";
+import { useTheme } from "next-themes";
 import { ChevronUp, Github, Mail } from "lucide-react";
 
 import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
@@ -19,10 +20,14 @@ import { TypographyH3 } from "@/components/ui/typography-h3";
 import { Highlight } from "@/components/ui/hero-highlight";
 
 import { LoaderImage } from "@/components/custom/loader-image";
+import { CoolMode } from "@/components/ui/coolMode";
 import TransitionCpn from "@/components/custom/transition-cpn";
+import Particles from "@/components/ui/particles";
 
 export default function HomePage() {
   const router = useRouter();
+  const { theme } = useTheme();
+
   return (
     <div className="m-auto w-full h-full grid grid-cols-1 lg:grid-cols-3 gap-5 md:gap-0 md:mt-3">
       <TransitionCpn
@@ -98,34 +103,43 @@ export default function HomePage() {
             />
           </CardHeader>
           <CardContent>
-            <div className="w-full min-h-[200px] md:min-h-[370px] flex gap-2 md:gap-3 flex-col justify-between items-start">
-              <p className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-normal">
-                My fullname is{" "}
-                <Highlight className="font-semibold text-black dark:text-white">
-                  Vu Van Thuan
-                </Highlight>
-                , but you can call me Austin. I recently graduated from UTM
-                University in Vietnam with a degree in Information Technology.
-                From 2022 to 2024, I&apos;ve been diving deep into the world of
-                web development, and I&apos;m now on a journey to become{" "}
-                <Highlight className="font-semibold text-black dark:text-white">
-                  a full-stack developer
-                </Highlight>
-                .
-              </p>
-              <p className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-normal">
-                My passion lies in taking on new challenges and continuously
-                expanding my skill set. I love contributing to innovative
-                projects and working with a team to create something amazing.
-                I&apos;m a quick learner and always ready to go the extra mile
-                to get things done.
-              </p>
-              <p className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-normal">
-                When I&apos;m not coding, you can find me exploring new
-                technologies, learning from online courses, and getting inspired
-                by the developer community. I&apos;m excited about the future
-                and looking forward to the opportunities ahead.
-              </p>
+            <div className="w-full min-h-[200px] md:min-h-[370px]">
+              <div className="relative mb-3 flex gap-2 md:gap-3 flex-col justify-between items-start">
+                <p className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-normal">
+                  My fullname is{" "}
+                  <Highlight className="font-semibold text-black dark:text-white">
+                    Vu Van Thuan
+                  </Highlight>
+                  , but you can call me Austin. I recently graduated from UTM
+                  University in Vietnam with a degree in Information Technology.
+                  From 2022 to 2024, I&apos;ve been diving deep into the world of
+                  web development, and I&apos;m now on a journey to become{" "}
+                  <Highlight className="font-semibold text-black dark:text-white">
+                    a full-stack developer
+                  </Highlight>
+                  .
+                </p>
+                <p className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-normal">
+                  My passion lies in taking on new challenges and continuously
+                  expanding my skill set. I love contributing to innovative
+                  projects and working with a team to create something amazing.
+                  I&apos;m a quick learner and always ready to go the extra mile
+                  to get things done.
+                </p>
+                <p className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-normal">
+                  When I&apos;m not coding, you can find me exploring new
+                  technologies, learning from online courses, and getting inspired
+                  by the developer community. I&apos;m excited about the future
+                  and looking forward to the opportunities ahead.
+                </p>
+                <Particles
+                  className="absolute inset-0"
+                  quantity={100}
+                  ease={80}
+                  color={theme === 'dark' ? "#ffffff" : "#000000"}
+                  refresh
+                />
+              </div>
               <div className="mt-3 w-full flex flex-col justify-start items-start gap-3 md:hidden">
                 <div onClick={() => router.push("/project")}>
                   <TypographyH3
@@ -153,27 +167,31 @@ export default function HomePage() {
                     />
                   </DirectionAwareHover>
                 </div>
-                <div className="w-full h-full flex flex-col justify-center items-center col-span-1">
-                  <div
-                    className="relative flex flex-col justify-center items-center w-full h-full rounded-t-lg bg-[#DCF2F1] dark:text-black cursor-pointer group"
-                    onClick={() => router.push("/project")}
-                  >
-                    <h1 className="text-lg md:text-xl lg:text-4xl font-extrabold">
-                      3
-                    </h1>
-                    <TypographyP title="Projects" />
-                    <ChevronUp className="text-gray-400 absolute group-hover:top-1 group-hover:right-0 top-2 right-1 w-[18px] md:w-[24px] lg:w-[32px] h-[18px] md:h-[24px] lg:h-[32px] rotate-45 transition-all duration-300 ease-in-out" />
-                  </div>
-                  <div
-                    className="relative flex flex-col justify-center items-center w-full h-full rounded-b-lg text-white dark:text-black bg-[#365486] group cursor-pointer"
-                    onClick={() => router.push("/blog")}
-                  >
-                    <h1 className="text-lg md:text-xl lg:text-4xl font-extrabold">
-                      3
-                    </h1>
-                    <TypographyP title="Blogs" />
-                    <ChevronUp className="text-gray-400 absolute group-hover:bottom-1 group-hover:left-0 bottom-2 left-1 w-[18px] md:w-[24px] lg:w-[32px] h-[18px] md:h-[24px] lg:h-[32px] rotate-[225deg] transition-all duration-300 ease-in-out" />
-                  </div>
+                <div className="relative w-full h-full flex flex-col justify-center items-center col-span-1">
+                  <CoolMode>
+                    <div
+                      className="relative flex flex-col justify-center items-center w-full h-full rounded-t-lg bg-[#DCF2F1] dark:text-black cursor-pointer group"
+                      onClick={() => router.push("/project")}
+                    >
+                      <h1 className="text-lg md:text-xl lg:text-4xl font-extrabold">
+                        3
+                      </h1>
+                      <TypographyP title="Projects" />
+                      <ChevronUp className="text-gray-400 absolute group-hover:top-1 group-hover:right-0 top-2 right-1 w-[18px] md:w-[24px] lg:w-[32px] h-[18px] md:h-[24px] lg:h-[32px] rotate-45 transition-all duration-300 ease-in-out" />
+                    </div>
+                  </CoolMode>
+                  <CoolMode>
+                    <div
+                      className="relative flex flex-col justify-center items-center w-full h-full rounded-b-lg text-white dark:text-black bg-[#365486] group cursor-pointer"
+                      onClick={() => router.push("/blog")}
+                    >
+                      <h1 className="text-lg md:text-xl lg:text-4xl font-extrabold">
+                        3
+                      </h1>
+                      <TypographyP title="Blogs" />
+                      <ChevronUp className="text-gray-400 absolute group-hover:bottom-1 group-hover:left-0 bottom-2 left-1 w-[18px] md:w-[24px] lg:w-[32px] h-[18px] md:h-[24px] lg:h-[32px] rotate-[225deg] transition-all duration-300 ease-in-out" />
+                    </div>
+                  </CoolMode>
                 </div>
               </div>
             </div>

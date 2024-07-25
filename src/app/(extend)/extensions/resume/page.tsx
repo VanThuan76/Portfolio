@@ -1,7 +1,7 @@
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { cn } from "@/lib/tw";
 import { FileText } from "lucide-react";
+import { cn } from "@/lib/tw";
 
 import { Separator } from "@/components/plate-ui/separator";
 import { TypographyH3 } from "@/components/ui/typography-h3";
@@ -12,9 +12,9 @@ import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { SkeletonCard } from "@/components/custom/skeleton-card";
 import TransitionCpn from "@/components/custom/transition-cpn";
+import GithubCalendar from "@/components/custom/github-calendar";
 
 import FormTouch from "./@components/form-touch";
-import GithubCalendar from "@/components/custom/github-calendar";
 
 const LinkedinScript = dynamic(() => import("./@components/linkedin-script"), {
   loading: () => <SkeletonCard />,
@@ -25,7 +25,7 @@ export default async function Page() {
   const { data: informationTasks } = await readInformationTask();
 
   return (
-    <div className="w-full min-h-screen md:h-screen grid grid-cols-1 md:grid-cols-3 justify-center items-center p-4 gap-12">
+    <div className="w-full min-h-screen md:h-screen grid grid-cols-1 md:grid-cols-3 justify-center items-center p-4 gap-6">
       <TransitionCpn className="w-full h-screen flex flex-wrap justify-start items-start gap-2 overflow-hidden">
         <div className="space-y-2">
           <LinkedinScript />

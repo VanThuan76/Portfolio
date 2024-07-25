@@ -9,7 +9,7 @@ import { IAuthSupabase } from "@/server/data/types/supabase";
 import { ToasterProvider } from "@/utils/toaster-provider";
 import ReduxProvider from "@/utils/redux-provider";
 
-import { NavBarMenu } from "@/components/custom/extend/navbar";
+import { NavBarMenu } from "@/app/@bottomBar";
 import { DropdownMenuApp } from "@/components/custom/extend";
 import { TooltipProvider } from "@/components/plate-ui/tooltip";
 import FrameScreen from "@/components/custom/extend/frame-screen";
