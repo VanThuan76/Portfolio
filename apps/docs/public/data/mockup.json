@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "text": "My fullname is Vu Van Thuan, but you can call me Austin. From 2022 to 2024, I've been diving deep into the world of web development, and I'm now on a journey to become a full-stack developer.",
+    "highlight": [
+      {
+        "text": "Vu Van Thuan"
+      },
+      {
+        "text": "a full-stack developer"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "text": "My passion lies in taking on new challenges and continuously expanding my skill set. I love contributing to innovative projects and working with a team to create something amazing. I'm a quick learner and always ready to go the extra mile to get things done."
+  },
+  {
+    "id": 3,
+    "text": "When I'm not coding, you can find me exploring new technologies, learning from online courses, and getting inspired by the developer community. I'm excited about the future and looking forward to the opportunities ahead."
+  }
+]

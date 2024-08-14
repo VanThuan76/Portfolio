@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Next.js",
+  "extends": "./base.json",
+  "compilerOptions": {
+    "plugins": [{ "name": "next" }],
+    "module": "esnext",
+    "moduleResolution": "node",
+    "allowJs": true,
+    "jsx": "preserve",
+    "noEmit": true,
+    "paths": {
+      "@/*": ["./*"],
+      "@ui/*": ["../../packages/ui/src/components/*"],
+      "@ui/components/*": ["../../packages/ui/src/components/ui/*"],
+      "@ui/components/ui/*": ["../../packages/ui/src/components/ui/*"],
+      "@styles/*": ["../../packages/ui/src/styles/*"],
+      "@utils/*": ["../../packages/ui/src/utils/*"],
+      "@store/*": ["../../apps/docs/store/*"],
+      "@server/*": ["../../apps/docs/server/*"],
+      "@api/*": ["../../apps/docs/app/api/*"],
+      "@shared/*": ["../../apps/docs/shared/*"]
+
+    }
+  }
+}
