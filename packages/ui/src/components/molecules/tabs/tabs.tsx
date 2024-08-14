@@ -26,8 +26,12 @@ export const Tabs = ({
   tabClassName?: string;
   contentClassName?: string;
 }) => {
-  const [active, setActive] = useState<Tab>(propTabs[0] || { title: '', value: '', content: '' });
-  const [tabs, setTabs] = useState<Tab[]>(propTabs || [{ title: '', value: '', content: '' }]);
+  const [active, setActive] = useState<Tab>(
+    propTabs[0] || { title: "", value: "", content: "" },
+  );
+  const [tabs, setTabs] = useState<Tab[]>(
+    propTabs || [{ title: "", value: "", content: "" }],
+  );
 
   const moveSelectedTabToTop = (idx: number) => {
     const newTabs: any = [...propTabs];

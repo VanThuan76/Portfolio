@@ -20,7 +20,6 @@
       "@server/*": ["../../apps/docs/server/*"],
       "@api/*": ["../../apps/docs/app/api/*"],
       "@shared/*": ["../../apps/docs/shared/*"]
-
     }
   }
 }

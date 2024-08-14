@@ -19,24 +19,6 @@
     "@tanstack/react-table": "^8.16.0",
     "@types/lqip-modern": "^1.1.7",
     "@types/nprogress": "^0.2.3",
-    "@udecode/cn": "^31.0.0",
-    "@udecode/plate": "^31.3.5",
-    "@udecode/plate-basic-marks": "^31.0.0",
-    "@udecode/plate-block-quote": "^31.0.0",
-    "@udecode/plate-caption": "^31.0.0",
-    "@udecode/plate-combobox": "^31.0.0",
-    "@udecode/plate-dnd": "^31.2.1",
-    "@udecode/plate-emoji": "^31.0.0",
-    "@udecode/plate-excalidraw": "^31.1.0",
-    "@udecode/plate-heading": "^31.0.0",
-    "@udecode/plate-indent": "^31.1.0",
-    "@udecode/plate-indent-list": "^31.2.2",
-    "@udecode/plate-juice": "^31.0.0",
-    "@udecode/plate-line-height": "^31.0.0",
-    "@udecode/plate-link": "^31.0.0",
-    "@udecode/plate-paragraph": "^31.0.0",
-    "@udecode/plate-selection": "^31.0.0",
-    "@udecode/plate-table": "^31.3.3",
     "ai": "^3.0.24",
     "axios": "^1.6.8",
     "class-variance-authority": "^0.7.0",
@@ -80,6 +62,7 @@
     "eslint-config-next": "14.2.1",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
-    "typescript": "^5"
+    "typescript": "^5",
+    "grammy": "^1.27.0"
   }
 }

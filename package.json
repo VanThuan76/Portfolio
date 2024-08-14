@@ -6,7 +6,7 @@
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "format": "prettier --write .",
     "update-types": "bunx supabase gen types typescript --local > src/lib/supabase/types/index.ts",
     "check-format": "bun run format && prettier --check .",
     "check-lint": "eslint . --ext ts --ext tsx --ext js",
