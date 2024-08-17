@@ -70,7 +70,49 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+.bg-screen-mobile {
+  background-color: #e8e6e6;
+}
+
+.no-scroll {
+  overflow: hidden;
+}
+
+.fade-in {
+  -webkit-animation: fade-in 500ms cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+  animation: fade-in 500ms cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+}
+
+@-webkit-keyframes fade-in {
+  0% {
+    -webkit-filter: blur(12px);
+    filter: blur(12px);
+    opacity: 0;
+  }
+
+  100% {
+    -webkit-filter: blur(0px);
+    filter: blur(0px);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    -webkit-filter: blur(12px);
+    filter: blur(12px);
+    opacity: 0;
+  }
+
+  100% {
+    -webkit-filter: blur(0px);
+    filter: blur(0px);
+    opacity: 1;
   }
 }

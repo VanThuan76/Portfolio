@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { usePathname } from "next/navigation";
 
+import { axiosInstance } from "@api/axios";
 import { getBlog } from "@server/actions/blog";
 import { getTag } from "@server/actions/tag";
 import { getProject } from "@server/actions/project";
@@ -10,49 +11,55 @@ import { getProject } from "@server/actions/project";
 import { cn } from "@utils/tw";
 import {
   setBlogs,
-  setHasSleep,
   setProfile,
   setProjects,
   setTags,
 } from "@store/app-slice";
 import { useAppDispatch, useAppSelector } from "@store/index";
 
-import MacStartupScreen from "@ui/organisms/mac-startup";
-import MacSleepScreen from "@ui/organisms/mac-sleep";
-import MacLaunchPadScreen from "@ui/organisms/mac-launchpad";
-
 import MotionContainer from "@ui/molecules/frame/dynamic-contain";
 import LazyWrapper from "@ui/molecules/frame/lazy-wrapper";
 
-import HeadMain from "./head/head-main";
-import { BottomBarMenu } from "./bottom-bar";
-import { axiosInstance } from "@api/axios";
+import HeadMain from "./head";
+import MacUiProvider from "./mac-ui-provider";
+import { BottomBarMenu } from "./navigation";
+
 
 interface Props {
   children: React.ReactNode;
 }
 
-const ContainerFully = ({ children }: Props) => {
-  const dispatch = useAppDispatch();
+const MainContainer = ({ children }: Props) => {
   const { hasSleep, hasFullScreen } = useAppSelector((state) => state.app);
 
   const [progress, setProgress] = useState(0);
-  const [swiped, setSwiped] = useState(false);
 
+  const dispatch = useAppDispatch();
   const pathName = usePathname();
 
-  const styleLayout = hasFullScreen
-    ? "bg-[#F6F6F6] dark:bg-[#060606]"
-    : "bg-[#E2E2E2] dark:bg-[#222222] px-4 md:px-8";
+  const styleLayout = useMemo(() => {
+    return hasFullScreen
+      ? "bg-[#F6F6F6] dark:bg-[#060606]"
+      : "bg-[#E2E2E2] dark:bg-[#222222] px-4 md:px-8";
+  }, [hasFullScreen]);
 
-  const fixLayoutFullScreen =
-    hasFullScreen &&
-    !pathName.includes("/admin") &&
-    !pathName.includes("/extensions")
-      ? "md:px-12 md:py-4 pt-4 "
+  const styleScreen = useMemo(() => {
+    return hasFullScreen
+      ? "relative w-full h-full"
+      : "relative w-full h-full bg-[#F6F6F6] dark:bg-[#060606] rounded-b-xl p-2 md:p-5 lg:p-10"
+  }, [hasFullScreen]);
+
+  const fixLayoutFullScreen = useMemo(() => {
+    return hasFullScreen &&
+      !pathName.includes("/admin") &&
+      !pathName.includes("/extensions")
+      ? "md:px-12 md:py-4"
       : "";
+  }, [hasFullScreen, pathName]);
 
-  const fixLayout = `${!hasSleep ? "z-[2000]" : ""} ${!hasFullScreen && "z-[0]"}`;
+  const fixLayout = useMemo(() => {
+    return `${!hasSleep ? "z-[2000]" : ""} ${!hasFullScreen && "z-[0]"}`;
+  }, [hasSleep, hasFullScreen]);
 
   useEffect(() => {
     const initializeApp = async () => {
@@ -91,42 +98,27 @@ const ContainerFully = ({ children }: Props) => {
   }, []);
 
   return (
-    <LazyWrapper>
-      <MacStartupScreen
-        logo="/logo.png"
-        progress={progress}
-        isActive={progress === 100 ? false : true}
-      />
-      <MacSleepScreen
-        logo="/logo.png"
-        isActive={hasSleep}
-        handleSuccess={() => {
-          dispatch(setHasSleep(false));
-          setSwiped(false);
-        }}
-        setSwiped={setSwiped}
-        swiped={swiped}
-      />
-      <MacLaunchPadScreen
-        isActive={!hasFullScreen}
-        applications={[{ name: "Test", image: "/logo.png" }]}
-      />
-      {progress === 100 && (
+    <main>
+      <LazyWrapper>
         <MotionContainer
           type="blur"
           className={cn(
-            "relative mx-auto w-[100vw] min-h-[100vh]",
+            "relative mx-auto w-[100vw] min-h-[100vh] hidden",
             styleLayout,
             fixLayout,
+            progress === 100 && 'block'
           )}
         >
           <HeadMain className={cn(!hasFullScreen && "rounded-t-xl")} />
-          <div className={fixLayoutFullScreen}>{children}</div>
+          <div className={cn('fade-in', styleScreen, fixLayoutFullScreen)}>
+            {children}
+          </div>
         </MotionContainer>
-      )}
-      <BottomBarMenu />
-    </LazyWrapper>
+        <BottomBarMenu />
+        <MacUiProvider progress={progress} />
+      </LazyWrapper>
+    </main>
   );
 };
 
-export default ContainerFully;
+export default React.memo(MainContainer);

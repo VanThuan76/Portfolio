@@ -70,14 +70,14 @@ export const Tabs = ({
                 layoutId="clickedbutton"
                 transition={{ type: "spring", bounce: 0.3, duration: 0.6 }}
                 className={cn(
-                  "absolute inset-0 bg-gray-200 dark:bg-zinc-800 rounded-full ",
+                  "absolute inset-0 bg-gray-400 md:bg-gray-200 dark:bg-zinc-800 rounded-full ",
                   activeTabClassName,
                 )}
               />
             )}
             <TypographyP
               title={tab.title}
-              className="text-sm relative block text-black dark:text-white"
+              className="text-xs md:text-sm relative block text-black dark:text-white"
             />
           </button>
         ))}

@@ -1,9 +1,15 @@
 "use client";
 
 import React from "react";
+import { cn } from "@utils/tw";
+import { useRouter } from "next/navigation";
 import { useAppSelector } from "@store/index";
 
-import MotionContainer from "@ui/molecules/frame/dynamic-contain";
+import useBreakpoint from "@shared/hooks/use-break-point";
+import usePageLoading from "@shared/hooks/use-page-loading";
+
+import SwipeableScreen from "@ui/molecules/effects/swipe-screen";
+import FadeWrapper from "@ui/molecules/frame/fade-wrapper";
 
 import CardProjectDesktop from "./@components/card-project-desktop";
 import CardProjectMobile from "./@components/card-project-mobile";
@@ -11,14 +17,29 @@ import CardProjectMobile from "./@components/card-project-mobile";
 export default function Page() {
   const { projects, isOpenScreen } = useAppSelector((state) => state.app);
 
+  const router = useRouter();
+  const breakpoint = useBreakpoint();
+  const isPageLoading = usePageLoading();
+
+  const handleNextPage = () => {
+    router.push("/");
+  };
+
+  const handlePrevPage = () => {
+    router.push("/blog");
+  };
+
   return (
-    <MotionContainer
-      type={isOpenScreen ? "slide" : "blur"}
-      direction="right"
-      className="w-full h-full col-span-2"
+    <SwipeableScreen
+      isActive={breakpoint === "xs" ? true : false}
+      isPageLoading={isPageLoading}
+      handleNextPage={handleNextPage}
+      handlePrevPage={handlePrevPage}
     >
-      <CardProjectMobile projects={projects} />
-      <CardProjectDesktop projects={projects} />
-    </MotionContainer>
+      <FadeWrapper className={cn("w-full min-h-[100vh]", breakpoint === "xs" && "bg-screen-mobile")}>
+        <CardProjectMobile projects={projects} />
+        <CardProjectDesktop projects={projects} />
+      </FadeWrapper>
+    </SwipeableScreen>
   );
 }

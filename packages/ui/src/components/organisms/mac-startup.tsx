@@ -58,6 +58,7 @@ const MacStartupScreen = ({
         height: "100vh",
         position: "relative",
         overflow: "hidden",
+        zIndex: 1000000
       }}
     >
       <m.img

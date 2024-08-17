@@ -3,9 +3,8 @@ import dynamic from "next/dynamic";
 import React, { useEffect, useState } from "react";
 import { cn } from "@utils/tw";
 
-import NavigationApple from "./navigation-apple";
-
-const NavigationExtApple = dynamic(() => import("./navigation-ext-apple"), {
+import NavigationApple from "./@components/navigation-apple";
+const NavigationExtApple = dynamic(() => import("./@components/navigation-ext-apple"), {
   ssr: false,
 });
 

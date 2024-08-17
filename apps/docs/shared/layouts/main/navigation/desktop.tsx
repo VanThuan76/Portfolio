@@ -1,17 +1,10 @@
 "use client";
-
+import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import {
-  Bot,
-  FolderOpenDot,
-  GithubIcon,
-  HomeIcon,
-  Newspaper,
-  NotebookText,
-} from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
-import { useAppDispatch } from "@store/index";
+
 import { cn } from "@utils/tw";
+import { useAppDispatch } from "@store/index";
 import { setHasFullScreen, setIsOpenScreen } from "@store/app-slice";
 
 import { buttonVariants } from "@ui/atoms/button";
@@ -24,7 +17,6 @@ import {
   TooltipTrigger,
 } from "@ui/molecules/other-utils/tooltip";
 import MotionContainer from "@ui/molecules/frame/dynamic-contain";
-import Image from "next/image";
 
 const DATA_MENUS = {
   home: [{ href: "/", icon: "/icon-navigation/home.svg", label: "Home" }],
@@ -59,7 +51,7 @@ const DATA_MENUS = {
   },
 };
 
-export function BottomBarMenuDesktop({ className }: { className?: string }) {
+export function NavigationDesktop({ className }: { className?: string }) {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const pathName = usePathname();

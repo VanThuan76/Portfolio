@@ -1,5 +1,6 @@
 "use client";
-import { motion, m } from "framer-motion";
+import { useEffect } from 'react'
+import { m } from "framer-motion";
 
 const MacSleepScreen = ({
   isActive,
@@ -14,6 +15,7 @@ const MacSleepScreen = ({
   handleSuccess: any;
   setSwiped: any;
 }) => {
+
   const handleDragEnd = (
     event: MouseEvent | TouchEvent | PointerEvent,
     info: { offset: { y: number } },
@@ -59,8 +61,20 @@ const MacSleepScreen = ({
     },
   };
 
+  useEffect(() => {
+    if (isActive) {
+      document.body.classList.add("no-scroll");
+    } else {
+      document.body.classList.remove("no-scroll");
+    }
+
+    return () => {
+      document.body.classList.remove("no-scroll");
+    };
+  }, [isActive]);
+
   return (
-    <motion.div
+    <m.div
       className="sleep-screen"
       variants={containerVariants}
       initial="hidden"
@@ -72,7 +86,7 @@ const MacSleepScreen = ({
         alignItems: "center",
         color: "#fff",
         height: "100vh",
-        position: "absolute",
+        position: "fixed",
         top: 0,
         left: 0,
         right: 0,
@@ -95,7 +109,7 @@ const MacSleepScreen = ({
       <m.span className="user-name" variants={userNameVariants}>
         Austin Vu
       </m.span>
-      <motion.div
+      <m.div
         className="swipe-bar"
         variants={swipeBarVariants}
         drag="y"
@@ -119,7 +133,7 @@ const MacSleepScreen = ({
           cursor: "grab",
         }}
       />
-    </motion.div>
+    </m.div>
   );
 };
 

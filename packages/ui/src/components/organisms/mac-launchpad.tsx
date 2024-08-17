@@ -1,4 +1,5 @@
 "use client";
+import { useEffect } from 'react'
 import { m } from "framer-motion";
 
 const MacLaunchPadScreen = ({
@@ -8,6 +9,7 @@ const MacLaunchPadScreen = ({
   isActive: boolean;
   applications: [{ name: string; image: string }];
 }) => {
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -27,6 +29,18 @@ const MacLaunchPadScreen = ({
     visible: { scale: 1, transition: { duration: 1, type: "spring" } },
   };
 
+  useEffect(() => {
+    if (isActive) {
+      document.body.classList.add("no-scroll");
+    } else {
+      document.body.classList.remove("no-scroll");
+    }
+
+    return () => {
+      document.body.classList.remove("no-scroll");
+    };
+  }, [isActive]);
+
   return (
     <m.div
       className="sleep-screen"
@@ -39,9 +53,8 @@ const MacLaunchPadScreen = ({
         justifyContent: "center",
         alignItems: "center",
         color: "#fff",
-        width: "100%",
-        height: "100%",
-        position: "absolute",
+        height: "100vh",
+        position: "fixed",
         top: 0,
         left: 0,
         right: 0,
