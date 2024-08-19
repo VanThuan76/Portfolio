@@ -7,7 +7,7 @@ function SwipeableScreen({
   handleNextPage,
   handlePrevPage,
   isActive,
-  isPageLoading, 
+  isPageLoading,
 }: {
   children: React.ReactNode;
   handleNextPage: () => void;
@@ -30,7 +30,7 @@ function SwipeableScreen({
         setTouchStartX(e.targetTouches[0]!.clientX);
         setTouchStartY(e.targetTouches[0]!.clientY);
         setTouchEndX(null);
-        setIsScrollingY(false); 
+        setIsScrollingY(false);
         setDragAmount(0);
       }
     };
@@ -49,13 +49,14 @@ function SwipeableScreen({
         const deltaY = currentTouchY - touchStartY;
 
         if (Math.abs(deltaY) > Math.abs(deltaX)) {
+          // Nếu di chuyển theo trục Y nhiều hơn, không cập nhật
           setIsScrollingY(true);
           return;
         }
 
+        // Chỉ cập nhật nếu di chuyển chủ yếu theo trục X
         setTouchEndX(currentTouchX);
         setDragAmount(deltaX);
-
         controls.set({
           x: deltaX,
           opacity: 1 - Math.abs(deltaX) / 500,
@@ -64,7 +65,13 @@ function SwipeableScreen({
     };
 
     const handleTouchEnd = () => {
-      if (!isActive || touchStartX === null || touchEndX === null || isScrollingY) return;
+      if (
+        !isActive ||
+        touchStartX === null ||
+        touchEndX === null ||
+        isScrollingY
+      )
+        return;
 
       const distance = touchStartX - touchEndX;
       const isSwipe = Math.abs(distance) > minSwipeDistance;
@@ -114,7 +121,7 @@ function SwipeableScreen({
     <m.div
       animate={controls}
       initial={{ x: 0, opacity: 1 }}
-      style={{ touchAction: "pan-y" }}
+      style={{ touchAction: "none" }}  // Ngăn chặn các hành vi kéo mặc định
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
     >
       {children}

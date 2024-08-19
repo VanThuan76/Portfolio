@@ -28,7 +28,7 @@ const fontBlog = Nunito_Sans({
   display: "swap",
   weight: ["200", "300", "400", "500", "600", "700"],
   preload: true,
-  subsets: ["latin"]
+  subsets: ["latin"],
 });
 
 async function getBlogAndCommentData(slugBlog: string) {

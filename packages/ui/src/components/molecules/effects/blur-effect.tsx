@@ -60,7 +60,7 @@ export default function BlurFade({
       <m.div
         ref={ref}
         initial="hidden"
-        animate={isClicked ? 'clicked' : isInView ? "visible" : "hidden"}
+        animate={isClicked ? "clicked" : isInView ? "visible" : "hidden"}
         exit="hidden"
         variants={combinedVariants}
         transition={{
