@@ -1,4 +1,5 @@
 import "@styles/globals.css";
+import { cn } from "@utils/tw";
 import type { Metadata } from "next";
 import { Edu_VIC_WA_NT_Beginner } from "next/font/google";
 
@@ -46,8 +47,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className="antialiased">
-      <body className={nextFont.className}>
+    <html lang="en" suppressHydrationWarning>
+      <body className={cn('transition ease-in-out duration-300 antialiased',nextFont.className)}>
         <Providers>
           <MainContainer>{children}</MainContainer>
         </Providers>

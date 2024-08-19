@@ -9,138 +9,138 @@ import { Badge } from "@ui/molecules/ui-elements/badge";
 import { LoaderImage } from "@ui/molecules/ui-elements/loader-image";
 
 export const HoverEffect = ({
-  items,
-  className,
+    items,
+    className,
 }: {
-  items: {
-    id: string;
-    title: string;
-    slug: string;
-    icon?: React.ReactNode;
-    image_url: string;
-    tags?: string[];
-  }[];
-  className?: string;
+    items: {
+        id: string;
+        title: string;
+        slug: string;
+        icon?: React.ReactNode;
+        image_url: string;
+        tags?: string[];
+    }[];
+    className?: string;
 }) => {
-  let [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+    let [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
-  return (
-    <div
-      className={cn(
-        "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 py-5",
-        className,
-      )}
-    >
-      {items.map((item, idx) => (
-        <Link
-          href={"/blog/" + item.id}
-          key={item?.id}
-          className="relative group block p-2 h-full w-full"
-          onMouseEnter={() => setHoveredIndex(idx)}
-          onMouseLeave={() => setHoveredIndex(null)}
-        >
-          <AnimatePresence>
-            {hoveredIndex === idx && (
-              <m.span
-                className="absolute inset-0 h-full w-full bg-neutral-200 dark:bg-slate-800/[0.8] block rounded-md"
-                layoutId="hoverBackground"
-                initial={{ opacity: 0 }}
-                animate={{
-                  opacity: 1,
-                  transition: { duration: 0.15 },
-                }}
-                exit={{
-                  opacity: 0,
-                  transition: { duration: 0.15, delay: 0.2 },
-                }}
-              />
+    return (
+        <div
+            className={cn(
+                "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 py-5",
+                className
             )}
-          </AnimatePresence>
-          <Card className="relative p-0 m-0 bg-[#393E46] dark:bg-white overflow-hidden shadow-lg">
-            <LoaderImage
-              isLoader={false}
-              src={item.image_url}
-              alt={item.title}
-              className="w-full h-[100px] object-cover object-center border-b border-b-gray-400"
-              width={355}
-              height={355}
-            />
-            <div className="px-4 pb-4">
-              <CardTitle className="flex justify-start items-center gap-1 text-sm mb-1 light:text-white dark:text-black ">
-                {item.icon && item.icon}
-                {item.title}
-              </CardTitle>
-              {item.tags &&
-                item.tags.length > 0 &&
-                item.tags.map((item, index) => {
-                  return (
-                    <Badge
-                      className="bg-gray-300 font-normal rounded-sm text-black"
-                      key={index}
-                    >
-                      {item}
-                    </Badge>
-                  );
-                })}
-            </div>
-          </Card>
-        </Link>
-      ))}
-    </div>
-  );
+        >
+            {items.map((item, idx) => (
+                <Link
+                    href={"/blog/" + item.id}
+                    key={item?.id}
+                    className="relative block w-full h-full p-2 group"
+                    onMouseEnter={() => setHoveredIndex(idx)}
+                    onMouseLeave={() => setHoveredIndex(null)}
+                >
+                    <AnimatePresence>
+                        {hoveredIndex === idx && (
+                            <m.span
+                                className="absolute inset-0 h-full w-full bg-neutral-200 dark:bg-slate-800/[0.8] block rounded-md"
+                                layoutId="hoverBackground"
+                                initial={{ opacity: 0 }}
+                                animate={{
+                                    opacity: 1,
+                                    transition: { duration: 0.15 },
+                                }}
+                                exit={{
+                                    opacity: 0,
+                                    transition: { duration: 0.15, delay: 0.2 },
+                                }}
+                            />
+                        )}
+                    </AnimatePresence>
+                    <Card className="relative p-0 m-0 bg-[#393E46] dark:bg-white overflow-hidden shadow-lg">
+                        <LoaderImage
+                            isLoader={false}
+                            src={item.image_url}
+                            alt={item.title}
+                            className="w-full h-[100px] object-cover object-center border-b border-b-gray-400"
+                            width={355}
+                            height={355}
+                        />
+                        <div className="px-4 pb-4">
+                            <CardTitle className="flex items-center justify-start gap-1 mb-1 text-sm light:text-white dark:text-black ">
+                                {item.icon && item.icon}
+                                {item.title}
+                            </CardTitle>
+                            {item.tags &&
+                                item.tags.length > 0 &&
+                                item.tags.map((item, index) => {
+                                    return (
+                                        <Badge
+                                            className="font-normal text-black bg-gray-300 rounded-sm"
+                                            key={index}
+                                        >
+                                            {item}
+                                        </Badge>
+                                    );
+                                })}
+                        </div>
+                    </Card>
+                </Link>
+            ))}
+        </div>
+    );
 };
 
 export const Card = ({
-  className,
-  children,
+    className,
+    children,
 }: {
-  className?: string;
-  children: React.ReactNode;
+    className?: string;
+    children: React.ReactNode;
 }) => {
-  return (
-    <div
-      className={cn(
-        "rounded-sm h-full w-full p-4 overflow-hidden bg-black border-2 border-transparent dark:border-white/[0.2] group-hover:border-slate-700 relative z-20",
-        className,
-      )}
-    >
-      <div className="relative z-50">{children}</div>
-    </div>
-  );
+    return (
+        <div
+            className={cn(
+                "rounded-sm h-full w-full p-4 overflow-hidden bg-black border-2 border-transparent dark:border-white/[0.2] group-hover:border-black/40 relative z-20 transition-all ease-in-out duration-300",
+                className,
+            )}
+        >
+            <div className="relative z-50 h-[90px] md:h-auto flex items-start justify-start md:flex-col overflow-hidden">{children}</div>
+        </div>
+    );
 };
 export const CardTitle = ({
-  className,
-  children,
+    className,
+    children,
 }: {
-  className?: string;
-  children: React.ReactNode;
+    className?: string;
+    children: React.ReactNode;
 }) => {
-  return (
-    <h4
-      className={cn(
-        "text-zinc-100 font-bold tracking-wide mt-2 md:mt-4",
-        className,
-      )}
-    >
-      {children}
-    </h4>
-  );
+    return (
+        <h4
+            className={cn(
+                "text-zinc-100 font-bold tracking-wide mt-2 md:mt-4",
+                className,
+            )}
+        >
+            {children}
+        </h4>
+    );
 };
 export const CardDescription = ({
-  className,
-  children,
+    className,
+    children,
 }: {
-  className?: string;
-  children: React.ReactNode;
+    className?: string;
+    children: React.ReactNode;
 }) => {
-  return (
-    <p
-      className={cn(
-        "mt-8 text-zinc-400 tracking-wide leading-relaxed text-sm",
-        className,
-      )}
-    >
-      {children}
-    </p>
-  );
+    return (
+        <p
+            className={cn(
+                "mt-8 text-zinc-400 tracking-wide leading-relaxed text-sm",
+                className,
+            )}
+        >
+            {children}
+        </p>
+    );
 };

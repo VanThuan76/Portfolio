@@ -36,7 +36,7 @@ const HeadMain = ({ className }: Props) => {
   return (
     <div
       className={cn(
-        "hidden sticky bg-white dark:bg-[#030712] shadow-md w-full h-full top-0 left-0 md:grid grid-cols-3 justify-center items-center px-4 z-50",
+        "hidden sticky bg-white dark:bg-[#030712] shadow-md w-full top-0 left-0 md:grid grid-cols-3 justify-center items-center px-4 z-50",
         className,
       )}
     >

@@ -5,7 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 
 import { cn } from "@utils/tw";
 import { useAppDispatch } from "@store/index";
-import { setHasFullScreen, setIsOpenScreen } from "@store/app-slice";
+import { setHasFullScreen } from "@store/app-slice";
 
 import { buttonVariants } from "@ui/atoms/button";
 
@@ -62,7 +62,6 @@ export function NavigationDesktop({ className }: { className?: string }) {
   useEffect(() => {
     if (prevPath !== pathName) {
       dispatch(setHasFullScreen(true));
-      dispatch(setIsOpenScreen(true));
       setIsPageChanging(true);
       setPrevPath(pathName);
     } else {

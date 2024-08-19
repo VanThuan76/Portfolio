@@ -116,3 +116,22 @@
     opacity: 1;
   }
 }
+
+@keyframes swipeBounce {
+  0% {
+    transform: translateX(100%); /* Bắt đầu từ ngoài khung nhìn, bên phải */
+  }
+  50% {
+    transform: translateX(-10%); /* Quá độ sang trái một chút */
+  }
+  75% {
+    transform: translateX(0); /* Trở lại vị trí ban đầu */
+  }
+  100% {
+    transform: translateX(-10%); /* Lùi lại một chút khi kết thúc */
+  }
+}
+
+.swipe-animation {
+  animation: swipeBounce 2s ease-in-out infinite; /* Animation liên tục */
+}

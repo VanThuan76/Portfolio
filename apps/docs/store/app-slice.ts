@@ -10,7 +10,7 @@ export interface IDefaultState {
   tags: ITag[] | [];
   blogs: IBlog[] | [];
   projects: IProject[] | [];
-  isOpenScreen: boolean;
+  isHintSwipe: boolean;
   hasSleep: boolean;
   hasFullScreen: boolean;
 }
@@ -20,7 +20,7 @@ const initialState: IDefaultState = {
   tags: [],
   blogs: [],
   projects: [],
-  isOpenScreen: false,
+  isHintSwipe: true,
   hasSleep: false,
   hasFullScreen: true,
 };
@@ -44,8 +44,8 @@ export const appSlice = createSlice({
     setHasSleep: (state, action: PayloadAction<boolean>) => {
       state.hasSleep = action.payload;
     },
-    setIsOpenScreen: (state, action: PayloadAction<boolean>) => {
-      state.isOpenScreen = action.payload;
+    setIsHintSwipe: (state, action: PayloadAction<boolean>) => {
+      state.isHintSwipe = action.payload;
     },
     setHasFullScreen: (state, action: PayloadAction<boolean>) => {
       state.hasFullScreen = action.payload;
@@ -60,6 +60,6 @@ export const {
   setProjects,
   setHasFullScreen,
   setHasSleep,
-  setIsOpenScreen,
+  setIsHintSwipe,
 } = appSlice.actions;
 export const appReducer = appSlice.reducer;
