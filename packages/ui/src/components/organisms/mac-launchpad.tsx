@@ -1,5 +1,5 @@
 "use client";
-import { useEffect } from 'react'
+import { useEffect } from "react";
 import { m } from "framer-motion";
 
 const MacLaunchPadScreen = ({
@@ -9,7 +9,6 @@ const MacLaunchPadScreen = ({
   isActive: boolean;
   applications: [{ name: string; image: string }];
 }) => {
-
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {

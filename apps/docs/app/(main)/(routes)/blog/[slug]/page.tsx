@@ -1,5 +1,5 @@
 import { Heart } from "lucide-react";
-import { Space_Mono } from "next/font/google";
+import { Nunito_Sans } from "next/font/google";
 
 import { getBlog } from "@server/actions/blog";
 import { IBlogSupabase } from "@server/data/types/blog";
@@ -24,10 +24,11 @@ import CardBlog from "../@components/card-blog";
 import Comment from "../@components/comment";
 import ContentBlog from "../@components/content-blog";
 
-const spaceMono = Space_Mono({
-  subsets: ["latin-ext"],
+const fontBlog = Nunito_Sans({
   display: "swap",
-  weight: ["400"],
+  weight: ["200", "300", "400", "500", "600", "700"],
+  preload: true,
+  subsets: ["latin"]
 });
 
 async function getBlogAndCommentData(slugBlog: string) {
@@ -47,9 +48,9 @@ export default async function Page({ params }: { params: { slug: string } }) {
   const blogs = await getBlog();
 
   return (
-    <div className="relative w-full grid grid-cols-1 md:grid-cols-3 justify-between items-start px-0 md:px-4 mx-auto h-full gap-10">
-      <article className="w-full h-auto relative col-span-1 md:col-span-2">
-        <div className="sticky top-[35px] md:top-9 z-50 backdrop-blur-sm bg-white/30 mb-5 p-2">
+    <div className="relative grid items-start justify-between w-full h-full grid-cols-1 gap-10 px-4 mx-auto md:grid-cols-3">
+      <article className="relative w-full h-auto col-span-1 md:col-span-2">
+        <div className="sticky top-[35px] md:top-9 z-50 backdrop-blur-sm bg-white/30 mb-5 pt-2">
           <h1 className="text-3xl font-bold dark:text-gray-200">
             {blog.title}
           </h1>
@@ -59,17 +60,17 @@ export default async function Page({ params }: { params: { slug: string } }) {
         </div>
         <div
           className={cn(
-            "w-full h-full dark:bg-grid-white/[0.2] bg-grid-black/[0.2]",
-            spaceMono.className,
+            "w-full h-full dark:bg-grid-white/[0.1] bg-grid-black/[0.1] text-xs md:text-base",
+            fontBlog.className,
           )}
         >
           <ContentBlog content={JSON.parse(blog.content as string)} />
         </div>
         <Separator className="w-full my-3" />
-        <div className="w-full flex flex-col justify-start items-start py-4 px-2 gap-5 bg-white dark:bg-black rounded-sm">
+        <div className="flex flex-col items-start justify-start w-full gap-5 px-2 py-4 bg-white rounded-sm dark:bg-black">
           <TypographyH3
             title={`Top Comments(${comments.data?.length})`}
-            className="font-medium text-lg"
+            className="text-lg font-medium"
           />
           <Comment user={user} blogId={blog.id} />
           <div className="w-full h-full">
@@ -79,9 +80,9 @@ export default async function Page({ params }: { params: { slug: string } }) {
                 return (
                   <div
                     key={i}
-                    className="w-full flex flex-col justify-start items-start gap-2 my-5"
+                    className="flex flex-col items-start justify-start w-full gap-2 my-5"
                   >
-                    <div className="w-full flex justify-start items-start gap-2">
+                    <div className="flex items-start justify-start w-full gap-2">
                       <Avatar>
                         <AvatarImage
                           src={comment.users?.avatar_url as string}
@@ -89,8 +90,8 @@ export default async function Page({ params }: { params: { slug: string } }) {
                         />
                         <AvatarFallback>CN</AvatarFallback>
                       </Avatar>
-                      <div className="w-full flex flex-col justify-start items-start border rounded-md p-4">
-                        <div className="flex items-center justify-start gap-2 w-full">
+                      <div className="flex flex-col items-start justify-start w-full p-4 border rounded-md">
+                        <div className="flex items-center justify-start w-full gap-2">
                           <TypographyP
                             title={comment.users?.display_name as string}
                             className="font-medium"
@@ -104,7 +105,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
                         />
                       </div>
                     </div>
-                    <div className="flex justify-start items-center gap-2 ml-12">
+                    <div className="flex items-center justify-start gap-2 ml-12">
                       <Heart className="w-[16px] h-[16px]" />
                       <span className="text-xs text-zinc-700">
                         {comment.like} likes

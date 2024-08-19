@@ -48,7 +48,7 @@ const HoverImageLink: React.FC<HoverImageLinkProps> = ({
       onMouseMove={handleMouseMove}
       initial="initial"
       whileHover="whileHover"
-      className="group relative transition-colors duration-500 hover:border-neutral-50"
+      className="relative transition-colors duration-500 group hover:border-neutral-50"
     >
       {children}
       <m.img
@@ -64,7 +64,7 @@ const HoverImageLink: React.FC<HoverImageLinkProps> = ({
         }}
         transition={{ type: "spring" }}
         src={imgSrc}
-        className="absolute z-0 h-24 w-32 rounded-lg object-cover"
+        className="absolute z-0 object-cover w-32 h-24 rounded-lg"
         alt={`Image representing a link for smth`}
       />
     </m.a>

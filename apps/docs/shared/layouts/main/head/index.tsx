@@ -4,9 +4,12 @@ import React, { useEffect, useState } from "react";
 import { cn } from "@utils/tw";
 
 import NavigationApple from "./@components/navigation-apple";
-const NavigationExtApple = dynamic(() => import("./@components/navigation-ext-apple"), {
-  ssr: false,
-});
+const NavigationExtApple = dynamic(
+  () => import("./@components/navigation-ext-apple"),
+  {
+    ssr: false,
+  },
+);
 
 type Props = {
   className?: string;

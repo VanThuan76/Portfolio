@@ -2,7 +2,10 @@
 
 import { IProject } from "@server/data/types/project";
 
+import { Separator } from "@ui/molecules/other-utils/separator";
 import { LoaderImage } from "@ui/molecules/ui-elements/loader-image";
+import { TypographyH3 } from "@ui/molecules/ui-elements/typography-h3";
+import { TypographyP } from "@ui/molecules/ui-elements/typography-p";
 import BlurFade from "@ui/molecules/effects/blur-effect";
 
 interface Props {
@@ -10,19 +13,26 @@ interface Props {
 }
 const CardProjectMobile = ({ projects }: Props) => {
   return (
-    <div className="w-full h-full columns-2 gap-4 sm:columns-3 pt-12 px-4">
-      {projects.map((item, idx) => (
-        <BlurFade key={idx} delay={0.25 + idx * 0.05} inView>
-          <LoaderImage
-            src={item.image_url}
-            alt={item.title}
-            isLoader={false}
-            width={500}
-            height={150}
-            className="mb-4 size-full rounded-lg object-contain"
-          />
-        </BlurFade>
-      ))}
+    <div className="w-full h-full flex flex-col justify-start items-start gap-3 pt-6 px-4 md:hidden">
+      <div className="space-y-3">
+        <TypographyH3 title="Selected projects" />
+        <TypographyP title="" />
+      </div>
+      <Separator className="w-full h-[1px] bg-slate-300" />
+      <div className="w-full h-full columns-2 gap-4 sm:columns-3">
+        {projects.map((item, idx) => (
+          <BlurFade key={idx} delay={0.25 + idx * 0.05} inView>
+            <LoaderImage
+              src={item.image_url}
+              alt={item.title}
+              isLoader={false}
+              width={500}
+              height={150}
+              className="mb-4 size-full rounded-lg object-contain"
+            />
+          </BlurFade>
+        ))}
+      </div>
     </div>
     // <BentoGrid className="flex flex-wrap md:hidden justify-start items-start w-full h-full">
     //   {projects.map((project) => ({

@@ -93,6 +93,7 @@ module.exports = {
             backgroundImage: `url("${svgToDataUri(
               `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="${value}" opacity="0.5"><path d="M0 .5H31.5V32"/></svg>`,
             )}")`,
+            backgroundPosition: "0 2rem",
           }),
           "bg-grid-small": (value) => ({
             backgroundImage: `url("${svgToDataUri(

@@ -57,19 +57,30 @@ const CardBlog = ({
               )}
             </AnimatePresence>
             <Card className="relative p-0 m-0 dark:bg-[#393E46] bg-white overflow-hidden shadow-lg">
-              <LoaderImage isLoader={false} src={item.image_url} alt={item.title} className="w-full h-[100px] object-cover object-center border-b border-b-gray-400" width={355} height={355} />
+              <LoaderImage
+                isLoader={false}
+                src={item.image_url}
+                alt={item.title}
+                className="w-full h-[100px] object-cover object-center border-b border-b-gray-400"
+                width={355}
+                height={355}
+              />
               <div className="px-2 md:px-4 pb-2 md:pb-4">
                 <CardTitle className="flex justify-start items-center gap-1 text-sm mb-0 md:mb-1 dark:text-white text-black font-medium">
                   {item.icon && item.icon}
                   {item.title}
                 </CardTitle>
-                {item.tags && item.tags.map((item, index) => {
-                  return (
-                    <Badge key={index} className="bg-gray-300 font-normal rounded-sm text-black">
-                      {item.title}
-                    </Badge>
-                  );
-                })}
+                {item.tags &&
+                  item.tags.map((item, index) => {
+                    return (
+                      <Badge
+                        key={index}
+                        className="bg-gray-300 font-normal rounded-sm text-black"
+                      >
+                        {item.title}
+                      </Badge>
+                    );
+                  })}
               </div>
             </Card>
           </Link>

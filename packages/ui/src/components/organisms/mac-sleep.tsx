@@ -1,5 +1,5 @@
 "use client";
-import { useEffect } from 'react'
+import { useEffect } from "react";
 import { m } from "framer-motion";
 
 const MacSleepScreen = ({
@@ -15,7 +15,6 @@ const MacSleepScreen = ({
   handleSuccess: any;
   setSwiped: any;
 }) => {
-
   const handleDragEnd = (
     event: MouseEvent | TouchEvent | PointerEvent,
     info: { offset: { y: number } },

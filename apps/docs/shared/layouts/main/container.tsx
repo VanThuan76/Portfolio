@@ -9,12 +9,7 @@ import { getTag } from "@server/actions/tag";
 import { getProject } from "@server/actions/project";
 
 import { cn } from "@utils/tw";
-import {
-  setBlogs,
-  setProfile,
-  setProjects,
-  setTags,
-} from "@store/app-slice";
+import { setBlogs, setProfile, setProjects, setTags } from "@store/app-slice";
 import { useAppDispatch, useAppSelector } from "@store/index";
 
 import MotionContainer from "@ui/molecules/frame/dynamic-contain";
@@ -23,7 +18,6 @@ import LazyWrapper from "@ui/molecules/frame/lazy-wrapper";
 import HeadMain from "./head";
 import MacUiProvider from "./mac-ui-provider";
 import { BottomBarMenu } from "./navigation";
-
 
 interface Props {
   children: React.ReactNode;
@@ -46,7 +40,7 @@ const MainContainer = ({ children }: Props) => {
   const styleScreen = useMemo(() => {
     return hasFullScreen
       ? "relative w-full h-full"
-      : "relative w-full h-full bg-[#F6F6F6] dark:bg-[#060606] rounded-b-xl p-2 md:p-5 lg:p-10"
+      : "relative w-full h-full bg-[#F6F6F6] dark:bg-[#060606] rounded-b-xl p-2 md:p-5 lg:p-10";
   }, [hasFullScreen]);
 
   const fixLayoutFullScreen = useMemo(() => {
@@ -106,11 +100,11 @@ const MainContainer = ({ children }: Props) => {
             "relative mx-auto w-[100vw] min-h-[100vh] hidden",
             styleLayout,
             fixLayout,
-            progress === 100 && 'block'
+            progress === 100 && "block",
           )}
         >
           <HeadMain className={cn(!hasFullScreen && "rounded-t-xl")} />
-          <div className={cn('fade-in', styleScreen, fixLayoutFullScreen)}>
+          <div className={cn("fade-in", styleScreen, fixLayoutFullScreen)}>
             {children}
           </div>
         </MotionContainer>

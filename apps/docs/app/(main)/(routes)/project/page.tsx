@@ -36,9 +36,14 @@ export default function Page() {
       handleNextPage={handleNextPage}
       handlePrevPage={handlePrevPage}
     >
-      <FadeWrapper className={cn("w-full min-h-[100vh]", breakpoint === "xs" && "bg-screen-mobile")}>
-        <CardProjectMobile projects={projects} />
+      <FadeWrapper
+        className={cn(
+          "w-full min-h-[100vh]",
+          breakpoint === "xs" && "bg-screen-mobile",
+        )}
+      >
         <CardProjectDesktop projects={projects} />
+        <CardProjectMobile projects={projects} />
       </FadeWrapper>
     </SwipeableScreen>
   );

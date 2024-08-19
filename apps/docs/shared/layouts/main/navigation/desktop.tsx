@@ -81,7 +81,7 @@ export function NavigationDesktop({ className }: { className?: string }) {
     <MotionContainer
       type="blur"
       className={cn(
-        "fixed bottom-5 flex items-center justify-center",
+        "fixed bottom-5 right-1/2 left-1/2 flex items-center justify-center",
         className,
       )}
     >

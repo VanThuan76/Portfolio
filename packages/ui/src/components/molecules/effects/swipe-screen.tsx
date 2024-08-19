@@ -7,71 +7,87 @@ function SwipeableScreen({
   handleNextPage,
   handlePrevPage,
   isActive,
-  isPageLoading, // New prop to track loading status
+  isPageLoading, 
 }: {
   children: React.ReactNode;
   handleNextPage: () => void;
   handlePrevPage: () => void;
   isActive: boolean;
-  isPageLoading: boolean; // New prop to track loading status
+  isPageLoading: boolean;
 }) {
   const controls = useAnimation();
-  const [touchStart, setTouchStart] = useState<number | null>(null);
-  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
+  const [touchStartY, setTouchStartY] = useState<number | null>(null);
+  const [touchEndX, setTouchEndX] = useState<number | null>(null);
   const [dragAmount, setDragAmount] = useState<number>(0);
+  const [isScrollingY, setIsScrollingY] = useState<boolean>(false);
 
   const minSwipeDistance = 50;
 
   useEffect(() => {
     const handleTouchStart = (e: TouchEvent) => {
       if (isActive && e.targetTouches && e.targetTouches.length > 0) {
-        setTouchStart(e.targetTouches[0]!.clientX);
-        setTouchEnd(null);
+        setTouchStartX(e.targetTouches[0]!.clientX);
+        setTouchStartY(e.targetTouches[0]!.clientY);
+        setTouchEndX(null);
+        setIsScrollingY(false); 
         setDragAmount(0);
       }
     };
 
     const handleTouchMove = (e: TouchEvent) => {
-      if (isActive && e.targetTouches && e.targetTouches.length > 0 && touchStart !== null) {
-        const currentTouch = e.targetTouches[0]!.clientX;
-        setTouchEnd(currentTouch);
+      if (
+        isActive &&
+        e.targetTouches &&
+        e.targetTouches.length > 0 &&
+        touchStartX !== null &&
+        touchStartY !== null
+      ) {
+        const currentTouchX = e.targetTouches[0]!.clientX;
+        const currentTouchY = e.targetTouches[0]!.clientY;
+        const deltaX = currentTouchX - touchStartX;
+        const deltaY = currentTouchY - touchStartY;
 
-        const dragDelta = currentTouch - touchStart;
-        setDragAmount(dragDelta);
-        
+        if (Math.abs(deltaY) > Math.abs(deltaX)) {
+          setIsScrollingY(true);
+          return;
+        }
+
+        setTouchEndX(currentTouchX);
+        setDragAmount(deltaX);
+
         controls.set({
-          x: dragDelta,
-          opacity: 1 - Math.abs(dragDelta) / 500,
+          x: deltaX,
+          opacity: 1 - Math.abs(deltaX) / 500,
         });
       }
     };
 
     const handleTouchEnd = () => {
-      if (!isActive || touchStart === null || touchEnd === null) return;
+      if (!isActive || touchStartX === null || touchEndX === null || isScrollingY) return;
 
-      const distance = touchStart - touchEnd;
+      const distance = touchStartX - touchEndX;
       const isSwipe = Math.abs(distance) > minSwipeDistance;
 
-      if (isSwipe && !isPageLoading) { // Only allow swipe if the page is not loading
+      if (isSwipe && !isPageLoading) {
         if (distance > 0) {
-          // Swiped left
           controls.start({ x: "-100vw", opacity: 0.5 }).then(() => {
             handleNextPage();
           });
         } else {
-          // Swiped right
           controls.start({ x: "100vw", opacity: 0.5 }).then(() => {
             handlePrevPage();
           });
         }
       } else {
-        // Reset the position if the swipe was not far enough
-        controls.start({ x: 0, opacity: 1 });
+        controls.start({ x: 0, opacity: 1 }).then(() => {
+          setDragAmount(0);
+        });
       }
 
-      setTouchStart(null);
-      setTouchEnd(null);
-      setDragAmount(0);
+      setTouchStartX(null);
+      setTouchEndX(null);
+      setIsScrollingY(false);
     };
 
     document.addEventListener("touchstart", handleTouchStart);
@@ -83,7 +99,16 @@ function SwipeableScreen({
       document.removeEventListener("touchmove", handleTouchMove);
       document.removeEventListener("touchend", handleTouchEnd);
     };
-  }, [touchStart, touchEnd, controls, handleNextPage, handlePrevPage, isActive, isPageLoading]);
+  }, [
+    touchStartX,
+    touchEndX,
+    controls,
+    handleNextPage,
+    handlePrevPage,
+    isActive,
+    isPageLoading,
+    isScrollingY,
+  ]);
 
   return (
     <m.div

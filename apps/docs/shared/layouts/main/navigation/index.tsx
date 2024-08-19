@@ -10,7 +10,7 @@ import { NavigationMobile } from "./mobile";
 
 export function BottomBarMenu() {
   const { hasFullScreen } = useAppSelector((state) => state.app);
-  const breakpoint = useBreakpoint()
+  const breakpoint = useBreakpoint();
 
   const renderMenu = () => {
     if (breakpoint === "xs") {
@@ -25,7 +25,11 @@ export function BottomBarMenu() {
   };
 
   return (
-    <div className={cn("relative w-full flex items-center justify-cente z-[10002]")}>
+    <div
+      className={cn(
+        "relative w-full flex items-center justify-cente z-[10002]",
+      )}
+    >
       {renderMenu()}
     </div>
   );
