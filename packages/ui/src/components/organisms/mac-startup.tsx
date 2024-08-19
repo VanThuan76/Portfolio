@@ -53,10 +53,14 @@ const MacStartupScreen = ({
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
         backgroundColor: "#555",
         color: "#fff",
         height: "100vh",
-        position: "relative",
         overflow: "hidden",
         zIndex: 1000000,
       }}
@@ -73,11 +77,11 @@ const MacStartupScreen = ({
         Austin Vu
       </m.span>
       <m.div
-        className="outer-bar mt-14 w-64 h-1 bg-gray-500 rounded-full overflow-hidden"
+        className="w-64 h-1 overflow-hidden bg-gray-500 rounded-full outer-bar mt-14"
         style={{ boxShadow: "inset 0 0 5px rgba(0, 0, 0, 0.5)" }}
       >
         <m.div
-          className="inner-bar h-full bg-white rounded-full"
+          className="h-full bg-white rounded-full inner-bar"
           variants={progressBarVariants}
           initial="initial"
           animate="animate"

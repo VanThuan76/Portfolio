@@ -21,6 +21,7 @@ function SwipeableScreen({
   const [touchEndX, setTouchEndX] = useState<number | null>(null);
   const [dragAmount, setDragAmount] = useState<number>(0);
   const [isScrollingY, setIsScrollingY] = useState<boolean>(false);
+  const [resetTimeout, setResetTimeout] = useState<number | null>(null); // Thay đổi type ở đây
 
   const minSwipeDistance = 50;
 
@@ -32,6 +33,12 @@ function SwipeableScreen({
         setTouchEndX(null);
         setIsScrollingY(false);
         setDragAmount(0);
+
+        // Xóa timeout nếu có
+        if (resetTimeout !== null) {
+          clearTimeout(resetTimeout);
+          setResetTimeout(null);
+        }
       }
     };
 
@@ -49,14 +56,13 @@ function SwipeableScreen({
         const deltaY = currentTouchY - touchStartY;
 
         if (Math.abs(deltaY) > Math.abs(deltaX)) {
-          // Nếu di chuyển theo trục Y nhiều hơn, không cập nhật
           setIsScrollingY(true);
           return;
         }
 
-        // Chỉ cập nhật nếu di chuyển chủ yếu theo trục X
         setTouchEndX(currentTouchX);
         setDragAmount(deltaX);
+
         controls.set({
           x: deltaX,
           opacity: 1 - Math.abs(deltaX) / 500,
@@ -87,9 +93,14 @@ function SwipeableScreen({
           });
         }
       } else {
-        controls.start({ x: 0, opacity: 1 }).then(() => {
-          setDragAmount(0);
-        });
+        // Đặt lại layout về trạng thái ban đầu
+        const timeoutId = window.setTimeout(() => {
+          controls.start({ x: 0, opacity: 1 }).then(() => {
+            setDragAmount(0);
+          });
+        }, 300); // 2 giây timeout để quay lại trạng thái ban đầu
+
+        setResetTimeout(timeoutId); // Cập nhật state với id của timeout
       }
 
       setTouchStartX(null);
@@ -105,6 +116,11 @@ function SwipeableScreen({
       document.removeEventListener("touchstart", handleTouchStart);
       document.removeEventListener("touchmove", handleTouchMove);
       document.removeEventListener("touchend", handleTouchEnd);
+
+      // Xóa timeout khi component unmount
+      if (resetTimeout !== null) {
+        clearTimeout(resetTimeout);
+      }
     };
   }, [
     touchStartX,
@@ -115,6 +131,7 @@ function SwipeableScreen({
     isActive,
     isPageLoading,
     isScrollingY,
+    resetTimeout,
   ]);
 
   return (
