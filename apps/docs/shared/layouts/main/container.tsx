@@ -9,6 +9,7 @@ import { getTag } from "@server/actions/tag";
 import { getProject } from "@server/actions/project";
 
 import { cn } from "@utils/tw";
+import { useDisableScroll } from "@shared/hooks/use-disable-scroll";
 import { setBlogs, setProfile, setProjects, setTags } from "@store/app-slice";
 import { useAppDispatch, useAppSelector } from "@store/index";
 import { LoaderImage } from "@ui/molecules/ui-elements/loader-image";
@@ -26,13 +27,15 @@ interface Props {
 }
 
 const MainContainer = ({ children }: Props) => {
-    const { hasSleep, hasFullScreen, isHintSwipe } = useAppSelector((state) => state.app);
+    const { hasSleep, hasFullScreen, isHintSwipe } = useAppSelector(
+        (state) => state.app,
+    );
 
     const [progress, setProgress] = useState(0);
 
     const dispatch = useAppDispatch();
     const pathName = usePathname();
-    const breakpoint = useBreakpoint()
+    const breakpoint = useBreakpoint();
 
     const styleLayout = useMemo(() => {
         return hasFullScreen
@@ -94,6 +97,8 @@ const MainContainer = ({ children }: Props) => {
         initializeApp();
     }, []);
 
+    useDisableScroll()
+
     return (
         <LazyWrapper>
             <MotionContainer
@@ -104,21 +109,23 @@ const MainContainer = ({ children }: Props) => {
                     styleLayout,
                     fixLayout,
                     progress === 100 && "block",
-                    breakpoint === "xs" && "bg-screen-mobile"
+                    breakpoint === "xs" && "bg-screen-mobile",
                 )}
             >
                 <HeadMain className={cn(!hasFullScreen && "rounded-t-xl")} />
                 <div className={cn("fade-in", styleScreen, fixLayoutFullScreen)}>
                     {children}
                 </div>
-                {isHintSwipe && <LoaderImage
-                    src="/swipe.png"
-                    isLoader={false}
-                    alt="swipe"
-                    width={300}
-                    height={300}
-                    className="absolute object-cover object-center w-[75px] h-[75px] rounded-lg bottom-[50%] right-5 z-[5000] swipe-animation"
-                />}
+                {isHintSwipe && (
+                    <LoaderImage
+                        src="/swipe.png"
+                        isLoader={false}
+                        alt="swipe"
+                        width={300}
+                        height={300}
+                        className="absolute block md:hidden object-cover object-center w-[75px] h-[75px] rounded-lg bottom-[50%] right-5 z-[5000] swipe-animation"
+                    />
+                )}
             </MotionContainer>
             {/* //Extend */}
             <BottomBarMenu />

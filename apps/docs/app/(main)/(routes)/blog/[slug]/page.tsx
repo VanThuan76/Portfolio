@@ -33,14 +33,19 @@ const fontBlog = Nunito_Sans({
 });
 
 async function getBlogAndCommentData(slugBlog: string) {
-    const { data: blog } = await axiosInstance.get<IBaseResponse<IBlogSupabase>>(
-        `/api/blog?slug=${slugBlog}`,
-    );
-    const comments = await readCommentByBlogId(blog && blog.id);
-    return {
-        blog,
-        comments,
-    };
+    try {
+        const { data: blog } = await axiosInstance.get<IBaseResponse<IBlogSupabase>>(
+            `/api/blog?slug=${slugBlog}`
+        );
+        const comments = await readCommentByBlogId(blog && blog.id);
+        return {
+            blog,
+            comments,
+        };
+    } catch (error) {
+        console.error("Error fetching blog and comments data:", error);
+        throw new Error("Failed to fetch blog and comments data");
+    }
 }
 
 export default async function Page({ params }: { params: { slug: string } }) {
