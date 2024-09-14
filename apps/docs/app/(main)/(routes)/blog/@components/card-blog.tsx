@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
@@ -38,10 +37,8 @@ const CardBlog = ({
     const [clickedSlug, setClickedSlug] = useState<string | null>(null);
 
     function handleRedirect(slug: string) {
-        console.log("Transition started");
         startTransition(() => {
             router.replace(`${"/blog/" + slug}`, { scroll: false });
-            console.log("Transition complete");
         });
         setClickedSlug(slug);
     }

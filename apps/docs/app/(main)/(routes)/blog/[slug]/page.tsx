@@ -36,7 +36,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
   const { blog, comments } = article;
 
   return (
-    <div className="relative md:bg-[#F6F6F6] dark:bg-[#030712] rounded-none md:rounded-lg border shadow-none md:shadow-lg grid items-start justify-between w-full h-full md:h-[45rem] grid-cols-1 gap-10 px-0 pt-6 mx-auto md:py-6 md:px-12 md:grid-cols-5 overflow-hidden">
+    <div className="relative md:bg-[#F6F6F6] dark:bg-[#030712] rounded-none md:rounded-lg border-none md:border shadow-none md:shadow-lg grid items-start justify-between w-full h-full md:h-[45rem] grid-cols-1 gap-10 px-0 pt-6 mx-auto md:py-6 md:px-12 md:grid-cols-5 overflow-hidden">
       <div className="flex flex-col items-start justify-start w-full h-full col-span-1 gap-5 md:col-span-4 md:overflow-y-auto">
         <article className="relative z-20 w-full h-full md:h-[80%] p-3 bg-white md:overflow-y-auto translate-y-52 rounded-t-3xl md:bg-transparent md:translate-y-0 md:p-0 md:rounded-none">
           <div className="absolute z-50 p-2 mb-5 bg-transparent md:sticky -top-20 md:top-0 backdrop-blur-none md:backdrop-blur-sm md:bg-black/30 dark:bg-white/30 md:rounded-b-lg">
