@@ -15,40 +15,40 @@ import CardProjectDesktop from "./@components/card-project-desktop";
 import CardProjectMobile from "./@components/card-project-mobile";
 
 export default function Page() {
-    const { projects } = useAppSelector((state) => state.app);
+  const { projects } = useAppSelector((state) => state.app);
 
-    const [isPending, startTransition] = useTransition();
+  const [isPending, startTransition] = useTransition();
 
-    const router = useRouter();
-    const breakpoint = useBreakpoint();
+  const router = useRouter();
+  const breakpoint = useBreakpoint();
 
-    const handleNextPage = () => {
-        startTransition(() => {
-            router.push("/");
-        });
-    };
+  const handleNextPage = () => {
+    startTransition(() => {
+      router.push("/");
+    });
+  };
 
-    const handlePrevPage = () => {
-        startTransition(() => {
-            router.push("/blog");
-        });
-    };
+  const handlePrevPage = () => {
+    startTransition(() => {
+      router.push("/blog");
+    });
+  };
 
-    return (
-        <SwipeableScreen
-            isActive={breakpoint === "xs" ? true : false}
-            handleNextPage={handleNextPage}
-            handlePrevPage={handlePrevPage}
-        >
-            <FadeWrapper
-                className={cn(
-                    "w-full h-full",
-                    breakpoint === "xs" && "bg-screen-mobile",
-                )}
-            >
-                <CardProjectDesktop projects={projects} />
-                <CardProjectMobile projects={projects} isPending={isPending} />
-            </FadeWrapper>
-        </SwipeableScreen>
-    );
+  return (
+    <SwipeableScreen
+      isActive={breakpoint === "xs" ? true : false}
+      handleNextPage={handleNextPage}
+      handlePrevPage={handlePrevPage}
+    >
+      <FadeWrapper
+        className={cn(
+          "w-full h-full",
+          breakpoint === "xs" && "bg-screen-mobile",
+        )}
+      >
+        <CardProjectDesktop projects={projects} />
+        <CardProjectMobile projects={projects} isPending={isPending} />
+      </FadeWrapper>
+    </SwipeableScreen>
+  );
 }
