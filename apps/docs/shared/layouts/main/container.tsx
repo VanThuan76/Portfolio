@@ -128,7 +128,6 @@ const MainContainer = ({ children }: Props) => {
                         className="absolute block md:hidden object-cover object-center w-[75px] h-[75px] rounded-lg bottom-[50%] right-5 z-[5000] swipe-animation"
                     />
                 )}
-
             </MotionContainer>
 
             {/* //Extend */}
