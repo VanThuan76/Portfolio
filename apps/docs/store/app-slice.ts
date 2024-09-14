@@ -11,6 +11,7 @@ export interface IDefaultState {
   blogs: IBlog[] | [];
   projects: IProject[] | [];
   isHintSwipe: boolean;
+  hasVisited: boolean;
   hasSleep: boolean;
   hasFullScreen: boolean;
 }
@@ -20,6 +21,7 @@ const initialState: IDefaultState = {
   tags: [],
   blogs: [],
   projects: [],
+  hasVisited: false,
   isHintSwipe: true,
   hasSleep: false,
   hasFullScreen: true,
@@ -50,6 +52,9 @@ export const appSlice = createSlice({
     setHasFullScreen: (state, action: PayloadAction<boolean>) => {
       state.hasFullScreen = action.payload;
     },
+    setHasVisited: (state, action) => {
+      state.hasVisited = action.payload;
+    },
   },
 });
 
@@ -61,5 +66,6 @@ export const {
   setHasFullScreen,
   setHasSleep,
   setIsHintSwipe,
+  setHasVisited,
 } = appSlice.actions;
 export const appReducer = appSlice.reducer;
