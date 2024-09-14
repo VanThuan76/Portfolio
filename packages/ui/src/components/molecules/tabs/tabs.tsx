@@ -79,7 +79,7 @@ export const Tabs = ({
             )}
             <TypographyP
               title={tab.title}
-              className="relative block text-xs text-black md:text-sm dark:text-white"
+              className={cn("relative block text-xs text-white md:text-sm", active.value === tab.value && "text-black")}
             />
           </button>
         ))}

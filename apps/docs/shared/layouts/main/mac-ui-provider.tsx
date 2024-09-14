@@ -12,7 +12,7 @@ import MacLaunchPadScreen from "@ui/organisms/mac-launchpad";
 
 const MacUiProvider = ({ progress }: { progress: number }) => {
     const dispatch = useAppDispatch();
-    const breakpoint = useBreakpoint()
+    const breakpoint = useBreakpoint();
 
     const { hasSleep, hasFullScreen } = useAppSelector((state) => state.app);
 
@@ -21,7 +21,7 @@ const MacUiProvider = ({ progress }: { progress: number }) => {
     return (
         <Fragment>
             <MacStartupScreen
-                size={breakpoint === "xs" ? 'small' : 'large'}
+                size={breakpoint === "xs" ? "small" : "large"}
                 logo="/logo.png"
                 progress={progress}
                 isActive={progress === 100 ? false : true}

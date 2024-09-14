@@ -97,7 +97,7 @@ const MainContainer = ({ children }: Props) => {
         initializeApp();
     }, []);
 
-    useDisableScroll()
+    useDisableScroll();
 
     return (
         <LazyWrapper>
@@ -113,9 +113,11 @@ const MainContainer = ({ children }: Props) => {
                 )}
             >
                 <HeadMain className={cn(!hasFullScreen && "rounded-t-xl")} />
+
                 <div className={cn("fade-in", styleScreen, fixLayoutFullScreen)}>
                     {children}
                 </div>
+
                 {isHintSwipe && (
                     <LoaderImage
                         src="/swipe.png"
@@ -126,7 +128,9 @@ const MainContainer = ({ children }: Props) => {
                         className="absolute block md:hidden object-cover object-center w-[75px] h-[75px] rounded-lg bottom-[50%] right-5 z-[5000] swipe-animation"
                     />
                 )}
+
             </MotionContainer>
+
             {/* //Extend */}
             <BottomBarMenu />
             <MacUiProvider progress={progress} />

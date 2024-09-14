@@ -84,6 +84,19 @@
   overflow: hidden;
 }
 
+.hide-scrollbar {
+  overflow: hidden;
+}
+
+.scrollable-content {
+  overflow: auto;
+  scrollbar-width: none;
+}
+
+.scrollable-content::-webkit-scrollbar {
+  display: none;
+}
+
 .fade-in {
   -webkit-animation: fade-in 500ms cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
   animation: fade-in 500ms cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
@@ -134,4 +147,12 @@
 
 .swipe-animation {
   animation: swipeBounce 2s ease-in-out infinite; /* Animation liên tục */
+}
+
+.scroll-baby[style*="opacity: 1"] {
+  @apply text-yellow-300 dark:text-yellow-500;
+}
+
+.scroll-file[style*="opacity: 1"] {
+  @apply text-blue-300 dark:text-blue-500;
 }

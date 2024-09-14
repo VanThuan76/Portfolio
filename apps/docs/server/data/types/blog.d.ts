@@ -5,7 +5,7 @@ export interface IBlogSupabase {
   title: string;
   slug: string;
   image_url: string;
-  content?: string;
+  content?: string | null;
   is_published: boolean;
   is_premium: boolean;
   created_at: Date | string;
@@ -29,10 +29,10 @@ export interface IBlog {
   is_premium: boolean;
   slug: string;
   tags: ITag[];
-  comments: Comment[];
+  comments: ICommentSupabase[];
 }
 
-interface Comment {
+export interface ICommentSupabase {
   id: string;
   created_at: string;
   updated_at: string;

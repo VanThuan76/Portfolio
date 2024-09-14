@@ -61,6 +61,7 @@
     "clsx": "^2.1.1",
     "framer-motion": "^11.3.3",
     "lucide-react": "^0.396.0",
+    "react-icon-cloud": "^4.1.4",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7"
   }
