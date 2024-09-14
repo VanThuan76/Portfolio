@@ -76,11 +76,13 @@
   }
 }
 
-@media not all and (min-resolution:.001dpcm) { @supports (-webkit-appearance: none) {
+@media not all and (min-resolution: 0.001dpcm) {
+  @supports (-webkit-appearance: none) {
     body {
-        background-color: #e8e6e6;
+      background-color: #e8e6e6;
     }
-}}
+  }
+}
 
 .bg-screen-mobile {
   background-color: #e8e6e6;
