@@ -6,7 +6,11 @@ import { currentProfile } from "@server/actions/auth";
 
 import { TypographyH3 } from "@ui/molecules/ui-elements/typography-h3";
 import { LoaderImage } from "@ui/molecules/ui-elements/loader-image";
-import { Modal, ModalBody, ModalTrigger } from "@ui/molecules/modals/animated-modal";
+import {
+  Modal,
+  ModalBody,
+  ModalTrigger,
+} from "@ui/molecules/modals/animated-modal";
 
 import FadeWrapper from "@ui/molecules/frame/fade-wrapper";
 

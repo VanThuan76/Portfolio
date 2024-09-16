@@ -122,9 +122,7 @@ const MainContainer = ({ children }: Props) => {
       >
         <HeadMain className={cn(!hasFullScreen && "rounded-t-xl")} />
 
-        <div className={cn(styleScreen, fixLayoutFullScreen)}>
-          {children}
-        </div>
+        <div className={cn(styleScreen, fixLayoutFullScreen)}>{children}</div>
 
         {isHintSwipe && (
           <LoaderImage
