@@ -42,7 +42,7 @@ export default function Page() {
     >
       <FadeWrapper
         className={cn(
-          "w-full h-full",
+          "w-full h-screen md:max-h-[45rem] lg:max-h-[50rem] overflow-auto md:overflow-hidden",
           breakpoint === "xs" && "bg-screen-mobile",
         )}
       >

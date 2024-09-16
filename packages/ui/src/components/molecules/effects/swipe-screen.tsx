@@ -63,7 +63,7 @@ function SwipeableScreen({
     };
   }, [touchStartX, handleNextPage, handlePrevPage, isActive]);
 
-  return <div style={{ touchAction: "none" }}>{children}</div>;
+  return <div className="w-full h-full grid place-items-center overflow-y-auto md:overflow-hidden" style={{ touchAction: "none" }}>{children}</div>;
 }
 
 export default SwipeableScreen;

@@ -62,7 +62,7 @@ export default function HomePage() {
       handleNextPage={handleNextPage}
       handlePrevPage={handlePrevPage}
     >
-      <FadeWrapper className="relative grid w-full h-screen min-h-screen grid-cols-1 gap-0 m-auto overflow-x-hidden md:min-h-full md:h-full lg:grid-cols-3 md:mt-3">
+      <FadeWrapper className="relative grid w-full h-screen md:max-h-[45rem] lg:max-h-[50rem] grid-cols-1 gap-0 m-auto lg:grid-cols-3">
         <MotionContainer type="blur" className="w-full h-full col-span-1">
           <CardContainer
             isActive={breakpoint === "xs" ? false : true}
@@ -70,7 +70,7 @@ export default function HomePage() {
           >
             <CardBody
               className={cn(
-                "bg-screen-mobile shadow-none md:shadow-lg md:bg-white relative group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:bg-[#030712] w-full h-full px-4 pt-4 md:p-6",
+                "bg-screen-mobile shadow-none md:bg-white relative group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:bg-[#030712] w-full h-full px-4 pt-4 md:p-6",
                 breakpoint === "xs"
                   ? "border-none"
                   : "border dark:border-white/[0.2] border-black/[0.1] rounded-xl",
@@ -91,7 +91,7 @@ export default function HomePage() {
               </CardItem>
               <CardItem
                 translateZ="100"
-                className="w-full h-[300px] md:h-[500px] mt-4 rounded-lg"
+                className="w-full h-[300px] md:h-[500px] lg:h-[600px] mt-4 rounded-lg"
               >
                 <LoaderImage
                   src="/hi.jpg"
@@ -136,7 +136,7 @@ export default function HomePage() {
           type="blur"
           className="w-full h-full col-span-1 md:col-span-2"
         >
-          <Card className="relative w-full h-full flex flex-col justify-between items-start dark:bg-[#030712] bg-[#e8e6e6] md:bg-white rounded-none shadow-none md:shadow-lg md:rounded-xl md:border overflow-hidden">
+          <Card className="relative w-full h-full flex flex-col justify-between items-start dark:bg-[#030712] bg-[#e8e6e6] md:bg-white rounded-none shadow-none md:rounded-xl md:border overflow-hidden">
             <CardHeader className="z-10 px-4 py-2 md:px-6 md:pt-6">
               <TypewriterEffectSmooth
                 className="mt-2 text-2xl leading-7 border-b md:my-4 border-b-neutral-300"

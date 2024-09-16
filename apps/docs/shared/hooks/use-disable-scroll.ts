@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useLayoutEffect } from "react";
 import useBreakpoint from "./use-break-point";
 
 export function useDisableScroll() {
@@ -6,21 +6,32 @@ export function useDisableScroll() {
   const [isScrollingY, setIsScrollingY] = useState(false);
   const breakpoint = useBreakpoint();
 
-  useEffect(() => {
+  const setScrollBehavior = () => {
+    if (breakpoint !== "xs" && breakpoint !== "sm") {
+      document.body.style.overflowY = "hidden";
+      document.body.style.overflowX = "hidden";
+    } else {
+      document.body.style.overflowY = "auto";
+      document.body.style.overflowX = "hidden";
+    }
+  };
+
+  useLayoutEffect(() => {
+    setScrollBehavior();
+
     const handleScroll = (e: WheelEvent) => {
       if (breakpoint !== "xs" && breakpoint !== "sm") {
         if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
           setIsScrollingX(true);
           setIsScrollingY(false);
           document.body.style.overflowY = "hidden";
+          document.body.style.overflowX = "hidden";
         } else {
           setIsScrollingX(false);
           setIsScrollingY(true);
+          document.body.style.overflowY = "hidden";
           document.body.style.overflowX = "hidden";
         }
-      } else {
-        document.body.style.overflowY = "auto";
-        document.body.style.overflowX = "auto";
       }
     };
 
@@ -30,25 +41,18 @@ export function useDisableScroll() {
           setIsScrollingX(true);
           setIsScrollingY(false);
           document.body.style.overflowY = "hidden";
+          document.body.style.overflowX = "hidden";
         } else {
           setIsScrollingX(false);
           setIsScrollingY(true);
+          document.body.style.overflowY = "hidden";
           document.body.style.overflowX = "hidden";
         }
-      } else {
-        document.body.style.overflowY = "auto";
-        document.body.style.overflowX = "auto";
       }
     };
 
     const resetScroll = () => {
-      if (breakpoint !== "xs" && breakpoint !== "sm") {
-        document.body.style.overflowY = "hidden";
-        document.body.style.overflowX = "hidden";
-      } else {
-        document.body.style.overflowY = "auto";
-        document.body.style.overflowX = "auto";
-      }
+      setScrollBehavior();
       setIsScrollingX(false);
       setIsScrollingY(false);
     };

@@ -46,8 +46,8 @@ export default function Page() {
       handleNextPage={handleNextPage}
       handlePrevPage={handlePrevPage}
     >
-      <FadeWrapper>
-        <div className="relative md:border border-none rounded-none md:rounded-lg shadow-none md:shadow-lg bg-screen-mobile md:bg-[#F6F6F6] dark:bg-[#030712] w-full h-screen md:h-[45rem] flex flex-col justify-start items-start gap-5 px-4 pt-6 md:gap-0 md:py-6 md:px-12 overflow-hidden">
+      <FadeWrapper className="relative w-full h-screen md:max-h-[45rem] lg:max-h-[50rem] m-auto overflow-hidden">
+        <div className="relative md:border border-none rounded-none md:rounded-lg shadow-none md:shadow-lg bg-screen-mobile md:bg-[#F6F6F6] dark:bg-[#030712] w-full h-full flex flex-col justify-start items-start gap-5 px-4 pt-6 md:gap-0 md:py-6 md:px-12 overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-full">
             <LoaderImage
               src="/study-bg.jpg"

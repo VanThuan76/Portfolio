@@ -47,6 +47,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  
   return (
     <ViewTransitions>
       <html lang="en" suppressHydrationWarning>

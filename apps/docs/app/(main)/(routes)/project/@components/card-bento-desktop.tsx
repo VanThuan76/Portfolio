@@ -19,7 +19,7 @@ export function BentoCard({
   return (
     <MovingGradient
       animated={false}
-      className={cn("rounded-md", className)}
+      className={cn(className)}
       gradientClassName={cn("opacity-10", gradient)}
     >
       <section className="flex flex-col h-full gap-2 p-4">

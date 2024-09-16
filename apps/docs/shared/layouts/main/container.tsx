@@ -51,7 +51,7 @@ const MainContainer = ({ children }: Props) => {
 
   const styleScreen = useMemo(() => {
     return hasFullScreen
-      ? "relative w-full h-full"
+      ? "relative w-screen h-screen"
       : "relative w-full h-full bg-[#F6F6F6] dark:bg-[#060606] rounded-b-xl p-2 md:p-5 lg:p-10";
   }, [hasFullScreen]);
 
@@ -122,7 +122,7 @@ const MainContainer = ({ children }: Props) => {
       >
         <HeadMain className={cn(!hasFullScreen && "rounded-t-xl")} />
 
-        <div className={cn("fade-in", styleScreen, fixLayoutFullScreen)}>
+        <div className={cn(styleScreen, fixLayoutFullScreen)}>
           {children}
         </div>
 
