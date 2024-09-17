@@ -76,6 +76,13 @@
   }
 }
 
+@supports (-webkit-touch-callout: none) {
+  body {
+    height: 100vh;
+    max-height: -webkit-fill-available !important;
+  }
+}
+
 @media not all and (min-resolution: 0.001dpcm) {
   @supports (-webkit-appearance: none) {
     body {

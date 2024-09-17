@@ -1,279 +1,132 @@
-"use client";
-import Link from "next/link";
+"use client"
+
 import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { CircleArrowUp, CloudSunRain } from "lucide-react";
+import { cn } from "@shared/lib/tw";
 
-import React, { useTransition } from "react";
-import { useRouter } from "next/navigation";
-import { useTheme } from "next-themes";
-import { ChevronUp, Github, Mail } from "lucide-react";
-import { cn } from "@utils/tw";
+import { getTime } from "@shared/helpers/get-time";
+import { BACKGROUNDS } from "@shared/constants";
 
-import { CardBody, CardContainer, CardItem } from "@ui/molecules/cards/3d-card";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-} from "@ui/molecules/cards/card";
+const DATA_MOBILE_MENUS = [
+    { href: "/setting", icon: "/icon-navigation/icon-setting.png", label: "Setting" },
+    { href: "/about-me", icon: "/icon-navigation/icon-about.png", label: "About Me" },
+    { href: "/blog", icon: "/icon-navigation/icon-blog.png", label: "Blog" },
+    { href: "/project", icon: "/icon-navigation/icon-project.png", label: "Project" },
+    { href: "/extensions/chatbot", icon: "/icon-navigation/chat.svg", label: "ChatBot" },
+    { href: "/extensions/git-roll", icon: "/icon-navigation/icon-github.png", label: "GitRoll" },
+    { href: "/extensions/resume", icon: "/icon-navigation/icon-resume.png", label: "Resume" },
+]
 
-import { DirectionAwareHover } from "@ui/molecules/effects/direction-aware-hover";
-import { TextGenerateEffect } from "@ui/molecules/effects/text-generate-effect";
-import { TypewriterEffectSmooth } from "@ui/molecules/effects/typewriter-effect";
-import Particles from "@ui/molecules/effects/particles";
-import MotionContainer from "@ui/molecules/frame/dynamic-contain";
-import FadeWrapper from "@ui/molecules/frame/fade-wrapper";
+const Page = () => {
+    const [time, setTime] = useState(getTime());
+    const [selectedBackground, setSelectedBackground] = useState("");
 
-import { TypographyP } from "@ui/molecules/ui-elements/typography-p";
-import { Highlight } from "@ui/molecules/other-utils/hero-highlight";
-import { LoaderImage } from "@ui/molecules/ui-elements/loader-image";
+    useEffect(() => {
+        let timeout: any;
 
-import useBreakpoint from "@shared/hooks/use-break-point";
+        const updateTime = () => {
+            const now = new Date();
+            const secondsUntilNextMinute = 60 - now.getSeconds();
+            setTime(getTime());
+            timeout = setTimeout(updateTime, secondsUntilNextMinute * 1000);
+        };
 
-import { useAppDispatch } from "@store/index";
-import { setIsHintSwipe } from "@store/app-slice";
+        updateTime();
 
-export default function HomePage() {
-  const { theme } = useTheme();
+        return () => clearTimeout(timeout);
+    }, []);
 
-  const [isPending, startTransition] = useTransition();
+    useEffect(() => {
+        if (BACKGROUNDS && BACKGROUNDS.length > 0) {
+            const randomIndex = Math.floor(Math.random() * BACKGROUNDS.length);
+            const randomBackground = BACKGROUNDS[randomIndex];
 
-  const router = useRouter();
-  const breakpoint = useBreakpoint();
-
-  return (
-    <FadeWrapper
-      className={cn(
-        "relative grid w-full h-full grid-cols-1 gap-0 m-auto md:grid-cols-3",
-      )}
-    >
-      <div className="order-2 w-full h-full col-span-1 md:col-span-2 md:order-1">
-        <Card className="relative w-full h-full flex flex-col justify-between items-start dark:bg-[#030712] bg-[#e8e6e6] md:bg-white rounded-none shadow-none md:rounded-l-xl overflow-hidden">
-          <CardHeader className="z-10 px-4 py-2 md:px-6 md:pt-6">
-            <TypewriterEffectSmooth
-              className="mt-2 text-2xl leading-7 border-b md:my-4 border-b-neutral-300"
-              words={[{ text: "About me..." }]}
-            />
-          </CardHeader>
-
-          <CardContent className="z-10 flex-1 px-4 pb-4 md:px-6 md:py-0">
-            <MotionContainer delay={0.3} type="blur">
-              <div className="relative flex flex-col items-start justify-between gap-2 mb-3 md:gap-3">
-                <p className="relative p-2 text-xs font-normal bg-transparent rounded md:bg-muted md:p-1 md:text-base">
-                  My fullname is{" "}
-                  <Highlight className="font-semibold text-black dark:text-white">
-                    Vu Van Thuan
-                  </Highlight>
-                  , but you can call me Austin. From 2022 to 2024, I&apos;ve
-                  been diving deep into the world of web development, and
-                  I&apos;m now on a journey to become{" "}
-                  <Highlight className="font-semibold text-black dark:text-white">
-                    a full-stack developer
-                  </Highlight>
-                  .
-                </p>
-                <div className="w-full h-[100px] md:hidden">
-                  <Image
-                    width={500}
-                    height={500}
-                    alt="quote"
-                    src="/background.jpg"
-                    priority={true}
-                    className="object-cover w-full h-full"
-                  />
-                </div>
-                <p className="relative rounded bg-transparent md:bg-muted px-[0.3rem] py-[0.2rem] text-xs md:text-base font-normal">
-                  My passion lies in taking on new challenges and continuously
-                  expanding my skill set. I love contributing to innovative
-                  projects and working with a team to create something amazing.
-                  I&apos;m a quick learner and always ready to go the extra mile
-                  to get things done.
-                </p>
-                <p className="relative rounded bg-transparent md:bg-muted px-[0.3rem] py-[0.2rem] text-xs md:text-base font-normal">
-                  When I&apos;m not coding, you can find me exploring new
-                  technologies, learning from online courses, and getting
-                  inspired by the developer community. I&apos;m excited about
-                  the future and looking forward to the opportunities ahead.
-                </p>
-                <Particles
-                  className="absolute inset-0 z-10"
-                  quantity={100}
-                  ease={80}
-                  color={theme === "dark" ? "#ffffff" : "#000000"}
-                  refresh
-                />
-              </div>
-
-              <div className="items-center justify-start hidden w-full grid-cols-3 gap-3 md:grid md:grid-cols-4 md:gap-5">
-                <div className="w-full max-h-[220px] col-span-2 md:col-span-3">
-                  <DirectionAwareHover
-                    className="h-[220px]"
-                    imageUrl="/background.jpg"
-                  >
-                    <TypographyP className="text-xl font-bold" title="Quote" />
-                    <TypographyP
-                      className="text-sm font-normal"
-                      title="🫀Stop for a moment..."
-                    />
-                  </DirectionAwareHover>
-                </div>
-                <div className="relative flex flex-col items-center justify-center w-full h-full col-span-1 overflow-hidden">
-                  <MotionContainer
-                    direction="right"
-                    delay={0.6}
-                    className="relative flex flex-col justify-center items-center w-full h-full rounded-t-lg bg-[#DCF2F1] dark:text-black cursor-pointer group"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      router.push("/project");
-                    }}
-                  >
-                    <p className="text-lg font-extrabold md:text-xl lg:text-4xl">
-                      3
-                    </p>
-                    <TypographyP title="Projects" />
-                    <ChevronUp className="text-gray-400 absolute group-hover:top-1 group-hover:right-0 top-2 right-1 w-[18px] md:w-[24px] lg:w-[32px] h-[18px] md:h-[24px] lg:h-[32px] rotate-45 transition-all duration-1000 ease-in-out" />
-                  </MotionContainer>
-                  <MotionContainer
-                    direction="left"
-                    delay={0.6}
-                    className="relative flex flex-col justify-center items-center w-full h-full rounded-b-lg text-white dark:text-black bg-[#365486] group cursor-pointer"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      router.push("/blog");
-                    }}
-                  >
-                    <h1 className="text-lg font-extrabold md:text-xl lg:text-4xl">
-                      3
-                    </h1>
-                    <TypographyP title="Blogs" />
-                    <ChevronUp className="text-gray-400 absolute group-hover:bottom-1 group-hover:left-0 bottom-2 left-1 w-[18px] md:w-[24px] lg:w-[32px] h-[18px] md:h-[24px] lg:h-[32px] rotate-[225deg] transition-all duration-1000 ease-in-out" />
-                  </MotionContainer>
-                </div>
-              </div>
-            </MotionContainer>
-          </CardContent>
-
-          <CardFooter className="z-10 self-end">
-            <TypographyP
-              title={`© Copyright ${new Date().getFullYear()} - Present Thuan`}
-              className="text-xs text-black md:text-sm"
-            />
-          </CardFooter>
-          <Image
-            width={250}
-            height={250}
-            src={
-              theme !== "dark" ? "/summer-season-sun.png" : "/moon-sphere.png"
+            if (randomBackground && randomBackground) {
+                setSelectedBackground(randomBackground);
             }
-            alt="sub-background"
-            className="absolute right-5 object-contain object-center w-[75px] h-[75px] md:w-[100px] md:h-[100px] top-0 md:top-5 z-5"
-            priority={true}
-          />
-          <Image
-            width={1000}
-            height={500}
-            src="/anime-style-clouds.png"
-            alt="bacground-clouds"
-            className="absolute left-0 object-cover object-top w-full h-full -bottom-20 z-5"
-            priority={true}
-          />
-        </Card>
-      </div>
-      <div className="order-1 w-full h-full col-span-1 md:order-2">
-        <CardContainer
-          isActive={breakpoint === "xs" ? false : true}
-          className="w-full h-full inter-var"
-        >
-          <CardBody
-            className={cn(
-              "bg-screen-mobile shadow-none md:bg-white relative group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:bg-[#030712] w-full h-full px-4 pt-4 md:p-6",
-              breakpoint === "xs" ? "border-none" : "rounded-r-xl",
-            )}
-          >
-            <CardItem
-              translateZ="50"
-              className="text-xl font-bold text-neutral-600 dark:text-white"
-            >
-              <TextGenerateEffect words="Hello 👋🏻 I'm Thuan" />
-            </CardItem>
-            <CardItem
-              as="p"
-              translateZ="60"
-              className="max-w-sm mt-2 text-xs text-neutral-500 md:text-sm dark:text-neutral-300"
-            >
-              Welcome to my website, enjoy!
-            </CardItem>
-            <CardItem
-              translateZ="100"
-              className="w-full h-[300px] md:h-[500px] mt-4 rounded-lg"
-            >
-              <MotionContainer
-                direction="bottom"
-                type="blur"
-                className="w-full h-full"
-              >
-                <LoaderImage
-                  src="/hi.jpg"
-                  alt="Draft"
-                  width={4513}
-                  height={3009}
-                  className="object-cover object-center w-full h-full rounded-lg"
-                  isLoader={false}
-                />
-              </MotionContainer>
-            </CardItem>
-            <CardItem
-              as="div"
-              translateZ="60"
-              className="flex flex-col flex-wrap items-start justify-start w-full gap-1 mt-5 md:flex-row md:items-center md:gap-5"
-            >
-              <Link
-                href="mailto:thuanvuvan76@gmail.com"
-                className="flex items-center justify-center gap-2 transition-all duration-300 ease-in-out hover:gap-1"
-              >
-                <Mail className="w-[14px] h-[14px]" />
-                <TypographyP
-                  title="thuanvuvan76@gmail.com"
-                  className="text-xs font-light md:text-sm"
-                />
-              </Link>
-              <Link
-                href="https://github.com/VanThuan76"
-                className="flex items-center justify-center gap-2 transition-all duration-300 ease-in-out hover:gap-1"
-              >
-                <Github className="w-[14px] h-[14px]" />
-                <TypographyP
-                  title="VanThuan76"
-                  className="text-xs font-light md:text-sm"
-                />
-              </Link>
-            </CardItem>
-          </CardBody>
-        </CardContainer>
-      </div>
+        }
+    }, [BACKGROUNDS]);
 
-      {isPending && (
-        <div className="absolute flex justify-center items-center bottom-0 right-1/2 translate-x-1/2 w-[100px] h-[100px] md:hidden z-[999999]">
-          {Array.from({ length: 3 }).map((_, index) => (
-            <div
-              key={index}
-              className={`w-[24px] h-[24px] animate-scale-up`}
-              style={{
-                animationDelay: `${index * 0.5}s`,
-                overflow: "hidden",
-              }}
-            >
-              <Image
-                width={100}
-                height={100}
-                alt="loading"
-                src="/logo.png"
-                priority={true}
-                className="object-contain w-full h-full"
-              />
+    return (
+        <div className="relative w-screen h-screen p-4 md:hidden">
+            <div className="flex items-center justify-between w-full gap-2">
+                <div className="relative z-20 flex-1 gap-2 overflow-hidden h-52 group max-w-52 rounded-3xl">
+                    <div className="relative flex items-center w-full h-full">
+                        {selectedBackground && (
+                            <Image
+                                width={1280}
+                                height={900}
+                                src={selectedBackground}
+                                alt="Background"
+                                className="h-full w-full rounded-3xl object-cover transition-all group-hover:scale-105 group-hover:blur-[1px]"
+                            />
+                        )}
+                    </div>
+                    <div
+                        className={cn(
+                            "absolute right-0 top-0 z-10 flex h-full w-fit flex-col items-center justify-center text-8xl font-black tabular-nums tracking-tighter text-white transition-all duration-500 group-hover:right-1/4"
+                        )}
+                    >
+                        <div className="flex">
+                            <div>{time.hoursTens}</div>
+                            <div>{time.hoursOnes}</div>
+                        </div>
+                        <div className="flex">
+                            <div>{time.minutesTens}</div>
+                            <div>{time.minutesOnes}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="relative z-20 flex flex-col flex-1 p-2 h-52 max-w-52 rounded-3xl bg-opacity-10 bg-gradient-to-r from-gray-200 to-gray-300 bg-clip-padding backdrop-blur-sm backdrop-filter dark:from-gray-700 dark:to-gray-900">
+                    <div className="flex flex-col flex-1 gap-2 dark:text-white">
+                        <p className="city opacity-70">Tokyo</p>
+                        <div className="flex items-center">
+                            <CloudSunRain className="w-10 h-10" />
+                            <p className="text-5xl font-black">19&deg;</p>
+                        </div>
+                        <p className="feels-like opacity-70">Feels like 21&deg;</p>
+                    </div>
+                    <div className="flex justify-between py-1 bg-gray-400 rounded-xl bg-opacity-30 bg-clip-padding backdrop-blur-lg backdrop-filter">
+                        <div className="flex items-center gap-1 px-2 text-orange-500 dark:text-orange-200">
+                            <CircleArrowUp className="w-5 h-5" />
+                            24&deg;
+                        </div>
+                        <p className="text-black opacity-50">|</p>
+                        <div className="flex items-center gap-1 px-3 text-green-800 dark:text-green-200">
+                            <CircleArrowUp className="w-5 h-5 rotate-180" />
+                            9&deg;
+                        </div>
+                    </div>
+                </div>
             </div>
-          ))}
+
+            <div className="grid items-center justify-center w-full grid-cols-4 gap-4">
+                {DATA_MOBILE_MENUS.map((item, index) => (
+                    <Link
+                        key={index}
+                        href={item.href}
+                        className="z-20 flex flex-col items-center justify-center p-2 mt-10 transition-transform transform hover:scale-105"
+                    >
+                        <div className="flex items-center justify-center w-16 h-16 bg-gray-200 rounded-xl">
+                            <Image width={200} height={200} src={item.icon} alt={item.label} className="object-contain w-14 h-14" />
+                        </div>
+                        <p className="mt-2 text-sm font-medium text-center text-white">{item.label}</p>
+                    </Link>
+                ))}
+            </div>
+
+            {selectedBackground && <Image
+                width={1280}
+                height={1280}
+                alt="bg-container"
+                src={selectedBackground}
+                className="absolute top-0 left-0 z-10 object-cover object-center w-full h-full"
+            />}
         </div>
-      )}
-    </FadeWrapper>
-  );
+    );
 }
+
+export default Page;
