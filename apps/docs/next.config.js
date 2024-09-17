@@ -5,6 +5,7 @@ module.exports = {
     serverComponentsExternalPackages: ["grammy"],
     mdxRs: true,
     middleware: true,
+    scrollRestoration: true,
   },
   transpilePackages: ["ui"],
   images: {
