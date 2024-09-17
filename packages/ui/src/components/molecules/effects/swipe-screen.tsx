@@ -65,7 +65,7 @@ function SwipeableScreen({
 
   return (
     <div
-      className="w-full h-full grid place-items-center overflow-y-auto md:overflow-hidden"
+      className="grid w-full h-full overflow-y-auto place-items-center md:overflow-hidden"
       style={{ touchAction: "none" }}
     >
       {children}
