@@ -3,11 +3,11 @@
 import PlateShowContent from "@ui/organisms/plate-show-content";
 
 interface Props {
-    content: any;
+  content: any;
 }
 
 const ContentBlog = ({ content }: Props) => {
-    return <PlateShowContent content={content} />;
+  return <PlateShowContent content={content} />;
 };
 
 export default ContentBlog;
