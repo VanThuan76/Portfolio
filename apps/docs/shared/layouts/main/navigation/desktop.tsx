@@ -79,13 +79,19 @@ export default function NavigationDesktop({
   }, [pathName, prevPath, dispatch]);
 
   function handleOpenScreen(href: string) {
+    if (pageCached.includes(href)) {
+      router.push(href);
+      return;
+    }
+
     setIsPageChanging(true);
     setUrlChanging(href);
 
-    startTransition(() => {
-      router.push(href);
-      dispatch(addPageToCache(href));
-    });
+    setTimeout(() => {
+      startTransition(() => {
+        router.push(href);
+      });
+    }, 3000);
   }
 
   return (

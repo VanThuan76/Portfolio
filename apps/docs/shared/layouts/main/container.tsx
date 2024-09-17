@@ -1,14 +1,14 @@
 "use client";
 
+import Image from "next/image";
 import React, { useEffect, useMemo, useState } from "react";
+import { cn } from "@utils/tw";
 
 import { axiosInstance } from "@api/axios";
 import { getBlog } from "@server/actions/blog";
 import { getTag } from "@server/actions/tag";
 import { getProject } from "@server/actions/project";
 
-import { cn } from "@utils/tw";
-import { useDisableScroll } from "@shared/hooks/use-disable-scroll";
 import {
   setBlogs,
   setHasVisited,
@@ -17,7 +17,9 @@ import {
   setTags,
 } from "@store/app-slice";
 import { useAppDispatch, useAppSelector } from "@store/index";
-import { LoaderImage } from "@ui/molecules/ui-elements/loader-image";
+
+import { useDisableScroll } from "@shared/hooks/use-disable-scroll";
+import { useNavigationEvent } from "@shared/hooks/use-navigation-event";
 import useBreakpoint from "@shared/hooks/use-break-point";
 
 import MotionContainer from "@ui/molecules/frame/dynamic-contain";
@@ -26,7 +28,6 @@ import LazyWrapper from "@ui/molecules/frame/lazy-wrapper";
 import HeadMain from "./head";
 import MacUiProvider from "./mac-ui-provider";
 import { BottomBarMenu } from "./navigation";
-import Image from "next/image";
 
 interface Props {
   children: React.ReactNode;
@@ -83,6 +84,7 @@ const MainContainer = ({ children }: Props) => {
   }, []);
 
   useDisableScroll();
+//   useNavigationEvent();
 
   return (
     <LazyWrapper>

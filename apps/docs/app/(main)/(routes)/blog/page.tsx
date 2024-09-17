@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import { useAppSelector } from "@store/index";
 
@@ -14,9 +13,6 @@ import { TypographyP } from "@ui/molecules/ui-elements/typography-p";
 
 import HoverImageLink from "@ui/molecules/effects/hover-image-link";
 import FadeWrapper from "@ui/molecules/frame/fade-wrapper";
-import SwipeableScreen from "@ui/molecules/effects/swipe-screen";
-
-import useBreakpoint from "@shared/hooks/use-break-point";
 
 import CardBlog from "./@components/card-blog";
 
@@ -24,21 +20,6 @@ export default function Page() {
   const { tags, blogs } = useAppSelector((state) => state.app);
 
   const [isPending, startTransition] = useTransition();
-
-  const router = useRouter();
-  const breakpoint = useBreakpoint();
-
-  const handleNextPage = () => {
-    startTransition(() => {
-      router.push("/project");
-    });
-  };
-
-  const handlePrevPage = () => {
-    startTransition(() => {
-      router.push("/");
-    });
-  };
 
   return (
     <FadeWrapper className="relative w-full h-full m-auto">

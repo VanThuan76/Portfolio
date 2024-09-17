@@ -49,31 +49,31 @@ const slugs = [
 
 const CardProjectDesktop = ({ projects }: Props) => {
   return (
-    <div className="relative hidden w-full h-full md:block border rounded-none shadow-none md:rounded-lg overflow-hidden">
-      <div className="w-full h-full grid grid-cols-1 text-black sm:grid-cols-3 lg:grid-cols-3">
-        <MotionContainer direction="left" className="sm:col-span-1">
-          <BentoCard
-            title="TechStack"
-            icon={<Cpu size={24} />}
-            description={
-              <span>Technologies, libraries, and tools commonly.</span>
-            }
-            gradient="from-cyan-900 via-60% via-sky-600 to-indigo-600"
-            className="w-full h-full"
-          >
+    <div className="relative hidden w-full h-full overflow-hidden border rounded-none shadow-none md:block md:rounded-lg">
+      <div className="grid w-full h-full grid-cols-1 text-black sm:grid-cols-3 lg:grid-cols-3">
+        <BentoCard
+          title="TechStack"
+          icon={<Cpu size={24} />}
+          description={
+            <span>Technologies, libraries, and tools commonly.</span>
+          }
+          gradient="from-cyan-900 via-60% via-sky-600 to-indigo-600"
+          className="w-full h-full sm:col-span-1"
+        >
+          <MotionContainer direction="bottom">
             <IconCloud iconSlugs={slugs} />
-          </BentoCard>
-        </MotionContainer>
+          </MotionContainer>
+        </BentoCard>
 
-        <MotionContainer direction="right" className="sm:col-span-2">
-          <BentoCard
-            title="Stories"
-            icon={<Library size={24} />}
-            description="My projects and products showcase a diverse range of skills and expertise across various fields."
-            gradient="from-cyan-900 via-60% via-sky-600 to-indigo-600"
-            className="w-full h-full border-l border-l-neutral-200"
-          >
-            <Separator className="w-full h-[1px] bg-slate-300 dark:bg-white z-10 my-2" />
+        <BentoCard
+          title="Stories"
+          icon={<Library size={24} />}
+          description="My projects and products showcase a diverse range of skills and expertise across various fields."
+          gradient="from-cyan-900 via-60% via-sky-600 to-indigo-600"
+          className="w-full h-full border-l border-l-neutral-200 sm:col-span-2"
+        >
+          <Separator className="w-full h-[1px] bg-slate-300 dark:bg-white z-10 my-2" />
+          <MotionContainer direction="top">
             <StickyScroll
               content={projects.map((project) => {
                 return {
@@ -129,18 +129,16 @@ const CardProjectDesktop = ({ projects }: Props) => {
                 };
               })}
             />
-          </BentoCard>
-        </MotionContainer>
+          </MotionContainer>
+        </BentoCard>
 
-        <MotionContainer type="blur" className="sm:col-span-4">
-          <BentoCard
-            title="Full Gradient"
-            icon={<TypeIcon size={24} />}
-            description="A conic gradient is a gradient that goes in a circular direction."
-            gradient="from-lime-300 via-60% via-green-200 to-lime-200"
-            className="border-t border-t-neutral-200 w-full h-full"
-          />
-        </MotionContainer>
+        <BentoCard
+          title="Full Gradient"
+          icon={<TypeIcon size={24} />}
+          description="A conic gradient is a gradient that goes in a circular direction."
+          gradient="from-lime-300 via-60% via-green-200 to-lime-200"
+          className="w-full h-full border-t border-t-neutral-200 sm:col-span-4"
+        />
       </div>
     </div>
   );
