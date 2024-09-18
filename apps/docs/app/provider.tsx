@@ -10,26 +10,26 @@ import TransitionProvder from "@shared/layouts/main/transition-provider";
 import useBreakpoint from "@shared/hooks/use-break-point";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
-    const breakpoint = useBreakpoint();
-    return (
-        <TransitionProvder>
-            <ReduxProvider>
-                <ThemeProvider
-                    attribute="class"
-                    defaultTheme={breakpoint === "xs" ? "light" : "system"}
-                    enableSystem={false}
-                    disableTransitionOnChange
-                >
-                    <TooltipProvider
-                        disableHoverableContent
-                        delayDuration={100}
-                        skipDelayDuration={0}
-                    >
-                        {children}
-                        <ToasterProvider />
-                    </TooltipProvider>
-                </ThemeProvider>
-            </ReduxProvider>
-        </TransitionProvder>
-    );
+  const breakpoint = useBreakpoint();
+  return (
+    <TransitionProvder>
+      <ReduxProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme={breakpoint === "xs" ? "light" : "system"}
+          enableSystem={false}
+          disableTransitionOnChange
+        >
+          <TooltipProvider
+            disableHoverableContent
+            delayDuration={100}
+            skipDelayDuration={0}
+          >
+            {children}
+            <ToasterProvider />
+          </TooltipProvider>
+        </ThemeProvider>
+      </ReduxProvider>
+    </TransitionProvder>
+  );
 }
