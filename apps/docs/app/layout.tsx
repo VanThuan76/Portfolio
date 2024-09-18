@@ -1,15 +1,12 @@
 import "@styles/globals.css";
-import dynamic from "next/dynamic";
 import type { Metadata } from "next";
 import { cn } from "@utils/tw";
 import { Edu_VIC_WA_NT_Beginner } from "next/font/google";
 import { ViewTransitions } from "next-view-transitions";
 
-import Providers from "./provider";
+import MainContainer from "@shared/layouts/main/container";
 
-const MainContainer = dynamic(() => import("@shared/layouts/main/container"), {
-  ssr: false,
-});
+import Providers from "./provider";
 
 export const nextFont = Edu_VIC_WA_NT_Beginner({
   display: "swap",
