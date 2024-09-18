@@ -23,7 +23,6 @@ import { useAppDispatch, useAppSelector } from "@store/index";
 import { BACKGROUNDS } from "@shared/constants";
 
 import { useDisableScroll } from "@shared/hooks/use-disable-scroll";
-import { useNavigationEvent } from "@shared/hooks/use-navigation-event";
 import useBreakpoint from "@shared/hooks/use-break-point";
 
 import MotionContainer from "@ui/molecules/frame/dynamic-contain";
@@ -92,11 +91,11 @@ const MainContainer = ({ children }: Props) => {
     initializeApp();
   }, []);
 
-  useEffect(() => {
-    if (!loading) {
-      dispatch(addPageToCache(pathName));
-    }
-  }, [loading]);
+//   useEffect(() => {
+//     if (!loading) {
+//       dispatch(addPageToCache(pathName));
+//     }
+//   }, [loading]);
 
   useEffect(() => {
     if (BACKGROUNDS && BACKGROUNDS.length > 0) {
