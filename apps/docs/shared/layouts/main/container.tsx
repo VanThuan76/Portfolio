@@ -91,11 +91,11 @@ const MainContainer = ({ children }: Props) => {
     initializeApp();
   }, []);
 
-//   useEffect(() => {
-//     if (!loading) {
-//       dispatch(addPageToCache(pathName));
-//     }
-//   }, [loading]);
+  //   useEffect(() => {
+  //     if (!loading) {
+  //       dispatch(addPageToCache(pathName));
+  //     }
+  //   }, [loading]);
 
   useEffect(() => {
     if (BACKGROUNDS && BACKGROUNDS.length > 0) {
