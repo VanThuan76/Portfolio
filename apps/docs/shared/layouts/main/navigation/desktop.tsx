@@ -18,7 +18,7 @@ import {
 } from "@ui/molecules/other-utils/tooltip";
 
 import useViewTransitionRouter from "@shared/hooks/use-view-transition-router";
-import { useTransitionRouter } from 'next-view-transitions'
+import { useTransitionRouter } from "next-view-transitions";
 
 import MotionContainer from "@ui/molecules/frame/dynamic-contain";
 
@@ -68,8 +68,8 @@ export default function NavigationDesktop({
 }) {
   const dispatch = useAppDispatch();
   const pathName = usePathname();
-//   const router = useViewTransitionRouter();
-  const router = useTransitionRouter()
+  //   const router = useViewTransitionRouter();
+  const router = useTransitionRouter();
 
   const pageCached = useAppSelector((state) => state.app.pageCached);
 
