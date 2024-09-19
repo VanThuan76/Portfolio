@@ -6,14 +6,17 @@ import { ErrorBoundary } from "@shared/layouts/main/error-boundary";
 import { ErrorPage } from "@shared/layouts/main/error-page";
 
 import { useDidMount } from "@shared/hooks/use-did-mount";
+import { useDisableScroll } from "@shared/hooks/use-disable-scroll";
 import { useAppDispatch } from "@store/index";
 import { toast } from "@shared/hooks/use-toast";
 
 import { axiosInstance } from "@api/axios";
+import { BACKGROUNDS } from "@shared/constants";
 
 import {
   setBlogs,
   setHasVisited,
+  setInitBackground,
   setInitProgress,
   setProfile,
   setProjects,
@@ -89,6 +92,13 @@ function InitInner({ children }: PropsWithChildren) {
         } finally {
           dispatch(setHasVisited(true));
           dispatch(setInitProgress((completedTasks / totalTasks) * 100));
+
+          //Background
+          const randomIndex = Math.floor(Math.random() * BACKGROUNDS.length);
+          const randomBackground = BACKGROUNDS[randomIndex];
+          if (randomBackground) {
+            dispatch(setInitBackground(randomBackground));
+          }
         }
       };
       initializeApp();
@@ -99,6 +109,8 @@ function InitInner({ children }: PropsWithChildren) {
       });
     }
   }, []);
+
+  useDisableScroll();
 
   return (
     <LazyWrapper>

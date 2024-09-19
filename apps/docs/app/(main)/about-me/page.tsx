@@ -2,8 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 
-import React, { useTransition } from "react";
-import { useRouter } from "next/navigation";
+import React from "react";
 import { useTheme } from "next-themes";
 import { ChevronUp, Github, Mail } from "lucide-react";
 import { cn } from "@utils/tw";
@@ -21,7 +20,6 @@ import { TextGenerateEffect } from "@ui/molecules/effects/text-generate-effect";
 import { TypewriterEffectSmooth } from "@ui/molecules/effects/typewriter-effect";
 import Particles from "@ui/molecules/effects/particles";
 import MotionContainer from "@ui/molecules/frame/dynamic-contain";
-import FadeWrapper from "@ui/molecules/frame/fade-wrapper";
 
 import { TypographyP } from "@ui/molecules/ui-elements/typography-p";
 import { Highlight } from "@ui/molecules/other-utils/hero-highlight";
@@ -32,17 +30,10 @@ import useBreakpoint from "@shared/hooks/use-break-point";
 export default function HomePage() {
   const { theme } = useTheme();
 
-  const [isPending, startTransition] = useTransition();
-
-  const router = useRouter();
   const breakpoint = useBreakpoint();
 
   return (
-    <FadeWrapper
-      className={cn(
-        "relative grid w-full h-full grid-cols-1 gap-0 m-auto md:grid-cols-3",
-      )}
-    >
+    <div className="relative grid w-full h-full grid-cols-1 gap-0 m-auto md:grid-cols-3">
       <div className="order-2 w-full h-full col-span-1 md:col-span-2 md:order-1">
         <Card className="relative w-full h-full flex flex-col justify-between items-start dark:bg-[#030712] bg-[#e8e6e6] md:bg-white rounded-none shadow-none md:rounded-l-xl overflow-hidden">
           <CardHeader className="z-10 px-4 py-2 md:px-6 md:pt-6">
@@ -117,11 +108,7 @@ export default function HomePage() {
                   <MotionContainer
                     direction="right"
                     delay={0.6}
-                    className="relative flex flex-col justify-center items-center w-full h-full rounded-t-lg bg-[#DCF2F1] dark:text-black cursor-pointer group"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      router.push("/project");
-                    }}
+                    className="relative flex flex-col justify-center items-center w-full h-full rounded-t-lg bg-[#DCF2F1] dark:text-black group"
                   >
                     <p className="text-lg font-extrabold md:text-xl lg:text-4xl">
                       3
@@ -132,11 +119,7 @@ export default function HomePage() {
                   <MotionContainer
                     direction="left"
                     delay={0.6}
-                    className="relative flex flex-col justify-center items-center w-full h-full rounded-b-lg text-white dark:text-black bg-[#365486] group cursor-pointer"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      router.push("/blog");
-                    }}
+                    className="relative flex flex-col justify-center items-center w-full h-full rounded-b-lg text-white dark:text-black bg-[#365486] group"
                   >
                     <h1 className="text-lg font-extrabold md:text-xl lg:text-4xl">
                       3
@@ -201,22 +184,16 @@ export default function HomePage() {
             </CardItem>
             <CardItem
               translateZ="100"
-              className="w-full h-[300px] md:h-[500px] mt-4 rounded-lg"
+              className="w-full h-[300px] mt-4 rounded-lg"
             >
-              <MotionContainer
-                direction="bottom"
-                type="blur"
-                className="w-full h-full"
-              >
-                <LoaderImage
-                  src="/hi.jpg"
-                  alt="Draft"
-                  width={4513}
-                  height={3009}
-                  className="object-cover object-center w-full h-full rounded-lg"
-                  isLoader={false}
-                />
-              </MotionContainer>
+              <LoaderImage
+                src="/hi.jpg"
+                alt="Draft"
+                width={4513}
+                height={3009}
+                className="object-cover object-center w-full h-full rounded-lg"
+                isLoader={false}
+              />
             </CardItem>
             <CardItem
               as="div"
@@ -247,30 +224,6 @@ export default function HomePage() {
           </CardBody>
         </CardContainer>
       </div>
-
-      {isPending && (
-        <div className="absolute flex justify-center items-center bottom-0 right-1/2 translate-x-1/2 w-[100px] h-[100px] md:hidden z-[999999]">
-          {Array.from({ length: 3 }).map((_, index) => (
-            <div
-              key={index}
-              className={`w-[24px] h-[24px] animate-scale-up`}
-              style={{
-                animationDelay: `${index * 0.5}s`,
-                overflow: "hidden",
-              }}
-            >
-              <Image
-                width={100}
-                height={100}
-                alt="loading"
-                src="/logo.png"
-                priority={true}
-                className="object-contain w-full h-full"
-              />
-            </div>
-          ))}
-        </div>
-      )}
-    </FadeWrapper>
+    </div>
   );
 }

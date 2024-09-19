@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { ClockIcon } from "lucide-react";
 import { cn } from "@utils/tw";
@@ -48,6 +48,7 @@ const CardBlog = ({
       <div className={cn(className)}>
         {items.map((item, idx) => (
           <div
+            key={idx}
             className="relative block w-full h-full p-0 md:p-2 group"
             onMouseEnter={() => setHoveredIndex(idx)}
             onMouseLeave={() => setHoveredIndex(null)}

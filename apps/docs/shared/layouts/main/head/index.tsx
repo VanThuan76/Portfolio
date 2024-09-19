@@ -3,7 +3,7 @@ import dynamic from "next/dynamic";
 import React, { useEffect, useState } from "react";
 import { cn } from "@utils/tw";
 
-import NavigationApple from "./@components/navigation-apple";
+import SettingDropdown from "./@components/setting-dropdown";
 
 const NavigationExtApple = dynamic(
   () => import("./@components/navigation-ext-apple"),
@@ -39,7 +39,7 @@ const HeadMain = ({ className }: Props) => {
         className,
       )}
     >
-      <NavigationApple />
+      <SettingDropdown />
       <div className="text-sm text-center">🖐🏻{osName}</div>
       <NavigationExtApple />
     </div>

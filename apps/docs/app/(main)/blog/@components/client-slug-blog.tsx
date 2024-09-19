@@ -19,10 +19,10 @@ import { IBlog, IBlogSupabase } from "@server/data/types/blog";
 import { IBlogCommentWithUser } from "@server/actions/comment";
 import { IAuthSupabase } from "@server/data/types/supabase";
 
-import CardBlog from "../@components/card-blog";
-import ContentBlog from "../@components/content-blog";
-import Comment from "../@components/comment";
-import ListComment from "../@components/list-comment";
+import CardBlog from "./card-blog";
+import ContentBlog from "./content-blog";
+import Comment from "./comment";
+import ListComment from "./list-comment";
 import { useDisableScroll } from "@shared/hooks/use-disable-scroll";
 
 const fontBlog = Nunito_Sans({

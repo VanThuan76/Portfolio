@@ -11,8 +11,10 @@ export interface IDefaultState {
   blogs: IBlog[] | [];
   projects: IProject[] | [];
   initProgress: number;
+  initBackground: string;
   hasVisited: boolean;
   hasSleep: boolean;
+  hasCloseScreen: boolean;
   hasFullScreen: boolean;
   pageCached: string[];
 }
@@ -23,9 +25,11 @@ const initialState: IDefaultState = {
   blogs: [],
   projects: [],
   initProgress: 0,
+  initBackground: "",
   hasVisited: false,
   hasSleep: false,
-  hasFullScreen: true,
+  hasCloseScreen: true,
+  hasFullScreen: false,
   pageCached: [],
 };
 
@@ -48,8 +52,14 @@ export const appSlice = createSlice({
     setInitProgress: (state, action: PayloadAction<number>) => {
       state.initProgress = action.payload;
     },
+    setInitBackground: (state, action: PayloadAction<string>) => {
+      state.initBackground = action.payload;
+    },
     setHasSleep: (state, action: PayloadAction<boolean>) => {
       state.hasSleep = action.payload;
+    },
+    setHasCloseScreen: (state, action: PayloadAction<boolean>) => {
+      state.hasCloseScreen = action.payload;
     },
     setHasFullScreen: (state, action: PayloadAction<boolean>) => {
       state.hasFullScreen = action.payload;
@@ -71,9 +81,11 @@ export const {
   setBlogs,
   setProjects,
   setInitProgress,
+  setInitBackground,
   setHasFullScreen,
   setHasSleep,
   setHasVisited,
+  setHasCloseScreen,
   addPageToCache,
 } = appSlice.actions;
 export const appReducer = appSlice.reducer;

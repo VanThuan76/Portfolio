@@ -1,67 +1,61 @@
 "use client";
 
 import Image from "next/image";
-import React, { useEffect, useMemo, useState } from "react";
+import React from "react";
 import { cn } from "@utils/tw";
 
 import { useAppSelector } from "@store/index";
-
-import { BACKGROUNDS } from "@shared/constants";
-
-import { useDisableScroll } from "@shared/hooks/use-disable-scroll";
 import useBreakpoint from "@shared/hooks/use-break-point";
 
+import FadeWrapper from "@ui/molecules/frame/fade-wrapper";
 import HeadMain from "@shared/layouts/main/head";
-import { BottomBarMenu } from "@shared/layouts/main/navigation";
+import NavigationApple from "@shared/layouts/main/head/@components/navigation-apple";
 
+import { BottomBarMenu } from "@shared/layouts/main/navigation";
 interface Props {
   children: React.ReactNode;
 }
 
 const MainLayout = ({ children }: Props) => {
-  const { initProgress, hasSleep, hasFullScreen } = useAppSelector(
-    (state) => state.app,
-  );
-  const [selectedBackground, setSelectedBackground] = useState("");
-
   const breakpoint = useBreakpoint();
 
-  const fixLayout = useMemo(() => {
-    return `${!hasSleep ? "z-[2000]" : ""} ${!hasFullScreen && "z-[0]"}`;
-  }, [hasSleep, hasFullScreen]);
-
-  useEffect(() => {
-    if (BACKGROUNDS && BACKGROUNDS.length > 0) {
-      const randomIndex = Math.floor(Math.random() * BACKGROUNDS.length);
-      const randomBackground = BACKGROUNDS[randomIndex];
-
-      if (randomBackground) {
-        setSelectedBackground(randomBackground);
-      }
-    }
-  }, [BACKGROUNDS]);
-
-  useDisableScroll();
+  const { initProgress, initBackground, hasFullScreen } = useAppSelector(
+    (state) => state.app,
+  );
 
   return (
     <main
-      id="container"
+      id="container-app"
       className={cn(
         "relative mx-auto w-screen h-screen hidden z-[2000]",
         initProgress === 100 && "block",
         breakpoint === "xs" && "bg-screen-mobile",
       )}
     >
-      <HeadMain className={cn(!hasFullScreen && "rounded-t-xl")} />
-      <div className="relative flex flex-col items-center justify-center w-full h-full md:h-[90vh] z-50 md:mt-4 md:px-12">
-        {children}
+      {!hasFullScreen && <HeadMain />}
+      <div
+        className={cn(
+          "relative flex flex-col items-center justify-center w-full z-50 transition-all ease-linear duration-300",
+          hasFullScreen ? "h-full" : "h-full md:h-[90vh] md:mt-4 md:px-12",
+        )}
+      >
+        <FadeWrapper
+          className={cn(
+            "relative w-full h-full m-auto border-none shadow-none md:shadow-lg overflow-hidden",
+            hasFullScreen ? "rounded-none" : "rounded-none md:rounded-lg",
+          )}
+          // isActive={!pageCached.includes(pathName)}
+        >
+          <NavigationApple />
+          {children}
+        </FadeWrapper>
       </div>
-      {selectedBackground && (
+      {initBackground !== "" && (
         <Image
           width={1280}
           height={1280}
           alt="bg-container"
-          src={selectedBackground}
+          src={initBackground}
           className="absolute top-0 left-0 z-10 hidden object-cover object-center w-full h-full md:block"
           priority={true}
         />

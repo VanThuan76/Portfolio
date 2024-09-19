@@ -6,7 +6,11 @@ import { useTransitionRouter } from "next-view-transitions";
 
 import { cn } from "@utils/tw";
 import { useAppDispatch, useAppSelector } from "@store/index";
-import { addPageToCache, setHasFullScreen } from "@store/app-slice";
+import {
+  addPageToCache,
+  setHasCloseScreen,
+  setHasFullScreen,
+} from "@store/app-slice";
 
 import { buttonVariants } from "@ui/atoms/button";
 
@@ -66,9 +70,7 @@ export default function NavigationDesktop({
 }) {
   const dispatch = useAppDispatch();
   const pathName = usePathname();
-  //   const router = useViewTransitionRouter();
   const router = useTransitionRouter();
-
   const pageCached = useAppSelector((state) => state.app.pageCached);
 
   const [prevPath, setPrevPath] = useState(pathName);
@@ -77,7 +79,7 @@ export default function NavigationDesktop({
 
   useEffect(() => {
     if (prevPath !== pathName) {
-      dispatch(setHasFullScreen(true));
+      // dispatch(setHasFullScreen(true));
       setIsPageChanging(true);
       setPrevPath(pathName);
     } else {
@@ -89,6 +91,8 @@ export default function NavigationDesktop({
   const handleOpenScreen = useCallback(
     async (e: React.MouseEvent<HTMLDivElement>, href: string) => {
       e.preventDefault();
+
+      dispatch(setHasCloseScreen(false));
 
       if (pageCached.includes(href)) {
         router.push(href);

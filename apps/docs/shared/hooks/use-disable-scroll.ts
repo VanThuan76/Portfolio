@@ -10,13 +10,13 @@ export function useDisableScroll() {
     const handleScroll = (e: WheelEvent) => {
       if (breakpoint !== "xs" && breakpoint !== "sm") {
         if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
-          setIsScrollingX(true);
+          setIsScrollingX(false);
           setIsScrollingY(false);
-          document.body.style.overflowY = "auto";
+          document.body.style.overflowY = "hidden";
           document.body.style.overflowX = "hidden";
         } else {
           setIsScrollingX(false);
-          setIsScrollingY(true);
+          setIsScrollingY(false);
           document.body.style.overflowY = "hidden";
           document.body.style.overflowX = "hidden";
         }
@@ -26,13 +26,13 @@ export function useDisableScroll() {
     const handleTouchMove = (e: TouchEvent) => {
       if (breakpoint !== "xs" && breakpoint !== "sm") {
         if (e.changedTouches[0]!.clientX > e.changedTouches[0]!.clientY) {
-          setIsScrollingX(true);
+          setIsScrollingX(false);
           setIsScrollingY(false);
           document.body.style.overflowY = "auto";
           document.body.style.overflowX = "hidden";
         } else {
           setIsScrollingX(false);
-          setIsScrollingY(true);
+          setIsScrollingY(false);
           document.body.style.overflowY = "hidden";
           document.body.style.overflowX = "hidden";
         }
