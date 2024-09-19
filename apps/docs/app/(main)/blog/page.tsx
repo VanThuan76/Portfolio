@@ -14,15 +14,18 @@ import { TypographyP } from "@ui/molecules/ui-elements/typography-p";
 import HoverImageLink from "@ui/molecules/effects/hover-image-link";
 
 import CardBlog from "./@components/card-blog";
+import useFullScreenBackground from "@shared/hooks/use-mobile-full-screen";
 
 export default function Page() {
   const { tags, blogs } = useAppSelector((state) => state.app);
 
   const [isPending, startTransition] = useTransition();
 
+  useFullScreenBackground({ imageUrl: '/study-bg.jpg' });
+
   return (
     <div className="relative bg-screen-mobile md:bg-[#F6F6F6] dark:bg-[#030712] w-full h-full flex flex-col justify-start items-start gap-5 px-4 pt-6 md:gap-0 md:py-6 md:px-12">
-      <div className="absolute top-0 left-0 w-full h-full">
+      <div className="absolute top-0 left-0 hidden w-full h-full md:block">
         <LoaderImage
           src="/study-bg.jpg"
           isLoader={false}

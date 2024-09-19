@@ -27,6 +27,40 @@ export const breakpoints = {
   1920: "xl",
 };
 
+export const DATA_MOBILE_MENUS = [
+    {
+      href: "/setting",
+      icon: "/icon-navigation/icon-setting.png",
+      label: "Setting",
+    },
+    {
+      href: "/about-me",
+      icon: "/icon-navigation/icon-about.png",
+      label: "About Me",
+    },
+    { href: "/blog", icon: "/icon-navigation/icon-blog.png", label: "Blog" },
+    {
+      href: "/project",
+      icon: "/icon-navigation/icon-project.png",
+      label: "Project",
+    },
+    {
+      href: "/extensions/chatbot",
+      icon: "/icon-navigation/chat.svg",
+      label: "ChatBot",
+    },
+    {
+      href: "/extensions/git-roll",
+      icon: "/icon-navigation/icon-github.png",
+      label: "GitRoll",
+    },
+    {
+      href: "/extensions/resume",
+      icon: "/icon-navigation/icon-resume.png",
+      label: "Resume",
+    },
+  ];
+
 export const initialValueByCreatingBlog = [
   {
     type: "h1",
