@@ -49,7 +49,7 @@ const slugs = [
 
 const CardProjectDesktop = ({ projects }: Props) => {
   return (
-    <div className="grid w-full h-full grid-cols-1 text-black sm:grid-cols-3 lg:grid-cols-3">
+    <div className="hidden w-full h-full grid-cols-1 text-black md:grid sm:grid-cols-3 lg:grid-cols-3">
       <BentoCard
         title="TechStack"
         icon={<Cpu size={24} />}

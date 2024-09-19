@@ -1,8 +1,7 @@
 "use client";
 
 import React from "react";
-import { usePathname } from "next/navigation";
-import { useTransitionRouter } from "next-view-transitions";
+import { usePathname, useRouter } from "next/navigation";
 import { ArrowLeft, ArrowRight, X } from "lucide-react";
 
 import MotionContainer from "@ui/molecules/frame/dynamic-contain";
@@ -12,7 +11,7 @@ import { useAppSelector } from "@store/index";
 const NavigationMobile = React.memo(() => {
   const { blogs } = useAppSelector((state) => state.app);
 
-  const router = useTransitionRouter();
+  const router = useRouter();
   const pathname = usePathname();
   const shouldShowNavigation = /^\/(blog|project)\/.+/.test(pathname);
 
