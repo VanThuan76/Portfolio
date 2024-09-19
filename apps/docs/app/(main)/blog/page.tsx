@@ -21,7 +21,7 @@ export default function Page() {
 
   const [isPending, startTransition] = useTransition();
 
-  useFullScreenBackground({ imageUrl: '/study-bg.jpg' });
+  useFullScreenBackground({ imageUrl: "/study-bg.jpg" });
 
   return (
     <div className="relative bg-screen-mobile md:bg-[#F6F6F6] dark:bg-[#030712] w-full h-full flex flex-col justify-start items-start gap-5 px-4 pt-6 md:gap-0 md:py-6 md:px-12">
