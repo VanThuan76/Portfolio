@@ -13,11 +13,11 @@ interface FadeWrapperProps {
 const FadeWrapper: React.FC<FadeWrapperProps> = ({
   children,
   className,
-  isActive = true,
+  isActive = false,
 }) => {
   return (
     <>
-      {isActive ? (
+      {!isActive ? (
         <motion.div
           initial={{
             opacity: 0,

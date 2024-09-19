@@ -27,6 +27,10 @@ module.exports = {
         protocol: "https",
         hostname: "aceternity.com",
       },
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+      },
     ],
   },
   webpack(config, options) {

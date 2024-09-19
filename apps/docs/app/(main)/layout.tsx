@@ -39,7 +39,7 @@ const MainLayout = ({ children }: Props) => {
       >
         <FadeWrapper
           className={cn(
-            "relative w-full h-full m-auto border-none overflow-hidden",
+            "relative w-full h-full m-auto border-none",
             hasFullScreen ? "rounded-none" : "rounded-none md:rounded-lg",
           )}
           isActive={!pageCached.includes(pathName)}
