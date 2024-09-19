@@ -27,8 +27,5 @@
   "packageManager": "bun@1.1.12",
   "engines": {
     "node": ">=18"
-  },
-  "dependencies": {
-    "next-view-transitions": "^0.3.0"
   }
 }

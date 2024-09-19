@@ -31,6 +31,7 @@
     "mini-svg-data-uri": "^1.4.4",
     "next": "14.2.1",
     "next-themes": "^0.3.0",
+    "next-view-transitions": "^0.3.1",
     "nprogress": "^0.2.0",
     "prettier": "^3.2.5",
     "react": "^18",
@@ -46,10 +47,10 @@
     "supabase": ">=1.8.1",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
+    "ui": "workspace:*",
     "usehooks-ts": "^3.1.0",
     "vaul": "^0.9.0",
-    "zod": "^3.22.5",
-    "ui": "workspace:*"
+    "zod": "^3.22.5"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
