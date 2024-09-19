@@ -17,7 +17,6 @@ type Props = {
   className?: string;
 };
 const HeadMain = ({ className }: Props) => {
-
   const pathName = usePathname();
   const [osName, setOsName] = useState(null);
 

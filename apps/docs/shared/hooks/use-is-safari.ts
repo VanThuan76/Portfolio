@@ -1,18 +1,17 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 const useIsSafari = () => {
-    const [isSafari, setIsSafari] = useState<boolean>(false);
+  const [isSafari, setIsSafari] = useState<boolean>(false);
 
-    useEffect(() => {
-        const userAgent = navigator.userAgent;
+  useEffect(() => {
+    const userAgent = navigator.userAgent;
 
-        const isSafariBrowser =
-            /^((?!chrome|android).)*safari/i.test(userAgent);
+    const isSafariBrowser = /^((?!chrome|android).)*safari/i.test(userAgent);
 
-        setIsSafari(isSafariBrowser);
-    }, []);
+    setIsSafari(isSafariBrowser);
+  }, []);
 
-    return isSafari;
+  return isSafari;
 };
 
 export default useIsSafari;
