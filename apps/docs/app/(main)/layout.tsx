@@ -13,60 +13,62 @@ import NavigationApple from "@shared/layouts/main/head/@components/navigation-ap
 import BottomBarMenu from "@shared/layouts/main/navigation";
 
 interface Props {
-    children: React.ReactNode;
+  children: React.ReactNode;
 }
 
 const MainLayout = ({ children }: Props) => {
-    const { initBackground, hasFullScreen, pageCached, hasVisited } =
-        useAppSelector((state) => state.app);
+  const { initBackground, hasFullScreen, pageCached, hasVisited } =
+    useAppSelector((state) => state.app);
 
-    const pathName = usePathname();
+  const pathName = usePathname();
 
-    function unMountNavApple() {
-        if (pathName.includes("/setting")) return false;
-        return true;
-    }
+  function unMountNavApple() {
+    if (pathName.includes("/setting")) return false;
+    return true;
+  }
 
-    return (
-        <>
-            {hasVisited && (
-                <main
-                    id="container-app"
-                    className="relative mx-auto w-screen h-screen block z-[2000]"
-                >
-                    {!hasFullScreen && <HeadMain />}
-                    <div
-                        className={cn(
-                            "relative flex flex-col items-center justify-center w-full z-50 transition-all ease-linear duration-300",
-                            hasFullScreen ? "h-full" : "h-full md:h-[90vh] md:mt-4 md:px-12",
-                        )}
-                    >
-                        <FadeWrapper
-                            className={cn(
-                                "relative w-full h-full m-auto border-none",
-                                hasFullScreen ? "rounded-none" : "rounded-none md:rounded-lg overflow-hidden",
-                            )}
-                            isActive={!pageCached.includes(pathName)}
-                        >
-                            {unMountNavApple() && <NavigationApple />}
-                            {children}
-                        </FadeWrapper>
-                    </div>
-                    {initBackground !== "" && (
-                        <Image
-                            width={1280}
-                            height={1280}
-                            alt="bg-container"
-                            src={initBackground}
-                            className="absolute top-0 left-0 z-10 hidden object-cover object-center w-full h-full md:block"
-                            priority={true}
-                        />
-                    )}
-                    <BottomBarMenu />
-                </main>
+  return (
+    <>
+      {hasVisited && (
+        <main
+          id="container-app"
+          className="relative mx-auto w-screen h-screen block z-[2000]"
+        >
+          {!hasFullScreen && <HeadMain />}
+          <div
+            className={cn(
+              "relative flex flex-col items-center justify-center w-full z-50 transition-all ease-linear duration-300",
+              hasFullScreen ? "h-full" : "h-full md:h-[90vh] md:mt-4 md:px-12",
             )}
-        </>
-    );
+          >
+            <FadeWrapper
+              className={cn(
+                "relative w-full h-full m-auto border-none",
+                hasFullScreen
+                  ? "rounded-none"
+                  : "rounded-none md:rounded-lg overflow-hidden",
+              )}
+              isActive={!pageCached.includes(pathName)}
+            >
+              {unMountNavApple() && <NavigationApple />}
+              {children}
+            </FadeWrapper>
+          </div>
+          {initBackground !== "" && (
+            <Image
+              width={1280}
+              height={1280}
+              alt="bg-container"
+              src={initBackground}
+              className="absolute top-0 left-0 z-10 hidden object-cover object-center w-full h-full md:block"
+              priority={true}
+            />
+          )}
+          <BottomBarMenu />
+        </main>
+      )}
+    </>
+  );
 };
 
 export default React.memo(MainLayout);
