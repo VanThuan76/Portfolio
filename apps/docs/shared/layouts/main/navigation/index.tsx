@@ -9,28 +9,28 @@ import NavigationDesktop from "./desktop";
 import NavigationMobile from "./mobile";
 
 const BottomBarMenu = () => {
-    const breakpoint = useBreakpoint();
+  const breakpoint = useBreakpoint();
 
-    const renderMenu = () => {
-        if (breakpoint === "xs") {
-            return <NavigationMobile />;
-        }
+  const renderMenu = () => {
+    if (breakpoint === "xs") {
+      return <NavigationMobile />;
+    }
 
-        if (breakpoint !== "xs") {
-            return <NavigationDesktop />;
-        }
+    if (breakpoint !== "xs") {
+      return <NavigationDesktop />;
+    }
 
-        return null;
-    };
+    return null;
+  };
 
-    return (
-        <div
-            className={cn(
-                "relative w-full flex items-center justify-cente z-[10002]",
-            )}
-        >
-            {renderMenu()}
-        </div>
-    );
-}
+  return (
+    <div
+      className={cn(
+        "relative w-full flex items-center justify-cente z-[10002]",
+      )}
+    >
+      {renderMenu()}
+    </div>
+  );
+};
 export default React.memo(BottomBarMenu);
