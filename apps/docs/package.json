@@ -26,7 +26,6 @@
     "cmdk": "^1.0.0",
     "cookies-next": "^4.1.1",
     "dayjs": "^1.11.11",
-    "framer-motion": "^11.0.28",
     "lucide-react": "^0.372.0",
     "mini-svg-data-uri": "^1.4.4",
     "next": "14.2.1",
