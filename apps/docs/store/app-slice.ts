@@ -6,34 +6,62 @@ import { IBlog } from "@server/data/types/blog";
 import { IProject } from "@server/data/types/project";
 import { IInformationWork } from "@server/data/types/information-work";
 
+import { ModalProps } from "@shared/hooks/use-modal";
+
 export interface IDefaultState {
   profile: any;
   tags: ITag[] | [];
   blogs: IBlog[] | [];
+  blogCategories: any[] | [];
   projects: IProject[] | [];
   informationWorks: IInformationWork[] | [];
   initProgress: number;
-  initBackground: string;
   hasVisited: boolean;
   hasSleep: boolean;
   hasCloseScreen: boolean;
   hasFullScreen: boolean;
   pageCached: string[];
+  positions: {
+    cameraPosition: any[];
+    positionModelMain: any[];
+    positionModelCastle: any[];
+    positionModelRestaurant: any[];
+    positionModelSchool: any[];
+    positionModelMountain: any[];
+    positionModelCity: any[];
+    positionModelOcean: any[];
+  };
+  modalStore: ModalProps;
 }
 
 const initialState: IDefaultState = {
   profile: [],
   tags: [],
   blogs: [],
+  blogCategories: [],
   projects: [],
   informationWorks: [],
   initProgress: 0,
-  initBackground: "",
   hasVisited: false,
   hasSleep: false,
   hasCloseScreen: true,
   hasFullScreen: false,
   pageCached: [],
+  positions: {
+    cameraPosition: [],
+    positionModelMain: [],
+    positionModelRestaurant: [],
+    positionModelCastle: [],
+    positionModelSchool: [],
+    positionModelMountain: [],
+    positionModelCity: [],
+    positionModelOcean: [],
+  },
+  modalStore: {
+    type: null,
+    data: {},
+    isOpen: false,
+  },
 };
 
 export const appSlice = createSlice({
@@ -49,6 +77,9 @@ export const appSlice = createSlice({
     setBlogs: (state, action: PayloadAction<IBlog[]>) => {
       state.blogs = action.payload;
     },
+    setBlogCategories: (state, action: PayloadAction<any[]>) => {
+      state.blogCategories = action.payload;
+    },
     setProjects: (state, action: PayloadAction<IProject[]>) => {
       state.projects = action.payload;
     },
@@ -57,9 +88,6 @@ export const appSlice = createSlice({
     },
     setInitProgress: (state, action: PayloadAction<number>) => {
       state.initProgress = action.payload;
-    },
-    setInitBackground: (state, action: PayloadAction<string>) => {
-      state.initBackground = action.payload;
     },
     setHasSleep: (state, action: PayloadAction<boolean>) => {
       state.hasSleep = action.payload;
@@ -78,6 +106,20 @@ export const appSlice = createSlice({
         state.pageCached.push(action.payload);
       }
     },
+    setPositionModels: (state, action: PayloadAction<any>) => {
+      state.positions = action.payload;
+    },
+    openModal: (state, action: PayloadAction<ModalProps>) => {
+      state.modalStore = action.payload;
+    },
+    closeModal: (state) => {
+      state.modalStore = {
+        ...state.modalStore,
+        type: null,
+        data: undefined,
+        isOpen: false,
+      };
+    },
   },
 });
 
@@ -85,14 +127,17 @@ export const {
   setProfile,
   setTags,
   setBlogs,
+  setBlogCategories,
   setProjects,
   setInformationWorks,
   setInitProgress,
-  setInitBackground,
   setHasFullScreen,
   setHasSleep,
   setHasVisited,
   setHasCloseScreen,
   addPageToCache,
+  setPositionModels,
+  openModal,
+  closeModal,
 } = appSlice.actions;
 export const appReducer = appSlice.reducer;

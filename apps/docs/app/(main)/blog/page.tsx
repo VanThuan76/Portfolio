@@ -1,8 +1,6 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
-import { useTransition } from "react";
 import { useAppSelector } from "@store/index";
 
 import { Tabs } from "@ui/molecules/tabs/tabs";
@@ -14,29 +12,13 @@ import { TypographyP } from "@ui/molecules/ui-elements/typography-p";
 import HoverImageLink from "@ui/molecules/effects/hover-image-link";
 
 import CardBlog from "./@components/card-blog";
-import useFullScreenBackground from "@shared/hooks/use-mobile-full-screen";
 
 export default function Page() {
   const { tags, blogs } = useAppSelector((state) => state.app);
 
-  const [isPending, startTransition] = useTransition();
-
-  useFullScreenBackground({ backgroundColor: "#e8e6e6" });
-
   return (
-    <div className="relative md:bg-[#F6F6F6] dark:bg-[#030712] w-full h-full flex flex-col justify-start items-start gap-5 px-4 pt-6 md:gap-0 md:py-6 md:px-12">
-      <div className="absolute top-0 left-0 hidden w-full h-full md:block">
-        <LoaderImage
-          src="/study-bg.jpg"
-          isLoader={false}
-          alt="Bg-Blog"
-          width={1280}
-          height={500}
-          className="object-cover object-top w-full h-full"
-        />
-      </div>
-
-      <div className="z-10 flex flex-col items-start justify-start w-full col-span-1 md:col-span-5">
+    <div className="relative flex flex-col items-start justify-start w-full h-full gap-5 px-4 pt-6 bg-black/50 backdrop-blur-sm md:gap-0 md:py-6 md:px-12">
+      <div className="flex flex-col items-start justify-start w-full col-span-1 md:col-span-5">
         <div className="w-[50px] h-[50px] md:w-[75px] md:h-[75px] border light:border-black dark:border-gray-400 rounded-full">
           <LoaderImage
             isLoader={false}
@@ -49,7 +31,7 @@ export default function Page() {
         </div>
         <TypographyH3
           className="mt-0 text-xl text-white md:mt-2"
-          title="Hip Blog"
+          title="Austin's Blog"
         />
         <div className="flex flex-wrap items-center justify-start gap-2">
           <TypographyP
@@ -77,9 +59,9 @@ export default function Page() {
         </div>
       </div>
 
-      <Separator className="w-full h-[1px] bg-slate-300 dark:bg-white z-10 mt-1 md:mt-2" />
+      <Separator className="w-full h-[1px] bg-slate-300 dark:bg-white mt-1 md:mt-2" />
 
-      <div className="z-10 grid items-start justify-start w-full h-full grid-cols-1 gap-5 md:grid-cols-5">
+      <div className="grid items-start justify-start w-full h-[5000px] grid-cols-1 gap-5 md:grid-cols-5">
         <div className="w-full h-full col-span-1 pb-5 mx-auto md:col-span-4 md:py-5">
           <div className="min-h-[35rem] md:min-h-[25rem] [perspective:1000px] relative flex flex-col w-full items-start justify-start overflow-auto md:overflow-visible">
             <Tabs
@@ -92,7 +74,7 @@ export default function Page() {
                       items={blogs.filter((blog) =>
                         blog.tags.some((item) => item.slug === tag.slug),
                       )}
-                      className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 md:gap-0 pt-7 md:py-5"
+                      className="grid items-start justify-start grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 md:gap-0 pt-7 md:py-5"
                     />
                   </div>
                 ),
@@ -124,30 +106,6 @@ export default function Page() {
           </div>
         </div>
       </div>
-
-      {isPending && (
-        <div className="absolute flex justify-center items-center bottom-0 right-1/2 translate-x-1/2 w-[100px] h-[100px] md:hidden z-[999999]">
-          {Array.from({ length: 3 }).map((_, index) => (
-            <div
-              key={index}
-              className={`w-[24px] h-[24px] animate-scale-up`}
-              style={{
-                animationDelay: `${index * 0.5}s`,
-                overflow: "hidden",
-              }}
-            >
-              <Image
-                width={100}
-                height={100}
-                alt="loading"
-                src="/logo.png"
-                priority={true}
-                className="object-contain w-full h-full"
-              />
-            </div>
-          ))}
-        </div>
-      )}
     </div>
   );
 }

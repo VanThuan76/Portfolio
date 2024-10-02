@@ -31,8 +31,8 @@ export default function Page() {
   useFullScreenBackground({ backgroundColor: "#e8e6e6" });
 
   return (
-    <div className="relative md:bg-[#F6F6F6] dark:bg-[#030712] w-full h-full grid grid-cols-1 md:grid-cols-3 justify-center items-center px-4 pt-6 md:gap-0 md:py-6 md:px-12">
-      <div className="flex flex-wrap items-start justify-start order-2 w-full h-full gap-2 md:order-1">
+    <div className="relative grid items-center justify-center w-full h-full grid-cols-1 px-4 pt-6 bg-transparent md:grid-cols-3 md:gap-0 md:py-6 md:px-12">
+      {/* <div className="flex flex-wrap items-start justify-start order-2 w-full h-full gap-2 md:order-1">
         <div className="space-y-2">
           <LinkedinScript />
           <Link
@@ -111,7 +111,7 @@ export default function Page() {
             </div>
           )}
         </BentoGrid>
-      </div>
+      </div> */}
     </div>
   );
 }

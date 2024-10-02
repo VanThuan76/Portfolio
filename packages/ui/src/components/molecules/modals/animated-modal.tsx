@@ -13,17 +13,54 @@ import React, {
 interface ModalContextType {
   open: boolean;
   setOpen: (open: boolean) => void;
+  setClose: () => void;
 }
 
 const ModalContext = createContext<ModalContextType | undefined>(undefined);
 
-export const ModalProvider = ({ children }: { children: ReactNode }) => {
-  const [open, setOpen] = useState(false);
+export const ModalProvider = ({
+  children,
+  open: controlledOpen,
+  setOpen: controlledSetOpen,
+  setClose: controlledSetClose,
+}: {
+  children: ReactNode;
+  open?: boolean;
+  setOpen?: (open: boolean) => void;
+  setClose?: () => void;
+}) => {
+  const [internalOpen, setInternalOpen] = useState(false);
+
+  const open = controlledOpen !== undefined ? controlledOpen : internalOpen;
+  const setOpen =
+    controlledSetOpen !== undefined ? controlledSetOpen : setInternalOpen;
+  const setClose =
+    controlledSetClose !== undefined
+      ? controlledSetClose
+      : () => setOpen(false);
 
   return (
-    <ModalContext.Provider value={{ open, setOpen }}>
+    <ModalContext.Provider value={{ open, setOpen, setClose }}>
       {children}
     </ModalContext.Provider>
+  );
+};
+
+export const Modal = ({
+  children,
+  open,
+  setOpen,
+  setClose,
+}: {
+  children: ReactNode;
+  open?: boolean;
+  setOpen?: (open: boolean) => void;
+  setClose?: () => void;
+}) => {
+  return (
+    <ModalProvider open={open} setOpen={setOpen} setClose={setClose}>
+      {children}
+    </ModalProvider>
   );
 };
 
@@ -34,10 +71,6 @@ export const useModal = () => {
   }
   return context;
 };
-
-export function Modal({ children }: { children: ReactNode }) {
-  return <ModalProvider>{children}</ModalProvider>;
-}
 
 export const ModalTrigger = ({
   children,
@@ -78,8 +111,11 @@ export const ModalBody = ({
   }, [open]);
 
   const modalRef = useRef(null);
-  const { setOpen } = useModal();
-  useOutsideClick(modalRef, () => setOpen(false));
+  const { setOpen, setClose } = useModal();
+  useOutsideClick(modalRef, () => {
+    setOpen(false);
+    setClose();
+  });
 
   return (
     <AnimatePresence>
@@ -191,10 +227,13 @@ const Overlay = ({ className }: { className?: string }) => {
 };
 
 const CloseIcon = () => {
-  const { setOpen } = useModal();
+  const { setOpen, setClose } = useModal();
   return (
     <button
-      onClick={() => setOpen(false)}
+      onClick={() => {
+        setOpen(false);
+        setClose();
+      }}
       className="absolute top-4 right-4 group"
     >
       <svg

@@ -6,7 +6,6 @@ import { usePathname } from "next/navigation";
 import { cn } from "@utils/tw";
 
 import SettingDropdown from "./@components/setting-dropdown";
-import { DATA_MOBILE_MENUS } from "@shared/constants";
 
 const NavigationExtApple = dynamic(
   () => import("./@components/navigation-ext-apple"),
@@ -46,9 +45,9 @@ const HeadMain = ({ className }: Props) => {
     >
       <div className="flex items-center justify-start">
         <SettingDropdown />
-        <p className="text-black text-[12px]">
-          {DATA_MOBILE_MENUS.find((menu) => menu.href === pathName)?.label}
-        </p>
+        {/* <p className="text-black text-[12px]">
+                    {DATA_MOBILE_MENUS.find((menu) => menu.href === pathName)?.label}
+                </p> */}
       </div>
       <div className="text-sm text-center">🖐🏻{osName}</div>
       <NavigationExtApple />

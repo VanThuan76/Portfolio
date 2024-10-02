@@ -1,74 +1,55 @@
 "use client";
 
-import Image from "next/image";
-import React from "react";
-import { usePathname } from "next/navigation";
-import { cn } from "@utils/tw";
-
+import React, { useEffect, useState } from "react";
 import { useAppSelector } from "@store/index";
 
+import useSyncPositionsWithURL from "@shared/hooks/use-sync-positions-url";
+
 import FadeWrapper from "@ui/molecules/frame/fade-wrapper";
-import HeadMain from "@shared/layouts/main/head";
-import NavigationApple from "@shared/layouts/main/head/@components/navigation-apple";
 import BottomBarMenu from "@shared/layouts/main/navigation";
+import AudioPlayer from "@shared/layouts/main/head/@components/audio-player";
+import ModalProvider from "@shared/lib/providers/modal";
+import BorderCollapse from "@shared/layouts/main/icons/border-collapse";
+import MenuMobile from "@shared/layouts/main/navigation/menu-mobile";
 
 interface Props {
   children: React.ReactNode;
 }
 
 const MainLayout = ({ children }: Props) => {
-  const { initBackground, hasFullScreen, pageCached, hasVisited } =
-    useAppSelector((state) => state.app);
+  const { positions, hasVisited } = useAppSelector((state) => state.app);
+  const [isUnmounted, setIsUnmounted] = useState(false);
 
-  const pathName = usePathname();
+  useEffect(() => {
+    if (positions) {
+      setIsUnmounted(true);
+      const timer = setTimeout(() => setIsUnmounted(false), 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [positions]);
 
-  function unMountNavApple() {
-    if (pathName.includes("/setting")) return false;
-    return true;
-  }
+  useSyncPositionsWithURL();
 
-  return (
-    <>
-      {hasVisited && (
-        <main
-          id="container-app"
-          className="relative mx-auto w-screen h-screen block z-[2000]"
+  return hasVisited ? (
+    <div
+      id="main-app"
+      className="pointer-events-none w-full relative z-50 h-[100dvh] overflow-y-auto overflow-x-hidden bg-gradient-to-t from-[rgba(45,87,131,0.5)] to-[rgba(45,87,131,0)]"
+    >
+      <main className="austin-scroll flex flex-col items-center justify-center w-full h-full border-[6.5px] inset-0 border-white pointer-events-auto">
+        <AudioPlayer audioSrc="/music.mp3" />
+        <FadeWrapper
+          className="w-full h-full overflow-hidden"
+          isActive={!isUnmounted}
         >
-          {!hasFullScreen && <HeadMain />}
-          <div
-            className={cn(
-              "relative flex flex-col items-center justify-center w-full z-50 transition-all ease-linear duration-300",
-              hasFullScreen ? "h-full" : "h-full md:h-[90vh] md:mt-4 md:px-12",
-            )}
-          >
-            <FadeWrapper
-              className={cn(
-                "relative w-full h-full m-auto border-none",
-                hasFullScreen
-                  ? "rounded-none"
-                  : "rounded-none md:rounded-lg overflow-hidden",
-              )}
-              isActive={!pageCached.includes(pathName)}
-            >
-              {unMountNavApple() && <NavigationApple />}
-              {children}
-            </FadeWrapper>
-          </div>
-          {initBackground !== "" && (
-            <Image
-              width={1280}
-              height={1280}
-              alt="bg-container"
-              src={initBackground}
-              className="absolute top-0 left-0 z-10 hidden object-cover object-center w-full h-full md:block"
-              priority={true}
-            />
-          )}
-          <BottomBarMenu />
-        </main>
-      )}
-    </>
-  );
+          <div className="w-full h-full overflow-y-auto">{children}</div>
+        </FadeWrapper>
+        <MenuMobile />
+        <BorderCollapse />
+      </main>
+      <BottomBarMenu />
+      <ModalProvider />
+    </div>
+  ) : null;
 };
 
 export default React.memo(MainLayout);

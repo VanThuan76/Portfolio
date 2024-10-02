@@ -12,6 +12,8 @@
     "paths": {
       "@/*": ["./*"],
       "@ui/*": ["../../packages/ui/src/components/*"],
+      "@three/*": ["../../packages/ui/src/threejs/*"],
+      "@ui/lib/*": ["../../packages/ui/src/lib/*"],
       "@ui/components/*": ["../../packages/ui/src/components/ui/*"],
       "@ui/components/ui/*": ["../../packages/ui/src/components/ui/*"],
       "@styles/*": ["../../packages/ui/src/styles/*"],

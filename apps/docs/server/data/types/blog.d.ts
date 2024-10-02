@@ -1,3 +1,4 @@
+import { IBlogCommentWithUser } from "@server/actions/comment";
 import { ITag } from "./tag";
 
 export interface IBlogSupabase {
@@ -41,3 +42,8 @@ export interface ICommentSupabase {
   content: string;
   like: number;
 }
+
+export type IArticleBlogResult = {
+  blog: IBlogSupabase;
+  comments: IBlogCommentWithUser[];
+};

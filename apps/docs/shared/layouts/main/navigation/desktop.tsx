@@ -1,12 +1,9 @@
 "use client";
 import Image from "next/image";
-import React, { useCallback, useEffect, useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
-import { useTransitionRouter } from "next-view-transitions";
+import React from "react";
 
 import { cn } from "@utils/tw";
-import { useAppDispatch, useAppSelector } from "@store/index";
-import { addPageToCache, setHasCloseScreen } from "@store/app-slice";
+import { useAppSelector } from "@store/index";
 
 import { buttonVariants } from "@ui/atoms/button";
 
@@ -18,106 +15,29 @@ import {
   TooltipTrigger,
 } from "@ui/molecules/other-utils/tooltip";
 
-import useIsSafari from "@shared/hooks/use-is-safari";
 import MotionContainer from "@ui/molecules/frame/dynamic-contain";
-
-const DATA_DESKTOP_MENUS = {
-  home: [
-    {
-      href: "/setting",
-      icon: "/icon-navigation/icon-setting.png",
-      label: "Setting",
-    },
-    {
-      href: "/about-me",
-      icon: "/icon-navigation/icon-about.png",
-      label: "About Me",
-    },
-  ],
-  main: {
-    Blog: {
-      name: "Blog",
-      url: "/blog",
-      icon: "/icon-navigation/icon-blog.png",
-    },
-    Project: {
-      name: "Project",
-      url: "/project",
-      icon: "/icon-navigation/icon-project.png",
-    },
-  },
-  extends: {
-    ChatBot: {
-      name: "ChatBot",
-      url: "/extensions/chatbot",
-      icon: "/icon-navigation/chat.svg",
-    },
-    GitRoll: {
-      name: "GitRoll",
-      url: "/extensions/git-roll",
-      icon: "/icon-navigation/icon-github.png",
-    },
-    Resume: {
-      name: "Resume",
-      url: "/extensions/resume",
-      icon: "/icon-navigation/icon-resume.png",
-    },
-  },
-};
+import useIsSafari from "@shared/hooks/use-is-safari";
+import useOpenScreen from "@shared/hooks/use-open-screen";
+import { DATA_MENUS } from "@shared/constants";
 
 export default function NavigationDesktop({
   className,
 }: {
   className?: string;
 }) {
-  const dispatch = useAppDispatch();
-  const pathName = usePathname();
-  const routerNext = useRouter();
-  const routerTrans = useTransitionRouter();
   const isSafari = useIsSafari();
   const pageCached = useAppSelector((state) => state.app.pageCached);
 
-  const [prevPath, setPrevPath] = useState(pathName);
-  const [isPageChanging, setIsPageChanging] = useState(false);
-  const [urlChanging, setUrlChanging] = useState("");
-
-  useEffect(() => {
-    if (prevPath !== pathName) {
-      setIsPageChanging(true);
-      setPrevPath(pathName);
-    } else {
-      setIsPageChanging(false);
-      setUrlChanging("");
-    }
-  }, [pathName, prevPath, dispatch]);
-
-  const handleOpenScreen = useCallback(
-    async (e: React.MouseEvent<HTMLDivElement>, href: string) => {
-      e.preventDefault();
-
-      if (pageCached.includes(href)) {
-        isSafari ? routerNext.push(href) : routerTrans.push(href);
-        dispatch(setHasCloseScreen(false));
-        return;
-      }
-
-      setIsPageChanging(true);
-      setUrlChanging(href);
-
-      setTimeout(() => {
-        isSafari ? routerNext.push(href) : routerTrans.push(href);
-        dispatch(addPageToCache(href));
-        dispatch(setHasCloseScreen(false));
-      }, 3000);
-    },
-    [pageCached, isSafari],
+  const { handleOpenScreen, isPageChanging, urlChanging } = useOpenScreen(
+    pageCached,
+    isSafari,
   );
 
   return (
     <MotionContainer
       type="blur"
       className={cn(
-        "fixed bottom-2 right-1/2 left-1/2 flex items-center justify-center",
+        "fixed bottom-5 right-1/2 left-1/2 flex items-center justify-center",
         className,
       )}
     >
@@ -125,13 +45,13 @@ export default function NavigationDesktop({
         direction="middle"
         className="bg-[#E0E0E0] dark:bg-[#2C2C2E] backdrop-blur-md bg-opacity-30"
       >
-        {DATA_DESKTOP_MENUS.home.map((item) => (
-          <DockIcon key={item.label}>
+        {DATA_MENUS.slice(0, 1).map((item) => (
+          <DockIcon key={item.name}>
             <Tooltip>
               <TooltipTrigger asChild>
                 <div
                   onClick={(e: React.MouseEvent<HTMLDivElement>) =>
-                    handleOpenScreen(e, item.href)
+                    handleOpenScreen(e, item.href, item.positions)
                   }
                   className={cn(
                     buttonVariants({ variant: "ghost", size: "icon" }),
@@ -143,7 +63,7 @@ export default function NavigationDesktop({
                 >
                   <Image
                     src={item.icon}
-                    alt={item.label}
+                    alt={item.name}
                     width={30}
                     height={30}
                     priority={true}
@@ -154,7 +74,7 @@ export default function NavigationDesktop({
                 </div>
               </TooltipTrigger>
               <TooltipContent>
-                <p>{item.label}</p>
+                <p>{item.name}</p>
               </TooltipContent>
             </Tooltip>
           </DockIcon>
@@ -163,18 +83,18 @@ export default function NavigationDesktop({
           orientation="vertical"
           className="h-full w-[1px] bg-gray-300/50"
         />
-        {Object.entries(DATA_DESKTOP_MENUS.main).map(([name, item]) => (
-          <DockIcon key={name}>
+        {DATA_MENUS.slice(1, 4).map((item) => (
+          <DockIcon key={item.name}>
             <Tooltip>
               <TooltipTrigger asChild>
                 <div
                   onClick={(e: React.MouseEvent<HTMLDivElement>) =>
-                    handleOpenScreen(e, item.url)
+                    handleOpenScreen(e, item.href, item.positions)
                   }
                   className={cn(
                     buttonVariants({ variant: "ghost", size: "icon" }),
                     "size-12 rounded-full relative",
-                    urlChanging === item.url && isPageChanging
+                    urlChanging === item.href && isPageChanging
                       ? "animate-bounce"
                       : "",
                   )}
@@ -186,13 +106,13 @@ export default function NavigationDesktop({
                     height={30}
                     priority={true}
                   />
-                  {pageCached.includes(item.url) && (
+                  {pageCached.includes(item.href) && (
                     <div className="absolute bottom-0 w-1 h-1 transform -translate-x-1/2 bg-black rounded-full left-1/2" />
                   )}
                 </div>
               </TooltipTrigger>
               <TooltipContent>
-                <p>{name}</p>
+                <p>{item.name}</p>
               </TooltipContent>
             </Tooltip>
           </DockIcon>
@@ -201,18 +121,18 @@ export default function NavigationDesktop({
           orientation="vertical"
           className="h-full w-[1px] bg-gray-300/50"
         />
-        {Object.entries(DATA_DESKTOP_MENUS.extends).map(([name, item]) => (
-          <DockIcon key={name}>
+        {DATA_MENUS.slice(4, 7).map((item) => (
+          <DockIcon key={item.name}>
             <Tooltip>
               <TooltipTrigger asChild>
                 <div
                   onClick={(e: React.MouseEvent<HTMLDivElement>) =>
-                    handleOpenScreen(e, item.url)
+                    handleOpenScreen(e, item.href, item.positions)
                   }
                   className={cn(
                     buttonVariants({ variant: "ghost", size: "icon" }),
                     "size-12 rounded-full relative",
-                    urlChanging === item.url && isPageChanging
+                    urlChanging === item.href && isPageChanging
                       ? "animate-bounce"
                       : "",
                   )}
@@ -224,13 +144,13 @@ export default function NavigationDesktop({
                     height={30}
                     priority={true}
                   />
-                  {pageCached.includes(item.url) && (
+                  {pageCached.includes(item.href) && (
                     <div className="absolute bottom-0 w-1 h-1 transform -translate-x-1/2 bg-black rounded-full left-1/2" />
                   )}
                 </div>
               </TooltipTrigger>
               <TooltipContent>
-                <p>{name}</p>
+                <p>{item.name}</p>
               </TooltipContent>
             </Tooltip>
           </DockIcon>

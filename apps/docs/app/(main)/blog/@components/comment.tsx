@@ -13,13 +13,13 @@ import Auth from "@shared/lib/auth";
 import FormComment from "./form-comment";
 
 interface CommentProps {
-  user: IAuthSupabase;
+  user: IAuthSupabase | null;
   blogId: string;
 }
 
 const Comment = ({ user, blogId }: CommentProps) => {
   return (
-    <div className="w-full h-full mx-auto">
+    <>
       {user ? (
         <FormComment user={user} blogId={blogId} />
       ) : (
@@ -32,7 +32,7 @@ const Comment = ({ user, blogId }: CommentProps) => {
           </DialogContent>
         </Dialog>
       )}
-    </div>
+    </>
   );
 };
 

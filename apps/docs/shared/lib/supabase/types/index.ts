@@ -11,6 +11,7 @@ export type Database = {
     Tables: {
       blog: {
         Row: {
+          category_id: number | null;
           created_at: string;
           id: string;
           image_url: string;
@@ -21,6 +22,7 @@ export type Database = {
           updated_at: string;
         };
         Insert: {
+          category_id?: number | null;
           created_at?: string;
           id?: string;
           image_url: string;
@@ -31,6 +33,7 @@ export type Database = {
           updated_at?: string;
         };
         Update: {
+          category_id?: number | null;
           created_at?: string;
           id?: string;
           image_url?: string;
@@ -38,6 +41,35 @@ export type Database = {
           is_published?: boolean;
           slug?: string;
           title?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "blog_category_id_fkey";
+            columns: ["category_id"];
+            isOneToOne: false;
+            referencedRelation: "blog_category";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      blog_category: {
+        Row: {
+          created_at: string;
+          id: number;
+          name: string | null;
+          updated_at: string;
+        };
+        Insert: {
+          created_at?: string;
+          id?: number;
+          name?: string | null;
+          updated_at?: string;
+        };
+        Update: {
+          created_at?: string;
+          id?: number;
+          name?: string | null;
           updated_at?: string;
         };
         Relationships: [];
@@ -112,6 +144,86 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "public_blog_content_blog_id_fkey";
+            columns: ["blog_id"];
+            isOneToOne: false;
+            referencedRelation: "blog";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      blog_interaction_comment: {
+        Row: {
+          comment_id: string | null;
+          content: string | null;
+          created_at: string;
+          id: number;
+          interaction_type: string | null;
+          updated_at: string | null;
+          user_id: string | null;
+        };
+        Insert: {
+          comment_id?: string | null;
+          content?: string | null;
+          created_at?: string;
+          id?: number;
+          interaction_type?: string | null;
+          updated_at?: string | null;
+          user_id?: string | null;
+        };
+        Update: {
+          comment_id?: string | null;
+          content?: string | null;
+          created_at?: string;
+          id?: number;
+          interaction_type?: string | null;
+          updated_at?: string | null;
+          user_id?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "blog_interaction_comment_comment_id_fkey";
+            columns: ["comment_id"];
+            isOneToOne: false;
+            referencedRelation: "blog_comment";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "blog_interaction_comment_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: false;
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      blog_meta: {
+        Row: {
+          blog_id: string | null;
+          created_at: string;
+          id: number;
+          meta_key: string | null;
+          meta_value: string | null;
+          updated_at: string | null;
+        };
+        Insert: {
+          blog_id?: string | null;
+          created_at?: string;
+          id?: number;
+          meta_key?: string | null;
+          meta_value?: string | null;
+          updated_at?: string | null;
+        };
+        Update: {
+          blog_id?: string | null;
+          created_at?: string;
+          id?: number;
+          meta_key?: string | null;
+          meta_value?: string | null;
+          updated_at?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "blog_meta_blog_id_fkey";
             columns: ["blog_id"];
             isOneToOne: false;
             referencedRelation: "blog";

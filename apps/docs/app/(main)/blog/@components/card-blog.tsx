@@ -49,7 +49,7 @@ const CardBlog = ({
         {items.map((item, idx) => (
           <div
             key={idx}
-            className="relative block w-full h-full p-0 md:p-2 group"
+            className="relative block w-full md:w-[330px] h-full p-0 md:p-2 group"
             onMouseEnter={() => setHoveredIndex(idx)}
             onMouseLeave={() => setHoveredIndex(null)}
             onClick={() => handleRedirect(item.slug)}
@@ -71,7 +71,7 @@ const CardBlog = ({
                 />
               )}
             </AnimatePresence>
-            <Card className="relative p-0 m-0 dark:bg-[#393E46] bg-screen-mobile overflow-hidden shadow-lg">
+            <Card className="relative p-0 m-0 dark:bg-[#393E46] bg-white overflow-hidden shadow-lg">
               <div className="w-[30%] h-full md:w-full md:h-[100px]">
                 <LoaderImage
                   isLoader={false}

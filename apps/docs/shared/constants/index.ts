@@ -11,14 +11,6 @@ export const DEFAULT_THEME = {
   dark: ["#ebedf0", "#0e4429", "#006d32", "#26a641", "#39d353"],
 };
 
-export const BACKGROUNDS = [
-  "/background/bg-1.jpg",
-  "/background/bg-2.jpg",
-  "/background/bg-3.jpg",
-  "/background/bg-4.jpg",
-  "/background/bg-5.jpg",
-  "/background/bg-6.jpg",
-];
 export const breakpoints = {
   0: "xs",
   600: "sm",
@@ -27,43 +19,112 @@ export const breakpoints = {
   1920: "xl",
 };
 
-export const DATA_MOBILE_MENUS = [
+export const DATA_MENUS = [
+  //   {
+  //     name: "Setting",
+  //     href: "/setting",
+  //     icon: "/icon-navigation/icon-setting.png",
+  //     positions: {
+  //       cameraPosition: [0, 0, 500],
+  //       positionModelMain: [100, 200, -100],
+  //       positionModelCastle: [],
+  //       positionModelRestaurant: [],
+  //       positionModelSchool: [],
+  //       positionModelMountain: [],
+  //       positionModelCity: [],
+  //       positionModelOcean: [],
+  //     },
+  //   },
   {
-    href: "/setting",
-    icon: "/icon-navigation/icon-setting.png",
-    label: "Setting",
+    name: "Blog",
+    href: "/blog",
+    icon: "/icon-navigation/icon-blog.png",
+    positions: {
+      cameraPosition: [-450, 0, 900],
+      positionModelMain: [100, 200, 0],
+      positionModelCastle: [-900, -250, -250, true],
+      positionModelRestaurant: [-775, -200, 250],
+      positionModelSchool: [],
+      positionModelMountain: [-1700, -200, -1300],
+      positionModelCity: [],
+      positionModelOcean: [],
+    },
   },
   {
-    href: "/about-me",
-    icon: "/icon-navigation/icon-about.png",
-    label: "About Me",
-  },
-  { href: "/blog", icon: "/icon-navigation/icon-blog.png", label: "Blog" },
-  {
+    name: "Project",
     href: "/project",
     icon: "/icon-navigation/icon-project.png",
-    label: "Project",
+    positions: {
+      cameraPosition: [-600, 100, 100],
+      positionModelMain: [],
+      positionModelCastle: [-900, -200, -250],
+      positionModelRestaurant: [],
+      positionModelSchool: [],
+      positionModelMountain: [-1900, -500, -1400, true],
+      positionModelCity: [],
+      positionModelOcean: [],
+    },
   },
+  //   {
+  //     name: "Resume",
+  //     href: "/extensions/resume",
+  //     icon: "/icon-navigation/icon-resume.png",
+  //     positions: {
+  //       cameraPosition: [0, 0, 500],
+  //       positionModelMain: [100, 200, -100],
+  //       positionModelRestaurant: [],
+  //       positionModelCastle: [],
+  //       positionModelSchool: [],
+  //       positionModelMountain: [],
+  //       positionModelCity: [],
+  //       positionModelOcean: [],
+  //     },
+  //   },
   {
-    href: "/course",
-    icon: "/icon-navigation/icon-course.png",
-    label: "Course",
+    name: "About Me",
+    href: "/about-me",
+    icon: "/icon-navigation/icon-about.png",
+    positions: {
+      cameraPosition: [0, 0, 500],
+      positionModelMain: [100, -100, -100, true],
+      positionModelRestaurant: [],
+      positionModelCastle: [],
+      positionModelSchool: [],
+      positionModelMountain: [],
+      positionModelCity: [],
+      positionModelOcean: [],
+    },
   },
-  {
-    href: "/extensions/chatbot",
-    icon: "/icon-navigation/chat.svg",
-    label: "ChatBot",
-  },
-  {
-    href: "/extensions/git-roll",
-    icon: "/icon-navigation/icon-github.png",
-    label: "GitRoll",
-  },
-  {
-    href: "/extensions/resume",
-    icon: "/icon-navigation/icon-resume.png",
-    label: "Resume",
-  },
+  //   {
+  //     name: "ChatBot",
+  //     href: "/extensions/chatbot",
+  //     icon: "/icon-navigation/chat.svg",
+  //     positions: {
+  //       cameraPosition: [0, 0, 500],
+  //       positionModelMain: [100, 200, -100],
+  //       positionModelRestaurant: [],
+  //       positionModelCastle: [],
+  //       positionModelMountain: [],
+  //       positionModelSchool: [],
+  //       positionModelCity: [],
+  //       positionModelOcean: [],
+  //     },
+  //   },
+  //   {
+  //     name: "GitRoll",
+  //     href: "/extensions/git-roll",
+  //     icon: "/icon-navigation/icon-github.png",
+  //     positions: {
+  //       cameraPosition: [0, 0, 500],
+  //       positionModelMain: [100, 200, -100],
+  //       positionModelRestaurant: [],
+  //       positionModelCastle: [],
+  //       positionModelMountain: [],
+  //       positionModelSchool: [],
+  //       positionModelCity: [],
+  //       positionModelOcean: [],
+  //     },
+  //   },
 ];
 
 export const initialValueByCreatingBlog = [

@@ -6,7 +6,7 @@ import useBreakpoint from "@shared/hooks/use-break-point";
 
 import MacStartupScreen from "@ui/organisms/mac-startup";
 
-const MacUiProvider = React.memo(({ progress }: { progress: number }) => {
+const MacUiProvider = ({ progress }: { progress: number }) => {
   const breakpoint = useBreakpoint();
   const hasVisited = useAppSelector((state) => state.app.hasVisited);
 
@@ -18,18 +18,18 @@ const MacUiProvider = React.memo(({ progress }: { progress: number }) => {
         setShowStartup(false);
       }, 3000);
     }
-  }, [progress]);
+  }, [progress, hasVisited]);
 
   return (
     <>
       <MacStartupScreen
         size={breakpoint === "xs" ? "small" : "large"}
         logo="/logo.png"
-        progress={progress}
+        progress={progress - 10}
         isActive={showStartup}
       />
     </>
   );
-});
+};
 
 export default MacUiProvider;

@@ -66,51 +66,59 @@
   }
 }
 
-@layer base {
-  * {
-    @apply border-border;
-  }
-
-  body {
-    @apply bg-background text-foreground;
-  }
+* {
+  scrollbar-color: auto;
+  scrollbar-width: auto;
 }
 
-@supports (-webkit-touch-callout: none) {
-  body {
-    height: 100vh;
-    max-height: -webkit-fill-available !important;
-  }
+*,
+:after,
+:before {
+  box-sizing: border-box;
+  border: 0 solid #eee;
 }
 
-@media not all and (min-resolution: 0.001dpcm) {
-  @supports (-webkit-appearance: none) {
-    body {
-      background-color: #e8e6e6;
-    }
-  }
+body {
+  overflow: hidden !important;
 }
 
-.bg-screen-mobile {
-  background-color: #e8e6e6;
+/* Icon layout main */
+.ui__border--left {
+  left: 0;
+}
+.ui__border--top {
+  top: 0;
+}
+.ui__border--bottom {
+  bottom: 0;
+  --tw-scale-y: -1;
+}
+.ui__border--right {
+  right: 0;
+  --tw-scale-x: -1;
+}
+.ui__border--bottom,
+.ui__border--right {
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y))
+    rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+    scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.ui__border {
+  width: 100px;
+}
+.ui__border,
+.ui__borders {
+  position: absolute;
+  z-index: 40;
+}
+.ui__borders {
+  inset: 0;
+  border-width: 6.5px;
+  --tw-border-opacity: 1;
+  border-color: rgb(255 255 255 / var(--tw-border-opacity));
 }
 
-.no-scroll {
-  overflow: hidden;
-}
-
-.hide-scrollbar {
-  overflow: hidden;
-}
-
-.scrollable-content {
-  overflow: auto;
-  scrollbar-width: none;
-}
-
-.scrollable-content::-webkit-scrollbar {
-  display: none;
-}
+/* Other */
 
 .fade-in {
   -webkit-animation: fade-in 500ms cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
@@ -147,16 +155,16 @@
 
 @keyframes swipeBounce {
   0% {
-    transform: translateX(100%); /* Bắt đầu từ ngoài khung nhìn, bên phải */
+    transform: translateX(100%);
   }
   50% {
-    transform: translateX(-10%); /* Quá độ sang trái một chút */
+    transform: translateX(-10%);
   }
   75% {
-    transform: translateX(0); /* Trở lại vị trí ban đầu */
+    transform: translateX(0);
   }
   100% {
-    transform: translateX(-10%); /* Lùi lại một chút khi kết thúc */
+    transform: translateX(-10%);
   }
 }
 
@@ -164,22 +172,16 @@
   animation: swipeBounce 2s ease-in-out infinite; /* Animation liên tục */
 }
 
-.scroll-baby[style*="opacity: 1"] {
-  @apply text-yellow-300 dark:text-yellow-500;
+/* Scroll */
+.austin-scroll {
+  --scrollbar-track: transparent;
+  --scrollbar-thumb: #faf7f0;
+  --scrollbar-track-radius: 0.375rem;
+  --scrollbar-thumb-radius: 0.375rem;
 }
 
-.scroll-file[style*="opacity: 1"] {
-  @apply text-blue-300 dark:text-blue-500;
-}
-
-::-webkit-scrollbar {
-  @apply w-2.5 h-2.5;
-}
-
-::-webkit-scrollbar-track {
-  @apply bg-transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  @apply rounded-full bg-border border-[1px] border-transparent border-solid bg-clip-padding;
+.austin-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb, initial)
+    var(--scrollbar-track, initial);
 }

@@ -1,26 +1,39 @@
-import { getArticleBlog, getBlog } from "@server/actions/blog";
-import { currentProfile } from "@server/actions/auth";
+"use client";
+import { useEffect, useState } from "react";
+import { useGetArticleBlog } from "@server/_actions/blog_actions";
+import { useAppSelector } from "@store/index";
 
 import ClientSlugBlog from "../@components/client-slug-blog";
 
-export default async function Page({ params }: { params: { slug: string } }) {
-  const article = await getArticleBlog(params.slug);
-  const user = await currentProfile();
-  const blogs = await getBlog();
+export default function Page({ params }: { params: { slug: string } }) {
+  const blogs = useAppSelector((state) => state.app.blogs);
+  const [article, setArticle] = useState<any>(null);
+
+  const {
+    mutate: fetchArticle,
+    data: articleData,
+    isSuccess,
+  } = useGetArticleBlog();
+
+  useEffect(() => {
+    fetchArticle(params.slug);
+  }, [params.slug]);
+
+  useEffect(() => {
+    if (isSuccess && articleData) {
+      setArticle(articleData?.data);
+    }
+  }, [isSuccess, articleData]);
 
   if (!article) return <></>;
 
-  const { blog, comments } = article;
-
   return (
-    <div className="relative md:bg-[#F6F6F6] dark:bg-[#030712] rounded-none md:rounded-lg border-none shadow-none md:shadow-lg grid w-full h-full overflow-hidden grid-cols-1 px-0 pt-6 md:p-0 md:grid-cols-5 overflow-y-auto md:overflow-y-hidden">
-      <ClientSlugBlog
-        params={params.slug}
-        blog={blog}
-        blogs={blogs}
-        comments={comments}
-        user={user}
-      />
-    </div>
+    <ClientSlugBlog
+      params={params.slug}
+      user={null}
+      blogs={blogs}
+      blog={article.blog} // Đảm bảo dữ liệu đúng cấu trúc
+      comments={article.comments} // Đảm bảo dữ liệu đúng cấu trúc
+    />
   );
 }

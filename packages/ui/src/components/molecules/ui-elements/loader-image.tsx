@@ -1,6 +1,7 @@
 "use client";
 import Image, { ImageLoader } from "next/image";
 import { freepikLoader } from "@utils/helpers/freepik";
+
 export function LoaderImage(props: {
   isLoader: boolean;
   src: string;
@@ -9,10 +10,12 @@ export function LoaderImage(props: {
   width: number;
   height: number;
   onClick?: () => void;
+  style?: React.CSSProperties;
 }) {
   const loader: ImageLoader | undefined = props.isLoader
     ? freepikLoader
     : undefined;
+
   return (
     <Image
       loader={loader}
@@ -25,6 +28,7 @@ export function LoaderImage(props: {
       sizes="100vw"
       onClick={props.onClick && props.onClick}
       className={props.className}
+      style={props.style}
     />
   );
 }

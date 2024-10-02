@@ -5,7 +5,6 @@
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",
-    "local-dev": "HOST=$(ipconfig getifaddr en0) turbo dev",
     "lint": "turbo lint",
     "format": "prettier --write .",
     "update-types": "bunx supabase gen types typescript --local > src/lib/supabase/types/index.ts",

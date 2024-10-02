@@ -7,7 +7,7 @@ module.exports = {
     middleware: true,
     scrollRestoration: true,
   },
-  transpilePackages: ["ui"],
+  transpilePackages: ["ui", "three"],
   images: {
     formats: ["image/avif", "image/webp"],
     remotePatterns: [

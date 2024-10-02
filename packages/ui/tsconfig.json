@@ -5,6 +5,8 @@
     "baseUrl": ".",
     "paths": {
       "@ui/*": ["./src/components/*"],
+      "@three/*": ["./src/threejs/*"],
+      "@lib/*": ["./src/lib/*"],
       "@utils/*": ["./src/utils/*"],
       "@styles/*": ["./src/styles/*"]
     }

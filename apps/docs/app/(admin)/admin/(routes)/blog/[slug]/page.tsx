@@ -3,7 +3,6 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 
-import { createBlog } from "@server/actions/blog";
 import { IBlogCreate } from "@server/data/types/blog";
 import { blogCreateSchema } from "@server/data/validations/blog";
 
@@ -15,9 +14,9 @@ export default function Page() {
     defaultValues: {},
   });
   const handleSubmit: SubmitHandler<IBlogCreate> = async (data) => {
-    const result = await createBlog(data);
-    const { error } = JSON.parse(result);
-    console.log(error?.message);
+    // const result = await createBlog(data);
+    // const { error } = JSON.parse(result);
+    // console.log(error?.message);
   };
 
   return <BlogForm form={form} handleSubmit={handleSubmit} />;

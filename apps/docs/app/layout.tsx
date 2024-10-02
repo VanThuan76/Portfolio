@@ -15,8 +15,9 @@ export const nextFont = Edu_VIC_WA_NT_Beginner({
 });
 
 export const metadata: Metadata = {
-  title: "Austin Vu Web",
-  description: "Austin Vu",
+  title: "Austin Vu",
+  description:
+    "Welcome to the portfolio of Austin Vu, showcasing projects, skills, and achievements.",
   icons: [
     {
       rel: "apple-touch-icon",
@@ -49,12 +50,7 @@ export default function RootLayout({
   return (
     <ViewTransitions>
       <html lang="en" suppressHydrationWarning>
-        <body
-          className={cn(
-            "transition ease-in-out duration-300 antialiased",
-            nextFont.className,
-          )}
-        >
+        <body className={cn("overflow-hidden", nextFont.className)}>
           <Providers>
             <InitContainer>{children}</InitContainer>
           </Providers>

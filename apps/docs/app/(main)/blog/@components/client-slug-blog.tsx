@@ -1,29 +1,21 @@
 "use client";
 
-import { Maximize2 } from "lucide-react";
+import Image from "next/image";
+import { cn } from "@utils/tw";
 import { Nunito_Sans } from "next/font/google";
 
 import { TypographyH3 } from "@ui/molecules/ui-elements/typography-h3";
-import { LoaderImage } from "@ui/molecules/ui-elements/loader-image";
-import {
-  Modal,
-  ModalBody,
-  ModalTrigger,
-} from "@ui/molecules/modals/animated-modal";
 
-import MotionContainer from "@ui/molecules/frame/dynamic-contain";
-
-import { cn } from "@utils/tw";
+import { useModal } from "@shared/hooks/use-modal";
 
 import { IBlog, IBlogSupabase } from "@server/data/types/blog";
 import { IBlogCommentWithUser } from "@server/actions/comment";
 import { IAuthSupabase } from "@server/data/types/supabase";
 
-import CardBlog from "./card-blog";
-import ContentBlog from "./content-blog";
-import Comment from "./comment";
 import ListComment from "./list-comment";
-import { useDisableScroll } from "@shared/hooks/use-disable-scroll";
+import PathRightIcon from "./icons/path-right";
+import PathLeftIcon from "./icons/path-left";
+import ContentBlog from "./content-blog";
 
 const fontBlog = Nunito_Sans({
   display: "swap",
@@ -43,76 +35,67 @@ const ClientSlugBlog = ({
   blog: IBlogSupabase;
   blogs: IBlog[];
   comments: IBlogCommentWithUser[];
-  user: IAuthSupabase;
+  user: IAuthSupabase | null;
 }) => {
-  useDisableScroll();
+  const { onOpen } = useModal();
 
   return (
-    <>
-      <div className="z-50 flex flex-col items-start justify-start w-full h-full col-span-1 gap-0 translate-y-52 md:translate-y-0 md:gap-5 md:col-span-4 md:overflow-y-auto">
-        <article className="relative w-full h-full md:h-[80%] p-3 bg-white md:overflow-y-auto rounded-t-3xl md:bg-transparent md:p-0 md:rounded-none">
-          <div className="absolute z-20 p-2 mb-5 bg-transparent md:sticky -top-20 md:top-0 backdrop-blur-none md:backdrop-blur-sm md:bg-black/30 dark:bg-white/30 md:rounded-b-lg">
-            <h1 className="text-3xl font-extrabold text-white md:font-bold md:text-black dark:text-gray-200">
-              {blog.title}
-            </h1>
-            <p className="text-sm font-medium text-white md:text-black dark:text-gray-400 md:font-normal">
-              {new Date(blog.created_at).toDateString()}
-            </p>
-          </div>
+    <div className="relative grid w-full h-full grid-cols-1 pt-6 overflow-hidden border-none rounded-none shadow-none md:rounded-lg md:shadow-lg md:grid-cols-5 md:p-0">
+      <div className="absolute md:hidden top-0 right-0 w-full h-[20%] md:h-full col-span-1 md:col-span-2 z-10">
+        <Image
+          width={1920}
+          height={1280}
+          src={blog.image_url}
+          alt="@bg_blog"
+          className="object-cover object-center w-full h-full -z-10"
+        />
+      </div>
 
+      <div
+        className={cn(
+          "z-20 relative flex flex-col items-start justify-start w-full min-h-screen h-screen md:bg-[#e8e6e6] col-span-1 gap-0 pt-20 md:translate-y-0 md:gap-5 md:col-span-3 md:pl-4 md:pt-4",
+        )}
+      >
+        <article className="relative h-full w-full pb-28 p-3 bg-[#e8e6e6] overflow-y-auto rounded-t-3xl md:bg-transparent md:p-0 md:pt-12 md:rounded-none transition-all duration-150 ease-in-out">
           <div
             className={cn(
-              "z-10 w-full h-full dark:bg-grid-small-white/[0.1] md:bg-grid-small-black/[0.1] text-xs md:text-base md:px-4",
+              "w-full h-full md:h-full dark:bg-grid-small-white/[0.1] md:bg-grid-small-black/[0.1] text-xs md:text-base md:px-4",
               fontBlog.className,
             )}
           >
             <ContentBlog content={JSON.parse(blog.content as string)} />
           </div>
         </article>
+      </div>
 
-        <div className="relative flex flex-col items-start justify-start w-full h-full md:h-[20%] z-20 gap-5 px-2 pb-4 md:px-4 bg-white rounded-sm md:overflow-y-auto dark:bg-black">
-          <div className="sticky top-0 z-50 flex items-center justify-between w-full pt-4 bg-white">
-            <TypographyH3
-              title={`Top Comments(${comments.length})`}
-              className="text-lg font-medium"
-            />
-            <Modal>
-              <ModalTrigger className="hidden md:block">
-                <Maximize2 />
-              </ModalTrigger>
-              <ModalBody className="z-50 p-4 overflow-y-auto">
-                <ListComment comments={comments} />
-              </ModalBody>
-            </Modal>
-          </div>
-
-          <Comment user={user} blogId={blog.id} />
-
+      <div className="hidden lg:block w-[200px] h-full p-2 mb-5 bg-[#e8e6e6] backdrop-blur-none md:backdrop-blur-sm md:bg-black/30 dark:bg-white/30 md:rounded-b-lg">
+        <h1 className="text-3xl font-extrabold text-white text-wrap">
+          Austin Vu
+        </h1>
+        <p className="text-sm font-medium text-white">
+          {new Date(blog.created_at).toDateString()}
+        </p>
+        <span
+          className="text-sm font-medium text-white underline cursor-pointer"
+          onClick={() =>
+            onOpen("article", { blogId: blog.id, comments: comments })
+          }
+        >
+          Comments
+        </span>
+        <div className="relative flex h-[500px] w-full flex-col overflow-hidden">
           <ListComment comments={comments} />
         </div>
       </div>
 
-      <MotionContainer
-        delay={0.3}
-        type="blur"
-        className="sticky z-10 self-start hidden h-full col-span-1 md:block top-10"
-      >
-        <CardBlog
-          items={blogs && blogs.filter((blog) => blog.slug !== params)}
-        />
-      </MotionContainer>
-
-      <div className="absolute top-0 right-0 block w-full h-[40%] md:hidden z-10">
-        <LoaderImage
-          isLoader={false}
-          src={blog.image_url}
-          alt={blog.title}
-          className="object-cover w-full h-full"
-          width={1980}
-          height={500}
-        />
+      <div className="fixed top-0 z-50 flex w-full transition-all translate-x-1/2 right-1/2">
+        <PathLeftIcon className="-ml-20" />
+        <div className="flex items-center justify-between bg-white">
+          <TypographyH3 title={blog.title} className="text-lg font-medium" />
+        </div>
+        <PathRightIcon className="-mr-20 transform scale-x-[-1]" />
       </div>
-    </>
+    </div>
   );
 };
 

@@ -1,135 +1,115 @@
 "use client";
 
+import dynamic from "next/dynamic";
+import { useRouter } from "next/navigation";
 import { PropsWithChildren, useEffect, useState } from "react";
+import { toast } from "@shared/hooks/use-toast";
+
+import { useAppDispatch, useAppSelector } from "@store/index";
+import { useDidMount } from "@shared/hooks/use-did-mount";
+
+import { setHasVisited, setInitProgress } from "@store/app-slice";
+
+import { useGetBlog, useGetBlogCategory } from "@server/_actions/blog_actions";
+import { useGetProject } from "@server/_actions/project_actions";
+import { useGetTag } from "@server/_actions/tag_actions";
+import { useGetInformationWork } from "@server/_actions/information_work_actions";
 
 import { ErrorBoundary } from "@shared/layouts/main/error-boundary";
 import { ErrorPage } from "@shared/layouts/main/error-page";
 
-import { useLockBodyScroll } from "react-use";
-import { useDidMount } from "@shared/hooks/use-did-mount";
-import { useAppDispatch } from "@store/index";
-import { toast } from "@shared/hooks/use-toast";
-
-import { axiosInstance } from "@api/axios";
-import { BACKGROUNDS } from "@shared/constants";
-
-import {
-  setBlogs,
-  setHasVisited,
-  setInformationWorks,
-  setInitBackground,
-  setInitProgress,
-  setProfile,
-  setProjects,
-  setTags,
-} from "@store/app-slice";
-
-import useBreakpoint from "@shared/hooks/use-break-point";
-
+import useFullScreenBackground from "@shared/hooks/use-mobile-full-screen";
 import LazyWrapper from "@ui/molecules/frame/lazy-wrapper";
 import MacUiProvider from "@shared/layouts/main/mac-ui-provider";
+import useBreakpoint from "@shared/hooks/use-break-point";
+
+const SceneMain = dynamic(() => import("@three/index"), { ssr: false });
 
 function InitInner({ children }: PropsWithChildren) {
-  const dispatch = useAppDispatch();
+  const router = useRouter();
   const breakpoint = useBreakpoint();
+  const dispatch = useAppDispatch();
+  const positions = useAppSelector((state) => state.app.positions);
 
   const [progress, setProgress] = useState(0);
+  const [loadingProgress, setLoadingProgress] = useState(0);
+  const [isTasksCompleted, setIsTasksCompleted] = useState(false);
 
-  useEffect(() => {
-    if (dispatch) {
-      const initializeApp = async () => {
-        async function getProfile() {
-          const response = axiosInstance.get("/api/profile");
-          const result = await response;
-          return result;
+  const actions = [
+    useGetTag(),
+    useGetBlog(),
+    useGetBlogCategory(),
+    useGetProject(),
+    useGetInformationWork(),
+  ];
+
+  const fetchData = async () => {
+    let completedTasks = 0;
+    try {
+      const tasks = actions.map((action) => action.mutateAsync({}));
+      const results = await Promise.allSettled(tasks);
+      const totalTasks = results.length;
+
+      results.forEach((result) => {
+        if (result.status === "fulfilled") {
+          completedTasks += 1;
+        } else {
+          toast({
+            variant: "destructive",
+            title: `Task failed: ${result.reason.message}`,
+          });
         }
+      });
 
-        async function getProject() {
-          const response = axiosInstance.get("/api/project");
-          const result = await response;
-          return result;
-        }
+      const progressValue = (completedTasks / totalTasks) * 100;
+      setProgress(progressValue);
+      dispatch(setInitProgress(progressValue));
 
-        async function getBlog() {
-          const response = axiosInstance.get("/api/blog");
-          const result = await response;
-          return result;
-        }
-
-        async function getTag() {
-          const response = axiosInstance.get("/api/tag");
-          const result = await response;
-          return result;
-        }
-
-        async function getInformationWork() {
-          const response = axiosInstance.get("/api/information-work");
-          const result = await response;
-          return result;
-        }
-
-        const apis = [
-          {
-            func: getProfile,
-            action: (response: any) => dispatch(setProfile(response.data)),
-          },
-          {
-            func: getBlog,
-            action: (response: any) => dispatch(setBlogs(response.data)),
-          },
-          {
-            func: getTag,
-            action: (response: any) => dispatch(setTags(response.data)),
-          },
-          {
-            func: getProject,
-            action: (response: any) => dispatch(setProjects(response.data)),
-          },
-          {
-            func: getInformationWork,
-            action: (response: any) =>
-              dispatch(setInformationWorks(response.data)),
-          },
-        ];
-
-        const totalTasks = apis.length;
-        let completedTasks = 0;
-
-        try {
-          for (const api of apis) {
-            const data = await api.func();
-            api.action(data);
-            completedTasks += 1;
-            setProgress((completedTasks / totalTasks) * 100);
-          }
-        } catch (error) {
-          console.error("Error initializing app:", error);
-        } finally {
-          dispatch(setInitProgress((completedTasks / totalTasks) * 100));
-          dispatch(setHasVisited(true));
-
-          //Background
-          const randomIndex = Math.floor(Math.random() * BACKGROUNDS.length);
-          const randomBackground = BACKGROUNDS[randomIndex];
-          if (randomBackground) {
-            dispatch(setInitBackground(randomBackground));
-          }
-        }
-      };
-      initializeApp();
-    } else {
+      setIsTasksCompleted(true);
+    } catch (error) {
       toast({
         variant: "destructive",
         title: `Failed to get information from web`,
       });
     }
-  }, []);
+  };
 
-  // useLockBodyScroll(breakpoint !== "xs" && breakpoint !== "sm" ? true : false);
+  useEffect(() => {
+    if (loadingProgress === 100 && isTasksCompleted) {
+      dispatch(setHasVisited(true));
+      router.push("/");
+    }
+  }, [loadingProgress, isTasksCompleted]);
+
+  useEffect(() => {
+    const initializeApp = async () => {
+      await fetchData();
+    };
+
+    initializeApp();
+  }, [dispatch]);
+
+  const handleProgress = (progress: number) => {
+    setLoadingProgress(progress);
+  };
+
+  useFullScreenBackground({ backgroundColor: "#FFD09B" });
 
   return (
     <LazyWrapper>
       {children}
+      <div
+        id="background-app"
+        className="fixed inset-0 z-30 flex flex-col items-center justify-center overflow-hidden pointer-events-none"
+      >
+        <div className="relative w-full h-full overflow-hidden pointer-events-none">
+          <SceneMain
+            breakpoint={breakpoint}
+            positions={positions}
+            onProgress={handleProgress}
+          />
+        </div>
+      </div>
       <MacUiProvider progress={progress} />
     </LazyWrapper>
   );
