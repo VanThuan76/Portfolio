@@ -1,8 +1,7 @@
-import { memo } from "react";
 import { useGLTF } from "@react-three/drei";
 
 function ModelMountainBackground(props: any) {
-  const { nodes, materials } = useGLTF("/mountain.glb");
+  const { nodes, materials } = useGLTF("/models/mountain.glb");
   return (
     <group {...props} dispose={null}>
       <group scale={0.01}>
@@ -25,6 +24,4 @@ function ModelMountainBackground(props: any) {
   );
 }
 
-useGLTF.preload("/mountain.glb");
-
-export default memo(ModelMountainBackground);
+export default ModelMountainBackground;

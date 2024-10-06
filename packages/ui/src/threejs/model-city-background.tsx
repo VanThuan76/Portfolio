@@ -1,8 +1,7 @@
-import { memo } from "react";
 import { useGLTF } from "@react-three/drei";
 
 function ModelCityBackground(props: any) {
-  const { nodes, materials } = useGLTF("/city.glb");
+  const { nodes, materials } = useGLTF("/models/city.glb");
   return (
     <group {...props} dispose={null}>
       <group position={[3.135, 1.248, 1.094]} rotation={[-Math.PI / 2, 0, 0]}>
@@ -1579,6 +1578,4 @@ function ModelCityBackground(props: any) {
   );
 }
 
-useGLTF.preload("/city.glb");
-
-export default memo(ModelCityBackground);
+export default ModelCityBackground;

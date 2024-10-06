@@ -10,8 +10,8 @@ module.exports = {
     "./pages/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
     "./app/**/*.{ts,tsx}",
-    "../../apps/docs/app/**/*.{ts,tsx}",
-    "../../apps/docs/shared/**/*.{ts,tsx}",
+    "../../apps/web/app/**/*.{ts,tsx}",
+    "../../apps/web/shared/**/*.{ts,tsx}",
     "../../packages/ui/src/components/**/*.{ts,tsx}",
   ],
   theme: {

@@ -1,8 +1,7 @@
-import { memo } from "react";
 import { useGLTF } from "@react-three/drei";
 
 function ModelOceanBackground(props: any) {
-  const { nodes, materials } = useGLTF("/ocean.glb");
+  const { nodes, materials } = useGLTF("/models/ocean.glb");
   return (
     <group {...props} dispose={null}>
       <group scale={0.01}>
@@ -28,6 +27,4 @@ function ModelOceanBackground(props: any) {
   );
 }
 
-useGLTF.preload("/ocean.glb");
-
-export default memo(ModelOceanBackground);
+export default ModelOceanBackground;

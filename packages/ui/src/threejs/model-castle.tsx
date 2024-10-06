@@ -1,8 +1,7 @@
-import { memo } from "react";
 import { useGLTF } from "@react-three/drei";
 
 function ModelCastle(props: any) {
-  const { nodes, materials } = useGLTF("/castle.glb");
+  const { nodes, materials } = useGLTF("/models/castle.glb");
 
   return (
     <group {...props} dispose={null}>
@@ -292,6 +291,4 @@ function ModelCastle(props: any) {
   );
 }
 
-useGLTF.preload("/castle.glb");
-
-export default memo(ModelCastle);
+export default ModelCastle;

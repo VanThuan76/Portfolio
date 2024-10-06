@@ -1,8 +1,7 @@
-import { memo } from "react";
 import { useGLTF } from "@react-three/drei";
 
 function ModelSchool(props: any) {
-  const { nodes, materials } = useGLTF("/school.glb");
+  const { nodes, materials } = useGLTF("/models/school.glb");
   return (
     <group {...props} dispose={null}>
       <group scale={0.01}>
@@ -142,6 +141,4 @@ function ModelSchool(props: any) {
   );
 }
 
-useGLTF.preload("/school.glb");
-
-export default memo(ModelSchool);
+export default ModelSchool;

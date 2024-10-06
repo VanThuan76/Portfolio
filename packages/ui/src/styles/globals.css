@@ -82,44 +82,7 @@ body {
   overflow: hidden !important;
 }
 
-/* Icon layout main */
-.ui__border--left {
-  left: 0;
-}
-.ui__border--top {
-  top: 0;
-}
-.ui__border--bottom {
-  bottom: 0;
-  --tw-scale-y: -1;
-}
-.ui__border--right {
-  right: 0;
-  --tw-scale-x: -1;
-}
-.ui__border--bottom,
-.ui__border--right {
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y))
-    rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
-    scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-.ui__border {
-  width: 100px;
-}
-.ui__border,
-.ui__borders {
-  position: absolute;
-  z-index: 40;
-}
-.ui__borders {
-  inset: 0;
-  border-width: 6.5px;
-  --tw-border-opacity: 1;
-  border-color: rgb(255 255 255 / var(--tw-border-opacity));
-}
-
 /* Other */
-
 .fade-in {
   -webkit-animation: fade-in 500ms cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
   animation: fade-in 500ms cubic-bezier(0.55, 0.085, 0.68, 0.53) both;

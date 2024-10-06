@@ -13,15 +13,13 @@
       "@/*": ["./*"],
       "@ui/*": ["../../packages/ui/src/components/*"],
       "@three/*": ["../../packages/ui/src/threejs/*"],
-      "@ui/lib/*": ["../../packages/ui/src/lib/*"],
-      "@ui/components/*": ["../../packages/ui/src/components/ui/*"],
-      "@ui/components/ui/*": ["../../packages/ui/src/components/ui/*"],
       "@styles/*": ["../../packages/ui/src/styles/*"],
       "@utils/*": ["../../packages/ui/src/utils/*"],
-      "@store/*": ["../../apps/docs/store/*"],
-      "@server/*": ["../../apps/docs/server/*"],
-      "@api/*": ["../../apps/docs/app/api/*"],
-      "@shared/*": ["../../apps/docs/shared/*"]
+      "@providers/*": ["../../apps/web/providers/*"],
+      "@store/*": ["../../apps/web/store/*"],
+      "@server/*": ["../../apps/web/server/*"],
+      "@api/*": ["../../apps/web/app/api/*"],
+      "@shared/*": ["../../apps/web/shared/*"]
     }
   }
 }

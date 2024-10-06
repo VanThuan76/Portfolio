@@ -1,8 +1,7 @@
-import { memo } from "react";
 import { useGLTF } from "@react-three/drei";
 
 function ModelRestaurant(props: any) {
-  const { nodes, materials } = useGLTF("/restaurant.glb");
+  const { nodes, materials } = useGLTF("/models/restaurant.glb");
   return (
     <group {...props} dispose={null}>
       <mesh
@@ -3517,6 +3516,4 @@ function ModelRestaurant(props: any) {
   );
 }
 
-useGLTF.preload("/restaurant.glb");
-
-export default memo(ModelRestaurant);
+export default ModelRestaurant;

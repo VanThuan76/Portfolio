@@ -1,7 +1,7 @@
 import { useGLTF } from "@react-three/drei";
 
-export function ModelFarmBackground(props: any) {
-  const { nodes, materials } = useGLTF("/farm.glb");
+function ModelFarmBackground(props: any) {
+  const { nodes, materials } = useGLTF("/models/farm.glb");
   return (
     <group {...props} dispose={null}>
       <group
@@ -20,4 +20,4 @@ export function ModelFarmBackground(props: any) {
   );
 }
 
-useGLTF.preload("/farm.glb");
+export default ModelFarmBackground;

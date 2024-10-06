@@ -1,12 +1,9 @@
-import * as THREE from "three";
-import { memo, useRef, useEffect, useLayoutEffect } from "react";
-import { useFrame } from "@react-three/fiber";
-import { Html, useScroll, useGLTF, useAnimations } from "@react-three/drei";
+import { useRef, useEffect } from "react";
+import { Html, useGLTF, useAnimations } from "@react-three/drei";
 
 function ModelMain(props: any) {
   const group = useRef();
-  const scroll = useScroll();
-  const { nodes, materials, animations } = useGLTF("/mysterious.glb");
+  const { nodes, materials, animations } = useGLTF("/models/mysterious.glb");
   const { actions } = useAnimations(animations, group);
 
   useEffect(() => {
@@ -17,17 +14,6 @@ function ModelMain(props: any) {
       actions[animationName].play();
     }
   }, [actions, animations]);
-
-  // useLayoutEffect(() => Object.values(nodes).forEach((node) => (node.receiveShadow = node.castShadow = true)))
-  // useEffect(() => void (actions['Take 001'].play().paused = true), [actions])
-  // useFrame((state, delta) => {
-  //     const action = actions['Take 001']
-  //     // The offset is between 0 and 1, you can apply it to your models any way you like
-  //     const offset = 1 - scroll.offset
-  //     action.time = THREE.MathUtils.damp(action.time, (action.getClip().duration / 2) * offset, 100, delta)
-  //     state.camera.position.set(Math.sin(offset) * -10, Math.atan(offset * Math.PI * 2) * 5, Math.cos((offset * Math.PI) / 3) * -10)
-  //     state.camera.lookAt(0, 0, 0)
-  // })
 
   return (
     <group ref={group} {...props} dispose={null}>
@@ -1163,6 +1149,4 @@ function ModelMain(props: any) {
   );
 }
 
-useGLTF.preload("/mysterious.glb");
-
-export default memo(ModelMain);
+export default ModelMain;
