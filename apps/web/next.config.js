@@ -1,4 +1,7 @@
 /** @type {import('next').NextConfig} */
+const createNextIntlPlugin = require("next-intl/plugin");
+const withNextIntl = createNextIntlPlugin();
+
 const withBundleAnalyzer = require("@next/bundle-analyzer")({
   enabled: process.env.ANALYZE === "true",
 });
@@ -12,9 +15,7 @@ const nextConfig = {
   swcMinify: true,
   experimental: {
     serverComponentsExternalPackages: ["grammy"],
-    optimizePackageImports: ["lucide-react", "framer-motion"],
     mdxRs: true,
-    middleware: true,
     scrollRestoration: true,
   },
   transpilePackages: ["ui", "three"],
@@ -87,7 +88,7 @@ const KEYS_TO_OMIT = [
 ];
 
 module.exports = (_phase, { defaultConfig }) => {
-  const plugins = [[withPWA], [withBundleAnalyzer, {}]];
+  const plugins = [[withPWA], [withNextIntl], [withBundleAnalyzer, {}]];
 
   const wConfig = plugins.reduce(
     (acc, [plugin, config]) => plugin({ ...acc, ...config }),

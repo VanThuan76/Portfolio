@@ -1,0 +1,4 @@
+[hoist]
+next = true
+eslint = true
+prettier = true

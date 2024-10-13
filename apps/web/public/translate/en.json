@@ -1,0 +1,18 @@
+{
+  "intro": "Welcome to Austin Vu",
+  "menu": {
+    "blog": "Blog",
+    "project": "Project",
+    "aboutMe": "About me"
+  },
+  "pages": {
+    "blog": {
+      "title": "Austin's Blog",
+      "description": "These're my social:",
+      "comment": "Comments"
+    },
+    "project": {
+      "title": "Austin's Project"
+    }
+  }
+}

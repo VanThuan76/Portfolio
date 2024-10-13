@@ -10,3 +10,11 @@ export const getTime = () => {
     minutesOnes: minutes % 10,
   };
 };
+
+export function formatLocaleDate(dateString: string, locale: string) {
+  return new Intl.DateTimeFormat(locale, {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  }).format(new Date(dateString));
+}

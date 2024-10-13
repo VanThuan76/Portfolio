@@ -1,12 +1,12 @@
-export interface IProject {
-  id: string;
-  created_at: string;
-  updated_at: string;
-  title: string;
-  description: string;
-  tech_stack: string;
-  image_url: string;
-  slug: string;
-  content: null;
-  finished_date: string;
+import { Database } from "@shared/utils/supabase/types";
+
+export type ProjectSupabase = Database["public"]["Tables"]["project"]["Row"];
+export type ProjectImageSupabase =
+  Database["public"]["Tables"]["project_image"]["Row"];
+export type ProjectTagSupabase =
+  Database["public"]["Tables"]["project_tag"]["Row"];
+
+export interface IProject extends ProjectSupabase {
+  tags: ProjectTagSupabase[];
+  images: ProjectImageSupabase[];
 }

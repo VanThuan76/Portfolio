@@ -7,12 +7,6 @@ import {
 } from "react";
 import { useEventCallback, useEventListener } from "usehooks-ts";
 
-declare global {
-  interface WindowEventMap {
-    "local-storage": CustomEvent;
-  }
-}
-
 export function useLocalStorage<T>(
   key: string,
   initialValue: T,

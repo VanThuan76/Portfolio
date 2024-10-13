@@ -1,19 +1,56 @@
-import { useEffect, useRef } from "react";
+import * as THREE from "three";
+import { useRef, useCallback, memo } from "react";
 import { useGLTF, useAnimations } from "@react-three/drei";
+import { useFrame } from "@react-three/fiber";
 
-export function ModelBirds(props: any) {
-  const group = useRef();
-  const { nodes, materials, animations } = useGLTF("/birds.glb");
+interface ModelBirdsProps {
+  position: [number, number, number];
+  [key: string]: any;
+}
+
+function ModelBirds({ position, ...props }: ModelBirdsProps) {
+  const group = useRef<THREE.Group>(null);
+  const isAnimationPlaying = useRef(false);
+  const currentPosition = useRef(new THREE.Vector3(...position));
+
+  const { nodes, materials, animations } = useGLTF("/models/birds.glb");
   const { actions } = useAnimations(animations, group);
 
-  useEffect(() => {
+  const playAnimation = useCallback(() => {
     if (actions && animations.length > 0) {
       // @ts-ignore
       const animationName = animations[0].name;
       // @ts-ignore
-      actions[animationName].play();
+      if (actions[animationName]) {
+        actions[animationName].play();
+        isAnimationPlaying.current = true;
+      }
     }
   }, [actions, animations]);
+
+  useFrame(() => {
+    if (group.current) {
+      const targetPosition = new THREE.Vector3(...position);
+      currentPosition.current.x = THREE.MathUtils.lerp(
+        currentPosition.current.x,
+        targetPosition.x,
+        0.1,
+      );
+      currentPosition.current.y = THREE.MathUtils.lerp(
+        currentPosition.current.y,
+        targetPosition.y,
+        0.1,
+      );
+      currentPosition.current.z = THREE.MathUtils.lerp(
+        currentPosition.current.z,
+        targetPosition.z,
+        0.1,
+      );
+
+      group.current.position.copy(currentPosition.current);
+      playAnimation();
+    }
+  });
 
   return (
     <group ref={group} {...props} dispose={null}>
@@ -206,5 +243,4 @@ export function ModelBirds(props: any) {
     </group>
   );
 }
-
-useGLTF.preload("/birds.glb");
+export default memo(ModelBirds);

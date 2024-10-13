@@ -17,8 +17,6 @@
       "@utils/*": ["../../packages/ui/src/utils/*"],
       "@providers/*": ["../../apps/web/providers/*"],
       "@store/*": ["../../apps/web/store/*"],
-      "@server/*": ["../../apps/web/server/*"],
-      "@api/*": ["../../apps/web/app/api/*"],
       "@shared/*": ["../../apps/web/shared/*"]
     }
   }

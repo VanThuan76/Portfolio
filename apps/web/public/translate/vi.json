@@ -1,0 +1,18 @@
+{
+  "intro": "Chào mừng đến với Austin Vu",
+  "menu": {
+    "blog": "Blog",
+    "project": "Sản phẩm",
+    "aboutMe": "Thông tin về tôi"
+  },
+  "pages": {
+    "blog": {
+      "title": "Blog của Austin",
+      "description": "Đây là những nền tảng mạng xã hội của tôi:",
+      "comment": "Bình luận"
+    },
+    "project": {
+      "title": "Dự án của Austin"
+    }
+  }
+}

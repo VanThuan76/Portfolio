@@ -1,18 +1,21 @@
 "use client";
 
+import * as THREE from "three";
 import { Canvas } from "@react-three/fiber";
 import { Preload } from "@react-three/drei";
 import { r3f } from "@utils/r3f";
-import * as THREE from "three";
 
 export default function App({ ...props }) {
   return (
     <Canvas
       shadows
       dpr={[1, 1.5]}
-      camera={{ position: [0, 0, 200], fov: 100 }}
+      camera={{ near: 1, fov: 100 }}
       eventPrefix="client"
-      onCreated={(state) => (state.gl.toneMapping = THREE.AgXToneMapping)}
+      gl={{ antialias: true }}
+      onCreated={({ gl }) => {
+        gl.toneMapping = THREE.NoToneMapping;
+      }}
       {...props}
     >
       <r3f.Out />

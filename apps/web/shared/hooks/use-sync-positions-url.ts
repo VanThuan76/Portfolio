@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { useAppDispatch, useAppSelector } from "@store/index";
+import { RootState, useAppDispatch, useAppSelector } from "@store/index";
 import { setPositionModels } from "@store/app-slice";
 import { DATA_MENUS } from "@shared/constants";
 
 const useSyncPositionsWithURL = () => {
   const dispatch = useAppDispatch();
   const pathname = usePathname();
-  const hasVisited = useAppSelector((state) => state.app.hasVisited);
+  const hasVisited = useAppSelector((state: RootState) => state.app.hasVisited);
 
   useEffect(() => {
     if (hasVisited) {
@@ -15,6 +15,7 @@ const useSyncPositionsWithURL = () => {
         (item) => (item.href as string) === pathname,
       );
 
+      console.log(menuItem);
       if (menuItem) {
         dispatch(setPositionModels(menuItem.positions));
       }

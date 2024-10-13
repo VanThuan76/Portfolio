@@ -1,79 +1,157 @@
-import { useMutation, UseMutationResult } from "@tanstack/react-query";
+import { cache } from "react";
+import { SupabaseClient } from "@supabase/supabase-js";
+import { Database } from "@shared/utils/supabase/types";
 
 import { IBaseResponse } from "@shared/query/types/base";
-import { IArticle, IBlog } from "@shared/query/types/blog";
+import { IBlog } from "@shared/query/types/blog";
+import { createResponse } from "@shared/query/index";
 
-import { setBlogCategories, setBlogs } from "@store/app-slice";
-import { useAppDispatch } from "@store/index";
-import { axiosInstance } from "@shared/utils/axios";
-import { queryClient } from "@providers/react-query";
+export const getBlogs = cache(
+  async (
+    supabase: SupabaseClient<Database>,
+    locale: string,
+  ): Promise<IBaseResponse<IBlog[] | []>> => {
+    const { data: blogs, error: blogError } = await supabase
+      .from("blog")
+      .select(
+        `
+        *,
+        blog_category!inner(name)
+    `,
+      )
+      .eq("language_code", locale)
+      .eq("is_published", true);
 
-export const useGetBlogCategory: () => UseMutationResult<
-  IBaseResponse<any[]>,
-  Error,
-  any
-> = () => {
-  const dispatch = useAppDispatch();
+    if (blogError) return createResponse(500, [], "Failed to fetch blogs");
 
-  return useMutation<IBaseResponse<any[]>, Error>({
-    mutationFn: () =>
-      axiosInstance.get<IBaseResponse<any[]>>("/blogs/categories"),
-    onSuccess: async (data) => {
-      if (!data.data) return;
+    const blogIds = blogs.map((blog) => blog.id);
 
-      dispatch(setBlogCategories(data.data));
+    const { data: blogTagsData, error: blogTagsError } = await supabase
+      .from("blog_tag")
+      .select("*")
+      .in("blog_id", blogIds);
 
-      queryClient.invalidateQueries({
-        queryKey: ["BLOG_CATEGORIES", "GET_ALL"],
-      });
-    },
-    onError(error) {
-      console.log(error);
-    },
-  });
-};
+    if (blogTagsError)
+      return createResponse(500, [], "Failed to fetch blog tags");
 
-export const useGetBlog: () => UseMutationResult<
-  IBaseResponse<IBlog[]>,
-  Error,
-  any
-> = () => {
-  const dispatch = useAppDispatch();
+    const { data: blogCommentsData, error: blogCommentsError } = await supabase
+      .from("blog_comment")
+      .select("*")
+      .in("blog_id", blogIds);
 
-  return useMutation<IBaseResponse<IBlog[]>, Error>({
-    mutationFn: () => axiosInstance.get<IBaseResponse<IBlog[]>>("/blogs"),
-    onSuccess: async (data) => {
-      if (!data.data) return;
+    if (blogCommentsError)
+      return createResponse(500, [], "Failed to fetch blog comments");
 
-      dispatch(setBlogs(data.data));
+    const combinedBlogs = blogs.map((blog) => {
+      const tags = blogTagsData.filter((tag) => tag.blog_id === blog.id);
+      const comments = blogCommentsData.filter(
+        (comment) => comment.blog_id === blog.id,
+      );
 
-      queryClient.invalidateQueries({
-        queryKey: ["BLOGS", "GET_ALL"],
-      });
-    },
-    onError(error) {
-      console.log(error);
-    },
-  });
-};
+      return {
+        ...blog,
+        blog_category: blog.blog_category.name,
+        tags: tags,
+        comments,
+      };
+    });
 
-export const useGetArticleBlog = (): UseMutationResult<
-  IBaseResponse<IArticle>,
-  Error,
-  string
-> => {
-  return useMutation<IBaseResponse<IArticle>, Error, string>({
-    mutationFn: (slug: string) =>
-      axiosInstance.get<IBaseResponse<IArticle>>(`/blogs/${slug}`),
-    onSuccess: async (data, variables) => {
-      if (!data.data) return;
-      queryClient.invalidateQueries({
-        queryKey: ["BLOG", "GET_DETAIL", variables],
-      });
-      return data.data;
-    },
-    onError(error) {
-      console.log(error);
-    },
-  });
-};
+    return createResponse(
+      200,
+      combinedBlogs || [],
+      "Successfully fetched blogs",
+    );
+  },
+);
+
+export const getBlogBySlug = cache(
+  async (
+    supabase: SupabaseClient<Database>,
+    slug: string,
+    locale: string,
+  ): Promise<IBaseResponse<IBlog | null>> => {
+    const { data: blog, error: blogError } = await supabase
+      .from("blog")
+      .select(
+        `
+            *,
+            blog_category!inner(name)
+        `,
+      )
+      .eq("slug", slug)
+      .eq("language_code", locale)
+      .eq("is_published", true)
+      .single();
+
+    if (blogError || !blog) return createResponse(404, null, "Blog not found");
+
+    const { data: blogTagsData, error: blogTagsError } = await supabase
+      .from("blog_tag")
+      .select("*")
+      .eq("blog_id", blog.id);
+
+    if (blogTagsError)
+      return createResponse(500, null, "Failed to fetch blog tags");
+
+    const { data: blogCommentsData, error: blogCommentsError } = await supabase
+      .from("blog_comment")
+      .select("*")
+      .eq("blog_id", blog.id);
+
+    if (blogCommentsError)
+      return createResponse(500, null, "Failed to fetch blog comments");
+
+    const commentIds = blogCommentsData.map((comment) => comment.id);
+    const { data: blogInteractCommentsData, error: blogInteractCommentsError } =
+      await supabase
+        .from("blog_interaction_comment")
+        .select("*")
+        .in("comment_id", commentIds);
+
+    if (blogInteractCommentsError)
+      return createResponse(
+        500,
+        null,
+        "Failed to fetch blog interaction comments",
+      );
+
+    const commentsWithInteractions = blogCommentsData.map((comment) => ({
+      ...comment,
+      interactions:
+        blogInteractCommentsData.filter(
+          (interaction) => interaction.comment_id === comment.id,
+        ) || [],
+    }));
+
+    const combinedBlog = {
+      ...blog,
+      blog_category: blog.blog_category.name,
+      tags: blogTagsData || [],
+      comments: commentsWithInteractions,
+    };
+
+    return createResponse(200, combinedBlog, "Successfully fetched blog");
+  },
+);
+
+export const getBlogCategories = cache(
+  async (
+    supabase: SupabaseClient<Database>,
+    locale: string,
+  ): Promise<
+    IBaseResponse<Database["public"]["Tables"]["blog_category"]["Row"][] | []>
+  > => {
+    const { data, error } = await supabase
+      .from("blog_category")
+      .select("*")
+      .eq("language_code", locale);
+
+    if (error) return createResponse(500, [], "Failed to fetch blog category");
+
+    return createResponse(
+      200,
+      data || [],
+      "Successfully fetched blog category",
+    );
+  },
+);

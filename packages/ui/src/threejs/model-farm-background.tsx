@@ -1,9 +1,44 @@
+import * as THREE from "three";
+import { useRef, memo } from "react";
 import { useGLTF } from "@react-three/drei";
+import { useFrame } from "@react-three/fiber";
 
-function ModelFarmBackground(props: any) {
+interface ModelFarmBackgroundProps {
+  position: [number, number, number];
+  [key: string]: any;
+}
+
+function ModelFarmBackground({ position, ...props }: ModelFarmBackgroundProps) {
+  const ref = useRef<THREE.Group>(null);
   const { nodes, materials } = useGLTF("/models/farm.glb");
+
+  const currentPosition = useRef(new THREE.Vector3(...position));
+
+  useFrame(() => {
+    if (ref.current) {
+      const targetPosition = new THREE.Vector3(...position);
+      currentPosition.current.x = THREE.MathUtils.lerp(
+        currentPosition.current.x,
+        targetPosition.x,
+        0.1,
+      );
+      currentPosition.current.y = THREE.MathUtils.lerp(
+        currentPosition.current.y,
+        targetPosition.y,
+        0.1,
+      );
+      currentPosition.current.z = THREE.MathUtils.lerp(
+        currentPosition.current.z,
+        targetPosition.z,
+        0.1,
+      );
+
+      ref.current.position.copy(currentPosition.current);
+    }
+  });
+
   return (
-    <group {...props} dispose={null}>
+    <group ref={ref} {...props} dispose={null}>
       <group
         position={[-0.145, 115.564, 46.517]}
         rotation={[Math.PI / 2, 0, 0.006]}
@@ -20,4 +55,4 @@ function ModelFarmBackground(props: any) {
   );
 }
 
-export default ModelFarmBackground;
+export default memo(ModelFarmBackground);

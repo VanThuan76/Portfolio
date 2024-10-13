@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import ModalComment from "../app/(main)/blog/_components/modal-comment";
+import ModalComment from "../app/[locale]/blog/_components/modal-comment";
 
 const ModalProvider = () => {
   const [isMounted, setIsMounted] = React.useState(false);

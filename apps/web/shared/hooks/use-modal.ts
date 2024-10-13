@@ -1,5 +1,5 @@
 import { closeModal, openModal } from "@store/app-slice";
-import { useAppDispatch, useAppSelector } from "@store/index";
+import { RootState, useAppDispatch, useAppSelector } from "@store/index";
 
 export type ModalType = "article";
 export type ModalData = any;
@@ -11,7 +11,7 @@ export type ModalProps = {
 };
 
 function useModal() {
-  const modalStore = useAppSelector((state) => state.app.modalStore);
+  const modalStore = useAppSelector((state: RootState) => state.app.modalStore);
   const dispatch = useAppDispatch();
 
   const onOpen = (type: ModalType, data?: ModalData) => {

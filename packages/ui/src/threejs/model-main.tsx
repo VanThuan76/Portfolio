@@ -1,19 +1,56 @@
-import { useRef, useEffect } from "react";
-import { Html, useGLTF, useAnimations } from "@react-three/drei";
+import * as THREE from "three";
+import { useRef, useCallback, memo } from "react";
+import { useGLTF, useAnimations } from "@react-three/drei";
+import { useFrame } from "@react-three/fiber";
 
-function ModelMain(props: any) {
-  const group = useRef();
+interface ModelMainProps {
+  position: [number, number, number];
+  [key: string]: any;
+}
+
+function ModelMain({ position, ...props }: ModelMainProps) {
+  const group = useRef<THREE.Group>(null);
+  const isAnimationPlaying = useRef(false);
+  const currentPosition = useRef(new THREE.Vector3(...position));
+
   const { nodes, materials, animations } = useGLTF("/models/mysterious.glb");
   const { actions } = useAnimations(animations, group);
 
-  useEffect(() => {
-    if (actions && animations.length > 0) {
+  const playAnimation = useCallback(() => {
+    if (actions && animations.length > 0 && !isAnimationPlaying.current) {
       // @ts-ignore
       const animationName = animations[0].name;
       // @ts-ignore
-      actions[animationName].play();
+      if (actions[animationName]) {
+        actions[animationName].play();
+        isAnimationPlaying.current = true;
+      }
     }
   }, [actions, animations]);
+
+  useFrame(() => {
+    if (group.current) {
+      const targetPosition = new THREE.Vector3(...position);
+      currentPosition.current.x = THREE.MathUtils.lerp(
+        currentPosition.current.x,
+        targetPosition.x,
+        0.1,
+      );
+      currentPosition.current.y = THREE.MathUtils.lerp(
+        currentPosition.current.y,
+        targetPosition.y,
+        0.1,
+      );
+      currentPosition.current.z = THREE.MathUtils.lerp(
+        currentPosition.current.z,
+        targetPosition.z,
+        0.1,
+      );
+      group.current.position.copy(currentPosition.current);
+
+      playAnimation();
+    }
+  });
 
   return (
     <group ref={group} {...props} dispose={null}>
@@ -40,12 +77,6 @@ function ModelMain(props: any) {
                     skeleton={(nodes as any)?.Object_8.skeleton}
                   />
                   <skinnedMesh
-                    name="Object_10"
-                    geometry={(nodes as any)?.Object_10.geometry}
-                    material={materials.normal}
-                    skeleton={(nodes as any)?.Object_10.skeleton}
-                  />
-                  <skinnedMesh
                     name="Object_12"
                     geometry={(nodes as any)?.Object_12.geometry}
                     material={materials.normal}
@@ -56,24 +87,6 @@ function ModelMain(props: any) {
                     geometry={(nodes as any)?.Object_14.geometry}
                     material={materials.normal}
                     skeleton={(nodes as any)?.Object_14.skeleton}
-                  />
-                  <skinnedMesh
-                    name="Object_16"
-                    geometry={(nodes as any)?.Object_16.geometry}
-                    material={materials.normal}
-                    skeleton={(nodes as any)?.Object_16.skeleton}
-                  />
-                  <skinnedMesh
-                    name="Object_18"
-                    geometry={(nodes as any)?.Object_18.geometry}
-                    material={materials.normal}
-                    skeleton={(nodes as any)?.Object_18.skeleton}
-                  />
-                  <skinnedMesh
-                    name="Object_20"
-                    geometry={(nodes as any)?.Object_20.geometry}
-                    material={materials.normal}
-                    skeleton={(nodes as any)?.Object_20.skeleton}
                   />
                   <group
                     name="Object_6"
@@ -376,18 +389,6 @@ function ModelMain(props: any) {
                         geometry={(nodes as any)?.wire7_normal_0.geometry}
                         material={materials.normal}
                       />
-                      <Html
-                        position={[53.44261169, -91.07002258, 179.83250427]}
-                        distanceFactor={10}
-                        occlude
-                        transform
-                        zIndexRange={[10, 0]}
-                      >
-                        <div className="annotation">
-                          <h3>Chú thích 1</h3>
-                          <p>Đây là vị trí đầu tiên.</p>
-                        </div>
-                      </Html>
                     </group>
                   </group>
                   <group
@@ -1149,4 +1150,4 @@ function ModelMain(props: any) {
   );
 }
 
-export default ModelMain;
+export default memo(ModelMain);

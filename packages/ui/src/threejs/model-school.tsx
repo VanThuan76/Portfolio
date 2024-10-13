@@ -1,9 +1,64 @@
+import * as THREE from "three";
+import { useRef, memo } from "react";
 import { useGLTF } from "@react-three/drei";
+import { useFrame } from "@react-three/fiber";
 
-function ModelSchool(props: any) {
+interface ModelSchoolProps {
+  position: [number, number, number];
+  scale: [number, number, number];
+  [key: string]: any;
+}
+
+function ModelSchool({ position, scale, ...props }: ModelSchoolProps) {
+  const ref = useRef<THREE.Group>(null);
   const { nodes, materials } = useGLTF("/models/school.glb");
+
+  const currentPosition = useRef(new THREE.Vector3(...position));
+  const currentScale = useRef(new THREE.Vector3(...scale));
+
+  useFrame(() => {
+    if (ref.current) {
+      const targetPosition = new THREE.Vector3(...position);
+      currentPosition.current.x = THREE.MathUtils.lerp(
+        currentPosition.current.x,
+        targetPosition.x,
+        0.1,
+      );
+      currentPosition.current.y = THREE.MathUtils.lerp(
+        currentPosition.current.y,
+        targetPosition.y,
+        0.1,
+      );
+      currentPosition.current.z = THREE.MathUtils.lerp(
+        currentPosition.current.z,
+        targetPosition.z,
+        0.1,
+      );
+
+      const targetScale = new THREE.Vector3(...scale);
+      currentScale.current.x = THREE.MathUtils.lerp(
+        currentScale.current.x,
+        targetScale.x,
+        0.1,
+      );
+      currentScale.current.y = THREE.MathUtils.lerp(
+        currentScale.current.y,
+        targetScale.y,
+        0.1,
+      );
+      currentScale.current.z = THREE.MathUtils.lerp(
+        currentScale.current.z,
+        targetScale.z,
+        0.1,
+      );
+
+      ref.current.position.copy(currentPosition.current);
+      ref.current.scale.copy(currentScale.current);
+    }
+  });
+
   return (
-    <group {...props} dispose={null}>
+    <group ref={ref} {...props} dispose={null}>
       <group scale={0.01}>
         <primitive object={(nodes as any)?._rootJoint} />
         <skinnedMesh
@@ -141,4 +196,4 @@ function ModelSchool(props: any) {
   );
 }
 
-export default ModelSchool;
+export default memo(ModelSchool);

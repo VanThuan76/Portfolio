@@ -1,0 +1,18 @@
+{
+  "intro": "オースティン・ヴーへようこそ",
+  "menu": {
+    "blog": "ブログ",
+    "project": "プロジェクト",
+    "aboutMe": "私について"
+  },
+  "pages": {
+    "blog": {
+      "title": "オースティンのブログ",
+      "description": "私のソーシャル:",
+      "comment": "コメント"
+    },
+    "project": {
+      "title": "オースティンのプロジェクト"
+    }
+  }
+}

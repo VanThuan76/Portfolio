@@ -9,16 +9,14 @@ interface FadeWrapperProps {
   isActive?: boolean;
 }
 
-const FadeWrapper: React.FC<FadeWrapperProps> = ({
-  children,
-  className,
-  isActive = false,
-}) => {
-  return (
-    <div className={cn(className, isActive ? "fade-in" : "opacity-0 hidden")}>
-      {children}
-    </div>
-  );
-};
+const FadeWrapper: React.FC<FadeWrapperProps> = React.memo(
+  ({ children, className, isActive = false }) => {
+    return (
+      <div className={cn(className, isActive ? "fade-in" : "opacity-0 hidden")}>
+        {children}
+      </div>
+    );
+  },
+);
 
 export default FadeWrapper;

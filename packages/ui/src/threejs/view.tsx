@@ -1,5 +1,6 @@
 "use client";
 
+import * as THREE from "three";
 import {
   forwardRef,
   Suspense,
@@ -7,13 +8,16 @@ import {
   useRef,
   ReactNode,
   HTMLAttributes,
-  useEffect,
   useState,
+  memo,
+  useEffect,
+  useCallback,
 } from "react";
 import {
   BakeShadows,
   CameraControls,
   Html,
+  OrbitControls,
   useProgress,
   View as ViewImpl,
 } from "@react-three/drei";
@@ -21,123 +25,105 @@ import { m } from "framer-motion";
 import { useFrame } from "@react-three/fiber";
 import { Three } from "@utils/threejs";
 
+import {
+  // @ts-ignore
+  EffectComposer,
+  // @ts-ignore
+  Bloom,
+  // @ts-ignore
+  DepthOfField,
+  // @ts-ignore
+} from "@react-three/postprocessing";
+
 import Background from "./background";
 
 interface ViewProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
+  orbit?: boolean;
 }
-export const View = forwardRef<HTMLDivElement, ViewProps>(
-  ({ children, ...props }, ref) => {
-    const localRef = useRef<any>(null);
 
+export const View = forwardRef<HTMLDivElement, ViewProps>(
+  ({ children, orbit, ...props }, ref) => {
+    const localRef = useRef<any>(null);
     useImperativeHandle(ref, () => localRef.current);
 
     return (
       <>
         <div ref={localRef} {...props} />
         <Three>
-          <ViewImpl track={localRef}>{children}</ViewImpl>
+          <ViewImpl track={localRef}>
+            {children}
+            {orbit && <OrbitControls />}
+          </ViewImpl>
         </Three>
       </>
     );
   },
 );
 
-export const Loading = () => {
+export const Loader = () => {
   const { progress } = useProgress();
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { duration: 1, ease: "easeInOut" },
-    },
-    inactive: {
-      opacity: 0,
-      height: 0,
-      y: "-100vh",
-      transition: { duration: 1, ease: "easeInOut" },
-    },
-  };
-
-  const logoVariants = {
-    hidden: { scale: 0 },
-    visible: { scale: 1, transition: { duration: 1, type: "spring" } },
-  };
-
-  const userNameVariants = {
-    hidden: { opacity: 0, y: -20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 1, delay: 1.2 } },
-  };
-
-  const progressBarVariants = {
-    initial: { width: 0 },
-    animate: {
-      width: `${progress}%`,
-      transition: { duration: 3, ease: "easeInOut" },
-    },
-  };
-
+  if (progress === 100) return null;
   return (
-    <Html>
-      <m.div
-        className="fixed w-screen h-screen top-0 left-0 right-0 bottom-0 flex flex-col items-center justify-center bg-gray-800 text-white z-[9999] overflow-hidden"
-        variants={containerVariants}
-        initial="hidden"
-        animate={progress < 1000 ? "visible" : "inactive"}
+    <Three>
+      <Html
+        center
+        style={{
+          position: "fixed",
+          zIndex: "30",
+          width: "100vw",
+          height: "100vh",
+          overflow: "hidden",
+        }}
       >
-        <m.img
-          className="logo"
-          variants={logoVariants}
-          width={150}
-          height={150}
-          src="/logo.png"
-          alt="@logo"
-        />
-        <m.span className="user-name" variants={userNameVariants}>
-          Austin Vu
-        </m.span>
-        <m.div className="w-64 h-1 overflow-hidden bg-gray-500 rounded-full shadow-inner mt-14">
-          <m.div
-            className="h-full bg-white rounded-full"
-            variants={progressBarVariants}
-            initial="initial"
-            animate="animate"
-          />
+        <m.div
+          className="flex items-center justify-center w-full h-full bg-black bg-opacity-80"
+          initial={{ opacity: 1 }}
+          animate={{ opacity: progress === 100 ? 0 : 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 1.5 }}
+          style={{ pointerEvents: "auto" }}
+        >
+          <span className="text-white">{progress.toFixed(2)} % loaded</span>
         </m.div>
-      </m.div>
-    </Html>
+      </Html>
+    </Three>
   );
 };
 
 export const Common = () => (
   <Suspense fallback={null}>
     <Background />
-    <hemisphereLight intensity={0.3} groundColor="white" />
+    <hemisphereLight intensity={0.5} groundColor="white" />
     <spotLight
-      decay={0}
-      position={[0, 500, 200]}
+      decay={2}
+      position={[-600, 0, -200]}
       angle={0.5}
       penumbra={0.5}
-      intensity={1.5}
+      intensity={2}
       castShadow
-      shadow-mapSize={1024}
+      shadow-mapSize={2048}
     />
-    <ambientLight intensity={0.2} />
     <directionalLight
-      intensity={0.5}
+      intensity={1.8}
       castShadow
-      shadow-bias={-0.0004}
-      position={[0, 500, 200]}
+      shadow-bias={-0.0001}
+      position={[-600, 0, -200]}
     >
-      <orthographicCamera attach="shadow-camera" args={[-20, 20, 20, -20]} />
+      <orthographicCamera
+        attach="shadow-camera"
+        args={[-100, 100, 100, -100]}
+      />
     </directionalLight>
+    <ambientLight intensity={0.1} />
     <BakeShadows />
   </Suspense>
 );
 
-export const CameraHandler = ({ positions }: { positions: any }) => {
+export const CameraHandler = memo(({ positions }: { positions: any }) => {
   const [isIntroComplete, setIsIntroComplete] = useState(false);
+  const [isProgressComplete, setIsProgressComplete] = useState(false);
+  const { progress } = useProgress();
   const cameraControlRef = useRef<CameraControls | null>(null);
   let t = 0;
 
@@ -146,58 +132,88 @@ export const CameraHandler = ({ positions }: { positions: any }) => {
     positionModelRestaurant,
     positionModelOcean,
     positionModelMain,
+    positionModelDepartment,
     positionModelSchool,
     positionModelMountain,
     positionModelCity,
     positionModelCastle,
   } = positions;
 
-  // Intro animation in useFrame
-  useFrame((_, delta) => {
-    if (!isIntroComplete && cameraControlRef.current) {
-      t += delta * 0.2;
-      if (t > 1) {
-        t = 1;
-        setIsIntroComplete(true); // Mark intro as complete
-      }
+  // useEffect to handle progress completion
+  useEffect(() => {
+    if (progress === 100) {
+      const timer = setTimeout(() => {
+        setIsProgressComplete(true);
+      }, 2000); // Delay before starting the camera movement
 
-      const currentX = 0;
-      const currentY = 700 + (100 - 700) * t;
-      const currentZ = 600 + (1000 - 600) * t;
-
-      cameraControlRef.current.setLookAt(
-        currentX,
-        currentY,
-        currentZ,
-        0,
-        150,
-        150,
-        true,
-      );
+      return () => clearTimeout(timer);
     }
+  }, [progress]);
+
+  // Callback function to handle camera movement
+  const handleCameraMovement = useCallback(
+    (delta: number) => {
+      if (isProgressComplete && !isIntroComplete && cameraControlRef.current) {
+        t += delta * 0.2;
+        if (t > 1) {
+          t = 1;
+          setIsIntroComplete(true);
+        }
+
+        const currentX = 0;
+        const currentY = 700 + (100 - 700) * t;
+        const currentZ = 600 + (1000 - 600) * t;
+
+        cameraControlRef.current.setLookAt(
+          currentX,
+          currentY,
+          currentZ,
+          0,
+          150,
+          150,
+          true,
+        );
+      }
+    },
+    [isProgressComplete, isIntroComplete],
+  );
+
+  // useFrame to handle camera movement
+  useFrame((_, delta) => {
+    handleCameraMovement(delta);
   });
 
-  // useEffect for handling new positions after intro
-  useEffect(() => {
+  // useFrame for targeting positions
+  useFrame(() => {
     if (isIntroComplete && cameraControlRef.current) {
-      const positions = [
+      const positionsList = [
         positionModelMain,
         positionModelCastle,
+        positionModelOcean,
+        positionModelCity,
         positionModelRestaurant,
         positionModelSchool,
+        positionModelDepartment,
         positionModelMountain,
       ];
 
-      const targetPosition = positions.find((position) => position.length > 3);
+      const targetPosition = positionsList.find(
+        (position) => position.length > 3,
+      );
 
       if (targetPosition && targetPosition.length > 0) {
         const [cameraX, cameraY, cameraZ] = cameraPosition;
         const [modelX, modelY, modelZ] = targetPosition;
 
+        const targetVec = new THREE.Vector3(modelX, modelY, modelZ);
+        const cameraVec = new THREE.Vector3(cameraX, cameraY, cameraZ);
+
+        cameraVec.lerp(targetVec, 0.05);
+
         cameraControlRef.current.setLookAt(
-          cameraX,
-          cameraY,
-          cameraZ,
+          cameraVec.x,
+          cameraVec.y,
+          cameraVec.z,
           modelX,
           modelY,
           modelZ,
@@ -205,21 +221,34 @@ export const CameraHandler = ({ positions }: { positions: any }) => {
         );
       }
     }
-  }, [
-    isIntroComplete,
-    cameraPosition,
-    positionModelMain,
-    positionModelCastle,
-    positionModelRestaurant,
-    positionModelSchool,
-    positionModelMountain,
-  ]);
+  });
 
   return (
     <CameraControls
+      makeDefault
       ref={cameraControlRef}
       dampingFactor={0.2}
       smoothTime={0.3}
+      minPolarAngle={0}
+      maxPolarAngle={Math.PI / 2}
     />
+  );
+});
+
+export const EffectComposerHandler = () => {
+  return (
+    <EffectComposer enableNormalPass multisampling={2}>
+      <Bloom
+        luminanceThreshold={0.3}
+        luminanceSmoothing={0.1}
+        intensity={1.0}
+      />
+      <DepthOfField
+        target={[0, 0, 13]}
+        focalLength={10}
+        bokehScale={10}
+        height={480}
+      />
+    </EffectComposer>
   );
 };

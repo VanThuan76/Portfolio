@@ -1,9 +1,68 @@
+import * as THREE from "three";
+import { useRef, memo } from "react";
 import { useGLTF } from "@react-three/drei";
+import { useFrame } from "@react-three/fiber";
 
-function ModelCityBackground(props: any) {
+interface ModelCityBackgroundProps {
+  position: [number, number, number];
+  scale: [number, number, number];
+  [key: string]: any;
+}
+
+function ModelCityBackground({
+  position,
+  scale,
+  ...props
+}: ModelCityBackgroundProps) {
+  const ref = useRef<THREE.Group>(null);
   const { nodes, materials } = useGLTF("/models/city.glb");
+
+  const currentPosition = useRef(new THREE.Vector3(...position));
+  const currentScale = useRef(new THREE.Vector3(...scale));
+
+  useFrame(() => {
+    if (ref.current) {
+      const targetPosition = new THREE.Vector3(...position);
+      currentPosition.current.x = THREE.MathUtils.lerp(
+        currentPosition.current.x,
+        targetPosition.x,
+        0.1,
+      );
+      currentPosition.current.y = THREE.MathUtils.lerp(
+        currentPosition.current.y,
+        targetPosition.y,
+        0.1,
+      );
+      currentPosition.current.z = THREE.MathUtils.lerp(
+        currentPosition.current.z,
+        targetPosition.z,
+        0.1,
+      );
+
+      const targetScale = new THREE.Vector3(...scale);
+      currentScale.current.x = THREE.MathUtils.lerp(
+        currentScale.current.x,
+        targetScale.x,
+        0.1,
+      );
+      currentScale.current.y = THREE.MathUtils.lerp(
+        currentScale.current.y,
+        targetScale.y,
+        0.1,
+      );
+      currentScale.current.z = THREE.MathUtils.lerp(
+        currentScale.current.z,
+        targetScale.z,
+        0.1,
+      );
+
+      ref.current.position.copy(currentPosition.current);
+      ref.current.scale.copy(currentScale.current);
+    }
+  });
+
   return (
-    <group {...props} dispose={null}>
+    <group ref={ref} {...props} dispose={null}>
       <group position={[3.135, 1.248, 1.094]} rotation={[-Math.PI / 2, 0, 0]}>
         <group
           position={[-3.135, 1.094, -1.248]}
@@ -1578,4 +1637,4 @@ function ModelCityBackground(props: any) {
   );
 }
 
-export default ModelCityBackground;
+export default memo(ModelCityBackground);

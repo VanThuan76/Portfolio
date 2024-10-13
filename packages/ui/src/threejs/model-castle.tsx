@@ -1,10 +1,65 @@
+import * as THREE from "three";
+import { memo, useRef } from "react";
 import { useGLTF } from "@react-three/drei";
+import { useFrame } from "@react-three/fiber";
 
-function ModelCastle(props: any) {
+interface ModelCastleProps {
+  position: [number, number, number];
+  scale: [number, number, number];
+  [key: string]: any;
+}
+
+function ModelCastle({ position, scale, ...props }: ModelCastleProps) {
+  const ref = useRef<THREE.Group>(null);
+
   const { nodes, materials } = useGLTF("/models/castle.glb");
 
+  const currentPosition = useRef(new THREE.Vector3(...position));
+  const currentScale = useRef(new THREE.Vector3(...scale));
+
+  useFrame(() => {
+    if (ref.current) {
+      const targetPosition = new THREE.Vector3(...position);
+      currentPosition.current.x = THREE.MathUtils.lerp(
+        currentPosition.current.x,
+        targetPosition.x,
+        0.1,
+      );
+      currentPosition.current.y = THREE.MathUtils.lerp(
+        currentPosition.current.y,
+        targetPosition.y,
+        0.1,
+      );
+      currentPosition.current.z = THREE.MathUtils.lerp(
+        currentPosition.current.z,
+        targetPosition.z,
+        0.1,
+      );
+
+      const targetScale = new THREE.Vector3(...scale);
+      currentScale.current.x = THREE.MathUtils.lerp(
+        currentScale.current.x,
+        targetScale.x,
+        0.1,
+      );
+      currentScale.current.y = THREE.MathUtils.lerp(
+        currentScale.current.y,
+        targetScale.y,
+        0.1,
+      );
+      currentScale.current.z = THREE.MathUtils.lerp(
+        currentScale.current.z,
+        targetScale.z,
+        0.1,
+      );
+
+      ref.current.position.copy(currentPosition.current);
+      ref.current.scale.copy(currentScale.current);
+    }
+  });
+
   return (
-    <group {...props} dispose={null}>
+    <group ref={ref} {...props} dispose={null}>
       <group position={[-6.268, 20.938, -5.025]} rotation={[0, -0.782, 0]}>
         <mesh
           castShadow
@@ -291,4 +346,4 @@ function ModelCastle(props: any) {
   );
 }
 
-export default ModelCastle;
+export default memo(ModelCastle);

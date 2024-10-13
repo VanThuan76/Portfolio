@@ -7,12 +7,9 @@ const {
 module.exports = {
   darkMode: ["class"],
   content: [
-    "./pages/**/*.{ts,tsx}",
-    "./components/**/*.{ts,tsx}",
-    "./app/**/*.{ts,tsx}",
+    "../../packages/ui/src/components/**/*.{ts,tsx}",
     "../../apps/web/app/**/*.{ts,tsx}",
     "../../apps/web/shared/**/*.{ts,tsx}",
-    "../../packages/ui/src/components/**/*.{ts,tsx}",
   ],
   theme: {
     container: {

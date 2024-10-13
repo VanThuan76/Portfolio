@@ -1,6 +1,6 @@
 "use client";
 
-import React, { PropsWithChildren, useRef } from "react";
+import React, { PropsWithChildren, useMemo, useRef } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { m, useMotionValue, useSpring, useTransform } from "framer-motion";
 
@@ -35,15 +35,15 @@ const Dock = React.forwardRef<HTMLDivElement, DockProps>(
   ) => {
     const mouseX = useMotionValue(Infinity);
 
-    const renderChildren = () => {
+    const renderChildren = useMemo(() => {
       return React.Children.map(children, (child: any) => {
         return React.cloneElement(child, {
-          mouseX: mouseX,
-          magnification: magnification,
-          distance: distance,
+          mouseX,
+          magnification,
+          distance,
         });
       });
-    };
+    }, [children, magnification, distance, mouseX]);
 
     return (
       <m.div
@@ -57,7 +57,7 @@ const Dock = React.forwardRef<HTMLDivElement, DockProps>(
           "items-end": direction === "bottom",
         })}
       >
-        {renderChildren()}
+        {renderChildren}
       </m.div>
     );
   },

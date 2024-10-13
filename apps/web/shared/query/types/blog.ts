@@ -1,68 +1,12 @@
-export interface IBlog {
-  id: string;
-  title: string;
-  updated_at: string;
-  created_at: string;
-  image_url: string;
-  is_published: boolean;
-  is_premium: boolean;
-  slug: string;
-  category_id: number;
-  tags: ITagBlog[];
-  comments: IComment[];
-}
+import { Database } from "@shared/utils/supabase/types";
 
-export interface IComment {
-  id: string;
-  created_at: string;
-  updated_at: string;
-  blog_id: string;
-  user_id: string;
-  content: string;
-  like: number;
-}
+export type BlogSupabase = Database["public"]["Tables"]["blog"]["Row"];
+export type BlogCommentSupabase =
+  Database["public"]["Tables"]["blog_comment"]["Row"];
+export type BlogTagSupabase = Database["public"]["Tables"]["blog_tag"]["Row"];
 
-export interface ITagBlog {
-  id: string;
-  title: string;
-  slug: string;
-  created_at: string;
-  updated_at: string;
-}
-
-//Detail
-
-export interface IArticle {
-  blog: IArticleBlog;
-  comments: IArticleComment[];
-}
-
-export interface IArticleComment {
-  id: string;
-  created_at: string;
-  updated_at: string;
-  blog_id: string;
-  user_id: string;
-  content: string;
-  like: number;
-  users: Users;
-}
-
-export interface Users {
-  id: string;
-  avatar_url: string;
-  display_name: string;
-}
-
-export interface IArticleBlog {
-  id: string;
-  title: string;
-  updated_at: string;
-  created_at: string;
-  image_url: string;
-  is_published: boolean;
-  is_premium: boolean;
-  slug: string;
-  category_id: number;
-  content: string;
+export interface IBlog extends BlogSupabase {
+  blog_category: string | null;
+  tags: BlogTagSupabase[];
+  comments: BlogCommentSupabase[];
 }

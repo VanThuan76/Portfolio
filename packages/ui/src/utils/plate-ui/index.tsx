@@ -1,7 +1,7 @@
+const { DndProvider } = require("react-dnd");
+const { HTML5Backend } = require("react-dnd-html5-backend");
 import { Plate } from "@udecode/plate-common";
 import { CommentsProvider } from "@udecode/plate-comments";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
 import { cn } from "@utils/tw";
 
 import { MentionCombobox } from "./mention-combobox";

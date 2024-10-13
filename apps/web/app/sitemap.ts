@@ -1,6 +1,6 @@
 import { type MetadataRoute } from "next";
 
-import { siteConfig } from "../shared/constants/config";
+import { siteConfig } from "@shared/constants/config";
 
 const locale = "en"; // Đặt ngôn ngữ mặc định của trang web của bạn
 

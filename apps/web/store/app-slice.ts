@@ -1,20 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
-import { ITag } from "@shared/query/types/tag";
 import { IBlog } from "@shared/query/types/blog";
 import { IProject } from "@shared/query/types/project";
-import { IInformationWork } from "@shared/query/types/information-work";
 
 import { ModalProps } from "@shared/hooks/use-modal";
+import { Database } from "@shared/utils/supabase/types";
 
 export interface IDefaultState {
-  profile: any;
-  tags: ITag[] | [];
+  tags: Database["public"]["Tables"]["config"]["Row"][] | [];
+  informations: Database["public"]["Tables"]["information"]["Row"][] | [];
+  blogCategories: Database["public"]["Tables"]["blog_category"]["Row"][] | [];
   blogs: IBlog[] | [];
-  blogCategories: any[] | [];
   projects: IProject[] | [];
-  informationWorks: IInformationWork[] | [];
   initProgress: number;
   hasVisited: boolean;
   pageCached: string[];
@@ -24,6 +22,7 @@ export interface IDefaultState {
     positionModelCastle: any[];
     positionModelRestaurant: any[];
     positionModelSchool: any[];
+    positionModelDepartment: any[];
     positionModelMountain: any[];
     positionModelCity: any[];
     positionModelOcean: any[];
@@ -32,12 +31,11 @@ export interface IDefaultState {
 }
 
 const initialState: IDefaultState = {
-  profile: [],
+  informations: [],
   tags: [],
   blogs: [],
   blogCategories: [],
   projects: [],
-  informationWorks: [],
   initProgress: 0,
   hasVisited: false,
   pageCached: [],
@@ -47,6 +45,7 @@ const initialState: IDefaultState = {
     positionModelRestaurant: [],
     positionModelCastle: [],
     positionModelSchool: [],
+    positionModelDepartment: [],
     positionModelMountain: [],
     positionModelCity: [],
     positionModelOcean: [],
@@ -62,23 +61,33 @@ export const appSlice = createSlice({
   name: "app",
   initialState,
   reducers: {
-    setProfile: (state, action: PayloadAction<any>) => {
-      state.profile = action.payload;
+    setInformation: (
+      state,
+      action: PayloadAction<
+        Database["public"]["Tables"]["information"]["Row"][]
+      >,
+    ) => {
+      state.informations = action.payload;
     },
-    setTags: (state, action: PayloadAction<ITag[]>) => {
+    setTags: (
+      state,
+      action: PayloadAction<Database["public"]["Tables"]["config"]["Row"][]>,
+    ) => {
       state.tags = action.payload;
     },
     setBlogs: (state, action: PayloadAction<IBlog[]>) => {
       state.blogs = action.payload;
     },
-    setBlogCategories: (state, action: PayloadAction<any[]>) => {
+    setBlogCategories: (
+      state,
+      action: PayloadAction<
+        Database["public"]["Tables"]["blog_category"]["Row"][]
+      >,
+    ) => {
       state.blogCategories = action.payload;
     },
     setProjects: (state, action: PayloadAction<IProject[]>) => {
       state.projects = action.payload;
-    },
-    setInformationWorks: (state, action: PayloadAction<IInformationWork[]>) => {
-      state.informationWorks = action.payload;
     },
     setInitProgress: (state, action: PayloadAction<number>) => {
       state.initProgress = action.payload;
@@ -109,12 +118,11 @@ export const appSlice = createSlice({
 });
 
 export const {
-  setProfile,
+  setInformation,
   setTags,
   setBlogs,
   setBlogCategories,
   setProjects,
-  setInformationWorks,
   setInitProgress,
   setHasVisited,
   addPageToCache,

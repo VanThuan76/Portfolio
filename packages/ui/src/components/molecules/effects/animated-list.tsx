@@ -1,7 +1,7 @@
 "use client";
 
 import React, { ReactElement, useEffect, useMemo, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 
 export interface AnimatedListProps {
   className?: string;
@@ -52,8 +52,8 @@ export function AnimatedListItem({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <motion.div {...animations} layout className="w-full mx-auto">
+    <m.div {...animations} layout className="w-full mx-auto">
       {children}
-    </motion.div>
+    </m.div>
   );
 }
