@@ -105,11 +105,15 @@ export default function Page({ params }: { params: { slug: string } }) {
           <div className="fixed top-0 z-50 flex w-full transition-all translate-x-1/2 right-1/2">
             <PathLeftIcon className="-ml-20" />
             <div className="flex items-center justify-between bg-white">
-              <TypographyH3 title={article.title} className="text-lg font-medium" />
+              <TypographyH3
+                title={article.title}
+                className="text-lg font-medium"
+              />
             </div>
             <PathRightIcon className="-mr-20 transform scale-x-[-1]" />
           </div>
-        </motion.div>)}
+        </motion.div>
+      )}
     </AnimatePresence>
   );
 }

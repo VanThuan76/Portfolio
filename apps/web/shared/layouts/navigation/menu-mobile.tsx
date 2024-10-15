@@ -2,7 +2,7 @@
 
 import { Grip } from "lucide-react";
 import { useState } from "react";
-import { AnimatePresence, m } from 'framer-motion';
+import { AnimatePresence, m } from "framer-motion";
 import { RootState, useAppSelector } from "@store/index";
 import { cn } from "@utils/tw";
 import { DATA_MENUS } from "@shared/constants";
@@ -21,7 +21,7 @@ const menuVariants = {
     top: "0px",
     right: "0px",
     backgroundColor: "rgba(230, 230, 230, 1)",
-    transition: { duration: 0.75, type: "tween", ease: [0.76, 0, 0.24, 1] }
+    transition: { duration: 0.75, type: "tween", ease: [0.76, 0, 0.24, 1] },
   },
   closed: {
     width: "100px",
@@ -29,22 +29,27 @@ const menuVariants = {
     top: "0px",
     right: "0px",
     backgroundColor: "rgba(255, 255, 255, 0)",
-    transition: { duration: 0.75, delay: 0.35, type: "tween", ease: [0.76, 0, 0.24, 1] }
-  }
-}
+    transition: {
+      duration: 0.75,
+      delay: 0.35,
+      type: "tween",
+      ease: [0.76, 0, 0.24, 1],
+    },
+  },
+};
 
 const containerMenuVariants = {
   open: {
     right: "0px",
     top: "0px",
-    transition: { duration: 0.75, type: "tween", ease: [0.76, 0, 0.24, 1] }
+    transition: { duration: 0.75, type: "tween", ease: [0.76, 0, 0.24, 1] },
   },
   closed: {
     right: "20px",
     top: "20px",
-    transition: { duration: 0.75, type: "tween", ease: [0.76, 0, 0.24, 1] }
-  }
-}
+    transition: { duration: 0.75, type: "tween", ease: [0.76, 0, 0.24, 1] },
+  },
+};
 export const perspectiveMenuItemVariants = {
   initial: {
     opacity: 0,
@@ -59,16 +64,16 @@ export const perspectiveMenuItemVariants = {
     translateX: 0,
     transition: {
       duration: 0.65,
-      delay: 0.5 + (i * 0.1),
-      ease: [.215, .61, .355, 1],
-      opacity: { duration: 0.35 }
-    }
+      delay: 0.5 + i * 0.1,
+      ease: [0.215, 0.61, 0.355, 1],
+      opacity: { duration: 0.35 },
+    },
   }),
   exit: {
     opacity: 0,
-    transition: { duration: 0.5, type: "linear", ease: [0.76, 0, 0.24, 1] }
-  }
-}
+    transition: { duration: 0.5, type: "linear", ease: [0.76, 0, 0.24, 1] },
+  },
+};
 
 const MenuMobile = () => {
   const [currentMenuIndex, setCurrentMenuIndex] = useState(0);
@@ -93,7 +98,6 @@ const MenuMobile = () => {
       }
       return prevIndex + 1;
     });
-
   };
 
   return (
@@ -116,7 +120,13 @@ const MenuMobile = () => {
                 <div className="flex flex-col gap-4">
                   {DATA_MENUS.map((item, i) => {
                     return (
-                      <div key={`menu_${i}`} style={{ perspective: "120px", perspectiveOrigin: "bottom" }}>
+                      <div
+                        key={`menu_${i}`}
+                        style={{
+                          perspective: "120px",
+                          perspectiveOrigin: "bottom",
+                        }}
+                      >
                         <m.div
                           custom={i}
                           variants={perspectiveMenuItemVariants}
@@ -124,29 +134,39 @@ const MenuMobile = () => {
                           animate="enter"
                           exit="exit"
                           onClick={(e: React.MouseEvent<HTMLDivElement>) => {
-                            setIsOpen(!isOpen)
-                            handleOpenScreen(e, item.href, item.positions)
+                            setIsOpen(!isOpen);
+                            handleOpenScreen(e, item.href, item.positions);
                           }}
                         >
                           <p className="text-black text-3xl">{item.name}</p>
                         </m.div>
                       </div>
-                    )
-                  })
-                  }
+                    );
+                  })}
                 </div>
               </div>
             )}
           </AnimatePresence>
           <m.div
-            animate={{ scale: isOpen ? "1.1" : "1", opacity: isPageChanging ? 0 : 1, translateZ: isPageChanging ? "100%" : "0" }}
-            transition={{ duration: 0.5, type: "tween", ease: [0.76, 0, 0.24, 1] }}
+            animate={{
+              scale: isOpen ? "1.1" : "1",
+              opacity: isPageChanging ? 0 : 1,
+              translateZ: isPageChanging ? "100%" : "0",
+            }}
+            transition={{
+              duration: 0.5,
+              type: "tween",
+              ease: [0.76, 0, 0.24, 1],
+            }}
             className="w-[50px] block md:hidden z-50 absolute !top-0 !right-0"
             onClick={() => setIsOpen(!isOpen)}
           >
             <MenuMobileIcon />
             <Grip
-              className={cn("absolute scale-75 top-1/4 right-1/4", isOpen ? "rotate-45" : "rotate-0")}
+              className={cn(
+                "absolute scale-75 top-1/4 right-1/4",
+                isOpen ? "rotate-45" : "rotate-0",
+              )}
               color="#555"
             />
           </m.div>
@@ -158,9 +178,7 @@ const MenuMobile = () => {
         className="absolute bottom-0 z-50 w-[170px] block md:hidden"
         isClose={isPageChanging}
       >
-        <NavDeepIcon
-          onClick={handleMenuClick}
-        />
+        <NavDeepIcon onClick={handleMenuClick} />
       </MotionContainer>
     </>
   );

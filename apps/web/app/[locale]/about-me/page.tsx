@@ -36,7 +36,10 @@ export default function Page() {
           className="object-contain object-center w-full h-full"
         />
       </div>
-      <MotionContainer type="blur" className="absolute bottom-0 left-0 z-40 w-[400px] md:w-[600px]">
+      <MotionContainer
+        type="blur"
+        className="absolute bottom-0 left-0 z-40 w-[400px] md:w-[600px]"
+      >
         <LoaderImage
           isLoader={false}
           width={1980}
@@ -46,7 +49,10 @@ export default function Page() {
           className="object-contain object-center w-full h-full"
         />
       </MotionContainer>
-      <MotionContainer type="blur" className="absolute top-0 right-0 z-40 w-[400px] md:w-[600px]">
+      <MotionContainer
+        type="blur"
+        className="absolute top-0 right-0 z-40 w-[400px] md:w-[600px]"
+      >
         <LoaderImage
           isLoader={false}
           width={1980}

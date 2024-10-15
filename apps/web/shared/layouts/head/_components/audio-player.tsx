@@ -76,7 +76,10 @@ const AudioPlayer: React.FC = () => {
         autoPlay
         loop
       />
-      <div className="flex items-end h-24 cursor-pointer" onClick={handleVisualizerClick}>
+      <div
+        className="flex items-end h-24 cursor-pointer"
+        onClick={handleVisualizerClick}
+      >
         {audioData.map((height, index) => (
           <motion.div
             key={index}

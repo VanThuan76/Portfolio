@@ -32,7 +32,9 @@ const Scene = dynamic(() => import("./scene"), { ssr: false });
 
 function InitInner({ children }: PropsWithChildren) {
   const { isTasksCompleted } = useInitData();
-  const isPageChanging = useAppSelector((state: RootState) => state.app.isPageChanging)
+  const isPageChanging = useAppSelector(
+    (state: RootState) => state.app.isPageChanging,
+  );
 
   return (
     <LazyWrapper>

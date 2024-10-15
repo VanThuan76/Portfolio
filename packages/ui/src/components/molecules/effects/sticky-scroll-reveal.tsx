@@ -1,6 +1,6 @@
 import React, { memo, useCallback, useEffect, useRef, useState } from "react";
 import { motion, useMotionValueEvent, useScroll } from "framer-motion";
-import throttle from 'lodash.throttle'
+import throttle from "lodash.throttle";
 import { cn } from "@utils/tw";
 
 export const StickyScroll = memo(
