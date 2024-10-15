@@ -29,7 +29,7 @@ function ModelOceanBackground({
         <mesh
           castShadow
           receiveShadow
-          geometry={(nodes as any)?.spray_droplet_0.geometry}
+          geometry={(nodes as any)?.spray_droplet_0?.geometry}
           material={materials.droplet}
           rotation={[-Math.PI / 2, 0, 0]}
           scale={100}
@@ -37,7 +37,7 @@ function ModelOceanBackground({
         <mesh
           castShadow
           receiveShadow
-          geometry={(nodes as any)?.ocean_reduced_ocean_bake_0.geometry}
+          geometry={(nodes as any)?.ocean_reduced_ocean_bake_0?.geometry}
           material={materials.ocean_bake}
           position={[0, 405.523, 0]}
           rotation={[-Math.PI / 2, 0, 0]}

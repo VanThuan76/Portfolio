@@ -68,13 +68,13 @@ function ModelMountainBackground({
           <mesh
             castShadow
             receiveShadow
-            geometry={(nodes as any)?.Mountain_A_0.geometry}
+            geometry={(nodes as any)?.Mountain_A_0?.geometry}
             material={materials.material}
           />
           <mesh
             castShadow
             receiveShadow
-            geometry={(nodes as any)?.Mountain_B_0.geometry}
+            geometry={(nodes as any)?.Mountain_B_0?.geometry}
             material={materials.material_1}
           />
         </group>

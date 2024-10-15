@@ -32,14 +32,8 @@ export default function Page({ params }: { params: { slug: string } }) {
 
   useEffect(() => {
     const fetchArticle = async () => {
-      console.log(params.slug);
       const response = await getBlogBySlug(supabase, params.slug, locale);
-
-      if (response.status === 200) {
-        setArticle(response.data);
-      } else {
-        console.error(response.message);
-      }
+      if (response.status === 200) setArticle(response.data);
     };
 
     fetchArticle();

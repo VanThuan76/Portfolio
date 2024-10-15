@@ -121,9 +121,9 @@ export const Common = () => (
 );
 
 export const CameraHandler = memo(({ positions }: { positions: any }) => {
+  const { progress } = useProgress();
   const [isIntroComplete, setIsIntroComplete] = useState(false);
   const [isProgressComplete, setIsProgressComplete] = useState(false);
-  const { progress } = useProgress();
   const cameraControlRef = useRef<CameraControls | null>(null);
   let t = 0;
 
@@ -135,22 +135,21 @@ export const CameraHandler = memo(({ positions }: { positions: any }) => {
     positionModelDepartment,
     positionModelSchool,
     positionModelMountain,
+    positionModelCaffe,
     positionModelCity,
     positionModelCastle,
   } = positions;
 
-  // useEffect to handle progress completion
   useEffect(() => {
     if (progress === 100) {
       const timer = setTimeout(() => {
         setIsProgressComplete(true);
-      }, 2000); // Delay before starting the camera movement
+      }, 2000);
 
       return () => clearTimeout(timer);
     }
   }, [progress]);
 
-  // Callback function to handle camera movement
   const handleCameraMovement = useCallback(
     (delta: number) => {
       if (isProgressComplete && !isIntroComplete && cameraControlRef.current) {
@@ -178,12 +177,10 @@ export const CameraHandler = memo(({ positions }: { positions: any }) => {
     [isProgressComplete, isIntroComplete],
   );
 
-  // useFrame to handle camera movement
   useFrame((_, delta) => {
     handleCameraMovement(delta);
   });
 
-  // useFrame for targeting positions
   useFrame(() => {
     if (isIntroComplete && cameraControlRef.current) {
       const positionsList = [
@@ -195,6 +192,7 @@ export const CameraHandler = memo(({ positions }: { positions: any }) => {
         positionModelSchool,
         positionModelDepartment,
         positionModelMountain,
+        positionModelCaffe,
       ];
 
       const targetPosition = positionsList.find(

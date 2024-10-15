@@ -10,6 +10,10 @@ const ModelMain = dynamic(
   () => import("@three/model-main").then((mod) => mod.default),
   { ssr: false },
 );
+const ModelCaffe = dynamic(
+  () => import("@three/model-caffe").then((mod) => mod.default),
+  { ssr: false },
+);
 const ModelCastle = dynamic(
   () => import("@three/model-castle").then((mod) => mod.default),
   { ssr: false },
@@ -85,6 +89,7 @@ const Scene = () => {
   const {
     positionModelRestaurant,
     positionModelOcean,
+    positionModelCaffe,
     positionModelDepartment,
     positionModelMain,
     positionModelSchool,
@@ -187,6 +192,20 @@ const Scene = () => {
                 : [100, 200, -100]
             }
             scale={[2, 2, 2]}
+          />
+          <ModelCaffe
+            renderOrder={2}
+            position={
+              positionModelCaffe.length > 0
+                ? (positionModelCaffe.slice(0, 3) as [number, number, number])
+                : [200, -100, -500]
+            }
+            scale={
+              positionModelCaffe.length > 0
+                ? [0.1, 0.1, 0.1]
+                : [0.05, 0.05, 0.05]
+            }
+            rotation={[0, 1.2, 0]}
           />
           <ModelDepartment
             renderOrder={2}

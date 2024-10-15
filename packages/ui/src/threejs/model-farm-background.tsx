@@ -46,7 +46,7 @@ function ModelFarmBackground({ position, ...props }: ModelFarmBackgroundProps) {
         <mesh
           castShadow
           receiveShadow
-          geometry={(nodes as any)?.mesh_out_node_texture_material_0.geometry}
+          geometry={(nodes as any)?.mesh_out_node_texture_material_0?.geometry}
           material={materials.texture_material}
           rotation={[-Math.PI, 0, 0]}
         />

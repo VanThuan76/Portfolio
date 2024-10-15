@@ -19,6 +19,7 @@ export interface IDefaultState {
   positions: {
     cameraPosition: any[];
     positionModelMain: any[];
+    positionModelCaffe: any[];
     positionModelCastle: any[];
     positionModelRestaurant: any[];
     positionModelSchool: any[];
@@ -42,6 +43,7 @@ const initialState: IDefaultState = {
   positions: {
     cameraPosition: [],
     positionModelMain: [],
+    positionModelCaffe: [],
     positionModelRestaurant: [],
     positionModelCastle: [],
     positionModelSchool: [],
