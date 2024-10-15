@@ -11,8 +11,8 @@ type Props = { className?: string };
 
 const HeadMain = ({ className }: Props) => {
   return (
-    <div className={cn("absolute top-0 right-0 hidden md:block", className)}>
-      <AudioPlayer audioSrc="/audios/music.mp3" />
+    <div className={cn("absolute bottom-5 right-5 hidden md:block z-50", className)}>
+      <AudioPlayer />
     </div>
   );
 };

@@ -1,11 +1,16 @@
+// Global Styles
 import "@styles/globals.css";
+
+// Next.js
 import type { Metadata } from "next";
 import { ViewTransitions } from "next-view-transitions";
 import { getMessages } from "next-intl/server";
 
+// Utilities
 import { cn } from "@utils/tw";
 import { mainFont } from "@shared/utils/font";
 
+// Layouts and Providers
 import InitContainer from "@shared/layouts";
 import Providers from "../provider";
 

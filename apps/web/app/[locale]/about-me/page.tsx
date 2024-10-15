@@ -7,6 +7,8 @@ import { LoaderImage } from "@ui/molecules/ui-elements/loader-image";
 import { RootState, useAppSelector } from "@store/index";
 import { Database } from "@shared/utils/supabase/types";
 
+import MotionContainer from "@ui/molecules/frame/dynamic-contain";
+
 export default function Page() {
   const informations = useAppSelector(
     (state: RootState) => state.app.informations,
@@ -34,7 +36,7 @@ export default function Page() {
           className="object-contain object-center w-full h-full"
         />
       </div>
-      <div className="absolute bottom-0 left-0 z-40 w-[400px] md:w-[600px]">
+      <MotionContainer type="blur" className="absolute bottom-0 left-0 z-40 w-[400px] md:w-[600px]">
         <LoaderImage
           isLoader={false}
           width={1980}
@@ -43,8 +45,8 @@ export default function Page() {
           src="/images/about-me/left-bg.png"
           className="object-contain object-center w-full h-full"
         />
-      </div>
-      <div className="absolute top-0 right-0 z-40 w-[400px] md:w-[600px]">
+      </MotionContainer>
+      <MotionContainer type="blur" className="absolute top-0 right-0 z-40 w-[400px] md:w-[600px]">
         <LoaderImage
           isLoader={false}
           width={1980}
@@ -53,7 +55,7 @@ export default function Page() {
           src="/images/about-me/right-bg.png"
           className="object-contain object-center w-full h-full"
         />
-      </div>
+      </MotionContainer>
     </div>
   );
 }

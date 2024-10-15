@@ -1,105 +1,100 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 
-interface AudioPlayerProps {
-  audioSrc: string;
-}
+const AudioPlayer: React.FC = () => {
+  const [audioData, setAudioData] = useState<number[]>(Array(10).fill(100));
+  const audioContextRef = useRef<AudioContext | null>(null);
+  const analyserRef = useRef<AnalyserNode | null>(null);
+  const sourceRef = useRef<MediaElementAudioSourceNode | null>(null);
+  const audioElementRef = useRef<HTMLAudioElement | null>(null);
+  const animationIdRef = useRef<number | null>(null);
 
-export default function AudioPlayer({ audioSrc }: AudioPlayerProps) {
-  const [isPlaying, setIsPlaying] = useState(true);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const setupAudio = () => {
+    if (audioContextRef.current) return;
+
+    audioContextRef.current = new (window.AudioContext ||
+      (window as any).webkitAudioContext)();
+    const audio = audioElementRef.current!;
+
+    sourceRef.current = audioContextRef.current.createMediaElementSource(audio);
+
+    analyserRef.current = audioContextRef.current.createAnalyser();
+    analyserRef.current.fftSize = 64;
+
+    sourceRef.current.connect(analyserRef.current);
+    analyserRef.current.connect(audioContextRef.current.destination);
+
+    const dataArray = new Uint8Array(analyserRef.current.frequencyBinCount);
+
+    const updateAudioData = () => {
+      analyserRef.current!.getByteFrequencyData(dataArray);
+
+      const normalizedData = Array.from(dataArray)
+        .slice(0, 10)
+        .map((val) => {
+          return ((val / 255) * 200 + 100) / 2;
+        });
+
+      setAudioData(normalizedData);
+
+      animationIdRef.current = requestAnimationFrame(updateAudioData);
+    };
+
+    animationIdRef.current = requestAnimationFrame(updateAudioData);
+  };
 
   useEffect(() => {
-    if (audioSrc && canvasRef.current) {
-      const audio = new Audio(audioSrc);
-      audioRef.current = audio; // Lưu trữ audio vào ref
-
-      const audioContext = new (window.AudioContext ||
-        (window as any).webkitAudioContext)();
-      const analyser = audioContext.createAnalyser();
-      const source = audioContext.createMediaElementSource(audio);
-
-      source.connect(analyser);
-      analyser.connect(audioContext.destination);
-
-      analyser.fftSize = 256;
-      const bufferLength = analyser.frequencyBinCount;
-      const dataArray: any = new Uint8Array(bufferLength);
-      const canvas = canvasRef.current;
-      const canvasCtx = canvas.getContext("2d");
-
-      const draw = () => {
-        const WIDTH = canvas.width;
-        const HEIGHT = canvas.height;
-
-        requestAnimationFrame(draw);
-
-        analyser.getByteFrequencyData(dataArray);
-
-        const barWidth = (WIDTH / bufferLength) * 1.5;
-        let barHeight;
-        let x = 0;
-
-        // Vẽ các cột sóng với màu đen và trắng xen kẽ
-        for (let i = 0; i < bufferLength; i++) {
-          barHeight = dataArray[i] / 2;
-          canvasCtx!.fillStyle =
-            i % 2 === 0 ? "rgb(255, 255, 255)" : "rgb(0, 0, 0)"; // Màu trắng và đen xen kẽ
-          canvasCtx!.fillRect(x, HEIGHT - barHeight, barWidth, barHeight); // Sử dụng barHeight thay vì chia đôi
-          x += barWidth + 1; // Cách đều các cột
+    return () => {
+      if (animationIdRef.current) cancelAnimationFrame(animationIdRef.current);
+      if (audioContextRef.current) {
+        if (sourceRef.current) {
+          sourceRef.current.disconnect();
         }
-      };
-
-      draw();
-
-      // Tự động phát âm thanh khi có tương tác (click)
-      const playAudio = async () => {
-        try {
-          await audio.play();
-        } catch (err) {
-          console.error("Auto-play was prevented:", err);
-        }
-      };
-
-      canvas.addEventListener("click", playAudio);
-
-      return () => {
-        audio.pause(); // Dừng âm thanh khi component bị unmount
-        canvas.removeEventListener("click", playAudio);
-      };
-    }
-  }, [audioSrc]);
-
-  const togglePlayPause = () => {
-    if (audioRef.current) {
-      if (isPlaying) {
-        audioRef.current.pause();
-      } else {
-        audioRef.current.play();
+        audioContextRef.current.close();
       }
-      setIsPlaying(!isPlaying);
+    };
+  }, []);
+
+  const handleVisualizerClick = () => {
+    const audio = audioElementRef.current!;
+    if (audio.paused) {
+      audio.play();
+    } else {
+      audio.pause();
     }
   };
-
-  // Thêm sự kiện click cho canvas để toggle âm thanh
-  const handleCanvasClick = () => {
-    togglePlayPause();
-  };
-
   return (
-    <>
-      {audioSrc && (
-        <div className="mb-4">
-          <canvas
-            ref={canvasRef}
-            className="w-full h-20"
-            onClick={handleCanvasClick}
-          ></canvas>
-          <p onClick={() => handleCanvasClick()}>Nhạc</p>
-        </div>
-      )}
-    </>
+    <div className="size-full center flex-col">
+      <audio
+        ref={audioElementRef}
+        src="/audios/music.mp3"
+        onPlay={setupAudio}
+        controls
+        className="hidden"
+        autoPlay
+        loop
+      />
+      <div className="flex items-end h-24 cursor-pointer" onClick={handleVisualizerClick}>
+        {audioData.map((height, index) => (
+          <motion.div
+            key={index}
+            className="bg-gray-400 w-[5px] mx-0.5 rounded-2xl"
+            animate={{
+              height: `${height / 4}px`,
+              backgroundColor: height > 100 ? "#fff" : "#fff5",
+            }}
+            transition={{
+              type: "spring",
+              stiffness: 200,
+              damping: 20,
+            }}
+          />
+        ))}
+      </div>
+    </div>
   );
-}
+};
+
+export default AudioPlayer;

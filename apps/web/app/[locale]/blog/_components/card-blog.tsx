@@ -22,6 +22,10 @@ const CardBlog = ({
 }) => {
   const router = useRouter();
   const locale = useLocale();
+  const cardVariants = {
+    initial: { opacity: 1, scale: 1, width: "330px", height: "auto" },
+    click: { opacity: 0.5, scale: 1.5, width: "750px", height: "500px" },
+  };
 
   const [isPending, startTransition] = useTransition();
 
@@ -30,34 +34,42 @@ const CardBlog = ({
 
   function handleRedirect(slug: string) {
     startTransition(() => {
-      router.push(`/${locale}/blog/${slug}`, { scroll: false });
+      setTimeout(() => {
+        router.push(`/${locale}/blog/${slug}`, { scroll: false });
+      }, 300);
     });
     setClickedSlug(slug);
   }
 
   return (
     <div className={cn(className)}>
-      {items.map((item: IBlog, idx: number) => (
-        <div
-          key={idx}
-          className="relative block w-full md:w-[330px] h-full p-0 md:p-2 group"
-          onMouseEnter={() => setHoveredIndex(idx)}
+      {items.map((item: IBlog, index: number) => (
+        <motion.div
+          layout
+          id={item.slug}
+          key={item.slug}
+          initial="initial"
+          animate={clickedSlug === item.slug ? "click" : "initial"}
+          variants={cardVariants}
+          transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+          className="relative w-full h-full block p-0 md:p-2 group"
+          onMouseEnter={() => setHoveredIndex(index)}
           onMouseLeave={() => setHoveredIndex(null)}
           onClick={() => handleRedirect(item.slug)}
         >
           <AnimatePresence>
-            {hoveredIndex === idx && (
+            {hoveredIndex === index && (
               <motion.span
                 className="absolute inset-0 h-full w-full bg-neutral-200 dark:bg-slate-800/[0.8] block rounded-md"
                 layoutId="hoverBackground"
                 initial={{ opacity: 0 }}
                 animate={{
                   opacity: 1,
-                  transition: { duration: 0.15 },
+                  transition: { duration: 0.75, type: "spring", ease: "easeInOut" },
                 }}
                 exit={{
                   opacity: 0,
-                  transition: { duration: 0.15, delay: 0.2 },
+                  transition: { duration: 0.75, type: "spring", ease: "easeInOut", delay: 0.35 },
                 }}
               />
             )}
@@ -110,7 +122,7 @@ const CardBlog = ({
               )}
             </div>
           </Card>
-        </div>
+        </motion.div>
       ))}
     </div>
   );

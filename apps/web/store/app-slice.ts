@@ -15,6 +15,7 @@ export interface IDefaultState {
   projects: IProject[] | [];
   initProgress: number;
   hasVisited: boolean;
+  isPageChanging: boolean;
   pageCached: string[];
   positions: {
     cameraPosition: any[];
@@ -39,6 +40,7 @@ const initialState: IDefaultState = {
   projects: [],
   initProgress: 0,
   hasVisited: false,
+  isPageChanging: false,
   pageCached: [],
   positions: {
     cameraPosition: [],
@@ -67,13 +69,13 @@ export const appSlice = createSlice({
       state,
       action: PayloadAction<
         Database["public"]["Tables"]["information"]["Row"][]
-      >,
+      >
     ) => {
       state.informations = action.payload;
     },
     setTags: (
       state,
-      action: PayloadAction<Database["public"]["Tables"]["config"]["Row"][]>,
+      action: PayloadAction<Database["public"]["Tables"]["config"]["Row"][]>
     ) => {
       state.tags = action.payload;
     },
@@ -84,7 +86,7 @@ export const appSlice = createSlice({
       state,
       action: PayloadAction<
         Database["public"]["Tables"]["blog_category"]["Row"][]
-      >,
+      >
     ) => {
       state.blogCategories = action.payload;
     },
@@ -96,6 +98,9 @@ export const appSlice = createSlice({
     },
     setHasVisited: (state, action: PayloadAction<boolean>) => {
       state.hasVisited = action.payload;
+    },
+    setIsPageChanging: (state, action: PayloadAction<boolean>) => {
+      state.isPageChanging = action.payload;
     },
     addPageToCache: (state, action: PayloadAction<string>) => {
       if (!state.pageCached.includes(action.payload)) {
@@ -127,6 +132,7 @@ export const {
   setProjects,
   setInitProgress,
   setHasVisited,
+  setIsPageChanging,
   addPageToCache,
   setPositionModels,
   openModal,

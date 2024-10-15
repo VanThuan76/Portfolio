@@ -41,7 +41,7 @@ export default function Page() {
     >
       <MotionContainer
         type="scale"
-        className="absolute w-[200px] h-[100px] top-15 md:top-5 left-[20%] md:left-[15%]"
+        className="absolute w-[200px] h-[100px] top-[15%] md:top-5 left-0 md:left-[15%]"
       >
         <div className="relative flex items-center justify-center w-full h-full">
           <TypographyH3

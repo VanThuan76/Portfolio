@@ -160,7 +160,7 @@ const Scene = () => {
             scale={[100, 100, 100]}
           />
         </group>
-        <group position={breakpoint === "xs" ? [0, -100, 300] : [0, 50, 450]}>
+        <group position={breakpoint === "xs" ? [0, -50, 400] : [0, 50, 450]}>
           <ModelCastle
             renderOrder={2}
             position={

@@ -1,9 +1,13 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, useRef } from "react";
 import { useTransitionRouter } from "next-view-transitions";
 import { useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
 
-import { addPageToCache, setPositionModels } from "@store/app-slice";
+import {
+  addPageToCache,
+  setIsPageChanging,
+  setPositionModels,
+} from "@store/app-slice";
 import { useAppDispatch } from "@store/index";
 import { DATA_MENUS } from "@shared/constants";
 
@@ -13,7 +17,7 @@ const useOpenScreen = (pageCached: string[], isSafari: boolean) => {
   const routerTrans = useTransitionRouter();
   const locale = useLocale();
 
-  const [isPageChanging, setIsPageChanging] = useState(false);
+  const isPageChangingRef = useRef(false);
   const [urlChanging, setUrlChanging] = useState<string | null>(null);
 
   const handleOpenScreen = useCallback(
@@ -21,16 +25,22 @@ const useOpenScreen = (pageCached: string[], isSafari: boolean) => {
       e.preventDefault();
       dispatch(setPositionModels(positions));
 
-      const audio = new Audio("/audios/tap.mp3");
-      await audio.play();
-
-      setIsPageChanging(true);
       setUrlChanging(href);
 
       const localizedHref = `/${locale}${href}`;
 
       if (!pageCached.includes(localizedHref)) {
         dispatch(addPageToCache(localizedHref));
+      }
+
+      isPageChangingRef.current = true;
+      dispatch(setIsPageChanging(true));
+
+      try {
+        const audio = new Audio("/audios/tap.mp3");
+        await audio.play();
+      } catch (error) {
+        console.error("Audio playback failed:", error);
       }
 
       await new Promise((resolve) => setTimeout(resolve, 1500));
@@ -41,16 +51,18 @@ const useOpenScreen = (pageCached: string[], isSafari: boolean) => {
         routerTrans.push(localizedHref);
       }
 
-      setIsPageChanging(false);
+      isPageChangingRef.current = false;
+      dispatch(setIsPageChanging(false));
     },
-    [pageCached, isSafari, dispatch, routerNext, routerTrans, locale],
+    [pageCached, isSafari, dispatch, routerNext, routerTrans, locale]
   );
 
   useEffect(() => {
     const handlePopState = () => {
       const { pathname } = window.location;
-
-      const menuItem = DATA_MENUS.find((item) => item.href === pathname);
+      const menuItem = DATA_MENUS.find(
+        (item) => "/" + locale + item.href === pathname
+      );
 
       if (menuItem && menuItem.positions) {
         const { positions } = menuItem;
@@ -58,15 +70,17 @@ const useOpenScreen = (pageCached: string[], isSafari: boolean) => {
       } else {
         dispatch(
           setPositionModels({
-            cameraPosition: [0, 100, 1000],
-            positionModelMain: [],
+            cameraPosition: [-50, 100, 1000],
+            positionModelMain: [100, 200, -100, true],
             positionModelCastle: [],
+            positionModelDepartment: [],
+            positionModelCaffe: [],
             positionModelRestaurant: [],
             positionModelSchool: [],
             positionModelMountain: [],
             positionModelCity: [],
             positionModelOcean: [],
-          }),
+          })
         );
         console.warn("No positions found for the current pathname.");
       }
@@ -79,7 +93,11 @@ const useOpenScreen = (pageCached: string[], isSafari: boolean) => {
     };
   }, [dispatch]);
 
-  return { handleOpenScreen, isPageChanging, urlChanging };
+  return {
+    handleOpenScreen,
+    isPageChanging: isPageChangingRef.current,
+    urlChanging,
+  };
 };
 
 export default useOpenScreen;

@@ -23,7 +23,7 @@ export default function Page() {
   const t = useTranslations("pages.blog");
 
   return (
-    <div className="relative flex flex-col items-start justify-start w-full h-full gap-5 px-4 pt-6 bg-black/50 backdrop-blur-sm md:gap-0 md:py-6 md:px-12">
+    <div className="relative flex flex-col items-start justify-start w-full h-full gap-5 px-4 pt-6 bg-black/50 md:gap-0 md:py-6 md:px-12">
       <div className="flex flex-col items-start justify-start w-full col-span-1 md:col-span-5">
         <div className="w-[50px] h-[50px] md:w-[75px] md:h-[75px] border light:border-black dark:border-gray-400 rounded-full">
           <LoaderImage
@@ -78,14 +78,12 @@ export default function Page() {
                   title: category.name as string,
                   value: category.name as string,
                   content: (
-                    <div className="relative w-full h-full font-bold text-white">
-                      <CardBlog
-                        items={blogs.filter(
-                          (blog: IBlog) => blog.blog_category === category.name,
-                        )}
-                        className="grid items-start justify-start grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 md:gap-0 pt-7 md:py-5"
-                      />
-                    </div>
+                    <CardBlog
+                      items={blogs.filter(
+                        (blog: IBlog) => blog.blog_category === category.name,
+                      )}
+                      className="grid items-start justify-start grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 md:gap-0 pt-7 md:py-5"
+                    />
                   ),
                 }),
               )}

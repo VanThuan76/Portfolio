@@ -226,7 +226,7 @@ export const CameraHandler = memo(({ positions }: { positions: any }) => {
       makeDefault
       ref={cameraControlRef}
       dampingFactor={0.2}
-      smoothTime={0.3}
+      smoothTime={0.75}
       minPolarAngle={0}
       maxPolarAngle={Math.PI / 2}
     />

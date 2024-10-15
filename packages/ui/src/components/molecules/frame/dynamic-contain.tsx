@@ -8,14 +8,14 @@ interface MotionContainerProps {
   children: React.ReactNode;
   className?: string;
   direction?:
-    | "left"
-    | "right"
-    | "top"
-    | "bottom"
-    | "top-left"
-    | "top-right"
-    | "bottom-left"
-    | "bottom-right";
+  | "left"
+  | "right"
+  | "top"
+  | "bottom"
+  | "top-left"
+  | "top-right"
+  | "bottom-left"
+  | "bottom-right";
   type?: "slide" | "scale" | "blur";
   delay?: number;
   onClick?: React.MouseEventHandler<HTMLDivElement>;
@@ -28,7 +28,7 @@ const MotionContainer = ({
   className,
   onClick,
   onTouchStart,
-  direction = "right",
+  direction,
   type = "slide",
   delay,
   isClose = false,
@@ -91,32 +91,35 @@ const MotionContainer = ({
     blur: {
       initial: isClose
         ? {
-            opacity: 1,
-            backgroundColor: "transparent",
-            filter: "blur(0px)",
-          }
+          opacity: 1,
+          backgroundColor: "transparent",
+          filter: "blur(0px)",
+        }
         : {
-            opacity: 0,
-            backgroundColor: "rgba(0, 0, 0, 0.5)",
-            filter: "blur(0px)",
-          },
+          opacity: 0,
+          backgroundColor: "rgba(0, 0, 0, 0.5)",
+          filter: "blur(0px)",
+        },
       animate: isClose
         ? {
-            opacity: 0,
-            backgroundColor: "rgba(0, 0, 0, 0.5)",
-            filter: "blur(0px)",
-            transition: { duration: 1, ease: "easeInOut" },
-          }
+          opacity: 0,
+          backgroundColor: "rgba(0, 0, 0, 0.5)",
+          filter: "blur(0px)",
+          transition: { duration: 1, ease: "easeInOut" },
+        }
         : {
-            opacity: 1,
-            backgroundColor: "transparent",
-            transition: { duration: 1, ease: "easeInOut" },
-          },
+          opacity: 1,
+          backgroundColor: "transparent",
+          transition: { duration: 1, ease: "easeInOut" },
+        },
     },
   };
 
-  const { initial, animate } =
-    animations[type][direction] || animations.slide.right;
+  const { initial, animate } = type && direction
+    ? animations[type][direction]
+    : type
+      ? animations[type]
+      : animations.slide.right;
 
   return (
     <m.div

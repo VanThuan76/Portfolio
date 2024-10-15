@@ -16,6 +16,14 @@ export default function App({ ...props }) {
       onCreated={({ gl }) => {
         gl.toneMapping = THREE.NoToneMapping;
       }}
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        width: "100vw",
+        height: "100vh",
+        pointerEvents: "none",
+      }}
       {...props}
     >
       <r3f.Out />
