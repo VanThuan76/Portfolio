@@ -3,7 +3,7 @@ import { useRef, memo, useMemo } from "react";
 import { useGLTF } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
 // @ts-ignore
-import { KTX2Loader } from 'three-stdlib'
+import { KTX2Loader } from "three-stdlib";
 
 interface ModelCastleProps {
   position: [number, number, number];
@@ -12,17 +12,18 @@ interface ModelCastleProps {
 }
 
 function ModelCastle({ position, scale, ...props }: ModelCastleProps) {
-  const { gl } = useThree()
-  const { nodes, materials } = useMemo(() => useGLTF(
-    "/models/optimized_castle.glb",
-    false,
-    false,
-    (loader) => {
-      const THREE_PATH = `https://unpkg.com/three@0.${THREE.REVISION}.x`
-      const ktx2Loader = new KTX2Loader().setTranscoderPath(`${THREE_PATH}/examples/jsm/libs/basis/`)
-      loader.setKTX2Loader(ktx2Loader.detectSupport(gl))
-    }
-  ), []);
+  const { gl } = useThree();
+  const { nodes, materials } = useMemo(
+    () =>
+      useGLTF("/models/optimized_castle.glb", false, false, (loader) => {
+        const THREE_PATH = `https://unpkg.com/three@0.${THREE.REVISION}.x`;
+        const ktx2Loader = new KTX2Loader().setTranscoderPath(
+          `${THREE_PATH}/examples/jsm/libs/basis/`,
+        );
+        loader.setKTX2Loader(ktx2Loader.detectSupport(gl));
+      }),
+    [],
+  );
 
   const ref = useRef<THREE.Group>(null);
 

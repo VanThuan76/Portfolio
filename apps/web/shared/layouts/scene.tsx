@@ -128,10 +128,10 @@ const Scene = () => {
             position={
               positionModelMountain.length > 0
                 ? (positionModelMountain.slice(0, 3) as [
-                  number,
-                  number,
-                  number,
-                ])
+                    number,
+                    number,
+                    number,
+                  ])
                 : [-1500, -50, -100]
             }
             scale={
@@ -167,10 +167,10 @@ const Scene = () => {
             position={
               positionModelRestaurant.length > 0
                 ? (positionModelRestaurant.slice(0, 3) as [
-                  number,
-                  number,
-                  number,
-                ])
+                    number,
+                    number,
+                    number,
+                  ])
                 : [-800, -200, 150]
             }
             scale={[30, 30, 30]}
@@ -204,10 +204,10 @@ const Scene = () => {
             position={
               positionModelDepartment.length > 0
                 ? (positionModelDepartment.slice(0, 3) as [
-                  number,
-                  number,
-                  number,
-                ])
+                    number,
+                    number,
+                    number,
+                  ])
                 : [600, -100, -50]
             }
             scale={
@@ -220,10 +220,10 @@ const Scene = () => {
               position={
                 positionModelSchool.length > 0
                   ? (positionModelSchool.slice(0, 3) as [
-                    number,
-                    number,
-                    number,
-                  ])
+                      number,
+                      number,
+                      number,
+                    ])
                   : [720, -200, 200]
               }
               scale={

@@ -13,7 +13,10 @@ function ModelMain({ position, ...props }: ModelMainProps) {
   const isAnimationPlaying = useRef(false);
   const currentPosition = useRef(new THREE.Vector3(...position));
 
-  const { nodes, materials, animations } = useMemo(() => useGLTF("/models/optimized_mysterious.glb"), []);
+  const { nodes, materials, animations } = useMemo(
+    () => useGLTF("/models/optimized_mysterious.glb"),
+    [],
+  );
 
   const { actions } = useAnimations(animations, group);
 

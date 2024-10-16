@@ -13,7 +13,10 @@ function ModelBirds({ position, ...props }: ModelBirdsProps) {
   const isAnimationPlaying = useRef(false);
   const currentPosition = useRef(new THREE.Vector3(...position));
 
-  const { nodes, materials, animations } = useMemo(() => useGLTF("/models/optimized_birds.glb"), []);
+  const { nodes, materials, animations } = useMemo(
+    () => useGLTF("/models/optimized_birds.glb"),
+    [],
+  );
   const { actions } = useAnimations(animations, group);
 
   const playAnimation = useCallback(() => {

@@ -13,7 +13,10 @@ function ModelFallingSnow({ position, ...props }: ModelFallingSnowProps) {
   const isAnimationPlaying = useRef(false);
   const currentPosition = useRef(new THREE.Vector3(...position));
 
-  const { nodes, materials, animations } = useMemo(() => useGLTF("/models/optimized_falling_snow.glb"), []);
+  const { nodes, materials, animations } = useMemo(
+    () => useGLTF("/models/optimized_falling_snow.glb"),
+    [],
+  );
   const { actions } = useAnimations(animations, group);
 
   const playAnimation = useCallback(() => {
