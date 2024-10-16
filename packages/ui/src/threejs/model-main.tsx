@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { useRef, useCallback, memo } from "react";
+import { useRef, useCallback, memo, useEffect, useMemo } from "react";
 import { useGLTF, useAnimations } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 
@@ -13,9 +13,8 @@ function ModelMain({ position, ...props }: ModelMainProps) {
   const isAnimationPlaying = useRef(false);
   const currentPosition = useRef(new THREE.Vector3(...position));
 
-  const { nodes, materials, animations } = useGLTF(
-    "/models/compressed_mysterious.glb",
-  );
+  const { nodes, materials, animations } = useMemo(() => useGLTF("/models/optimized_mysterious.glb"), []);
+
   const { actions } = useAnimations(animations, group);
 
   const playAnimation = useCallback(() => {
@@ -49,10 +48,12 @@ function ModelMain({ position, ...props }: ModelMainProps) {
         0.1,
       );
       group.current.position.copy(currentPosition.current);
-
-      playAnimation();
     }
   });
+
+  useEffect(() => {
+    playAnimation();
+  }, [playAnimation]);
 
   return (
     <group ref={group} {...props} dispose={null}>

@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { useRef, useCallback, memo } from "react";
+import { useRef, useCallback, memo, useMemo, useEffect } from "react";
 import { useGLTF, useAnimations } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 
@@ -13,7 +13,7 @@ function ModelFallingSnow({ position, ...props }: ModelFallingSnowProps) {
   const isAnimationPlaying = useRef(false);
   const currentPosition = useRef(new THREE.Vector3(...position));
 
-  const { nodes, materials, animations } = useGLTF("/models/falling_snow.glb");
+  const { nodes, materials, animations } = useMemo(() => useGLTF("/models/optimized_falling_snow.glb"), []);
   const { actions } = useAnimations(animations, group);
 
   const playAnimation = useCallback(() => {
@@ -48,9 +48,12 @@ function ModelFallingSnow({ position, ...props }: ModelFallingSnowProps) {
       );
 
       group.current.position.copy(currentPosition.current);
-      playAnimation();
     }
   });
+
+  useEffect(() => {
+    playAnimation();
+  }, [playAnimation]);
 
   return (
     <group ref={group} {...props} dispose={null}>

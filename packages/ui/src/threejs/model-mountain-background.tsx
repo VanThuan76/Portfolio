@@ -1,7 +1,10 @@
 import * as THREE from "three";
-import { useRef, memo } from "react";
+import { useRef, memo, useMemo } from "react";
 import { useGLTF } from "@react-three/drei";
-import { useFrame } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
+// @ts-ignore
+import { KTX2Loader } from 'three-stdlib'
+
 
 interface ModelMountainBackgroundProps {
   position: [number, number, number];
@@ -14,8 +17,19 @@ function ModelMountainBackground({
   scale,
   ...props
 }: ModelMountainBackgroundProps) {
+  const { gl } = useThree()
+  const { nodes, materials } = useMemo(() => useGLTF(
+    "/models/optimized_mountain.glb",
+    false,
+    false,
+    (loader) => {
+      const THREE_PATH = `https://unpkg.com/three@0.${THREE.REVISION}.x`
+      const ktx2Loader = new KTX2Loader().setTranscoderPath(`${THREE_PATH}/examples/jsm/libs/basis/`)
+      loader.setKTX2Loader(ktx2Loader.detectSupport(gl))
+    }
+  ), []);
+  
   const ref = useRef<THREE.Group>(null);
-  const { nodes, materials } = useGLTF("/models/mountain.glb");
 
   const currentPosition = useRef(new THREE.Vector3(...position));
   const currentScale = useRef(new THREE.Vector3(...scale));

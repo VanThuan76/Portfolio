@@ -1,8 +1,23 @@
-import { memo } from "react";
+import * as THREE from "three";
+import { memo, useMemo } from "react";
 import { useGLTF } from "@react-three/drei";
+import { useThree } from "@react-three/fiber";
+// @ts-ignore
+import { KTX2Loader } from 'three-stdlib'
 
 function ModelSchoolPark(props: any) {
-  const { nodes, materials } = useGLTF("/models/compressed_school_park.glb");
+  const { gl } = useThree()
+  const { nodes, materials } = useMemo(() => useGLTF(
+    "/models/optimized_school_park.glb",
+    false,
+    false,
+    (loader) => {
+      const THREE_PATH = `https://unpkg.com/three@0.${THREE.REVISION}.x`
+      const ktx2Loader = new KTX2Loader().setTranscoderPath(`${THREE_PATH}/examples/jsm/libs/basis/`)
+      loader.setKTX2Loader(ktx2Loader.detectSupport(gl))
+    }
+  ), []);
+
   return (
     <group {...props} dispose={null}>
       <mesh
