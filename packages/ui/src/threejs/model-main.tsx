@@ -44,7 +44,7 @@ function ModelMain({ position, ...props }: ModelMainProps) {
 
       return () => {
         if (animationName && actions[animationName]) {
-            actions[animationName].stop();
+          actions[animationName].stop();
         }
       };
     }

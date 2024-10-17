@@ -45,7 +45,7 @@ function ModelFallingSnow({ position, ...props }: ModelFallingSnowProps) {
 
       return () => {
         if (animationName && actions[animationName]) {
-            actions[animationName].stop();
+          actions[animationName].stop();
         }
       };
     }

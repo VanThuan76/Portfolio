@@ -44,7 +44,7 @@ function ModelBirds({ position, ...props }: ModelBirdsProps) {
 
       return () => {
         if (animationName && actions[animationName]) {
-            actions[animationName].stop();
+          actions[animationName].stop();
         }
       };
     }
