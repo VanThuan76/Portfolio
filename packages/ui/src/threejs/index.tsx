@@ -1,9 +1,9 @@
-"use client";
-
 import * as THREE from "three";
+import { Suspense } from "react";
+import { r3f } from "@utils/r3f";
 import { Canvas } from "@react-three/fiber";
 import { Preload, Stats } from "@react-three/drei";
-import { r3f } from "@utils/r3f";
+import Experience from "./experience";
 
 export default function App({ ...props }) {
   const isMobileOrIpad = ["xs", "sm"].includes(props.breakpoint);
@@ -28,8 +28,10 @@ export default function App({ ...props }) {
       }}
       {...props}
     >
-      <r3f.Out />
-      {!isMobileOrIpad && <Preload all />}
+      <Preload all />
+      <Suspense fallback={null}>
+        <Experience positions={props.positions} breakpoint={props.breakpoint} />
+      </Suspense>
       <Stats showPanel={0} />
     </Canvas>
   );

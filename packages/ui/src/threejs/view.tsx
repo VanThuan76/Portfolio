@@ -1,5 +1,3 @@
-"use client";
-
 import * as THREE from "three";
 import {
   forwardRef,
@@ -16,13 +14,12 @@ import {
 import {
   BakeShadows,
   CameraControls,
-  Html,
   OrbitControls,
   useProgress,
   View as ViewImpl,
 } from "@react-three/drei";
-import { m } from "framer-motion";
 import { useFrame } from "@react-three/fiber";
+import { Loader } from "@react-three/drei";
 import { Three } from "@utils/threejs";
 
 import {
@@ -61,34 +58,12 @@ export const View = forwardRef<HTMLDivElement, ViewProps>(
   },
 );
 
-export const Loader = () => {
-  const { progress } = useProgress();
-  if (progress === 100) return null;
-  return (
-    <Three>
-      <Html
-        center
-        style={{
-          position: "fixed",
-          zIndex: "100",
-          width: "100vw",
-          height: "100vh",
-          overflow: "hidden",
-        }}
-      >
-        <m.div
-          className="flex items-center justify-center w-full h-full bg-black bg-opacity-80"
-          initial={{ opacity: 1 }}
-          animate={{ opacity: progress === 100 ? 0 : 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 1.5 }}
-          style={{ pointerEvents: "auto" }}
-        >
-          <span className="text-white">{progress.toFixed(2)} % loaded</span>
-        </m.div>
-      </Html>
-    </Three>
-  );
+export const LoaderR3f = () => {
+  return <Loader />;
+};
+
+export const OrbitControlsR3f = () => {
+  return <OrbitControls />;
 };
 
 export const Common = () => (

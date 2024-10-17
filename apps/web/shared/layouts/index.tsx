@@ -26,10 +26,12 @@ const BottomBarMenu = dynamic(() => import("@shared/layouts/navigation"), {
   ssr: false,
 });
 const Canvas = dynamic(() => import("@three/index"), { ssr: false });
-const Loader = dynamic(() => import("@three/view").then((mod) => mod.Loader), {
-  ssr: false,
-});
-const Scene = dynamic(() => import("./scene"), { ssr: false });
+const LoaderR3f = dynamic(
+  () => import("@three/view").then((mod) => mod.LoaderR3f),
+  {
+    ssr: false,
+  },
+);
 
 function InitInner({ children }: PropsWithChildren) {
   const { isTasksCompleted } = useInitData();
@@ -57,9 +59,8 @@ function InitInner({ children }: PropsWithChildren) {
           <BorderCollapse />
           <BottomBarMenu />
           <ModalProvider />
-          <Scene />
         </div>
-        <Loader />
+        <LoaderR3f />
       </div>
     </LazyWrapper>
   );
@@ -68,11 +69,12 @@ function InitInner({ children }: PropsWithChildren) {
 export default function InitContainer(props: PropsWithChildren) {
   const didMount = useDidMount();
   const breakpoint = useBreakpoint();
+  const positions = useAppSelector((state: RootState) => state.app.positions);
 
   return didMount ? (
     <ErrorBoundary fallback={ErrorPage}>
       <InitInner {...props} />
-      <Canvas breakpoint={breakpoint} />
+      <Canvas positions={positions} breakpoint={breakpoint} />
     </ErrorBoundary>
   ) : null;
 }
