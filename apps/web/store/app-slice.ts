@@ -27,7 +27,6 @@ export interface IDefaultState {
     positionModelDepartment: any[];
     positionModelMountain: any[];
     positionModelCity: any[];
-    positionModelOcean: any[];
   };
   modalStore: ModalProps;
 }
@@ -52,7 +51,6 @@ const initialState: IDefaultState = {
     positionModelDepartment: [],
     positionModelMountain: [],
     positionModelCity: [],
-    positionModelOcean: [],
   },
   modalStore: {
     type: null,
@@ -69,13 +67,13 @@ export const appSlice = createSlice({
       state,
       action: PayloadAction<
         Database["public"]["Tables"]["information"]["Row"][]
-      >,
+      >
     ) => {
       state.informations = action.payload;
     },
     setTags: (
       state,
-      action: PayloadAction<Database["public"]["Tables"]["config"]["Row"][]>,
+      action: PayloadAction<Database["public"]["Tables"]["config"]["Row"][]>
     ) => {
       state.tags = action.payload;
     },
@@ -86,7 +84,7 @@ export const appSlice = createSlice({
       state,
       action: PayloadAction<
         Database["public"]["Tables"]["blog_category"]["Row"][]
-      >,
+      >
     ) => {
       state.blogCategories = action.payload;
     },
@@ -107,8 +105,14 @@ export const appSlice = createSlice({
         state.pageCached.push(action.payload);
       }
     },
-    setPositionModels: (state, action: PayloadAction<any>) => {
-      state.positions = action.payload;
+    setPositionModels: (
+      state,
+      action: PayloadAction<Partial<IDefaultState["positions"]>>
+    ) => {
+      state.positions = {
+        ...state.positions,
+        ...action.payload,
+      };
     },
     openModal: (state, action: PayloadAction<ModalProps>) => {
       state.modalStore = action.payload;

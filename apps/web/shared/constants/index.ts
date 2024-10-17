@@ -33,7 +33,6 @@ export const DATA_MENUS = [
       positionModelRestaurant: [],
       positionModelSchool: [],
       positionModelCity: [],
-      positionModelOcean: [],
       positionModelCaffe: [],
     },
   },
@@ -43,15 +42,8 @@ export const DATA_MENUS = [
     icon: "/icon-navigation/icon-project.png",
     positions: {
       cameraPosition: [-600, 100, 200],
-      positionModelMain: [],
       positionModelCastle: [-900, -200, -250],
       positionModelMountain: [-1900, -500, -1400, true],
-      positionModelDepartment: [],
-      positionModelRestaurant: [],
-      positionModelSchool: [],
-      positionModelCity: [],
-      positionModelOcean: [],
-      positionModelCaffe: [],
     },
   },
   {
@@ -61,14 +53,6 @@ export const DATA_MENUS = [
     positions: {
       cameraPosition: [0, 150, 500],
       positionModelMain: [100, 200, -100, true],
-      positionModelRestaurant: [],
-      positionModelCastle: [],
-      positionModelDepartment: [],
-      positionModelSchool: [],
-      positionModelMountain: [],
-      positionModelCity: [],
-      positionModelOcean: [],
-      positionModelCaffe: [],
     },
   },
   {
@@ -77,15 +61,9 @@ export const DATA_MENUS = [
     icon: "/icon-navigation/icon-github.png",
     positions: {
       cameraPosition: [600, -100, 900],
-      positionModelMain: [],
-      positionModelRestaurant: [],
-      positionModelCastle: [],
-      positionModelMountain: [],
-      positionModelSchool: [],
       positionModelDepartment: [1000, -100, -50, true],
       positionModelCity: [1800, -200, 200],
       positionModelOcean: [2400, -200, 0],
-      positionModelCaffe: [],
     },
   },
   {
@@ -94,15 +72,8 @@ export const DATA_MENUS = [
     icon: "/icon-navigation/icon-resume.png",
     positions: {
       cameraPosition: [200, -50, 400],
-      positionModelMain: [],
       positionModelCaffe: [900, -200, -100, true],
-      positionModelRestaurant: [],
-      positionModelCastle: [],
       positionModelDepartment: [1200, -100, -500],
-      positionModelSchool: [],
-      positionModelMountain: [],
-      positionModelCity: [],
-      positionModelOcean: [],
     },
   },
   //   {
@@ -118,7 +89,7 @@ export const DATA_MENUS = [
   //      positionModelDepartment: [],
   //       positionModelMountain: [],
   //       positionModelCity: [],
-  //       positionModelOcean: [],
+  //
   //     },
   //   },
   //   {
@@ -133,7 +104,7 @@ export const DATA_MENUS = [
   //       positionModelMountain: [],
   //       positionModelSchool: [],
   //       positionModelCity: [],
-  //       positionModelOcean: [],
+  //
   //     },
   //   },
 ];

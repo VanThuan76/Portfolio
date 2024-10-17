@@ -70,7 +70,7 @@ export const Loader = () => {
         center
         style={{
           position: "fixed",
-          zIndex: "30",
+          zIndex: "100",
           width: "100vw",
           height: "100vh",
           overflow: "hidden",
@@ -120,7 +120,7 @@ export const Common = () => (
   </Suspense>
 );
 
-export const CameraHandler = memo(({ positions }: { positions: any }) => {
+export const CameraHandler = memo(({ breakpoint, positions }: { breakpoint: any, positions: any }) => {
   const { progress } = useProgress();
   const [isIntroComplete, setIsIntroComplete] = useState(false);
   const [isProgressComplete, setIsProgressComplete] = useState(false);
@@ -130,7 +130,6 @@ export const CameraHandler = memo(({ positions }: { positions: any }) => {
   const {
     cameraPosition,
     positionModelRestaurant,
-    positionModelOcean,
     positionModelMain,
     positionModelDepartment,
     positionModelSchool,
@@ -142,11 +141,7 @@ export const CameraHandler = memo(({ positions }: { positions: any }) => {
 
   useEffect(() => {
     if (progress === 100) {
-      const timer = setTimeout(() => {
-        setIsProgressComplete(true);
-      }, 2000);
-
-      return () => clearTimeout(timer);
+      setIsProgressComplete(true);
     }
   }, [progress]);
 
@@ -158,9 +153,9 @@ export const CameraHandler = memo(({ positions }: { positions: any }) => {
           t = 1;
           setIsIntroComplete(true);
         }
-
+        const cameraY = breakpoint && ["xs", "sm"].includes(breakpoint) ? 500 : 700
         const currentX = 0;
-        const currentY = 700 + (100 - 700) * t;
+        const currentY = cameraY  + (100 - 700) * t;
         const currentZ = 600 + (1000 - 600) * t;
 
         cameraControlRef.current.setLookAt(
@@ -186,7 +181,6 @@ export const CameraHandler = memo(({ positions }: { positions: any }) => {
       const positionsList = [
         positionModelMain,
         positionModelCastle,
-        positionModelOcean,
         positionModelCity,
         positionModelRestaurant,
         positionModelSchool,
@@ -203,8 +197,10 @@ export const CameraHandler = memo(({ positions }: { positions: any }) => {
         const [cameraX, cameraY, cameraZ] = cameraPosition;
         const [modelX, modelY, modelZ] = targetPosition;
 
+        const cameraYValidate = breakpoint === "xs" ? cameraY - 50 : cameraY
+        const cameraZValidate = breakpoint === "xs" ? cameraZ - 25 : cameraZ
         const targetVec = new THREE.Vector3(modelX, modelY, modelZ);
-        const cameraVec = new THREE.Vector3(cameraX, cameraY, cameraZ);
+        const cameraVec = new THREE.Vector3(cameraX, cameraYValidate, cameraZValidate);
 
         cameraVec.lerp(targetVec, 0.05);
 

@@ -54,14 +54,14 @@ const useOpenScreen = (pageCached: string[], isSafari: boolean) => {
       isPageChangingRef.current = false;
       dispatch(setIsPageChanging(false));
     },
-    [pageCached, isSafari, dispatch, routerNext, routerTrans, locale],
+    [pageCached, isSafari, dispatch, routerNext, routerTrans, locale]
   );
 
   useEffect(() => {
     const handlePopState = () => {
       const { pathname } = window.location;
       const menuItem = DATA_MENUS.find(
-        (item) => "/" + locale + item.href === pathname,
+        (item) => "/" + locale + item.href === pathname
       );
 
       if (menuItem && menuItem.positions) {
@@ -79,8 +79,7 @@ const useOpenScreen = (pageCached: string[], isSafari: boolean) => {
             positionModelSchool: [],
             positionModelMountain: [],
             positionModelCity: [],
-            positionModelOcean: [],
-          }),
+          })
         );
         console.warn("No positions found for the current pathname.");
       }
