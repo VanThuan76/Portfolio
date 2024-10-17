@@ -8,6 +8,7 @@ import { RootState, useAppSelector } from "@store/index";
 import { useDidMount } from "@shared/hooks/use-did-mount";
 import useInitData from "@shared/hooks/use-init-data";
 import BorderCollapse from "@shared/layouts/icons/border-collapse";
+import useBreakpoint from "@shared/hooks/use-break-point";
 // Components
 const HeadMain = dynamic(() => import("@shared/layouts/head"), { ssr: false });
 const FadeWrapper = dynamic(() => import("@ui/molecules/frame/fade-wrapper"), {
@@ -66,11 +67,12 @@ function InitInner({ children }: PropsWithChildren) {
 
 export default function InitContainer(props: PropsWithChildren) {
   const didMount = useDidMount();
+  const breakpoint = useBreakpoint()
 
   return didMount ? (
     <ErrorBoundary fallback={ErrorPage}>
       <InitInner {...props} />
-      <Canvas />
+      <Canvas breakpoint={breakpoint} />
     </ErrorBoundary>
   ) : null;
 }

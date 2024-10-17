@@ -1,7 +1,9 @@
 import * as THREE from "three";
 import { useRef, useCallback, memo, useEffect, useMemo } from "react";
 import { useGLTF, useAnimations } from "@react-three/drei";
-import { useFrame } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
+// @ts-ignore
+import { KTX2Loader } from "three-stdlib";
 
 interface ModelMainProps {
   position: [number, number, number];
@@ -12,10 +14,18 @@ function ModelMain({ position, ...props }: ModelMainProps) {
   const group = useRef<THREE.Group>(null);
   const isAnimationPlaying = useRef(false);
   const currentPosition = useRef(new THREE.Vector3(...position));
+  const { gl } = useThree();
 
   const { nodes, materials, animations } = useMemo(
-    () => useGLTF("/models/optimized_mysterious.glb"),
-    [],
+    () =>
+      useGLTF("/models/optimized_mysterious.glb", false, false, (loader) => {
+        const THREE_PATH = `https://unpkg.com/three@0.${THREE.REVISION}.x`;
+        const ktx2Loader = new KTX2Loader().setTranscoderPath(
+          `${THREE_PATH}/examples/jsm/libs/basis/`,
+        );
+        loader.setKTX2Loader(ktx2Loader.detectSupport(gl));
+      }),
+    [gl],
   );
 
   const { actions } = useAnimations(animations, group);

@@ -2,14 +2,16 @@
 
 import * as THREE from "three";
 import { Canvas } from "@react-three/fiber";
-import { Preload } from "@react-three/drei";
+import { Preload, Stats } from "@react-three/drei";
 import { r3f } from "@utils/r3f";
 
 export default function App({ ...props }) {
+  const isMobileOrIpad = ["xs", "sm"].includes(props.breakpoint);
+
   return (
     <Canvas
       shadows
-      dpr={[1, 1.5]}
+      dpr={isMobileOrIpad ? 1 : [1, 1.5]}
       camera={{ near: 1, fov: 100 }}
       eventPrefix="client"
       gl={{ antialias: true }}
@@ -27,7 +29,8 @@ export default function App({ ...props }) {
       {...props}
     >
       <r3f.Out />
-      <Preload all />
+      {!isMobileOrIpad && <Preload all />}
+      <Stats showPanel={0} />
     </Canvas>
   );
 }

@@ -61,9 +61,15 @@ export const DATA_MENUS = [
     icon: "/icon-navigation/icon-github.png",
     positions: {
       cameraPosition: [600, -100, 900],
+      positionModelMain: [],
+      positionModelRestaurant: [],
+      positionModelCastle: [],
+      positionModelMountain: [],
+      positionModelSchool: [],
       positionModelDepartment: [1000, -100, -50, true],
       positionModelCity: [1800, -200, 200],
       positionModelOcean: [2400, -200, 0],
+      positionModelCaffe: [],
     },
   },
   {
@@ -72,8 +78,14 @@ export const DATA_MENUS = [
     icon: "/icon-navigation/icon-resume.png",
     positions: {
       cameraPosition: [200, -50, 400],
+      positionModelMain: [],
       positionModelCaffe: [900, -200, -100, true],
+      positionModelRestaurant: [],
+      positionModelCastle: [],
       positionModelDepartment: [1200, -100, -500],
+      positionModelSchool: [],
+      positionModelMountain: [],
+      positionModelCity: [],
     },
   },
   //   {

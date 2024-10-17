@@ -78,6 +78,7 @@ const MemoizedCommon = memo(Common);
 const Scene = () => {
   const breakpoint = useBreakpoint();
   const positions = useAppSelector((state: RootState) => state.app.positions);
+  const isMobileOrIpad = ["xs", "sm"].includes(breakpoint);
   const {
     positionModelRestaurant,
     positionModelCaffe,
@@ -89,11 +90,10 @@ const Scene = () => {
     positionModelCastle,
   } = positions;
 
-  const isMobileOrIpad = ["xs", "sm"].includes(breakpoint);
-
   return (
     <View
       id="background-app"
+      orbit={true}
       className="fixed inset-0 z-30 flex flex-col items-center justify-center w-full h-screen overflow-hidden pointer-events-none"
     >
       <Suspense fallback={null}>
@@ -101,7 +101,6 @@ const Scene = () => {
         <group position={[0, 0, 400]}>
           {!isMobileOrIpad && (
             <ModelCityBackground
-              renderOrder={0}
               position={
                 positionModelCity.length > 0
                   ? (positionModelCity.slice(0, 3) as [number, number, number])
@@ -112,20 +111,18 @@ const Scene = () => {
             />
           )}
           <ModelFarmBackground
-            renderOrder={-1}
             position={[-700, -500, -1000]}
             scale={[5, 5, 5]}
             rotation={[0, Math.PI / 4, 0]}
           />
           <ModelMountainBackground
-            renderOrder={0}
             position={
               positionModelMountain.length > 0
                 ? (positionModelMountain.slice(0, 3) as [
-                    number,
-                    number,
-                    number,
-                  ])
+                  number,
+                  number,
+                  number,
+                ])
                 : [-1500, -50, -100]
             }
             scale={
@@ -148,7 +145,6 @@ const Scene = () => {
         </group>
         <group position={breakpoint === "xs" ? [0, -50, 400] : [0, 50, 450]}>
           <ModelCastle
-            renderOrder={2}
             position={
               positionModelCastle.length > 0
                 ? (positionModelCastle.slice(0, 3) as [number, number, number])
@@ -157,21 +153,19 @@ const Scene = () => {
             scale={positionModelMountain.length > 0 ? [10, 10, 10] : [7, 7, 7]}
           />
           <ModelRestaurant
-            renderOrder={2}
             position={
               positionModelRestaurant.length > 0
                 ? (positionModelRestaurant.slice(0, 3) as [
-                    number,
-                    number,
-                    number,
-                  ])
+                  number,
+                  number,
+                  number,
+                ])
                 : [-800, -200, 150]
             }
             scale={[30, 30, 30]}
             rotation={[0, Math.PI / 2, 0]}
           />
           <ModelMain
-            renderOrder={2}
             position={
               positionModelMain.length > 0
                 ? (positionModelMain.slice(0, 3) as [number, number, number])
@@ -180,7 +174,6 @@ const Scene = () => {
             scale={[2, 2, 2]}
           />
           <ModelCaffe
-            renderOrder={2}
             position={
               positionModelCaffe.length > 0
                 ? (positionModelCaffe.slice(0, 3) as [number, number, number])
@@ -195,14 +188,13 @@ const Scene = () => {
           />
           {!isMobileOrIpad && (
             <ModelDepartment
-              renderOrder={2}
               position={
                 positionModelDepartment.length > 0
                   ? (positionModelDepartment.slice(0, 3) as [
-                      number,
-                      number,
-                      number,
-                    ])
+                    number,
+                    number,
+                    number,
+                  ])
                   : [600, -100, -50]
               }
               scale={
@@ -211,21 +203,22 @@ const Scene = () => {
             />
           )}
           <group>
-            <ModelSchool
-              renderOrder={2}
-              position={
-                positionModelSchool.length > 0
-                  ? (positionModelSchool.slice(0, 3) as [
+            {!isMobileOrIpad && (
+              <ModelSchool
+                position={
+                  positionModelSchool.length > 0
+                    ? (positionModelSchool.slice(0, 3) as [
                       number,
                       number,
                       number,
                     ])
-                  : [720, -200, 200]
-              }
-              scale={
-                positionModelSchool.length > 0 ? [20, 20, 20] : [10, 10, 10]
-              }
-            />
+                    : [720, -200, 200]
+                }
+                scale={
+                  positionModelSchool.length > 0 ? [20, 20, 20] : [10, 10, 10]
+                }
+              />
+            )}
             {!isMobileOrIpad && (
               <ModelSchoolPark
                 position={[1000, -200, 450]}
@@ -234,9 +227,9 @@ const Scene = () => {
               />
             )}
           </group>
-          {/* <ModelSchoolHallway position={[700, -150, 100]} scale={[20, 20, 20]} /> */}
+          {/* <ModelSchooln={[700, -150, 100]} scale={[20, 20, 20]} /> */}
         </group>
-        <MemoizedEffectComposerHandler />
+        {!isMobileOrIpad && <MemoizedEffectComposerHandler />}
         <MemoizedCameraHandler positions={positions} breakpoint={breakpoint} />
       </Suspense>
     </View>

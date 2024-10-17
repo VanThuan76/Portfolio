@@ -22,7 +22,7 @@ function ModelRestaurant({ position, scale, ...props }: ModelRestaurantProps) {
         );
         loader.setKTX2Loader(ktx2Loader.detectSupport(gl));
       }),
-    [],
+    [gl],
   );
 
   const ref = useRef<THREE.Group>(null);
