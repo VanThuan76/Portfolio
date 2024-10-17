@@ -1,9 +1,11 @@
 import * as THREE from "three";
-import { useRef, memo, useMemo } from "react";
+import { useRef, memo, useEffect } from "react";
+import { dispose, useFrame, useLoader } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
-import { useFrame, useThree } from "@react-three/fiber";
 // @ts-ignore
-import { KTX2Loader } from "three-stdlib";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+// @ts-ignore
+import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 
 interface ModelMountainBackgroundProps {
   position: [number, number, number];
@@ -16,64 +18,38 @@ function ModelMountainBackground({
   scale,
   ...props
 }: ModelMountainBackgroundProps) {
-  const { gl } = useThree();
-  const { nodes, materials } = useMemo(
-    () =>
-      useGLTF("/models/optimized_mountain.glb", false, false, (loader) => {
-        const THREE_PATH = `https://unpkg.com/three@0.${THREE.REVISION}.x`;
-        const ktx2Loader = new KTX2Loader().setTranscoderPath(
-          `${THREE_PATH}/examples/jsm/libs/basis/`,
-        );
-        loader.setKTX2Loader(ktx2Loader.detectSupport(gl));
-      }),
-    [gl],
+  const { scene, nodes, materials } = useLoader(
+    GLTFLoader,
+    "/models/optimized_mountain.glb",
+    (loader) => {
+      const dracoLoader = new DRACOLoader();
+      dracoLoader.setDecoderPath(
+        "https://www.gstatic.com/draco/versioned/decoders/1.5.7/",
+      );
+      loader.setDRACOLoader(dracoLoader);
+    },
   );
 
   const ref = useRef<THREE.Group>(null);
-
-  const currentPosition = useRef(new THREE.Vector3(...position));
-  const currentScale = useRef(new THREE.Vector3(...scale));
+  const targetPosition = useRef(new THREE.Vector3(...position));
+  const targetScale = useRef(new THREE.Vector3(...scale));
 
   useFrame(() => {
     if (ref.current) {
-      const targetPosition = new THREE.Vector3(...position);
-      currentPosition.current.x = THREE.MathUtils.lerp(
-        currentPosition.current.x,
-        targetPosition.x,
-        0.1,
-      );
-      currentPosition.current.y = THREE.MathUtils.lerp(
-        currentPosition.current.y,
-        targetPosition.y,
-        0.1,
-      );
-      currentPosition.current.z = THREE.MathUtils.lerp(
-        currentPosition.current.z,
-        targetPosition.z,
-        0.1,
-      );
+      targetPosition.current.set(...position);
+      ref.current.position.lerp(targetPosition.current, 0.1);
 
-      const targetScale = new THREE.Vector3(...scale);
-      currentScale.current.x = THREE.MathUtils.lerp(
-        currentScale.current.x,
-        targetScale.x,
-        0.1,
-      );
-      currentScale.current.y = THREE.MathUtils.lerp(
-        currentScale.current.y,
-        targetScale.y,
-        0.1,
-      );
-      currentScale.current.z = THREE.MathUtils.lerp(
-        currentScale.current.z,
-        targetScale.z,
-        0.1,
-      );
-
-      ref.current.position.copy(currentPosition.current);
-      ref.current.scale.copy(currentScale.current);
+      targetScale.current.set(...scale);
+      ref.current.scale.lerp(targetScale.current, 0.1);
     }
   });
+
+  useEffect(() => {
+    return () => {
+      dispose(scene);
+      useGLTF.clear("/models/optimized_mountain.glb");
+    };
+  }, [scene]);
 
   return (
     <group ref={ref} {...props} dispose={null}>

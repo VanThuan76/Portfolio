@@ -1,9 +1,11 @@
 import * as THREE from "three";
-import { useRef, memo, useMemo } from "react";
+import { useRef, memo, useEffect } from "react";
 import { useGLTF } from "@react-three/drei";
-import { useFrame, useThree } from "@react-three/fiber";
+import { dispose, useFrame, useLoader } from "@react-three/fiber";
 // @ts-ignore
-import { KTX2Loader } from "three-stdlib";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+// @ts-ignore
+import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 
 interface ModelFarmBackgroundProps {
   position: [number, number, number];
@@ -11,44 +13,34 @@ interface ModelFarmBackgroundProps {
 }
 
 function ModelFarmBackground({ position, ...props }: ModelFarmBackgroundProps) {
-  const { gl } = useThree();
-  const { nodes, materials } = useMemo(
-    () =>
-      useGLTF("/models/optimized_farm.glb", false, false, (loader) => {
-        const THREE_PATH = `https://unpkg.com/three@0.${THREE.REVISION}.x`;
-        const ktx2Loader = new KTX2Loader().setTranscoderPath(
-          `${THREE_PATH}/examples/jsm/libs/basis/`,
-        );
-        loader.setKTX2Loader(ktx2Loader.detectSupport(gl));
-      }),
-    [gl],
+  const { scene, nodes, materials } = useLoader(
+    GLTFLoader,
+    "/models/optimized_farm.glb",
+    (loader) => {
+      const dracoLoader = new DRACOLoader();
+      dracoLoader.setDecoderPath(
+        "https://www.gstatic.com/draco/versioned/decoders/1.5.7/",
+      );
+      loader.setDRACOLoader(dracoLoader);
+    },
   );
 
   const ref = useRef<THREE.Group>(null);
-  const currentPosition = useRef(new THREE.Vector3(...position));
+  const targetPosition = useRef(new THREE.Vector3(...position));
 
   useFrame(() => {
     if (ref.current) {
-      const targetPosition = new THREE.Vector3(...position);
-      currentPosition.current.x = THREE.MathUtils.lerp(
-        currentPosition.current.x,
-        targetPosition.x,
-        0.1,
-      );
-      currentPosition.current.y = THREE.MathUtils.lerp(
-        currentPosition.current.y,
-        targetPosition.y,
-        0.1,
-      );
-      currentPosition.current.z = THREE.MathUtils.lerp(
-        currentPosition.current.z,
-        targetPosition.z,
-        0.1,
-      );
-
-      ref.current.position.copy(currentPosition.current);
+      targetPosition.current.set(...position);
+      ref.current.position.lerp(targetPosition.current, 0.1);
     }
   });
+
+  useEffect(() => {
+    return () => {
+      dispose(scene);
+      useGLTF.clear("/models/optimized_farm.glb");
+    };
+  }, [scene]);
 
   return (
     <group ref={ref} {...props} dispose={null}>

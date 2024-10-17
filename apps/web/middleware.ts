@@ -36,6 +36,6 @@ export const config = {
      */
     "/",
     "/(vi|en|ja)/:path*",
-    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|glb|mp3|mp4)$).*)",
+    "/((?!_next/static|_next/image|favicon.ico|draco|.*\\.(?:svg|png|jpg|jpeg|gif|webp|glb|drc|mp3|mp4)$).*)",
   ],
 };

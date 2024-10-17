@@ -97,9 +97,7 @@ export const Common = () => (
 
 export const CameraHandler = memo(
   ({ breakpoint, positions }: { breakpoint: any; positions: any }) => {
-    const { progress } = useProgress();
     const [isIntroComplete, setIsIntroComplete] = useState(false);
-    const [isProgressComplete, setIsProgressComplete] = useState(false);
     const cameraControlRef = useRef<CameraControls | null>(null);
     let t = 0;
 
@@ -115,19 +113,9 @@ export const CameraHandler = memo(
       positionModelCastle,
     } = positions;
 
-    useEffect(() => {
-      if (progress === 100) {
-        setIsProgressComplete(true);
-      }
-    }, [progress]);
-
     const handleCameraMovement = useCallback(
       (delta: number) => {
-        if (
-          isProgressComplete &&
-          !isIntroComplete &&
-          cameraControlRef.current
-        ) {
+        if (!isIntroComplete && cameraControlRef.current) {
           t += delta * 0.2;
           if (t > 1) {
             t = 1;
@@ -150,7 +138,7 @@ export const CameraHandler = memo(
           );
         }
       },
-      [isProgressComplete, isIntroComplete],
+      [isIntroComplete],
     );
 
     useFrame((_, delta) => {

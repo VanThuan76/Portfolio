@@ -1,23 +1,30 @@
-import * as THREE from "three";
-import { memo, useMemo } from "react";
+import { memo, useEffect } from "react";
+import { dispose, useLoader } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
-import { useThree } from "@react-three/fiber";
 // @ts-ignore
-import { KTX2Loader } from "three-stdlib";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+// @ts-ignore
+import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 
 function ModelSchoolPark(props: any) {
-  const { gl } = useThree();
-  const { nodes, materials } = useMemo(
-    () =>
-      useGLTF("/models/optimized_school_park.glb", false, false, (loader) => {
-        const THREE_PATH = `https://unpkg.com/three@0.${THREE.REVISION}.x`;
-        const ktx2Loader = new KTX2Loader().setTranscoderPath(
-          `${THREE_PATH}/examples/jsm/libs/basis/`,
-        );
-        loader.setKTX2Loader(ktx2Loader.detectSupport(gl));
-      }),
-    [gl],
+  const { scene, nodes, materials } = useLoader(
+    GLTFLoader,
+    "/models/optimized_school_park.glb",
+    (loader) => {
+      const dracoLoader = new DRACOLoader();
+      dracoLoader.setDecoderPath(
+        "https://www.gstatic.com/draco/versioned/decoders/1.5.7/",
+      );
+      loader.setDRACOLoader(dracoLoader);
+    },
   );
+
+  useEffect(() => {
+    return () => {
+      dispose(scene);
+      useGLTF.clear("/models/optimized_school_park.glb");
+    };
+  }, [scene]);
 
   return (
     <group {...props} dispose={null}>

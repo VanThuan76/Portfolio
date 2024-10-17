@@ -1,7 +1,11 @@
 import * as THREE from "three";
-import { useRef, useCallback, memo, useMemo, useEffect } from "react";
-import { useGLTF, useAnimations } from "@react-three/drei";
-import { useFrame } from "@react-three/fiber";
+import { useRef, memo, useEffect } from "react";
+import { useAnimations, useGLTF } from "@react-three/drei";
+import { dispose, useFrame, useLoader } from "@react-three/fiber";
+// @ts-ignore
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+// @ts-ignore
+import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 
 interface ModelBirdsProps {
   position: [number, number, number];
@@ -10,53 +14,48 @@ interface ModelBirdsProps {
 
 function ModelBirds({ position, ...props }: ModelBirdsProps) {
   const group = useRef<THREE.Group>(null);
-  const isAnimationPlaying = useRef(false);
-  const currentPosition = useRef(new THREE.Vector3(...position));
+  const targetPosition = useRef(new THREE.Vector3(...position));
 
-  const { nodes, materials, animations } = useMemo(
-    () => useGLTF("/models/optimized_birds.glb"),
-    [],
+  const { scene, nodes, materials, animations } = useLoader(
+    GLTFLoader,
+    "/models/optimized_birds.glb",
+    (loader) => {
+      const dracoLoader = new DRACOLoader();
+      dracoLoader.setDecoderPath(
+        "https://www.gstatic.com/draco/versioned/decoders/1.5.7/",
+      );
+      loader.setDRACOLoader(dracoLoader);
+    },
   );
   const { actions } = useAnimations(animations, group);
 
-  const playAnimation = useCallback(() => {
-    if (actions && animations.length > 0) {
-      // @ts-ignore
-      const animationName = animations[0].name;
-      // @ts-ignore
-      if (actions[animationName]) {
-        actions[animationName].play();
-        isAnimationPlaying.current = true;
-      }
-    }
-  }, [actions, animations]);
-
   useFrame(() => {
     if (group.current) {
-      const targetPosition = new THREE.Vector3(...position);
-      currentPosition.current.x = THREE.MathUtils.lerp(
-        currentPosition.current.x,
-        targetPosition.x,
-        0.1,
-      );
-      currentPosition.current.y = THREE.MathUtils.lerp(
-        currentPosition.current.y,
-        targetPosition.y,
-        0.1,
-      );
-      currentPosition.current.z = THREE.MathUtils.lerp(
-        currentPosition.current.z,
-        targetPosition.z,
-        0.1,
-      );
-
-      group.current.position.copy(currentPosition.current);
+      targetPosition.current.set(...position);
+      group.current.position.lerp(targetPosition.current, 0.1);
     }
   });
 
   useEffect(() => {
-    playAnimation();
-  }, [playAnimation]);
+    if (actions && animations) {
+      const animationName = animations[0]?.name;
+      if (animationName && actions[animationName])
+        actions[animationName].play();
+
+      return () => {
+        if (animationName && actions[animationName]) {
+            actions[animationName].stop();
+        }
+      };
+    }
+  }, [actions, animations]);
+
+  useEffect(() => {
+    return () => {
+      dispose(scene);
+      useGLTF.clear("/models/optimized_birds.glb");
+    };
+  }, [scene]);
 
   return (
     <group ref={group} {...props} dispose={null}>

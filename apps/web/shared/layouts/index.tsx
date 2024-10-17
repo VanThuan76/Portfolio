@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, Suspense } from "react";
 import { ErrorBoundary } from "@shared/layouts/error-boundary";
 import { ErrorPage } from "@shared/layouts/error-page";
 import { RootState, useAppSelector } from "@store/index";
@@ -25,7 +25,7 @@ const LazyWrapper = dynamic(() => import("@ui/molecules/frame/lazy-wrapper"), {
 const BottomBarMenu = dynamic(() => import("@shared/layouts/navigation"), {
   ssr: false,
 });
-const Canvas = dynamic(() => import("@three/index"), { ssr: false });
+const CanvasComponent = dynamic(() => import("@three/index"), { ssr: false });
 const LoaderR3f = dynamic(
   () => import("@three/view").then((mod) => mod.LoaderR3f),
   {
@@ -59,8 +59,8 @@ function InitInner({ children }: PropsWithChildren) {
           <BorderCollapse />
           <BottomBarMenu />
           <ModalProvider />
+          <LoaderR3f />
         </div>
-        <LoaderR3f />
       </div>
     </LazyWrapper>
   );
@@ -74,7 +74,9 @@ export default function InitContainer(props: PropsWithChildren) {
   return didMount ? (
     <ErrorBoundary fallback={ErrorPage}>
       <InitInner {...props} />
-      <Canvas positions={positions} breakpoint={breakpoint} />
+      <Suspense fallback={null}>
+        <CanvasComponent positions={positions} breakpoint={breakpoint} />
+      </Suspense>
     </ErrorBoundary>
   ) : null;
 }

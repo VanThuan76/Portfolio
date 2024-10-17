@@ -172,22 +172,20 @@ const Experience = ({
 
         <group>
           <Suspense fallback={null}>
-            {!isMobileOrIpad && (
-              <ModelSchool
-                position={
-                  positionModelSchool.length > 0
-                    ? (positionModelSchool.slice(0, 3) as [
-                        number,
-                        number,
-                        number,
-                      ])
-                    : [720, -200, 200]
-                }
-                scale={
-                  positionModelSchool.length > 0 ? [20, 20, 20] : [10, 10, 10]
-                }
-              />
-            )}
+            <ModelSchool
+              position={
+                positionModelSchool.length > 0
+                  ? (positionModelSchool.slice(0, 3) as [
+                      number,
+                      number,
+                      number,
+                    ])
+                  : [720, -200, 200]
+              }
+              scale={
+                positionModelSchool.length > 0 ? [20, 20, 20] : [10, 10, 10]
+              }
+            />
           </Suspense>
 
           <Suspense fallback={null}>
