@@ -67,7 +67,7 @@ function InitInner({ children }: PropsWithChildren) {
 
 export default function InitContainer(props: PropsWithChildren) {
   const didMount = useDidMount();
-  const breakpoint = useBreakpoint()
+  const breakpoint = useBreakpoint();
 
   return didMount ? (
     <ErrorBoundary fallback={ErrorPage}>
