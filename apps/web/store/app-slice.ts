@@ -67,13 +67,13 @@ export const appSlice = createSlice({
       state,
       action: PayloadAction<
         Database["public"]["Tables"]["information"]["Row"][]
-      >
+      >,
     ) => {
       state.informations = action.payload;
     },
     setTags: (
       state,
-      action: PayloadAction<Database["public"]["Tables"]["config"]["Row"][]>
+      action: PayloadAction<Database["public"]["Tables"]["config"]["Row"][]>,
     ) => {
       state.tags = action.payload;
     },
@@ -84,7 +84,7 @@ export const appSlice = createSlice({
       state,
       action: PayloadAction<
         Database["public"]["Tables"]["blog_category"]["Row"][]
-      >
+      >,
     ) => {
       state.blogCategories = action.payload;
     },
@@ -107,7 +107,7 @@ export const appSlice = createSlice({
     },
     setPositionModels: (
       state,
-      action: PayloadAction<Partial<IDefaultState["positions"]>>
+      action: PayloadAction<Partial<IDefaultState["positions"]>>,
     ) => {
       state.positions = {
         ...state.positions,

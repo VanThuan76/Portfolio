@@ -120,114 +120,125 @@ export const Common = () => (
   </Suspense>
 );
 
-export const CameraHandler = memo(({ breakpoint, positions }: { breakpoint: any, positions: any }) => {
-  const { progress } = useProgress();
-  const [isIntroComplete, setIsIntroComplete] = useState(false);
-  const [isProgressComplete, setIsProgressComplete] = useState(false);
-  const cameraControlRef = useRef<CameraControls | null>(null);
-  let t = 0;
+export const CameraHandler = memo(
+  ({ breakpoint, positions }: { breakpoint: any; positions: any }) => {
+    const { progress } = useProgress();
+    const [isIntroComplete, setIsIntroComplete] = useState(false);
+    const [isProgressComplete, setIsProgressComplete] = useState(false);
+    const cameraControlRef = useRef<CameraControls | null>(null);
+    let t = 0;
 
-  const {
-    cameraPosition,
-    positionModelRestaurant,
-    positionModelMain,
-    positionModelDepartment,
-    positionModelSchool,
-    positionModelMountain,
-    positionModelCaffe,
-    positionModelCity,
-    positionModelCastle,
-  } = positions;
+    const {
+      cameraPosition,
+      positionModelRestaurant,
+      positionModelMain,
+      positionModelDepartment,
+      positionModelSchool,
+      positionModelMountain,
+      positionModelCaffe,
+      positionModelCity,
+      positionModelCastle,
+    } = positions;
 
-  useEffect(() => {
-    if (progress === 100) {
-      setIsProgressComplete(true);
-    }
-  }, [progress]);
+    useEffect(() => {
+      if (progress === 100) {
+        setIsProgressComplete(true);
+      }
+    }, [progress]);
 
-  const handleCameraMovement = useCallback(
-    (delta: number) => {
-      if (isProgressComplete && !isIntroComplete && cameraControlRef.current) {
-        t += delta * 0.2;
-        if (t > 1) {
-          t = 1;
-          setIsIntroComplete(true);
+    const handleCameraMovement = useCallback(
+      (delta: number) => {
+        if (
+          isProgressComplete &&
+          !isIntroComplete &&
+          cameraControlRef.current
+        ) {
+          t += delta * 0.2;
+          if (t > 1) {
+            t = 1;
+            setIsIntroComplete(true);
+          }
+          const cameraY =
+            breakpoint && ["xs", "sm"].includes(breakpoint) ? 500 : 700;
+          const currentX = 0;
+          const currentY = cameraY + (100 - 700) * t;
+          const currentZ = 600 + (1000 - 600) * t;
+
+          cameraControlRef.current.setLookAt(
+            currentX,
+            currentY,
+            currentZ,
+            0,
+            150,
+            150,
+            true,
+          );
         }
-        const cameraY = breakpoint && ["xs", "sm"].includes(breakpoint) ? 500 : 700
-        const currentX = 0;
-        const currentY = cameraY  + (100 - 700) * t;
-        const currentZ = 600 + (1000 - 600) * t;
+      },
+      [isProgressComplete, isIntroComplete],
+    );
 
-        cameraControlRef.current.setLookAt(
-          currentX,
-          currentY,
-          currentZ,
-          0,
-          150,
-          150,
-          true,
+    useFrame((_, delta) => {
+      handleCameraMovement(delta);
+    });
+
+    useFrame(() => {
+      if (isIntroComplete && cameraControlRef.current) {
+        const positionsList = [
+          positionModelMain,
+          positionModelCastle,
+          positionModelCity,
+          positionModelRestaurant,
+          positionModelSchool,
+          positionModelDepartment,
+          positionModelMountain,
+          positionModelCaffe,
+        ];
+
+        const targetPosition = positionsList.find(
+          (position) => position.length > 3,
         );
+
+        if (targetPosition && targetPosition.length > 0) {
+          const [cameraX, cameraY, cameraZ] = cameraPosition;
+          const [modelX, modelY, modelZ] = targetPosition;
+
+          const cameraYValidate = breakpoint === "xs" ? cameraY - 50 : cameraY;
+          const cameraZValidate = breakpoint === "xs" ? cameraZ - 25 : cameraZ;
+          const targetVec = new THREE.Vector3(modelX, modelY, modelZ);
+          const cameraVec = new THREE.Vector3(
+            cameraX,
+            cameraYValidate,
+            cameraZValidate,
+          );
+
+          cameraVec.lerp(targetVec, 0.05);
+
+          cameraControlRef.current.setLookAt(
+            cameraVec.x,
+            cameraVec.y,
+            cameraVec.z,
+            modelX,
+            modelY,
+            modelZ,
+            true,
+          );
+        }
       }
-    },
-    [isProgressComplete, isIntroComplete],
-  );
+    });
 
-  useFrame((_, delta) => {
-    handleCameraMovement(delta);
-  });
-
-  useFrame(() => {
-    if (isIntroComplete && cameraControlRef.current) {
-      const positionsList = [
-        positionModelMain,
-        positionModelCastle,
-        positionModelCity,
-        positionModelRestaurant,
-        positionModelSchool,
-        positionModelDepartment,
-        positionModelMountain,
-        positionModelCaffe,
-      ];
-
-      const targetPosition = positionsList.find(
-        (position) => position.length > 3,
-      );
-
-      if (targetPosition && targetPosition.length > 0) {
-        const [cameraX, cameraY, cameraZ] = cameraPosition;
-        const [modelX, modelY, modelZ] = targetPosition;
-
-        const cameraYValidate = breakpoint === "xs" ? cameraY - 50 : cameraY
-        const cameraZValidate = breakpoint === "xs" ? cameraZ - 25 : cameraZ
-        const targetVec = new THREE.Vector3(modelX, modelY, modelZ);
-        const cameraVec = new THREE.Vector3(cameraX, cameraYValidate, cameraZValidate);
-
-        cameraVec.lerp(targetVec, 0.05);
-
-        cameraControlRef.current.setLookAt(
-          cameraVec.x,
-          cameraVec.y,
-          cameraVec.z,
-          modelX,
-          modelY,
-          modelZ,
-          true,
-        );
-      }
-    }
-  });
-
-  return (
-    <CameraControls
-      makeDefault
-      ref={cameraControlRef}
-      dampingFactor={0.2}
-      smoothTime={0.75}
-      minPolarAngle={0}
-      maxPolarAngle={Math.PI / 2}
-    />
-  );
-});
+    return (
+      <CameraControls
+        makeDefault
+        ref={cameraControlRef}
+        dampingFactor={0.2}
+        smoothTime={0.75}
+        minPolarAngle={0}
+        maxPolarAngle={Math.PI / 2}
+      />
+    );
+  },
+);
 
 export const EffectComposerHandler = () => {
   return (

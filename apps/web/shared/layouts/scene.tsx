@@ -99,7 +99,7 @@ const Scene = () => {
       <Suspense fallback={null}>
         <MemoizedCommon />
         <group position={[0, 0, 400]}>
-          {!isMobileOrIpad &&
+          {!isMobileOrIpad && (
             <ModelCityBackground
               renderOrder={0}
               position={
@@ -109,7 +109,8 @@ const Scene = () => {
               }
               rotation={[0, Math.PI / 4, 0]}
               scale={positionModelCity.length > 0 ? [50, 50, 50] : [20, 20, 20]}
-            />}
+            />
+          )}
           <ModelFarmBackground
             renderOrder={-1}
             position={[-700, -500, -1000]}
@@ -121,10 +122,10 @@ const Scene = () => {
             position={
               positionModelMountain.length > 0
                 ? (positionModelMountain.slice(0, 3) as [
-                  number,
-                  number,
-                  number,
-                ])
+                    number,
+                    number,
+                    number,
+                  ])
                 : [-1500, -50, -100]
             }
             scale={
@@ -160,10 +161,10 @@ const Scene = () => {
             position={
               positionModelRestaurant.length > 0
                 ? (positionModelRestaurant.slice(0, 3) as [
-                  number,
-                  number,
-                  number,
-                ])
+                    number,
+                    number,
+                    number,
+                  ])
                 : [-800, -200, 150]
             }
             scale={[30, 30, 30]}
@@ -192,44 +193,46 @@ const Scene = () => {
             }
             rotation={[0, 1.2, 0]}
           />
-          {!isMobileOrIpad &&
+          {!isMobileOrIpad && (
             <ModelDepartment
               renderOrder={2}
               position={
                 positionModelDepartment.length > 0
                   ? (positionModelDepartment.slice(0, 3) as [
-                    number,
-                    number,
-                    number,
-                  ])
+                      number,
+                      number,
+                      number,
+                    ])
                   : [600, -100, -50]
               }
               scale={
                 positionModelDepartment.length > 0 ? [60, 60, 60] : [50, 50, 50]
               }
-            />}
+            />
+          )}
           <group>
             <ModelSchool
               renderOrder={2}
               position={
                 positionModelSchool.length > 0
                   ? (positionModelSchool.slice(0, 3) as [
-                    number,
-                    number,
-                    number,
-                  ])
+                      number,
+                      number,
+                      number,
+                    ])
                   : [720, -200, 200]
               }
               scale={
                 positionModelSchool.length > 0 ? [20, 20, 20] : [10, 10, 10]
               }
             />
-            {!isMobileOrIpad &&
+            {!isMobileOrIpad && (
               <ModelSchoolPark
                 position={[1000, -200, 450]}
                 rotation={[0, Math.PI / 2 + Math.PI, 0]}
                 scale={[15, 15, 15]}
-              />}
+              />
+            )}
           </group>
           {/* <ModelSchoolHallway position={[700, -150, 100]} scale={[20, 20, 20]} /> */}
         </group>
