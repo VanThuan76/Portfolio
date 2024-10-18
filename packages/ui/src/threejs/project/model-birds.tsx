@@ -29,7 +29,7 @@ function ModelBirds({ position, ...props }: ModelBirdsProps) {
   );
   const { actions } = useAnimations(animations, group);
 
-  useFrame((_,delta) => {
+  useFrame((_, delta) => {
     if (group.current) {
       targetPosition.current.set(...position);
       group.current.position.lerp(targetPosition.current, delta);

@@ -18,7 +18,6 @@ function ModelSchoolPark(props: any) {
     },
   );
 
-
   return (
     <group {...props} dispose={null}>
       <mesh

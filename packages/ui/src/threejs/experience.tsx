@@ -17,29 +17,29 @@ import ModelSchoolPark from "@three/course/model-school-park";
 import { EffectComposerHandler, CameraHandler, Common } from "@three/view";
 
 const Experience = ({
-    positions,
-    breakpoint,
+  positions,
+  breakpoint,
 }: {
-    positions: any;
-    breakpoint: any;
+  positions: any;
+  breakpoint: any;
 }) => {
-    const isMobileOrIpad = ["xs", "sm"].includes(breakpoint);
-    const {
-        positionModelRestaurant,
-        positionModelCaffe,
-        positionModelDepartment,
-        positionModelMain,
-        positionModelSchool,
-        positionModelMountain,
-        positionModelCity,
-        positionModelCastle,
-    } = positions;
+  const isMobileOrIpad = ["xs", "sm"].includes(breakpoint);
+  const {
+    positionModelRestaurant,
+    positionModelCaffe,
+    positionModelDepartment,
+    positionModelMain,
+    positionModelSchool,
+    positionModelMountain,
+    positionModelCity,
+    positionModelCastle,
+  } = positions;
 
-    return (
-        <>
-            <Common />
+  return (
+    <>
+      <Common />
 
-            {/* <group position={[0, 0, 400]}>
+      {/* <group position={[0, 0, 400]}>
                 <Suspense fallback={null}>
                     {!isMobileOrIpad && (
                         <ModelCityBackground
@@ -201,20 +201,20 @@ const Experience = ({
                 </group>
             </group> */}
 
-            <Suspense fallback={null}>
-                <ModelMain
-                    position={
-                        positionModelMain.length > 0
-                            ? (positionModelMain.slice(0, 3) as [number, number, number])
-                            : [100, 200, -100]
-                    }
-                    scale={[2, 2, 2]}
-                />
-            </Suspense>
-            <EffectComposerHandler />
-            <CameraHandler positions={positions} breakpoint={breakpoint} />
-        </>
-    );
+      <Suspense fallback={null}>
+        <ModelMain
+          position={
+            positionModelMain.length > 0
+              ? (positionModelMain.slice(0, 3) as [number, number, number])
+              : [100, 200, -100]
+          }
+          scale={[2, 2, 2]}
+        />
+      </Suspense>
+      <EffectComposerHandler />
+      <CameraHandler positions={positions} breakpoint={breakpoint} />
+    </>
+  );
 };
 
 export default Experience;
