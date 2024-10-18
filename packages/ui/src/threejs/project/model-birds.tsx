@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { useRef, memo, useEffect } from "react";
-import { useAnimations, useGLTF } from "@react-three/drei";
-import { dispose, useFrame, useLoader } from "@react-three/fiber";
+import { useAnimations } from "@react-three/drei";
+import { useFrame, useLoader } from "@react-three/fiber";
 // @ts-ignore
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 // @ts-ignore
@@ -12,7 +12,7 @@ interface ModelBirdsProps {
   [key: string]: any;
 }
 
-function ModelBirds({ position, ...props }: ModelBirdsProps) {
+export const ModelBirds = memo(({ position, ...props }: ModelBirdsProps) => {
   const group = useRef<THREE.Group>(null);
   const targetPosition = useRef(new THREE.Vector3(...position));
 
@@ -50,13 +50,6 @@ function ModelBirds({ position, ...props }: ModelBirdsProps) {
       };
     }
   }, [actions, animations]);
-
-  useEffect(() => {
-    return () => {
-      dispose(scene);
-      useGLTF.clear("/models/optimized_birds.glb");
-    };
-  }, [scene]);
 
   return (
     <group ref={group} {...props} dispose={null}>
@@ -248,5 +241,4 @@ function ModelBirds({ position, ...props }: ModelBirdsProps) {
       </group>
     </group>
   );
-}
-export default memo(ModelBirds);
+});

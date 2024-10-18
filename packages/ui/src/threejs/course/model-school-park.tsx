@@ -5,7 +5,7 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 // @ts-ignore
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 
-function ModelSchoolPark(props: any) {
+export const ModelSchoolPark = memo((props: any) => {
   const { nodes, materials } = useLoader(
     GLTFLoader,
     "/models/optimized_school_park.glb",
@@ -54,6 +54,4 @@ function ModelSchoolPark(props: any) {
       />
     </group>
   );
-}
-
-export default memo(ModelSchoolPark);
+});

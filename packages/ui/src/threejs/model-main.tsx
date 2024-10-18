@@ -12,7 +12,7 @@ interface ModelMainProps {
   [key: string]: any;
 }
 
-function ModelMain({ position, ...props }: ModelMainProps) {
+export const ModelMain = memo(({ position, ...props }: ModelMainProps) => {
   const group = useRef<THREE.Group>(null);
   const targetPosition = useRef(new THREE.Vector3(...position));
 
@@ -871,6 +871,4 @@ function ModelMain({ position, ...props }: ModelMainProps) {
       </group>
     </group>
   );
-}
-
-export default memo(ModelMain);
+});
