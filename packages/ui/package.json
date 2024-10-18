@@ -79,7 +79,6 @@
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
     "three": "^0.168.0",
-    "three-stdlib": "^2.33.0",
     "tunnel-rat": "^0.1.2",
     "vaul": "^1.1.0"
   }
