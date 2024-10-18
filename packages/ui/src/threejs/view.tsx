@@ -15,7 +15,6 @@ import {
   BakeShadows,
   CameraControls,
   OrbitControls,
-  useProgress,
   View as ViewImpl,
 } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";

@@ -29,10 +29,11 @@ function ModelBirds({ position, ...props }: ModelBirdsProps) {
   );
   const { actions } = useAnimations(animations, group);
 
-  useFrame(() => {
+  useFrame((_,delta) => {
     if (group.current) {
       targetPosition.current.set(...position);
-      group.current.position.lerp(targetPosition.current, 0.1);
+      group.current.position.lerp(targetPosition.current, delta);
+      group.current.updateMatrix();
     }
   });
 

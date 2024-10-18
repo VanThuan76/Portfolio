@@ -1,13 +1,12 @@
-import { memo, useEffect } from "react";
-import { dispose, useLoader } from "@react-three/fiber";
-import { useGLTF } from "@react-three/drei";
+import { memo } from "react";
+import { useLoader } from "@react-three/fiber";
 // @ts-ignore
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 // @ts-ignore
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 
 function ModelSchoolPark(props: any) {
-  const { scene, nodes, materials } = useLoader(
+  const { nodes, materials } = useLoader(
     GLTFLoader,
     "/models/optimized_school_park.glb",
     (loader) => {
@@ -19,12 +18,6 @@ function ModelSchoolPark(props: any) {
     },
   );
 
-  useEffect(() => {
-    return () => {
-      dispose(scene);
-      useGLTF.clear("/models/optimized_school_park.glb");
-    };
-  }, [scene]);
 
   return (
     <group {...props} dispose={null}>
