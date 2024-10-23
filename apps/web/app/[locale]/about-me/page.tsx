@@ -15,18 +15,25 @@ export default function Page() {
   );
 
   return (
-    <div className="relative grid w-full h-full m-auto overflow-hidden place-items-center bg-black/50 backdrop-blur-sm">
-      <MultiStepLoader
-        loadingStates={informations.map(
-          (infor: Database["public"]["Tables"]["information"]["Row"]) => ({
-            text: infor.content as string,
-          }),
-        )}
-        loading={true}
-        duration={2000}
-      />
+    <div className="relative w-full h-full m-auto overflow-hidden bg-black/50">
+      <div
+        className="absolute top-0 left-0 w-full h-full content-[''] z-10 pointer-events-none bg-[url('/images/about-me/noise_bg.gif')]"
+        style={{ opacity: "0.1" }}
+      ></div>
+      <div className="w-full h-full bg-gradient-to-t dark:to-gray-800 dark:from-gray-950 to-[#1e1e1e] from-[#2e2e2e] flex flex-col items-center justify-center dark:text-white text-black">
+        <div className="absolute bottom-0 left-0 right-0 top-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:35px_34px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
+        <MultiStepLoader
+          loadingStates={informations.map(
+            (infor: Database["public"]["Tables"]["information"]["Row"]) => ({
+              text: infor.content as string,
+            }),
+          )}
+          loading={true}
+          duration={2000}
+        />
+      </div>
 
-      <div className="absolute z-50 w-[300px] md:w-[500px] h-full md:bottom-0 left-3">
+      {/* <div className="absolute z-50 w-[300px] md:w-[500px] h-full md:bottom-0 left-3">
         <LoaderImage
           isLoader={false}
           width={1280}
@@ -61,7 +68,7 @@ export default function Page() {
           src="/images/about-me/right-bg.png"
           className="object-contain object-center w-full h-full"
         />
-      </MotionContainer>
+      </MotionContainer> */}
     </div>
   );
 }

@@ -278,7 +278,7 @@ export const Experience = memo(
             </Suspense>
           </group>
         </group>
-        <EffectComposerHandler breakpoint={breakpoint} />
+        <EffectComposerHandler />
         <CameraHandler positions={positions} breakpoint={breakpoint} />
       </>
     );

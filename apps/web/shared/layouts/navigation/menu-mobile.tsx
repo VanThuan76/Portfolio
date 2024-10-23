@@ -1,10 +1,8 @@
 "use client";
 
-import { Grip } from "lucide-react";
 import { useState } from "react";
 import { AnimatePresence, m } from "framer-motion";
 import { RootState, useAppSelector } from "@store/index";
-import { cn } from "@utils/tw";
 import { DATA_MENUS } from "@shared/constants";
 
 import useIsSafari from "@shared/hooks/use-is-safari";
@@ -106,17 +104,17 @@ const MenuMobile = () => {
         variants={containerMenuVariants}
         animate={isOpen ? "open" : "closed"}
         initial="closed"
-        className="absolute z-40"
+        className="absolute z-[999999999] pointer-events-auto"
       >
         <m.div
-          className="relative w-full h-full rounded-3xl"
+          className="relative w-full h-full"
           variants={menuVariants}
           animate={isOpen ? "open" : "closed"}
           initial="closed"
         >
           <AnimatePresence>
             {isOpen && (
-              <div className="flex flex-col justify-between h-full pt-24 pb-12 px-10">
+              <div className="flex flex-col justify-between h-full px-10 pt-24 pb-12">
                 <div className="flex flex-col gap-4">
                   {DATA_MENUS.map((item, i) => {
                     return (
@@ -138,7 +136,7 @@ const MenuMobile = () => {
                             handleOpenScreen(e, item.href, item.positions);
                           }}
                         >
-                          <p className="text-black text-3xl">{item.name}</p>
+                          <p className="text-3xl text-[#1e1e1e]">{item.name}</p>
                         </m.div>
                       </div>
                     );
@@ -158,27 +156,52 @@ const MenuMobile = () => {
               type: "tween",
               ease: [0.76, 0, 0.24, 1],
             }}
-            className="w-[50px] block md:hidden z-50 absolute !top-0 !right-0"
+            className="w-[50px] z-50 absolute !top-0 !right-0"
             onClick={() => setIsOpen(!isOpen)}
           >
             <MenuMobileIcon />
-            <Grip
-              className={cn(
-                "absolute scale-75 top-1/4 right-1/4",
-                isOpen ? "rotate-45" : "rotate-0",
-              )}
-              color="#555"
-            />
+            <m.div
+              className="absolute top-0 right-0 grid items-center justify-center w-full h-full grid-cols-2 gap-[2px] p-[14px] rounded-full"
+              animate={{
+                rotate: isOpen ? "45deg" : "0",
+                backgroundColor: isOpen ? "transparent" : "#1e1e1e",
+              }}
+              transition={{
+                duration: 0.7,
+                type: "tween",
+                ease: [0.76, 0, 0.24, 1],
+              }}
+            >
+              {Array.from({ length: 4 }, (_, i) => {
+                return (
+                  <m.div
+                    key={i}
+                    animate={{
+                      rotate: isOpen ? "45deg" : "0",
+                      backgroundColor: isOpen ? "#1e1e1e" : "white",
+                    }}
+                    transition={{
+                      duration: 0.7,
+                      type: "tween",
+                      ease: [0.76, 0, 0.24, 1],
+                    }}
+                    className="w-full h-full rounded-l-sm rounded-r-sm"
+                  ></m.div>
+                );
+              })}
+            </m.div>
           </m.div>
         </m.div>
       </m.div>
       <MotionContainer
         type="slide"
         direction="top"
-        className="absolute bottom-0 z-50 w-[170px] block md:hidden"
+        className="absolute bottom-0 right-0 z-50 w-full"
         isClose={isPageChanging}
       >
-        <NavDeepIcon onClick={handleMenuClick} />
+        <div className="grid w-full place-items-center">
+          <NavDeepIcon onClick={handleMenuClick} className="w-[170px]" />
+        </div>
       </MotionContainer>
     </>
   );

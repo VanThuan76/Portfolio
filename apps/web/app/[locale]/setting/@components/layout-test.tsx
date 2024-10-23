@@ -7,8 +7,6 @@ import { cn } from "@utils/tw";
 import { Avatar, AvatarImage } from "@ui/molecules/ui-elements/avatar";
 import { Sidebar, SidebarBody, SidebarLink } from "@ui/molecules/frame/sidebar";
 
-import FadeWrapper from "@ui/molecules/frame/fade-wrapper";
-
 const Logo = () => {
   return (
     <Link
@@ -60,7 +58,7 @@ const LayoutTemplate = ({ children }: { children: ReactNode }) => {
   const [open, setOpen] = useState(false);
 
   return (
-    <FadeWrapper
+    <div
       className={cn(
         "relative rounded-md flex flex-col md:flex-row w-full h-full bg-[#E0E0E0] dark:bg-[#2C2C2E] bg-opacity-60 backdrop-blur-md flex-1 max-w-2xl mx-auto border border-neutral-200 dark:border-neutral-700 overflow-hidden",
       )}
@@ -82,7 +80,7 @@ const LayoutTemplate = ({ children }: { children: ReactNode }) => {
           {children}
         </div>
       </div>
-    </FadeWrapper>
+    </div>
   );
 };
 

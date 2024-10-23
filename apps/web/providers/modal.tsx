@@ -2,6 +2,7 @@
 
 import React from "react";
 import ModalComment from "../app/[locale]/blog/_components/modal-comment";
+import ModalBlog from "../app/[locale]/blog/_components/modal-blog";
 
 const ModalProvider = () => {
   const [isMounted, setIsMounted] = React.useState(false);
@@ -16,6 +17,7 @@ const ModalProvider = () => {
   return (
     <React.Fragment>
       <ModalComment />
+      <ModalBlog />
     </React.Fragment>
   );
 };

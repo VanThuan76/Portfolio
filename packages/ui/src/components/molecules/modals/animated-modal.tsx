@@ -100,7 +100,12 @@ export const ModalBody = ({
   children: ReactNode;
   className?: string;
 }) => {
-  const { open } = useModal();
+  const modalRef = useRef(null);
+  const { setOpen, setClose, open } = useModal();
+  useOutsideClick(modalRef, () => {
+    setOpen(false);
+    setClose();
+  });
 
   useEffect(() => {
     if (open) {
@@ -109,13 +114,6 @@ export const ModalBody = ({
       document.body.style.overflow = "auto";
     }
   }, [open]);
-
-  const modalRef = useRef(null);
-  const { setOpen, setClose } = useModal();
-  useOutsideClick(modalRef, () => {
-    setOpen(false);
-    setClose();
-  });
 
   return (
     <AnimatePresence>
@@ -132,7 +130,7 @@ export const ModalBody = ({
             opacity: 0,
             backdropFilter: "blur(0px)",
           }}
-          className="fixed [perspective:800px] [transform-style:preserve-3d] inset-0 h-full w-full  flex items-center justify-center z-50"
+          className="fixed [perspective:800px] [transform-style:preserve-3d] inset-0 h-full w-full  flex items-center justify-center z-[99999999999]"
         >
           <Overlay />
 
@@ -234,7 +232,7 @@ const CloseIcon = () => {
         setOpen(false);
         setClose();
       }}
-      className="absolute top-4 right-4 group"
+      className="absolute cursor-pointer top-1 right-1 group"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

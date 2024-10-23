@@ -21,6 +21,7 @@ interface MotionContainerProps {
   onClick?: React.MouseEventHandler<HTMLDivElement>;
   onTouchStart?: React.TouchEventHandler<HTMLDivElement>;
   isClose?: boolean;
+  style?: any;
 }
 const MotionContainer = ({
   id,
@@ -32,6 +33,7 @@ const MotionContainer = ({
   type = "slide",
   delay,
   isClose = false,
+  style,
 }: MotionContainerProps) => {
   const animations: any = {
     slide: {
@@ -93,12 +95,12 @@ const MotionContainer = ({
         ? {
             opacity: 1,
             backgroundColor: "transparent",
-            filter: "blur(0px)",
+            filter: "blur(20px)",
           }
         : {
             opacity: 0,
             backgroundColor: "rgba(0, 0, 0, 0.5)",
-            filter: "blur(0px)",
+            filter: "blur(20px)",
           },
       animate: isClose
         ? {
@@ -110,6 +112,7 @@ const MotionContainer = ({
         : {
             opacity: 1,
             backgroundColor: "transparent",
+            filter: "blur(0px)",
             transition: { duration: 1, ease: "easeInOut" },
           },
     },
@@ -131,6 +134,7 @@ const MotionContainer = ({
       className={className}
       onClick={onClick}
       onTouchStart={onTouchStart}
+      style={style}
     >
       {children}
     </m.div>

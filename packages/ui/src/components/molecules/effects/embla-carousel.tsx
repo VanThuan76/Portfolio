@@ -4,11 +4,14 @@ import {
   EmblaEventType,
   EmblaOptionsType,
 } from "embla-carousel";
-import useEmblaCarousel from "embla-carousel-react";
 import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
+import useEmblaCarousel from "embla-carousel-react";
+
 import { LoaderImage } from "@ui/molecules/ui-elements/loader-image";
+import { cn } from "@utils/tw";
 
 const TWEEN_FACTOR_BASE = 0.2;
+const AUTOPLAY_INTERVAL = 1000;
 
 type SlideType = {
   url: string;
@@ -18,15 +21,18 @@ type SlideType = {
 type PropType = {
   slides: SlideType[];
   options?: EmblaOptionsType;
+  className?: string;
+  isBasic?: boolean;
 };
 
 const EmblaCarousel: React.FC<PropType> = (props) => {
-  const { slides, options } = props;
+  const { slides, options, className, isBasic = true } = props;
   const [emblaRef, emblaApi] = useEmblaCarousel(options, [
     WheelGesturesPlugin(),
   ]);
   const tweenFactor = useRef(0);
   const tweenNodes = useRef<HTMLElement[]>([]);
+  const autoplayRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const setTweenNodes = useCallback((emblaApi: EmblaCarouselType): void => {
     tweenNodes.current = emblaApi.slideNodes().map((slideNode) => {
@@ -80,6 +86,16 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
     [],
   );
 
+  const autoplay = useCallback(() => {
+    if (!emblaApi || !isBasic) return;
+    if (autoplayRef.current) clearInterval(autoplayRef.current);
+
+    autoplayRef.current = setInterval(() => {
+      if (!emblaApi) return;
+      emblaApi.scrollNext();
+    }, AUTOPLAY_INTERVAL);
+  }, [emblaApi]);
+
   useEffect(() => {
     if (!emblaApi) return;
 
@@ -93,37 +109,58 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
       .on("reInit", tweenParallax)
       .on("scroll", tweenParallax)
       .on("slideFocus", tweenParallax);
-  }, [emblaApi, tweenParallax]);
+
+    autoplay();
+
+    return () => {
+      if (autoplayRef.current) clearInterval(autoplayRef.current);
+    };
+  }, [emblaApi, tweenParallax, autoplay]);
 
   return (
-    <div className="max-w-2xl mx-auto">
+    <div className={cn("max-w-2xl", isBasic ? "mr-auto" : "mx-auto")}>
       <div className="overflow-hidden" ref={emblaRef}>
         <div className="flex" style={{ marginLeft: "calc(1rem * -1)" }}>
           {slides.map((item, index) => (
             <div
-              className="min-w-[350px] pl-4 transform flex-shrink-0"
+              className={cn(
+                "pl-4 transform flex-shrink-0",
+                isBasic ? "min-w-[50px]" : "min-w-[350px]",
+              )}
               key={index}
             >
-              <div className="relative flex justify-center w-[350px] h-full overflow-hidden rounded-2xl">
+              <div
+                className={cn(
+                  "relative flex justify-center h-full overflow-hidden",
+                  isBasic ? "w-auto rounded-md" : "w-[350px] rounded-2xl",
+                )}
+              >
                 <LoaderImage
                   isLoader={false}
                   src={item.url}
                   alt={item.alt}
                   width={350}
                   height={300}
-                  className="block object-cover w-full h-full max-w-none"
-                  style={{
-                    marginRight: ".84rem",
-                    WebkitMaskImage: "url(/mask-project.svg)",
-                    maskImage: "url(/mask-project.svg)",
-                    WebkitMaskSize: "cover",
-                    maskSize: "cover",
-                    overflow: "hidden",
-                    position: "relative",
-                    transition: "width 0.5s",
-                    width: "100%",
-                    height: "100%",
-                  }}
+                  className={cn(
+                    "block object-cover w-full h-full max-w-none",
+                    className,
+                  )}
+                  style={
+                    !isBasic
+                      ? {
+                          marginRight: ".84rem",
+                          WebkitMaskImage: "url(/mask-project.svg)",
+                          maskImage: "url(/mask-project.svg)",
+                          WebkitMaskSize: "cover",
+                          maskSize: "cover",
+                          overflow: "hidden",
+                          position: "relative",
+                          transition: "width 0.5s",
+                          width: "100%",
+                          height: "100%",
+                        }
+                      : {}
+                  }
                 />
               </div>
             </div>

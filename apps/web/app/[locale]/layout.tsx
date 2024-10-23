@@ -3,7 +3,6 @@ import "@styles/globals.css";
 
 // Next.js
 import type { Metadata } from "next";
-import { ViewTransitions } from "next-view-transitions";
 import { getMessages } from "next-intl/server";
 
 // Utilities
@@ -52,14 +51,12 @@ export default async function RootLayout({
   const messages = await getMessages({ locale });
 
   return (
-    <ViewTransitions>
-      <html lang={locale} className="antialiased" suppressHydrationWarning>
-        <body className={cn("overflow-hidden", mainFont.className)}>
-          <Providers messages={messages} locale={locale}>
-            <InitContainer>{children}</InitContainer>
-          </Providers>
-        </body>
-      </html>
-    </ViewTransitions>
+    <html lang={locale} className="antialiased" suppressHydrationWarning>
+      <body className={cn("overflow-hidden", mainFont.className)}>
+        <Providers messages={messages} locale={locale}>
+          <InitContainer>{children}</InitContainer>
+        </Providers>
+      </body>
+    </html>
   );
 }

@@ -1,5 +1,5 @@
 import React, { memo, useCallback, useEffect, useRef, useState } from "react";
-import { motion, useMotionValueEvent, useScroll } from "framer-motion";
+import { m, useMotionValueEvent, useScroll } from "framer-motion";
 import throttle from "lodash.throttle";
 import { cn } from "@utils/tw";
 
@@ -66,7 +66,7 @@ export const StickyScroll = memo(
     }, [activeCard]);
 
     return (
-      <motion.div
+      <m.div
         animate={{
           backgroundColor:
             backgroundColors[activeCard % backgroundColors.length],
@@ -74,7 +74,7 @@ export const StickyScroll = memo(
         className="austin-scroll h-[30rem] md:h-[20rem] w-full overflow-x-hidden overflow-y-auto flex flex-col md:flex-row items-center justify-start md:justify-center gap-4 md:items-start relative space-x-10 rounded-md"
         ref={ref}
       >
-        <motion.div
+        <m.div
           key={activeCard}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -88,7 +88,7 @@ export const StickyScroll = memo(
           )}
         >
           {content[activeCard]?.content ?? null}
-        </motion.div>
+        </m.div>
         <div className="relative flex items-start justify-start order-1 bg-transparent md:order-2 w-full md:w-auto !ml-4 md:m-auto">
           <div className="w-full max-w-4xl">
             {content.map((item, index) => (
@@ -100,7 +100,7 @@ export const StickyScroll = memo(
                     : "my-auto scroll-snap-align-start"
                 }
               >
-                <motion.h2
+                <m.h2
                   initial={{ opacity: 0 }}
                   animate={{
                     opacity: activeCard === index ? 1 : 0.3,
@@ -112,18 +112,21 @@ export const StickyScroll = memo(
                   )}
                 >
                   {item.title}
-                </motion.h2>
-                <motion.p
+                </m.h2>
+                <m.p
                   initial={{ opacity: 0 }}
                   animate={{
                     opacity: activeCard === index ? 1 : 0.3,
                   }}
                   transition={{ duration: 0.6, ease: "easeInOut" }}
-                  className="max-w-xl md:max-w-md mt-3 text-neutral-200 text-kg"
+                  className={cn(
+                    "max-w-xl mt-3 md:max-w-md text-kg",
+                    activeCard === index ? "text-white" : "text-neutral-200",
+                  )}
                 >
                   {item.description}
-                </motion.p>
-                <motion.div
+                </m.p>
+                <m.div
                   key={activeCard}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -137,13 +140,13 @@ export const StickyScroll = memo(
                   )}
                 >
                   {content[activeCard]?.content ?? null}
-                </motion.div>
+                </m.div>
               </div>
             ))}
             <div className="h-40" />
           </div>
         </div>
-      </motion.div>
+      </m.div>
     );
   },
 );

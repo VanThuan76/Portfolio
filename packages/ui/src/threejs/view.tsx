@@ -17,9 +17,8 @@ import {
   OrbitControls,
   View as ViewImpl,
 } from "@react-three/drei";
+import { easing } from "maath";
 import { useFrame } from "@react-three/fiber";
-import { Three } from "@utils/threejs";
-
 import {
   // @ts-ignore
   EffectComposer,
@@ -29,6 +28,8 @@ import {
   DepthOfField,
   // @ts-ignore
 } from "@react-three/postprocessing";
+import { Three } from "@utils/threejs";
+
 const Background = lazy(() =>
   import("./background.tsx").then((module) => ({ default: module.Background })),
 );
@@ -61,35 +62,33 @@ export const LoaderR3f = () => {
   return <Loader />;
 };
 
-export const OrbitControlsR3f = () => {
-  return <OrbitControls />;
-};
-
 export const Common = () => (
   <Suspense fallback={null}>
     <Background />
-    <hemisphereLight intensity={0.5} groundColor="white" />
+    {/* <color attach="background" args={["#1e1e1e"]} /> */}
+    <ambientLight intensity={0.05} />
+    <hemisphereLight intensity={0.15} groundColor="black" />
     <spotLight
-      decay={2}
-      position={[-600, 0, -200]}
-      angle={0.5}
-      penumbra={0.5}
-      intensity={2}
+      decay={0}
+      position={[10, 20, 10]}
+      angle={0.12}
+      penumbra={1}
+      intensity={1}
       castShadow
-      shadow-mapSize={2048}
+      shadow-mapSize={1024}
     />
     <directionalLight
-      intensity={1.8}
+      intensity={0.1}
       castShadow
       shadow-bias={-0.0001}
-      position={[-600, 0, -200]}
+      position={[0, 0, 0]}
+      shadow-mapSize={[4096, 4096]}
     >
       <orthographicCamera
         attach="shadow-camera"
         args={[-100, 100, 100, -100]}
       />
     </directionalLight>
-    <ambientLight intensity={0.1} />
     <BakeShadows />
   </Suspense>
 );
@@ -202,22 +201,34 @@ export const CameraHandler = memo(
   },
 );
 
-export const EffectComposerHandler = ({ breakpoint }: { breakpoint: any }) => {
-  const isMobileOrIpad = ["xs", "sm"].includes(breakpoint);
-
+export const EffectComposerHandler = () => {
   return (
-    <EffectComposer enableNormalPass multisampling={2}>
+    <EffectComposer enableNormalPass>
       <Bloom
-        luminanceThreshold={isMobileOrIpad ? 0.2 : 0.3}
-        luminanceSmoothing={0.1}
-        intensity={isMobileOrIpad ? 0.5 : 1.0}
+        luminanceThreshold={0}
+        mipmapBlur
+        luminanceSmoothing={0.0}
+        intensity={5}
       />
       <DepthOfField
         target={[0, 0, 13]}
-        focalLength={isMobileOrIpad ? 5 : 10}
-        bokehScale={isMobileOrIpad ? 5 : 10}
-        height={480}
+        focalLength={0.1}
+        bokehScale={1}
+        height={700}
       />
     </EffectComposer>
   );
+};
+
+export const CameraRigHandler = () => {
+  useFrame((state, delta) => {
+    const targetX = -1 + (state.pointer.x * state.viewport.width) / 10;
+    const targetZ = 20;
+
+    easing.damp3(state.camera.position, [targetX, -5, targetZ], 0.5, delta);
+
+    state.camera.lookAt(0, 0, 0);
+  });
+
+  return null;
 };

@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 
 import { cn } from "@utils/tw";
 import { useModal } from "@shared/hooks/use-modal";
@@ -43,7 +43,7 @@ export default function Page({ params }: { params: { slug: string } }) {
   return (
     <AnimatePresence mode="wait">
       {article && (
-        <motion.div
+        <m.div
           key={article.id}
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -112,7 +112,7 @@ export default function Page({ params }: { params: { slug: string } }) {
             </div>
             <PathRightIcon className="-mr-20 transform scale-x-[-1]" />
           </div>
-        </motion.div>
+        </m.div>
       )}
     </AnimatePresence>
   );

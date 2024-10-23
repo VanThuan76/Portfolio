@@ -1,6 +1,6 @@
 "use client";
 import { cn } from "@utils/tw";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { useState, useEffect } from "react";
 
 type LoadingState = {
@@ -21,7 +21,7 @@ const LoaderCore = ({
         const opacity = Math.max(1 - distance * 0.2, 0);
 
         return (
-          <motion.div
+          <m.div
             key={index}
             className={cn(
               "text-left flex justify-end items-end md:justify-start md:items-start gap-2 mb-4 w-full md:max-w-xs",
@@ -33,12 +33,13 @@ const LoaderCore = ({
             <span
               className={cn(
                 "text-neutral-500 w-[50%] md:w-auto",
-                value === index && "text-white opacity-100",
+                value === index &&
+                  "text-white text-lg font-semibold opacity-100",
               )}
             >
               {loadingState.text}
             </span>
-          </motion.div>
+          </m.div>
         );
       })}
     </div>
@@ -78,7 +79,7 @@ export const MultiStepLoader = ({
   return (
     <AnimatePresence mode="wait">
       {loading && (
-        <motion.div
+        <m.div
           initial={{
             opacity: 0,
           }}
@@ -93,9 +94,7 @@ export const MultiStepLoader = ({
           <div className="relative h-96">
             <LoaderCore value={currentState} loadingStates={loadingStates} />
           </div>
-
-          <div className="bg-gradient-to-t inset-x-0 z-20 bottom-0 bg-white dark:bg-black h-full absolute [mask-image:radial-gradient(900px_at_center,transparent_50%,white)]" />
-        </motion.div>
+        </m.div>
       )}
     </AnimatePresence>
   );

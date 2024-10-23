@@ -1,20 +1,19 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { PropsWithChildren, Suspense } from "react";
+import { PropsWithChildren, useRef } from "react";
 import { ErrorBoundary } from "@shared/layouts/error-boundary";
 import { ErrorPage } from "@shared/layouts/error-page";
 import { useDidMount } from "@shared/hooks/use-did-mount";
-import { RootState, useAppSelector } from "@store/index";
 import { LoaderR3f } from "@three/view";
+import * as FadeIn from "@ui/molecules/frame/fade-wrapper";
+
 import BorderCollapse from "@shared/layouts/icons/border-collapse";
 import useInitData from "@shared/hooks/use-init-data";
 import useBreakpoint from "@shared/hooks/use-break-point";
 // Components dynamic
 const HeadMain = dynamic(() => import("@shared/layouts/head"), { ssr: false });
-const FadeWrapper = dynamic(() => import("@ui/molecules/frame/fade-wrapper"), {
-  ssr: false,
-});
+
 const MenuMobile = dynamic(
   () => import("@shared/layouts/navigation/menu-mobile"),
   { ssr: false },
@@ -32,32 +31,38 @@ const CanvasComponent = dynamic(
 );
 
 function InitInner({ children }: PropsWithChildren) {
+  const ref = useRef(null);
+  const breakpoint = useBreakpoint();
   const { isTasksCompleted } = useInitData();
-  const isPageChanging = useAppSelector(
-    (state: RootState) => state.app.isPageChanging,
-  );
 
   return (
     <LazyWrapper>
-      <div id="wrap-app" className="relative w-full h-full overflow-auto">
+      <div
+        ref={ref}
+        id="wrap-app"
+        className="relative w-full h-full overflow-auto"
+      >
         <div
           id="main-app"
-          className="pointer-events-none w-full relative z-50 h-[100dvh] overflow-y-auto overflow-x-hidden bg-none"
+          className="pointer-events-none w-full relative z-50 h-[100dvh] overflow-y-auto overflow-x-hidden"
         >
-          <main className="relative flex flex-col items-center justify-center w-full h-full border-[6.5px] inset-0 border-white pointer-events-auto overflow-hidden">
+          <main className="relative flex flex-col items-center justify-center w-full h-full border-[0.5px] inset-0 border-white pointer-events-auto overflow-hidden">
             <HeadMain />
-            <MenuMobile />
-            <FadeWrapper
+            <FadeIn.Container
               className="w-full h-full overflow-hidden"
-              isActive={isTasksCompleted && !isPageChanging}
+              isActive={isTasksCompleted}
             >
-              <div className="w-full h-full overflow-y-auto">{children}</div>
-            </FadeWrapper>
+              <FadeIn.Item className="w-full h-full overflow-y-auto">
+                {children}
+              </FadeIn.Item>
+              <ModalProvider />
+            </FadeIn.Container>
           </main>
+          <MenuMobile />
           <BorderCollapse />
           <BottomBarMenu />
-          <ModalProvider />
         </div>
+        <CanvasComponent eventSource={ref} breakpoint={breakpoint} />
       </div>
     </LazyWrapper>
   );
@@ -65,17 +70,12 @@ function InitInner({ children }: PropsWithChildren) {
 
 export default function InitContainer(props: PropsWithChildren) {
   const didMount = useDidMount();
-  const breakpoint = useBreakpoint();
-  const positions = useAppSelector((state: RootState) => state.app.positions);
 
   return (
     didMount && (
       <ErrorBoundary fallback={ErrorPage}>
-        {/* <InitInner {...props} /> */}
+        <InitInner {...props} />
         <LoaderR3f />
-        <Suspense fallback={null}>
-          <CanvasComponent positions={positions} breakpoint={breakpoint} />
-        </Suspense>
       </ErrorBoundary>
     )
   );

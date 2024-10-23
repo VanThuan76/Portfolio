@@ -1,7 +1,7 @@
 import { closeModal, openModal } from "@store/app-slice";
 import { RootState, useAppDispatch, useAppSelector } from "@store/index";
 
-export type ModalType = "article";
+export type ModalType = "article" | "blog";
 export type ModalData = any;
 
 export type ModalProps = {

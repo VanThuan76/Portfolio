@@ -1,7 +1,7 @@
 "use client";
 
 import { m } from "framer-motion";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 import { cn } from "@utils/tw";
 import { TypographyP } from "@ui/molecules/ui-elements/typography-p";
@@ -41,13 +41,13 @@ export const Tabs = ({
     setActive(newTabs[0]);
   };
 
-  const [hovering, setHovering] = useState(false);
+  const hoverRef = useRef(false);
 
   return (
     <>
       <div
         className={cn(
-          "flex flex-row items-center justify-start [perspective:1000px] relative overflow-auto sm:overflow-visible no-visible-scrollbar max-w-full w-full",
+          "flex flex-row items-center justify-start [perspective:1000px] relative overflow-auto sm:overflow-visible no-visible-scrollbar max-w-full w-full pb-1 border-b border-b-slate-300",
           containerClassName,
         )}
       >
@@ -60,8 +60,8 @@ export const Tabs = ({
             onClick={() => {
               moveSelectedTabToTop(idx);
             }}
-            onMouseEnter={() => setHovering(true)}
-            onMouseLeave={() => setHovering(false)}
+            onMouseEnter={() => hoverRef.current === true}
+            onMouseLeave={() => hoverRef.current === false}
             className={cn("relative px-4 rounded-full", tabClassName)}
             style={{
               transformStyle: "preserve-3d",
@@ -69,7 +69,8 @@ export const Tabs = ({
           >
             {active.value === tab.value && (
               <m.div
-                layoutId="clickedbutton"
+                layoutId={`clickedbutton_${tab.value}`}
+                initial={false}
                 transition={{ type: "spring", bounce: 0.3, duration: 0.6 }}
                 className={cn(
                   "absolute inset-0 bg-gray-400 md:bg-gray-200 dark:bg-zinc-800 rounded-full ",
@@ -80,7 +81,7 @@ export const Tabs = ({
             <TypographyP
               title={tab.title}
               className={cn(
-                "relative block text-xs text-white md:text-sm",
+                "relative block text-xs text-slate-800 md:text-sm",
                 active.value === tab.value && "text-black",
               )}
             />
@@ -91,7 +92,7 @@ export const Tabs = ({
         tabs={tabs}
         active={active}
         key={active.value}
-        hovering={hovering}
+        hovering={hoverRef.current}
         className={cn("mt-4", contentClassName)}
       />
     </>
@@ -112,6 +113,7 @@ export const FadeInDiv = ({
   const isActive = (tab: Tab) => {
     return tab.value === tabs[0]?.value;
   };
+
   return (
     <div className="relative w-full h-full">
       {tabs.map((tab, idx) => (
@@ -120,16 +122,25 @@ export const FadeInDiv = ({
           layoutId={tab.value}
           style={{
             scale: 1 - idx * 0.1,
-            top: hovering ? idx * -50 : 0,
-            zIndex: -idx,
-            opacity: idx < 3 ? 1 - idx * 0.1 : 0,
+            top: hovering ? idx * -40 : 0,
+            zIndex: tabs.length - idx,
+            willChange: "transform, opacity",
           }}
           animate={{
-            y: isActive(tab) ? [0, 40, 0] : 0,
+            y: isActive(tab) ? 0 : hovering ? idx * -10 : 20,
+            scale: isActive(tab) ? 1 : 0.95,
             opacity: isActive(tab) ? 1 : 0,
             transition: {
-              duration: 0.7,
+              duration: 0.6,
+              ease: "easeInOut",
             },
+          }}
+          initial={{ opacity: 0, scale: 0.9 }}
+          exit={{
+            opacity: 0,
+            scale: 0.9,
+            y: 20,
+            transition: { duration: 0.3 },
           }}
           className={cn("w-full h-full absolute top-0 left-0", className)}
         >

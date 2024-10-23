@@ -4,15 +4,11 @@ const BorderTopLeftIcon = ({ ...rest }: SVGProps<SVGSVGElement>) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 129.13 129.13"
-      className="absolute z-40 top-0 left-0 w-[100px]"
+      viewBox="0 0 20 5"
+      className="absolute z-40 top-0 left-0 w-[500px]"
       {...rest}
     >
-      <path
-        d="M0 129.13V0h129.13v8H55.86c-6.31 0-12.37 2.51-16.83 6.97L14.97 39.03A23.81 23.81 0 0 0 8 55.86v73.27z"
-        fill="white"
-        strokeWidth="0"
-      ></path>
+      <path d="M20 5H20L20 5M0 0C1 0 2.6667 0 4 0 2 0 0 0 0 4" fill="#fff" />
     </svg>
   );
 };

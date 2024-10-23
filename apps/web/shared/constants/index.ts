@@ -21,6 +21,22 @@ export const breakpoints = {
 
 export const DATA_MENUS = [
   {
+    name: "Home",
+    href: "/",
+    icon: "/icon-navigation/icon-blog.png",
+    positions: {
+      cameraPosition: [],
+      positionModelMain: [],
+      positionModelCastle: [],
+      positionModelMountain: [],
+      positionModelDepartment: [],
+      positionModelRestaurant: [],
+      positionModelSchool: [],
+      positionModelCity: [],
+      positionModelCaffe: [],
+    },
+  },
+  {
     name: "Blog",
     href: "/blog",
     icon: "/icon-navigation/icon-blog.png",
