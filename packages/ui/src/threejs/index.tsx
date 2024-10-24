@@ -11,7 +11,7 @@ export const App = ({ ...props }) => {
       {...props}
       shadows
       dpr={isMobileOrIpad ? 1 : [1, 1.5]}
-      camera={{ near: 1, fov: 50, position: [0, -5, 20] }}
+      camera={{ near: 1, fov: 50, position: [0, -5, 30] }}
       eventPrefix="client"
       gl={{ antialias: true }}
       onCreated={(state) => (state.gl.toneMapping = THREE.AgXToneMapping)}

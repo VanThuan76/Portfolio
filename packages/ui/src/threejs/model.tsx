@@ -30,11 +30,11 @@ export const Model = (props: JSX.IntrinsicElements["group"]) => {
     if (actions && animations) {
       const animationName = animations[0]?.name;
       if (animationName && actions[animationName])
-        actions[animationName].play();
+        actions[animationName].reset().fadeIn(0.5).play();
 
       return () => {
         if (animationName && actions[animationName]) {
-          actions[animationName].stop();
+          actions[animationName].fadeOut(0.5);
         }
       };
     }

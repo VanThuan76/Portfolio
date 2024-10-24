@@ -15,19 +15,6 @@ export interface IDefaultState {
   projects: IProject[] | [];
   initProgress: number;
   hasVisited: boolean;
-  isPageChanging: boolean;
-  pageCached: string[];
-  positions: {
-    cameraPosition: any[];
-    positionModelMain: any[];
-    positionModelCaffe: any[];
-    positionModelCastle: any[];
-    positionModelRestaurant: any[];
-    positionModelSchool: any[];
-    positionModelDepartment: any[];
-    positionModelMountain: any[];
-    positionModelCity: any[];
-  };
   modalStore: ModalProps;
 }
 
@@ -39,19 +26,6 @@ const initialState: IDefaultState = {
   projects: [],
   initProgress: 0,
   hasVisited: false,
-  isPageChanging: false,
-  pageCached: [],
-  positions: {
-    cameraPosition: [],
-    positionModelMain: [],
-    positionModelCaffe: [],
-    positionModelRestaurant: [],
-    positionModelCastle: [],
-    positionModelSchool: [],
-    positionModelDepartment: [],
-    positionModelMountain: [],
-    positionModelCity: [],
-  },
   modalStore: {
     type: null,
     data: {},
@@ -97,23 +71,6 @@ export const appSlice = createSlice({
     setHasVisited: (state, action: PayloadAction<boolean>) => {
       state.hasVisited = action.payload;
     },
-    setIsPageChanging: (state, action: PayloadAction<boolean>) => {
-      state.isPageChanging = action.payload;
-    },
-    addPageToCache: (state, action: PayloadAction<string>) => {
-      if (!state.pageCached.includes(action.payload)) {
-        state.pageCached.push(action.payload);
-      }
-    },
-    setPositionModels: (
-      state,
-      action: PayloadAction<Partial<IDefaultState["positions"]>>,
-    ) => {
-      state.positions = {
-        ...state.positions,
-        ...action.payload,
-      };
-    },
     openModal: (state, action: PayloadAction<ModalProps>) => {
       state.modalStore = action.payload;
     },
@@ -136,9 +93,6 @@ export const {
   setProjects,
   setInitProgress,
   setHasVisited,
-  setIsPageChanging,
-  addPageToCache,
-  setPositionModels,
   openModal,
   closeModal,
 } = appSlice.actions;

@@ -1,7 +1,6 @@
 "use client";
 
 import ReduxProvider from "@providers/redux";
-import { ViewTransitions } from "next-view-transitions";
 import { AbstractIntlMessages, NextIntlClientProvider } from "next-intl";
 import { ReactQueryClientProvider } from "@providers/react-query";
 import { ThemeProvider } from "@providers/theme";
@@ -18,28 +17,26 @@ export default function Providers({
   locale?: string;
 }) {
   return (
-    <ViewTransitions>
-      <NextIntlClientProvider messages={messages} locale={locale}>
-        <ReactQueryClientProvider>
-          <ReduxProvider>
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="light"
-              enableSystem={false}
-              disableTransitionOnChange
+    <NextIntlClientProvider messages={messages} locale={locale}>
+      <ReactQueryClientProvider>
+        <ReduxProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="light"
+            enableSystem={false}
+            disableTransitionOnChange
+          >
+            <TooltipProvider
+              disableHoverableContent
+              delayDuration={100}
+              skipDelayDuration={0}
             >
-              <TooltipProvider
-                disableHoverableContent
-                delayDuration={100}
-                skipDelayDuration={0}
-              >
-                {children}
-              </TooltipProvider>
-              <ToasterProvider />
-            </ThemeProvider>
-          </ReduxProvider>
-        </ReactQueryClientProvider>
-      </NextIntlClientProvider>
-    </ViewTransitions>
+              {children}
+            </TooltipProvider>
+            <ToasterProvider />
+          </ThemeProvider>
+        </ReduxProvider>
+      </ReactQueryClientProvider>
+    </NextIntlClientProvider>
   );
 }

@@ -12,6 +12,7 @@ import { mainFont } from "@shared/utils/font";
 // Layouts and Providers
 import InitContainer from "@shared/layouts";
 import Providers from "../provider";
+import { ViewTransitions } from "next-view-transitions";
 
 export const metadata: Metadata = {
   title: "Austin Vu",
@@ -44,6 +45,7 @@ export const metadata: Metadata = {
 export default async function RootLayout({
   children,
   params: { locale },
+  ...props
 }: Readonly<{
   children: React.ReactNode;
   params: { locale: string };
@@ -51,12 +53,14 @@ export default async function RootLayout({
   const messages = await getMessages({ locale });
 
   return (
-    <html lang={locale} className="antialiased" suppressHydrationWarning>
-      <body className={cn("overflow-hidden", mainFont.className)}>
-        <Providers messages={messages} locale={locale}>
-          <InitContainer>{children}</InitContainer>
-        </Providers>
-      </body>
-    </html>
+    <ViewTransitions>
+      <html lang={locale} className="antialiased" suppressHydrationWarning>
+        <body className={cn("overflow-hidden", mainFont.className)}>
+          <Providers messages={messages} locale={locale}>
+            <InitContainer {...props}>{children}</InitContainer>
+          </Providers>
+        </body>
+      </html>
+    </ViewTransitions>
   );
 }
