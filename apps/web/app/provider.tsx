@@ -26,13 +26,7 @@ export default function Providers({
             enableSystem={false}
             disableTransitionOnChange
           >
-            <TooltipProvider
-              disableHoverableContent
-              delayDuration={100}
-              skipDelayDuration={0}
-            >
-              {children}
-            </TooltipProvider>
+            {children}
             <ToasterProvider />
           </ThemeProvider>
         </ReduxProvider>

@@ -1,6 +1,9 @@
 import * as THREE from "three";
 import { useRef, useEffect } from "react";
-import { useGLTF, useAnimations } from "@react-three/drei";
+import { useAnimations, useGLTF } from "@react-three/drei";
+import { useThree } from "@react-three/fiber";
+// @ts-ignore
+import { KTX2Loader } from "three/examples/jsm/loaders/KTX2Loader";
 
 type GLTFResult = any & {
   nodes: {
@@ -21,9 +24,23 @@ type GLTFResult = any & {
 
 export const Model = (props: JSX.IntrinsicElements["group"]) => {
   const group = useRef<THREE.Group>(null);
+
+  const gl = useThree((state) => state.gl);
   const { nodes, materials, animations } = useGLTF(
-    "/models/model_new.glb",
+    `/models/ktx2_model_new.glb`,
+    undefined,
+    undefined,
+    (loader) => {
+      const ktx2loader = new KTX2Loader();
+      ktx2loader.setTranscoderPath(
+        "https://cdn.jsdelivr.net/gh/pmndrs/drei-assets/basis/",
+      );
+      ktx2loader.detectSupport(gl);
+      //@ts-ignore
+      loader.setKTX2Loader(ktx2loader);
+    },
   ) as GLTFResult;
+
   const { actions } = useAnimations(animations, group);
 
   useEffect(() => {

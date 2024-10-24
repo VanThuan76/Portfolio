@@ -14,7 +14,10 @@ export const App = ({ ...props }) => {
       camera={{ near: 1, fov: 50, position: [0, -5, 30] }}
       eventPrefix="client"
       gl={{ antialias: true }}
-      onCreated={(state) => (state.gl.toneMapping = THREE.AgXToneMapping)}
+      onCreated={(state) => {
+        state.gl.toneMapping = THREE.ACESFilmicToneMapping;
+        state.gl.toneMappingExposure = 1.5;
+      }}
       style={{
         position: "fixed",
         top: 0,

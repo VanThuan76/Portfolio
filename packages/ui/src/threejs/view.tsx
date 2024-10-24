@@ -6,12 +6,7 @@ import {
   ReactNode,
   HTMLAttributes,
 } from "react";
-import {
-  Loader,
-  BakeShadows,
-  OrbitControls,
-  View as ViewImpl,
-} from "@react-three/drei";
+import { Loader, OrbitControls, View as ViewImpl } from "@react-three/drei";
 import { easing } from "maath";
 import { useFrame } from "@react-three/fiber";
 import {
@@ -79,7 +74,6 @@ export const Common = () => (
         args={[-100, 100, 100, -100]}
       />
     </directionalLight>
-    <BakeShadows />
   </Suspense>
 );
 

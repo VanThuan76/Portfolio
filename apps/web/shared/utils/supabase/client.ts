@@ -6,7 +6,7 @@ import { Database } from "./types";
 
 let client: SupabaseClient<Database> | undefined;
 
-function getSupabaseBrowserClient() {
+export function getSupabaseBrowserClient() {
   if (client) {
     return client;
   }

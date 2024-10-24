@@ -15,7 +15,11 @@ import Providers from "../provider";
 import { ViewTransitions } from "next-view-transitions";
 
 export const metadata: Metadata = {
-  title: "Austin Vu",
+  metadataBase: new URL("https://www.austinvu.tech"),
+  title: {
+    default: "Austin Vu",
+    template: `%s | Austin Vu`,
+  },
   description:
     "Welcome to the portfolio of Austin Vu, showcasing projects, skills, and achievements.",
   icons: [
@@ -40,6 +44,10 @@ export const metadata: Metadata = {
       url: "/logo.png",
     },
   ],
+  verification: {
+    google:
+      "google-site-verification=ElmoiyHemDoFnDuWJkNG-LPQ5rPQ-4hquKSJgWPpid4",
+  },
 };
 
 export default async function RootLayout({

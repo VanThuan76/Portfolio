@@ -1,8 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { memo, useState } from "react";
 import { AnimatePresence, m } from "framer-motion";
-import { RootState, useAppSelector } from "@store/index";
 import { DATA_MENUS } from "@shared/constants";
 
 import useIsSafari from "@shared/hooks/use-is-safari";
@@ -48,6 +47,7 @@ const containerMenuVariants = {
     transition: { duration: 0.75, type: "tween", ease: [0.76, 0, 0.24, 1] },
   },
 };
+
 export const perspectiveMenuItemVariants = {
   initial: {
     opacity: 0,
@@ -203,4 +203,4 @@ const Menu = () => {
   );
 };
 
-export default Menu;
+export default memo(Menu);
