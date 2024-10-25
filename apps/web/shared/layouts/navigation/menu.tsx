@@ -11,202 +11,208 @@ import MotionContainer from "@ui/molecules/frame/dynamic-contain";
 import NavDeepIcon from "../icons/nav-deep-icon";
 
 export const perspectiveMenuItemVariants = {
-    initial: {
-        opacity: 0,
-        rotateX: 90,
-        translateY: 80,
-        translateX: -20,
+  initial: {
+    opacity: 0,
+    rotateX: 90,
+    translateY: 80,
+    translateX: -20,
+  },
+  enter: (i) => ({
+    opacity: 1,
+    rotateX: 0,
+    translateY: 0,
+    translateX: 0,
+    transition: {
+      duration: 0.5,
+      delay: 0.1 * i,
+      ease: "easeOut",
     },
-    enter: (i) => ({
-        opacity: 1,
-        rotateX: 0,
-        translateY: 0,
-        translateX: 0,
-        transition: {
-            duration: 0.5,
-            delay: 0.1 * i,
-            ease: "easeOut",
-        },
-    }),
-    exit: {
-        opacity: 0,
-        transition: { duration: 0.3, ease: "easeIn" },
-    },
+  }),
+  exit: {
+    opacity: 0,
+    transition: { duration: 0.3, ease: "easeIn" },
+  },
 };
 
 const Menu = ({ isSmallScreen }: { isSmallScreen: boolean }) => {
-    const [currentMenuIndex, setCurrentMenuIndex] = useState(0);
-    const [isOpen, setIsOpen] = useState(false);
+  const [currentMenuIndex, setCurrentMenuIndex] = useState(0);
+  const [isOpen, setIsOpen] = useState(false);
 
-    const isSafari = useIsSafari();
+  const isSafari = useIsSafari();
 
-    const { handleOpenScreen, isPageChanging } = useOpenScreen(isSafari);
+  const { handleOpenScreen, isPageChanging } = useOpenScreen(isSafari);
 
-    const handleMenuClick = (e: React.MouseEvent<SVGSVGElement>) => {
-        e.preventDefault();
-        const currentMenu: any = DATA_MENUS[currentMenuIndex];
+  const handleMenuClick = (e: React.MouseEvent<SVGSVGElement>) => {
+    e.preventDefault();
+    const currentMenu: any = DATA_MENUS[currentMenuIndex];
 
-        setCurrentMenuIndex((prevIndex) => {
-            if (prevIndex === DATA_MENUS.length - 1) {
-                return 0;
-            }
-            return prevIndex + 1;
-        });
+    setCurrentMenuIndex((prevIndex) => {
+      if (prevIndex === DATA_MENUS.length - 1) {
+        return 0;
+      }
+      return prevIndex + 1;
+    });
 
-        handleOpenScreen(e, currentMenu.href);
-    };
+    handleOpenScreen(e, currentMenu.href);
+  };
 
-    const menuVariants = {
-        open: {
-            width: "100vw",
-            top: isSmallScreen ? "-15px" : "0px",
-            right: isSmallScreen ? "-15px" : "0px",
-            height: "100vh",
-            backgroundColor: "rgba(230, 230, 230, 1)",
-            transition: {
-                duration: 0.75,
-                type: "tween",
-                ease: [0.76, 0, 0.24, 1],
-                backgroundColor: { duration: 0.75 },
-            },
-        },
-        closed: {
-            width: "100px",
-            height: "40px",
-            top: isSmallScreen ? "-10px" : "-5px",
-            right: isSmallScreen ? "-15px" : "-5px",
-            backgroundColor: "rgba(255, 255, 255, 0)",
-            transition: {
-                duration: 0.75,
-                delay: 0.35,
-                type: "tween",
-                ease: [0.76, 0, 0.24, 1],
-                backgroundColor: { duration: 0.75 },
-            },
-        },
-    };
+  const menuVariants = {
+    open: {
+      width: "100vw",
+      top: isSmallScreen ? "-15px" : "0px",
+      right: isSmallScreen ? "-15px" : "0px",
+      height: "100vh",
+      backgroundColor: "rgba(230, 230, 230, 1)",
+      transition: {
+        duration: 0.75,
+        type: "tween",
+        ease: [0.76, 0, 0.24, 1],
+        backgroundColor: { duration: 0.75 },
+      },
+    },
+    closed: {
+      width: "100px",
+      height: "40px",
+      top: isSmallScreen ? "-10px" : "-5px",
+      right: isSmallScreen ? "-15px" : "-5px",
+      backgroundColor: "rgba(255, 255, 255, 0)",
+      transition: {
+        duration: 0.75,
+        delay: 0.35,
+        type: "tween",
+        ease: [0.76, 0, 0.24, 1],
+        backgroundColor: { duration: 0.75 },
+      },
+    },
+  };
 
-    const containerMenuVariants = {
-        open: {
-            right: isSmallScreen ? "15px" : "0px",
-            top: isSmallScreen ? "15px" : "0px",
-            borderRadius: "20px",
-            transition: { duration: 0.75, type: "tween", ease: [0.76, 0, 0.24, 1] },
-        },
-        closed: {
-            right: "20px",
-            top: "20px",
-            borderRadius: "0px",
-            transition: { duration: 0.75, type: "tween", ease: [0.76, 0, 0.24, 1] },
-        },
-    };
+  const containerMenuVariants = {
+    open: {
+      right: isSmallScreen ? "15px" : "0px",
+      top: isSmallScreen ? "15px" : "0px",
+      borderRadius: "20px",
+      transition: { duration: 0.75, type: "tween", ease: [0.76, 0, 0.24, 1] },
+    },
+    closed: {
+      right: "20px",
+      top: "20px",
+      borderRadius: "0px",
+      transition: { duration: 0.75, type: "tween", ease: [0.76, 0, 0.24, 1] },
+    },
+  };
 
-    return (
-        <>
-            <m.div
-                variants={containerMenuVariants}
-                animate={isOpen ? "open" : "closed"}
-                initial="closed"
-                className="absolute z-[999999999] pointer-events-auto"
-            >
-                <m.div
-                    className="relative w-full h-full"
-                    variants={menuVariants}
-                    animate={isOpen ? "open" : "closed"}
-                    initial="closed"
-                >
-                    <AnimatePresence mode="wait" onExitComplete={() => setIsOpen(false)}>
-                        {isOpen && (
-                            <div className="flex flex-col justify-between h-full px-10 pt-24 pb-12">
-                                <div className="flex flex-col gap-4">
-                                    {DATA_MENUS.map((item, i) => {
-                                        return (
-                                            <div
-                                                key={`menu_${i}`}
-                                                style={{
-                                                    perspective: "120px",
-                                                    perspectiveOrigin: "bottom",
-                                                }}
-                                            >
-                                                <m.div
-                                                    custom={i}
-                                                    variants={perspectiveMenuItemVariants}
-                                                    initial="initial"
-                                                    animate="enter"
-                                                    exit="exit"
-                                                    onClick={(e: React.MouseEvent<HTMLDivElement>) => {
-                                                        setIsOpen(!isOpen);
-                                                        handleOpenScreen(e, item.href);
-                                                    }}
-                                                >
-                                                    <p className="text-3xl text-[#1e1e1e] cursor-pointer">{item.name}</p>
-                                                </m.div>
-                                            </div>
-                                        );
-                                    })}
-                                </div>
-                            </div>
-                        )}
-                    </AnimatePresence>
-                    <m.div
-                        animate={{
-                            scale: isOpen ? 1.1 : 1,
-                            pointerEvents: isPageChanging ? 'none' : 'auto',
-                            translateZ: isPageChanging ? "100%" : "0",
+  return (
+    <>
+      <m.div
+        variants={containerMenuVariants}
+        animate={isOpen ? "open" : "closed"}
+        initial="closed"
+        className="absolute z-[999999999] pointer-events-auto"
+      >
+        <m.div
+          className="relative w-full h-full"
+          variants={menuVariants}
+          animate={isOpen ? "open" : "closed"}
+          initial="closed"
+        >
+          <AnimatePresence mode="wait" onExitComplete={() => setIsOpen(false)}>
+            {isOpen && (
+              <div className="flex flex-col justify-between h-full px-10 pt-24 pb-12">
+                <div className="flex flex-col gap-4">
+                  {DATA_MENUS.map((item, i) => {
+                    return (
+                      <div
+                        key={`menu_${i}`}
+                        style={{
+                          perspective: "120px",
+                          perspectiveOrigin: "bottom",
                         }}
-                        transition={{
-                            duration: 0.75,
-                            type: "tween",
-                            ease: [0.76, 0, 0.24, 1],
-                        }}
-                        className="w-[40px] h-[40px] md:w-[50px] md:h-[50px] z-50 absolute !top-0 !right-0"
-                        onClick={() => setIsOpen(!isOpen)}
-                    >
+                      >
                         <m.div
-                            className="absolute top-0 right-0 grid items-center justify-center w-full h-full grid-cols-2 gap-[2px] p-[8px] md:p-[12px] rounded-full"
-                            animate={{
-                                rotate: isOpen ? "45deg" : "0",
-                                backgroundColor: isOpen ? "rgba(0,0,0,0)" : "rgba(30, 30, 30, 1)",
-                            }}
-                            transition={{
-                                duration: 0.5,
-                                type: "tween",
-                                ease: [0.76, 0, 0.24, 1],
-                            }}
+                          custom={i}
+                          variants={perspectiveMenuItemVariants}
+                          initial="initial"
+                          animate="enter"
+                          exit="exit"
+                          onClick={(e: React.MouseEvent<HTMLDivElement>) => {
+                            setIsOpen(!isOpen);
+                            handleOpenScreen(e, item.href);
+                          }}
                         >
-                            {Array.from({ length: 4 }, (_, i) => {
-                                return (
-                                    <m.div
-                                        key={i}
-                                        animate={{
-                                            rotate: isOpen ? "45deg" : "0",
-                                            backgroundColor: isOpen ? "rgba(30, 30, 30, 1)" : "rgba(255, 255, 255, 1)",
-                                        }}
-                                        transition={{
-                                            duration: isOpen ? 0.3 : 0.5,
-                                            type: "tween",
-                                            ease: [0.76, 0, 0.24, 1],
-                                        }}
-                                        className="w-full h-full rounded-l-sm rounded-r-sm"
-                                    />
-                                );
-                            })}
+                          <p className="text-3xl text-[#1e1e1e] cursor-pointer">
+                            {item.name}
+                          </p>
                         </m.div>
-                    </m.div>
-                </m.div>
-            </m.div>
-            <MotionContainer
-                type="slide"
-                direction="top"
-                className="absolute bottom-0 right-0 z-50 w-full"
-                isClose={isPageChanging}
-            >
-                <div className="grid w-full place-items-center">
-                    <NavDeepIcon onClick={handleMenuClick} className="w-[170px]" />
+                      </div>
+                    );
+                  })}
                 </div>
-            </MotionContainer>
-        </>
-    );
+              </div>
+            )}
+          </AnimatePresence>
+          <m.div
+            animate={{
+              scale: isOpen ? 1.1 : 1,
+              pointerEvents: isPageChanging ? "none" : "auto",
+              translateZ: isPageChanging ? "100%" : "0",
+            }}
+            transition={{
+              duration: 0.75,
+              type: "tween",
+              ease: [0.76, 0, 0.24, 1],
+            }}
+            className="w-[40px] h-[40px] md:w-[50px] md:h-[50px] z-50 absolute !top-0 !right-0"
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            <m.div
+              className="absolute top-0 right-0 grid items-center justify-center w-full h-full grid-cols-2 gap-[2px] p-[8px] md:p-[12px] rounded-full"
+              animate={{
+                rotate: isOpen ? "45deg" : "0",
+                backgroundColor: isOpen
+                  ? "rgba(0,0,0,0)"
+                  : "rgba(30, 30, 30, 1)",
+              }}
+              transition={{
+                duration: 0.5,
+                type: "tween",
+                ease: [0.76, 0, 0.24, 1],
+              }}
+            >
+              {Array.from({ length: 4 }, (_, i) => {
+                return (
+                  <m.div
+                    key={i}
+                    animate={{
+                      rotate: isOpen ? "45deg" : "0",
+                      backgroundColor: isOpen
+                        ? "rgba(30, 30, 30, 1)"
+                        : "rgba(255, 255, 255, 1)",
+                    }}
+                    transition={{
+                      duration: isOpen ? 0.3 : 0.5,
+                      type: "tween",
+                      ease: [0.76, 0, 0.24, 1],
+                    }}
+                    className="w-full h-full rounded-l-sm rounded-r-sm"
+                  />
+                );
+              })}
+            </m.div>
+          </m.div>
+        </m.div>
+      </m.div>
+      <MotionContainer
+        type="slide"
+        direction="top"
+        className="absolute bottom-0 right-0 z-50 w-full"
+        isClose={isPageChanging}
+      >
+        <div className="grid w-full place-items-center">
+          <NavDeepIcon onClick={handleMenuClick} className="w-[170px]" />
+        </div>
+      </MotionContainer>
+    </>
+  );
 };
 
 export default memo(Menu);

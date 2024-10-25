@@ -27,7 +27,7 @@ export const Model = (props: JSX.IntrinsicElements["group"]) => {
 
   const gl = useThree((state) => state.gl);
   const { nodes, materials, animations } = useGLTF(
-    '/models/optimized_ktx2_model_new.glb',
+    "/models/optimized_ktx2_model_new.glb",
     undefined,
     undefined,
     (loader) => {
