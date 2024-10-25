@@ -1,0 +1,6 @@
+# robots.txt for https://www.austinvu.tech/
+
+User-agent: *
+Disallow:
+
+Sitemap: https://www.austinvu.tech/sitemap.xml
