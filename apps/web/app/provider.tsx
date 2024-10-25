@@ -7,29 +7,29 @@ import { ThemeProvider } from "@providers/theme";
 import { ToasterProvider } from "@providers/toaster";
 
 export default function Providers({
-    children,
-    messages,
-    locale = "en",
+  children,
+  messages,
+  locale = "en",
 }: {
-    children: React.ReactNode;
-    messages: AbstractIntlMessages;
-    locale?: string;
+  children: React.ReactNode;
+  messages: AbstractIntlMessages;
+  locale?: string;
 }) {
-    return (
-        <NextIntlClientProvider messages={messages} locale={locale}>
-            <ReactQueryClientProvider>
-                <ReduxProvider>
-                    <ThemeProvider
-                        attribute="class"
-                        defaultTheme="light"
-                        enableSystem={false}
-                        disableTransitionOnChange
-                    >
-                        {children}
-                        <ToasterProvider />
-                    </ThemeProvider>
-                </ReduxProvider>
-            </ReactQueryClientProvider>
-        </NextIntlClientProvider>
-    );
+  return (
+    <NextIntlClientProvider messages={messages} locale={locale}>
+      <ReactQueryClientProvider>
+        <ReduxProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="light"
+            enableSystem={false}
+            disableTransitionOnChange
+          >
+            {children}
+            <ToasterProvider />
+          </ThemeProvider>
+        </ReduxProvider>
+      </ReactQueryClientProvider>
+    </NextIntlClientProvider>
+  );
 }
