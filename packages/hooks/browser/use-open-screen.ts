@@ -1,0 +1,70 @@
+import { useCallback, useEffect, useRef } from "react";
+import { useTransitionRouter } from "next-view-transitions";
+import { useRouter } from "next/navigation";
+import { useLocale } from "next-intl";
+
+import { useAppDispatch } from "@repo/management-system";
+
+export const useOpenScreen = (isSafari: boolean) => {
+  const dispatch = useAppDispatch();
+  const routerNext = useRouter();
+  const routerTrans = useTransitionRouter();
+  const locale = useLocale();
+
+  const isPageChangingRef = useRef(false);
+
+  const handleOpenScreen = useCallback(
+    async (
+      e: React.MouseEvent<any>,
+      href: string,
+      callbackFinish?: () => void,
+      newLocale?: string,
+    ) => {
+      e.preventDefault();
+      const localizedHref = newLocale
+        ? `/${newLocale}${href}`
+        : `/${locale}${href}`;
+
+      isPageChangingRef.current = true;
+
+      try {
+        const audio = new Audio("/audios/tap.mp3");
+        await audio.play();
+      } catch (error) {
+        console.error("Audio playback failed:", error);
+      }
+
+      await new Promise((resolve) => setTimeout(resolve, 500));
+
+      if (isSafari) {
+        routerNext.push(localizedHref);
+      } else {
+        routerTrans.push(localizedHref);
+      }
+
+      isPageChangingRef.current = false;
+
+      if (callbackFinish) {
+        callbackFinish();
+      }
+    },
+    [isSafari, dispatch, routerNext, routerTrans, locale],
+  );
+
+  useEffect(() => {
+    const handlePopState = () => {
+      const { pathname } = window.location;
+    };
+
+    window.addEventListener("popstate", handlePopState);
+
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, [dispatch]);
+
+  return {
+    handleOpenScreen,
+    isPageChanging: isPageChangingRef.current,
+  };
+};

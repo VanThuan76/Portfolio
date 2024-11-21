@@ -3,11 +3,11 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { Button } from "@ui/atoms/button";
-import { Form } from "@ui/organisms/forms/form";
+import { Button } from "@repo/design-system/components/atoms/button";
+import { Form } from "@repo/design-system/components/organisms/forms/form";
 
-import InputText from "@ui/molecules/forms/input-text";
-import InputTextArea from "@ui/molecules/forms/input-text-area";
+import InputText from "@repo/design-system/components/molecules/forms/input-text";
+import InputTextArea from "@repo/design-system/components/molecules/forms/input-text-area";
 
 const FormTouch = () => {
   // const form = useForm<z.infer<typeof resumeCreateSchema>>({

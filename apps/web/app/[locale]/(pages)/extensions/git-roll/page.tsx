@@ -1,6 +1,6 @@
 "use client";
 
-import MotionContainer from "@ui/molecules/frame/dynamic-contain";
+import MotionContainer from "@repo/design-system/components/molecules/frame/dynamic-contain";
 
 export default function Page() {
   return (

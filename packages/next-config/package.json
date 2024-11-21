@@ -1,0 +1,24 @@
+{
+  "name": "@repo/next-config",
+  "version": "0.0.0",
+  "private": true,
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@repo/eslint-config": "workspace:*",
+    "next": "14.2.1",
+    "raw-loader": "^4.0.2",
+    "url-loader": "^4.1.1",
+    "file-loader": "^6.2.0",
+    "glslify-loader": "^2.0.0",
+    "grammy": "^1.27.0"
+  },
+  "dependencies": {
+    "@repo/env": "workspace:*",
+    "@logtail/next": "^0.1.5",
+    "@next/bundle-analyzer": "^15.0.3",
+    "@sentry/nextjs": "^8.38.0",
+    "@vercel/toolbar": "^0.1.26",
+    "next-secure-headers": "^2.2.0",
+    "next-intl": "^3.25.1"
+  }
+}

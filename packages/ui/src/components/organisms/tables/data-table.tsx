@@ -15,11 +15,14 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@ui/molecules/tables/table";
-import { ScrollArea, ScrollBar } from "@ui/molecules/navigation/scroll-area";
+} from "@repo/design-system/components/molecules/tables/table";
+import {
+  ScrollArea,
+  ScrollBar,
+} from "@repo/design-system/components/molecules/navigation/scroll-area";
 
-import { Input } from "@ui/atoms/input";
-import { Button } from "@ui/atoms/button";
+import { Input } from "@repo/design-system/components/atoms/input";
+import { Button } from "@repo/design-system/components/atoms/button";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];

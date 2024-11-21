@@ -10,7 +10,7 @@ import { useRef, MouseEvent } from "react";
 import { Spline } from "lucide-react";
 
 import { convertStringDay } from "@utils/helpers/convert-time";
-import { LoaderImage } from "@ui/molecules/ui-elements/loader-image";
+import { LoaderImage } from "@repo/design-system/components/molecules/ui-elements/loader-image";
 
 type Props = {
   i: number;

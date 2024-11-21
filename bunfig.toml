@@ -1,0 +1,10 @@
+[workspace]
+packages = [
+  "apps/*",
+  "packages/*"
+]
+
+[hoist]
+next = true
+eslint = true
+prettier = true

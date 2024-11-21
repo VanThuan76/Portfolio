@@ -1,47 +1,36 @@
 "use client";
 
-import dynamic from "next/dynamic";
-import React, { PropsWithChildren, useRef, Children } from "react";
+import React, { PropsWithChildren, Children } from "react";
 import { AnimatePresence } from "framer-motion";
 import { ErrorBoundary } from "@shared/layouts/error-boundary";
 import { ErrorPage } from "@shared/layouts/error-page";
-import { useDidMount } from "@shared/hooks/use-did-mount";
-import useBreakpoint from "@shared/hooks/use-break-point";
 
-const LazyWrapper = dynamic(() => import("@ui/molecules/frame/lazy-wrapper"), {
-  ssr: false,
-});
-const CanvasComponent = dynamic(
-  () => import("@three/index.tsx").then((mod) => mod.App),
-  { ssr: false },
-);
+import { useInitData, useDidMount, useBreakpoint } from "@repo/hooks";
+
+import LazyWrapper from "@repo/design-system/components/molecules/frame/lazy-wrapper";
 
 export default function InitContainer({ children }: PropsWithChildren) {
-  const ref = useRef(null);
   const didMount = useDidMount();
   const breakpoint = useBreakpoint();
 
+  const { isLoading, isTasksCompleted } = useInitData();
+
+  if (!didMount || isLoading || !isTasksCompleted) return <></>;
+
   return (
-    didMount && (
-      <ErrorBoundary fallback={ErrorPage}>
-        <LazyWrapper>
-          <div
-            id="wrap"
-            ref={ref}
-            className="relative w-full h-full overflow-auto"
-          >
-            <AnimatePresence mode="wait">
-              {Children.map(children, (child) => {
-                if (React.isValidElement(child)) {
-                  return React.cloneElement(child, { key: breakpoint });
-                }
-                return child;
-              })}
-            </AnimatePresence>
-          </div>
-        </LazyWrapper>
-        <CanvasComponent eventSource={ref} />
-      </ErrorBoundary>
-    )
+    <ErrorBoundary fallback={ErrorPage}>
+      <AnimatePresence mode="wait">
+        {Children.map(children, (child) => {
+          if (React.isValidElement(child)) {
+            return (
+              <LazyWrapper>
+                {React.cloneElement(child, { key: breakpoint })}
+              </LazyWrapper>
+            );
+          }
+          return child;
+        })}
+      </AnimatePresence>
+    </ErrorBoundary>
   );
 }

@@ -1,14 +1,13 @@
 "use client";
-
 import { memo, useState } from "react";
 import { AnimatePresence, m } from "framer-motion";
 import { DATA_MENUS } from "@shared/constants";
 
-import useIsSafari from "@shared/hooks/use-is-safari";
-import useOpenScreen from "@shared/hooks/use-open-screen";
-import MotionContainer from "@ui/molecules/frame/dynamic-contain";
+import { useIsSafari, useOpenScreen } from "@repo/hooks";
 
-import NavDeepIcon from "../icons/nav-deep-icon";
+import { LoaderImage } from "@repo/design-system/components/molecules/ui-elements/loader-image";
+
+import MenuIcon from "../icons/menu-icon";
 
 export const perspectiveMenuItemVariants = {
   initial: {
@@ -24,7 +23,7 @@ export const perspectiveMenuItemVariants = {
     translateX: 0,
     transition: {
       duration: 0.5,
-      delay: 0.1 * i,
+      delay: 0.5 * i,
       ease: "easeOut",
     },
   }),
@@ -34,27 +33,29 @@ export const perspectiveMenuItemVariants = {
   },
 };
 
+const fadeVariants = {
+  initial: {
+    opacity: 0,
+    translateX: -100,
+  },
+  animate: {
+    opacity: 1,
+    translateX: 0,
+    transition: { duration: 2, ease: [0.76, 0, 0.24, 1] },
+  },
+  exit: {
+    opacity: 0,
+    translateX: -100,
+    transition: { duration: 0.1, ease: [0.76, 0, 0.24, 1] },
+  },
+};
+
 const Menu = ({ isSmallScreen }: { isSmallScreen: boolean }) => {
-  const [currentMenuIndex, setCurrentMenuIndex] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
 
   const isSafari = useIsSafari();
 
   const { handleOpenScreen, isPageChanging } = useOpenScreen(isSafari);
-
-  const handleMenuClick = (e: React.MouseEvent<SVGSVGElement>) => {
-    e.preventDefault();
-    const currentMenu: any = DATA_MENUS[currentMenuIndex];
-
-    setCurrentMenuIndex((prevIndex) => {
-      if (prevIndex === DATA_MENUS.length - 1) {
-        return 0;
-      }
-      return prevIndex + 1;
-    });
-
-    handleOpenScreen(e, currentMenu.href);
-  };
 
   const menuVariants = {
     open: {
@@ -62,7 +63,7 @@ const Menu = ({ isSmallScreen }: { isSmallScreen: boolean }) => {
       top: isSmallScreen ? "-15px" : "0px",
       right: isSmallScreen ? "-15px" : "0px",
       height: "100vh",
-      backgroundColor: "rgba(230, 230, 230, 1)",
+      backgroundColor: "rgba(255, 255, 255)",
       transition: {
         duration: 0.75,
         type: "tween",
@@ -73,7 +74,7 @@ const Menu = ({ isSmallScreen }: { isSmallScreen: boolean }) => {
     closed: {
       width: "100px",
       height: "40px",
-      top: isSmallScreen ? "-10px" : "-5px",
+      top: isSmallScreen ? "-10px" : "0",
       right: isSmallScreen ? "-15px" : "-5px",
       backgroundColor: "rgba(255, 255, 255, 0)",
       transition: {
@@ -117,8 +118,13 @@ const Menu = ({ isSmallScreen }: { isSmallScreen: boolean }) => {
         >
           <AnimatePresence mode="wait" onExitComplete={() => setIsOpen(false)}>
             {isOpen && (
-              <div className="flex flex-col justify-between h-full px-10 pt-24 pb-12">
-                <div className="flex flex-col gap-4">
+              <m.div
+                className="relative flex flex-col justify-between h-full px-10 pt-24 pb-12 overflow-hidden"
+                initial="initial"
+                animate={isOpen ? "animate" : "exit"}
+                variants={fadeVariants}
+              >
+                <div className="fixed z-20 flex flex-col gap-4 top-60 md:top-52">
                   {DATA_MENUS.map((item, i) => {
                     return (
                       <div
@@ -147,7 +153,15 @@ const Menu = ({ isSmallScreen }: { isSmallScreen: boolean }) => {
                     );
                   })}
                 </div>
-              </div>
+                <LoaderImage
+                  isLoader={false}
+                  alt="@background"
+                  src="/bg_menu.webp"
+                  width={1280}
+                  height={1080}
+                  className="absolute bottom-0 left-[-50%] object-contain w-full h-full z-10"
+                />
+              </m.div>
             )}
           </AnimatePresence>
           <m.div
@@ -155,22 +169,21 @@ const Menu = ({ isSmallScreen }: { isSmallScreen: boolean }) => {
               scale: isOpen ? 1.1 : 1,
               pointerEvents: isPageChanging ? "none" : "auto",
               translateZ: isPageChanging ? "100%" : "0",
+              rotate: isPageChanging ? 360 : 0,
             }}
             transition={{
               duration: 0.75,
               type: "tween",
               ease: [0.76, 0, 0.24, 1],
+              repeat: isPageChanging ? Infinity : 0,
             }}
             className="w-[40px] h-[40px] md:w-[50px] md:h-[50px] z-50 absolute !top-0 !right-0"
             onClick={() => setIsOpen(!isOpen)}
           >
             <m.div
-              className="absolute top-0 right-0 grid items-center justify-center w-full h-full grid-cols-2 gap-[2px] p-[8px] md:p-[12px] rounded-full"
+              className="relative w-[40px] h-[40px] md:w-[50px] md:h-[50px]"
               animate={{
-                rotate: isOpen ? "45deg" : "0",
-                backgroundColor: isOpen
-                  ? "rgba(0,0,0,0)"
-                  : "rgba(30, 30, 30, 1)",
+                rotate: isOpen ? 45 : 0,
               }}
               transition={{
                 duration: 0.5,
@@ -178,39 +191,11 @@ const Menu = ({ isSmallScreen }: { isSmallScreen: boolean }) => {
                 ease: [0.76, 0, 0.24, 1],
               }}
             >
-              {Array.from({ length: 4 }, (_, i) => {
-                return (
-                  <m.div
-                    key={i}
-                    animate={{
-                      rotate: isOpen ? "45deg" : "0",
-                      backgroundColor: isOpen
-                        ? "rgba(30, 30, 30, 1)"
-                        : "rgba(255, 255, 255, 1)",
-                    }}
-                    transition={{
-                      duration: isOpen ? 0.3 : 0.5,
-                      type: "tween",
-                      ease: [0.76, 0, 0.24, 1],
-                    }}
-                    className="w-full h-full rounded-l-sm rounded-r-sm"
-                  />
-                );
-              })}
+              <MenuIcon className="w-full h-full" />
             </m.div>
           </m.div>
         </m.div>
       </m.div>
-      <MotionContainer
-        type="slide"
-        direction="top"
-        className="absolute bottom-0 right-0 z-50 w-full"
-        isClose={isPageChanging}
-      >
-        <div className="grid w-full place-items-center">
-          <NavDeepIcon onClick={handleMenuClick} className="w-[170px]" />
-        </div>
-      </MotionContainer>
     </>
   );
 };

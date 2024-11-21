@@ -6,8 +6,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@ui/organisms/forms/form";
-import { Switch } from "@ui/molecules/other-utils/switch";
+} from "@repo/design-system/components/organisms/forms/form";
+import { Switch } from "@repo/design-system/components/molecules/other-utils/switch";
 
 type Props = {
   form: UseFormReturn<any> | undefined;

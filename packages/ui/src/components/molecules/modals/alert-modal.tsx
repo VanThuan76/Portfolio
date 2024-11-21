@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Button } from "@ui/atoms/button";
-import { Modal } from "@ui/molecules/modals/modal";
+import { Button } from "@repo/design-system/components/atoms/button";
+import { Modal } from "@repo/design-system/components/molecules/modals/modal";
 
 interface AlertModalProps {
   isOpen: boolean;

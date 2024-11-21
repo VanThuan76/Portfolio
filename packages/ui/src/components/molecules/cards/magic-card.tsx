@@ -2,7 +2,7 @@
 
 import React, { useCallback, useEffect } from "react";
 import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
-import { cn } from "@utils/tw";
+import { cn } from "@repo/design-system/utils/tw";
 
 export interface MagicCardProps extends React.HTMLAttributes<HTMLDivElement> {
   gradientSize?: number;

@@ -1,5 +1,5 @@
-import { Skeleton } from "@ui/molecules/ui-elements/skeleton";
-import { cn } from "@utils/tw";
+import { Skeleton } from "@repo/design-system/components/molecules/ui-elements/skeleton";
+import { cn } from "@repo/design-system/utils/tw";
 
 interface SkeletonCardProps {
   className?: string;

@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Component,
   type ComponentType,
@@ -19,7 +21,6 @@ export class ErrorBoundary extends Component<
 > {
   state: ErrorBoundaryState = {};
 
-  // eslint-disable-next-line max-len
   static getDerivedStateFromError: GetDerivedStateFromError<
     ErrorBoundaryProps,
     ErrorBoundaryState

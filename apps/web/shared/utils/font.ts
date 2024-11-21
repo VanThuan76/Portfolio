@@ -3,6 +3,7 @@ import {
   Nunito_Sans,
   Comforter_Brush,
   Orbitron,
+  Bricolage_Grotesque,
 } from "next/font/google";
 
 export const mainFont = Edu_VIC_WA_NT_Beginner({
@@ -26,9 +27,9 @@ export const fontProject = Comforter_Brush({
   subsets: ["latin"],
 });
 
-export const fontBlog = Nunito_Sans({
+export const fontBlog = Bricolage_Grotesque({
   display: "swap",
-  weight: ["200", "300", "400", "500", "600", "700"],
+  weight: ["200", "300", "400", "500", "600", "700", "800"],
   preload: true,
   subsets: ["latin"],
 });

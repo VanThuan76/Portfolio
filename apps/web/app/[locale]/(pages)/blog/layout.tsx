@@ -1,11 +1,17 @@
 import { Metadata } from "next";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { locale: string };
-}): Promise<Metadata> {
-  const locale = params.locale;
+import { cn } from "@repo/design-system/utils/tw";
+import { fontBlog } from "@shared/utils/font";
+
+import CurveTransition from "@shared/layouts/transitions/curve";
+
+import Header from "./components/layout/header";
+import Footer from "./components/layout/footer";
+import GrainyFilter from "./components/icons/grainy-filter";
+import NavigateNewBlog from "./components/navigate-new-blog";
+
+export async function generateMetadata({ params }): Promise<Metadata> {
+  const { locale } = await params;
 
   const baseUrl = `https://www.austinvu.tech/${locale}/blog`;
 
@@ -29,5 +35,26 @@ export default function BlogLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <>{children}</>;
+  return (
+    <>
+      <div
+        className={cn(
+          "relative w-full h-full overflow-hidden pointer-events-none",
+          fontBlog.className,
+        )}
+        style={{ filter: "url(#grainy)" }}
+        data-lenis-prevent="false"
+      >
+        <CurveTransition backgroundColor="#fff">
+          <div className="relative flex flex-col w-full h-full overflow-x-hidden overflow-y-auto pointer-events-auto bg-black/10">
+            <Header />
+            {children}
+            <Footer />
+            <NavigateNewBlog />
+          </div>
+        </CurveTransition>
+      </div>
+      <GrainyFilter />
+    </>
+  );
 }

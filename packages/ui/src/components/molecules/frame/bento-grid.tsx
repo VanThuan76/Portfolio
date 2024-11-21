@@ -1,4 +1,4 @@
-import { cn } from "@utils/tw";
+import { cn } from "@repo/design-system/utils/tw";
 
 export const BentoGrid = ({
   className,

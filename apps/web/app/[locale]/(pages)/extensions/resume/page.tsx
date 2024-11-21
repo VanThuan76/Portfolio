@@ -3,27 +3,7 @@
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { FileText } from "lucide-react";
-import { cn } from "@utils/tw";
-
-import { useAppSelector } from "../../../../../store/index";
-
-import { Separator } from "@ui/molecules/other-utils/separator";
-import { TypographyH3 } from "@ui/molecules/ui-elements/typography-h3";
-import { TypographyP } from "@ui/molecules/ui-elements/typography-p";
-import { LoaderImage } from "@ui/molecules/ui-elements/loader-image";
-import { Avatar, AvatarImage } from "@ui/molecules/ui-elements/avatar";
-import { BentoGrid, BentoGridItem } from "@ui/molecules/frame/bento-grid";
-import { SkeletonCard } from "@ui/molecules/cards/skeleton-card";
-import MotionContainer from "@ui/molecules/frame/dynamic-contain";
-
-import FormTouch from "./_components/form-touch";
-import GithubCalendar from "../../../../../shared/lib/github-calendar";
-import useFullScreenBackground from "../../../../../shared/hooks/use-mobile-full-screen";
-
-const LinkedinScript = dynamic(() => import("./_components/linkedin-script"), {
-  loading: () => <SkeletonCard />,
-  ssr: false,
-});
+import { cn } from "@repo/design-system/utils/tw";
 
 export default function Page() {
   return (

@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
-import { cn } from "@utils/tw";
+import { cn } from "@repo/design-system/utils/tw";
 
 const transition = {
   type: "spring",

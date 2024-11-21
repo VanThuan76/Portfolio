@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import { m, useTransform, useScroll, useSpring } from "framer-motion";
-import { cn } from "@utils/tw";
+import { cn } from "@repo/design-system/utils/tw";
 
 interface TracingBeamProps {
   children: React.ReactNode;

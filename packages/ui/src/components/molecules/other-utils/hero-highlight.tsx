@@ -2,7 +2,7 @@
 import React from "react";
 import { useMotionValue, m, useMotionTemplate } from "framer-motion";
 
-import { cn } from "@utils/tw";
+import { cn } from "@repo/design-system/utils/tw";
 
 export const HeroHighlight = ({
   children,

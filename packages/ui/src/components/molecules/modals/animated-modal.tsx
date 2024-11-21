@@ -1,6 +1,5 @@
 "use client";
-import { cn } from "@utils/tw";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import React, {
   ReactNode,
   createContext,
@@ -9,6 +8,7 @@ import React, {
   useRef,
   useState,
 } from "react";
+import { cn } from "@repo/design-system/utils/tw";
 
 interface ModalContextType {
   open: boolean;
@@ -41,7 +41,7 @@ export const ModalProvider = ({
 
   return (
     <ModalContext.Provider value={{ open, setOpen, setClose }}>
-      {children}
+      <div data-lenis-prevent="true">{children}</div>
     </ModalContext.Provider>
   );
 };
@@ -96,9 +96,11 @@ export const ModalTrigger = ({
 export const ModalBody = ({
   children,
   className,
+  style,
 }: {
   children: ReactNode;
   className?: string;
+  style?: any;
 }) => {
   const modalRef = useRef(null);
   const { setOpen, setClose, open } = useModal();
@@ -116,12 +118,11 @@ export const ModalBody = ({
   }, [open]);
 
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="wait">
       {open && (
-        <motion.div
-          initial={{
-            opacity: 0,
-          }}
+        <m.div
+          layoutId={`modal-wrapper-body-${String(children)}`}
+          initial={{ opacity: 0 }}
           animate={{
             opacity: 1,
             backdropFilter: "blur(10px)",
@@ -130,43 +131,27 @@ export const ModalBody = ({
             opacity: 0,
             backdropFilter: "blur(0px)",
           }}
-          className="fixed [perspective:800px] [transform-style:preserve-3d] inset-0 h-full w-full  flex items-center justify-center z-[99999999999]"
+          transition={{ type: "spring", stiffness: 500, damping: 40 }}
+          className="fixed [perspective:800px] [transform-style:preserve-3d] inset-0 h-full w-full flex items-end justify-end md:items-center md:justify-center z-[99999999999]"
+          style={style}
         >
           <Overlay />
 
-          <motion.div
+          <m.div
+            layoutId={`modal-body-${String(children)}`}
             ref={modalRef}
             className={cn(
-              "min-h-[50%] max-h-[90%] md:max-w-[40%] bg-white dark:bg-neutral-950 border border-transparent dark:border-neutral-800 md:rounded-2xl relative z-50 flex flex-col flex-1 overflow-hidden",
+              "min-h-[50%] max-h-[90%] md:max-w-[70%] bg-white dark:bg-neutral-950 border border-transparent dark:border-neutral-800 md:rounded-2xl relative z-50 flex flex-col flex-1 overflow-hidden",
               className,
             )}
-            initial={{
-              opacity: 0,
-              scale: 0.5,
-              rotateX: 40,
-              y: 40,
-            }}
-            animate={{
-              opacity: 1,
-              scale: 1,
-              rotateX: 0,
-              y: 0,
-            }}
-            exit={{
-              opacity: 0,
-              scale: 0.8,
-              rotateX: 10,
-            }}
-            transition={{
-              type: "spring",
-              stiffness: 260,
-              damping: 15,
-            }}
+            initial={{ opacity: 0.5, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0.5, y: 20 }}
           >
             <CloseIcon />
             {children}
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       )}
     </AnimatePresence>
   );
@@ -207,7 +192,7 @@ export const ModalFooter = ({
 
 const Overlay = ({ className }: { className?: string }) => {
   return (
-    <motion.div
+    <m.div
       initial={{
         opacity: 0,
       }}
@@ -220,7 +205,7 @@ const Overlay = ({ className }: { className?: string }) => {
         backdropFilter: "blur(0px)",
       }}
       className={`fixed inset-0 h-full w-full bg-black bg-opacity-50 z-50 ${className}`}
-    ></motion.div>
+    />
   );
 };
 

@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { cn } from "@utils/tw";
+import { cn } from "@repo/design-system/utils/tw";
 
 const AudioPlayer = dynamic(() => import("./_components/audio-player"), {
   ssr: false,

@@ -1,0 +1,17 @@
+{
+  "name": "@repo/management-system",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/hooks": "workspace:*",
+    "@reduxjs/toolkit": "^2.2.3",
+    "react": "^18.3.1",
+    "react-redux": "^9.1.1",
+    "redux-persist": "^6.0.0"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "typescript": "^5.6.3"
+  }
+}

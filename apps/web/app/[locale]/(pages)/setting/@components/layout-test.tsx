@@ -2,10 +2,17 @@
 import Link from "next/link";
 import { ReactNode, useState } from "react";
 import { Aperture, Eclipse } from "lucide-react";
-import { cn } from "@utils/tw";
+import { cn } from "@repo/design-system/utils/tw";
 
-import { Avatar, AvatarImage } from "@ui/molecules/ui-elements/avatar";
-import { Sidebar, SidebarBody, SidebarLink } from "@ui/molecules/frame/sidebar";
+import {
+  Avatar,
+  AvatarImage,
+} from "@repo/design-system/components/molecules/ui-elements/avatar";
+import {
+  Sidebar,
+  SidebarBody,
+  SidebarLink,
+} from "@repo/design-system/components/molecules/frame/sidebar";
 
 const Logo = () => {
   return (

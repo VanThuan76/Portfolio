@@ -1,0 +1,37 @@
+import { createClient, SupabaseClient } from "@supabase/supabase-js";
+import { createBrowserClient } from "@supabase/ssr";
+import { useMemo } from "react";
+
+import { Database } from "./types";
+
+let client: SupabaseClient<Database> | undefined;
+
+export function getSupabaseBrowserClient() {
+  if (client) {
+    return client;
+  }
+
+  client = createBrowserClient<Database>(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+  );
+
+  return client;
+}
+
+export function useSupabaseBrowser() {
+  return useMemo(getSupabaseBrowserClient, []);
+}
+
+export function supabaseAdmin() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_ADMIN!,
+    {
+      auth: {
+        autoRefreshToken: false,
+        persistSession: false,
+      },
+    },
+  );
+}

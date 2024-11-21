@@ -5,7 +5,7 @@ const WavesPath = ({ ...rest }: SVGProps<SVGSVGElement>) => {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="15 0 5 5"
-      className="absolute z-40 top-0 right-0 rotate-90 w-[100px] md:w-[150px] transform scale-x-[-1]"
+      className="rotate-90 w-[100px] md:w-[150px] transform scale-x-[-1]"
       {...rest}
     >
       <path

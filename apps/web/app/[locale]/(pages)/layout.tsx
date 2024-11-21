@@ -1,11 +1,16 @@
 "use client";
 
-import dynamic from "next/dynamic";
-import * as FadeIn from "@ui/molecules/frame/fade-wrapper";
+import * as FadeIn from "@repo/design-system/components/molecules/frame/fade-wrapper";
 
-import useInitData from "@shared/hooks/use-init-data";
-import useBreakpoint from "@shared/hooks/use-break-point";
+import dynamic from "next/dynamic";
+import { Suspense } from "react";
+import { usePathname } from "next/navigation";
+
+import { useBreakpoint } from "@repo/hooks";
+
+import { SmoothScroll } from "@repo/design-system/components/organisms/scroll/smooth-scroll";
 import BorderCollapse from "@shared/layouts/icons/border-collapse";
+import NavBottom from "@shared/layouts/navigation/nav-bottom";
 
 // Components dynamic
 const HeadMain = dynamic(() => import("@shared/layouts/head"), { ssr: false });
@@ -20,27 +25,28 @@ interface LayoutProps {
 
 export default function Layout({ children }: LayoutProps) {
   const breakpoint = useBreakpoint();
-  useInitData();
+  const pathName = usePathname();
 
   return (
-    <div
-      id="frame"
-      className="pointer-events-none w-full relative z-50 h-[100dvh] overflow-y-auto overflow-x-hidden"
+    <SmoothScroll
+      pathname={pathName}
+      className="relative z-50 w-full h-auto pointer-events-none"
     >
-      <main
-        id="main"
-        className="relative flex flex-col items-center justify-center w-full h-full border-t-[0.5px] border-b-[0.5px] border-r-[0.5px] inset-0 border-white pointer-events-auto overflow-hidden"
-      >
-        <HeadMain />
-        <FadeIn.Container className="w-full h-full overflow-hidden">
-          <FadeIn.Item className="w-full h-full overflow-y-auto">
-            {children}
-          </FadeIn.Item>
-          <ModalProvider />
-        </FadeIn.Container>
-      </main>
-      <Menu isSmallScreen={new Set(["xs", "sm"]).has(breakpoint)} />
-      <BorderCollapse />
-    </div>
+      <Suspense fallback={null}>
+        <div className="relative flex flex-col items-center justify-center w-full h-full border-t-[0.5px] border-b-[0.5px] border-r-[0.5px] inset-0 border-white pointer-events-auto">
+          <HeadMain />
+          <FadeIn.Container className="w-full h-full">
+            <FadeIn.Item className="w-full h-full min-h-full overflow-x-hidden overflow-y-auto">
+              {children}
+            </FadeIn.Item>
+            <ModalProvider />
+          </FadeIn.Container>
+        </div>
+        <div className="fixed top-0 right-0">
+          <Menu isSmallScreen={new Set(["xs", "sm"]).has(breakpoint)} />
+          <BorderCollapse />
+        </div>
+      </Suspense>
+    </SmoothScroll>
   );
 }

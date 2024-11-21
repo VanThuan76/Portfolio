@@ -1,19 +1,17 @@
-// Global Styles
-import "@styles/globals.css";
+import "@repo/design-system/styles/globals.css";
 
 // Next.js
 import type { Metadata } from "next";
+import Head from "next/head";
 import { getMessages } from "next-intl/server";
 import { ViewTransitions } from "next-view-transitions";
-import Head from "next/head";
-
 // Utilities
-import { cn } from "@utils/tw";
 import { mainFont } from "@shared/utils/font";
 
 // Layouts and Providers
 import InitContainer from "@shared/layouts";
-import Providers from "../provider";
+import Providers from "@providers/index";
+import { cn } from "@repo/design-system/utils/tw";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.austinvu.tech"),
@@ -51,42 +49,49 @@ export const metadata: Metadata = {
   },
 };
 
+export const revalidate = 0;
+
 export default async function RootLayout({
   children,
-  params: { locale },
+  params,
   ...props
 }: Readonly<{
   children: React.ReactNode;
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }>) {
+  const { locale } = await params;
   const messages = await getMessages({ locale });
 
   return (
-    <ViewTransitions>
-      <html lang={locale} className="antialiased" suppressHydrationWarning>
-        <Head>
-          <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-          <link rel="shortcut icon" href="/favicon.ico" />
-          <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-          <link
-            rel="icon"
-            type="image/png"
-            sizes="32x32"
-            href="/favicon-32x32.png"
-          />
-          <link
-            rel="icon"
-            type="image/png"
-            sizes="16x16"
-            href="/favicon-16x16.png"
-          />
-        </Head>
-        <body className={cn("overflow-hidden", mainFont.className)}>
+    <html
+      lang={locale}
+      className={cn("antialiased", mainFont.className)}
+      suppressHydrationWarning
+    >
+      <Head>
+        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon-16x16.png"
+        />
+      </Head>
+      <ViewTransitions>
+        <body>
           <Providers messages={messages} locale={locale}>
             <InitContainer {...props}>{children}</InitContainer>
           </Providers>
         </body>
-      </html>
-    </ViewTransitions>
+      </ViewTransitions>
+    </html>
   );
 }

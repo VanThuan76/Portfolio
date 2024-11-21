@@ -2,24 +2,25 @@
 
 import React, { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
-import { cn } from "@utils/tw";
-import { fontProject } from "@shared/utils/font";
+import { cn } from "@repo/design-system/utils/tw";
 
-import { RootState, useAppSelector } from "@store/index";
+import { useBreakpoint } from "@repo/hooks";
+import { RootState, useAppSelector } from "@repo/management-system";
 import {
   IProject,
   ProjectImageSupabase,
   ProjectTagSupabase,
-} from "@shared/query/types/project";
+} from "@repo/supabase/queries";
 
-import { StickyScroll } from "@ui/molecules/effects/sticky-scroll-reveal";
-import { LoaderImage } from "@ui/molecules/ui-elements/loader-image";
-import { TypographyH3 } from "@ui/molecules/ui-elements/typography-h3";
+import { fontProject } from "@shared/utils/font";
 
-import useBreakpoint from "@shared/hooks/use-break-point";
-import EmblaCarousel from "@ui/molecules/effects/embla-carousel";
-import MotionContainer from "@ui/molecules/frame/dynamic-contain";
-import PlateShowContent from "@ui/organisms/plate-show-content";
+import { StickyScroll } from "@repo/design-system/components/molecules/effects/sticky-scroll-reveal";
+import { LoaderImage } from "@repo/design-system/components/molecules/ui-elements/loader-image";
+import { TypographyH3 } from "@repo/design-system/components/molecules/ui-elements/typography-h3";
+
+import PlateShowContent from "@repo/editor/content";
+import EmblaCarousel from "@repo/design-system/components/molecules/effects/embla-carousel";
+import MotionContainer from "@repo/design-system/components/molecules/frame/dynamic-contain";
 import PixelTransition from "@shared/layouts/transitions/pixel";
 
 export default function Page() {
@@ -39,7 +40,7 @@ export default function Page() {
 
   return (
     <PixelTransition isActive={didMount}>
-      <div className="relative w-full h-full overflow-hidden bg-[url('/images/project/bg.jpg')] bg-cover bg-center bg-no-repeat">
+      <div className="relative w-full h-full overflow-hidden">
         <MotionContainer
           type="blur"
           className="absolute w-[200px] h-[100px] left-10 top-10 md:left-[15%] z-[100]"
@@ -57,8 +58,8 @@ export default function Page() {
         <div
           className="relative z-50 w-full h-full gap-5 overflow-hidden md:gap-0 md:py-6 bg-[url('/images/project/picture.jpg')] bg-cover bg-top bg-no-repeat"
           style={{
-            WebkitMaskImage: "url(/images/project/bg-brush.png)",
-            maskImage: "url(/images/project/bg-brush.png)",
+            WebkitMaskImage: "url(/images/project/bg-brush.webp)",
+            maskImage: "url(/images/project/bg-brush.webp)",
             position: "fixed",
             WebkitMaskSize: breakpoint === "xs" ? "cover" : "120%",
             maskSize: breakpoint === "xs" ? "cover" : "120%",
@@ -104,8 +105,8 @@ export default function Page() {
                                   className="inline-flex items-center justify-between w-full h-full gap-2 p-2 text-sm font-medium text-black bg-[#FCCD2A] rounded-md cursor-pointer dark:text-white backdrop-blur-3xl"
                                   style={{
                                     WebkitMaskImage:
-                                      "url(/images/project/tag.png)",
-                                    maskImage: "url(/images/project/tag.png)",
+                                      "url(/images/project/tag.webp)",
+                                    maskImage: "url(/images/project/tag.webp)",
                                     WebkitMaskSize: "cover",
                                     maskSize: "cover",
                                     overflow: "hidden",

@@ -1,14 +1,14 @@
 import {
   getBlogCategories,
   getBlogs,
-} from "@shared/query/actions/blog-actions";
-import { getSupabaseBrowserClient } from "@shared/utils/supabase/client";
+} from "@repo/supabase/queries/actions/blog/blog-actions";
+import { getSupabaseBrowserClient } from "@repo/supabase/utils/client";
 
 export default async function sitemap() {
   const supabase = getSupabaseBrowserClient();
   const baseUrl = "https://www.austinvu.tech";
 
-  const locales = ["en", "vi", "ja"];
+  const locales = ["en", "vi", "ja", "hi", "zh", "es", "fr", "de", "pt"];
 
   const sitemapUrls: { url: string; lastModified: Date }[] = [];
   for (const locale of locales) {

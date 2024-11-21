@@ -21,7 +21,7 @@ import {
 
 import { API_URL, DEFAULT_THEME } from "@shared/constants";
 
-import { SkeletonCard } from "@ui/molecules/cards/skeleton-card";
+import { SkeletonCard } from "@repo/design-system/components/molecules/cards/skeleton-card";
 
 export interface Props extends Omit<ActivityCalendarProps, "data" | "theme"> {
   username: string;

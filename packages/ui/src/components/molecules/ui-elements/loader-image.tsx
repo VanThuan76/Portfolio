@@ -10,6 +10,13 @@ export function LoaderImage({ isLoader, ...props }: LoaderImageProps) {
   const loader: ImageLoader | undefined = isLoader ? freepikLoader : undefined;
 
   return (
-    <Image loader={loader} {...props} priority quality={props.quality || 60} />
+    <Image
+      loader={loader}
+      {...props}
+      loading="eager"
+      priority
+      decoding="sync"
+      quality={props.quality || 60}
+    />
   );
 }

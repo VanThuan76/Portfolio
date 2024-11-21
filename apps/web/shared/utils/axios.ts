@@ -158,10 +158,3 @@ export const axiosInstanceNoAuth = new Axios(
     : (process.env.NEXT_PUBLIC_API_URL as string),
   true,
 );
-export const axiosInstanceChatBot = new Axios(
-  process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : (process.env.NEXT_PUBLIC_API_URL as string),
-  true,
-  process.env.COZE_AI_TOKEN,
-);

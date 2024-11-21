@@ -4,11 +4,17 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "inputs": ["$TURBO_DEFAULT$", ".env*"],
-      "outputs": [".next/**", "!.next/cache/**"]
-    },
-    "lint": {
-      "dependsOn": ["^lint"]
+      "outputs": [".next/**", "!.next/cache/**"],
+      "env": [
+        "ANALYZE",
+        "SUPABASE_PROJECT_REF",
+        "SUPABASE_ADMIN",
+        "RESEND_API_KEY",
+        "RESEND_DOMAIN",
+        "RECAPTCHA_SECRET_KEY",
+        "SENTRY_ORG",
+        "SENTRY_PROJECT"
+      ]
     },
     "dev": {
       "cache": false,

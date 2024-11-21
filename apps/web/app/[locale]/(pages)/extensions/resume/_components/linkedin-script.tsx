@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import Script from "next/script";
 
-import { SkeletonCard } from "@ui/molecules/cards/skeleton-card";
+import { SkeletonCard } from "@repo/design-system/components/molecules/cards/skeleton-card";
 
 const LinkedinScript = () => {
   const [loading, setLoading] = useState(true);

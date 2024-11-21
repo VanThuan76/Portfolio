@@ -1,20 +1,30 @@
 import createMiddleware from "next-intl/middleware";
-import { NextRequest } from "next/server";
-import { updateSession } from "@shared/utils/supabase/middlerware";
+import { NextResponse } from "next/server";
+
+import { createMiddlewareClient } from "@repo/supabase/utils/middleware";
 
 const localeMiddleware = createMiddleware({
-  locales: ["en", "vi", "ja"],
+  locales: ["en", "vi", "ja", "hi", "zh", "es", "fr", "de", "pt"],
   defaultLocale: "en",
   localeDetection: false,
   localePrefix: "always",
 });
 
-export async function middleware(request: NextRequest) {
-  const response = await updateSession(request);
+export async function middleware(request) {
   const localeResponse = localeMiddleware(request);
 
-  if (!response) {
-    return localeResponse;
+  const { supabase, response } = createMiddlewareClient(request);
+
+  const { data: session, error } = await supabase.auth.getSession();
+
+  if (error) {
+    console.error("Error fetching session:", error.message);
+    return response;
+  }
+
+  if (!session) {
+    console.log("No active session found");
+    return NextResponse.redirect("/auth/signin");
   }
 
   response.headers.forEach((value, key) => {
@@ -26,16 +36,8 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    /*
-     * Match all request paths except for the ones starting with:
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     * - .glb files (3D models)
-     * - .mp3 and .mp4 files (audio and video)
-     */
     "/",
-    "/(vi|en|ja)/:path*",
-    "/((?!_next/static|_next/image|favicon.ico|draco|.*\\.(?:svg|png|jpg|jpeg|gif|webp|glb|drc|mp3|mp4)$).*)",
+    "/(vi|en|ja|hi|zh|es|fr|de|pt)/:path*",
+    "/((?!api|_next/static|_next/image|favicon.ico|draco|.*\\.(?:svg|png|jpg|jpeg|gif|webp|glb|drc|mp3|mp4)$).*)",
   ],
 };

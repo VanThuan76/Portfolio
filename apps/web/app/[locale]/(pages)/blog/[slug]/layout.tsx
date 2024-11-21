@@ -1,17 +1,13 @@
 import { Metadata } from "next";
-import { getBlogBySlug } from "@shared/query/actions/blog-actions";
-import { getSupabaseBrowserClient } from "@shared/utils/supabase/client";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { locale: string; slug: string };
-}): Promise<Metadata> {
-  const locale = params.locale;
-  const slug = params.slug;
+import { OpenAIProvider } from "@repo/editor/components/openai/openai-context";
+import { getBlogBySlug } from "@repo/supabase/queries/actions/blog/blog-actions";
 
+import { getSupabaseBrowserClient } from "@repo/supabase/utils/client";
+
+export async function generateMetadata({ params }): Promise<Metadata> {
+  const { locale, slug } = await params;
   const supabase = getSupabaseBrowserClient();
-
   let baseUrl;
   let title;
   let description;
@@ -50,5 +46,5 @@ export default function BlogSlugLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <>{children}</>;
+  return <OpenAIProvider>{children}</OpenAIProvider>;
 }

@@ -1,8 +1,10 @@
 "use client";
 
 import React from "react";
-import ModalComment from "../app/[locale]/(pages)/blog/_components/modal-comment";
-import ModalBlog from "../app/[locale]/(pages)/blog/_components/modal-blog";
+
+import ModalAuth from "@repo/auth/components/modal";
+
+import ModalBlog from "../app/[locale]/(pages)/blog/components/modals/blog";
 
 const ModalProvider = () => {
   const [isMounted, setIsMounted] = React.useState(false);
@@ -16,8 +18,8 @@ const ModalProvider = () => {
   }
   return (
     <React.Fragment>
-      <ModalComment />
       <ModalBlog />
+      <ModalAuth />
     </React.Fragment>
   );
 };

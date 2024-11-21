@@ -4,20 +4,17 @@
   "extends": "./base.json",
   "compilerOptions": {
     "plugins": [{ "name": "next" }],
-    "module": "esnext",
-    "moduleResolution": "node",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
     "allowJs": true,
     "jsx": "preserve",
     "noEmit": true,
     "paths": {
       "@/*": ["./*"],
-      "@ui/*": ["../../packages/ui/src/components/*"],
-      "@three/*": ["../../packages/ui/src/threejs/*"],
-      "@styles/*": ["../../packages/ui/src/styles/*"],
-      "@utils/*": ["../../packages/ui/src/utils/*"],
+      "@repo/*": ["../../packages/*"],
       "@providers/*": ["../../apps/web/providers/*"],
-      "@store/*": ["../../apps/web/store/*"],
       "@shared/*": ["../../apps/web/shared/*"]
     }
-  }
+  },
+  "exclude": ["node_modules"]
 }

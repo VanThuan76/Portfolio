@@ -1,7 +1,7 @@
 "use client";
 
 import { useTheme } from "next-themes";
-import { LoaderImage } from "@ui/molecules/ui-elements/loader-image";
+import { LoaderImage } from "@repo/design-system/components/molecules/ui-elements/loader-image";
 
 const DEMO_DISPLAY_BACKGROUNDS = [
   { image: "/background/bg-demo-dark-mode.png", value: "dark" },

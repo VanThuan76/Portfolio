@@ -1,7 +1,7 @@
 "use client";
 
-import { Separator } from "@ui/molecules/other-utils/separator";
-import { LoaderImage } from "@ui/molecules/ui-elements/loader-image";
+import { Separator } from "@repo/design-system/components/molecules/other-utils/separator";
+import { LoaderImage } from "@repo/design-system/components/molecules/ui-elements/loader-image";
 
 const Page = () => {
   return (

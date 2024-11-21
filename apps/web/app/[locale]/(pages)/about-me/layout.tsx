@@ -1,12 +1,7 @@
 import { Metadata } from "next";
-import Page from "./page";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { locale: string };
-}): Promise<Metadata> {
-  const locale = params.locale;
+export async function generateMetadata({ params }): Promise<Metadata> {
+  const { locale } = await params;
 
   const baseUrl = `https://www.austinvu.tech/${locale}/about-me`;
 
@@ -27,4 +22,14 @@ export async function generateMetadata({
   };
 }
 
-export default Page;
+export default function AboutMeLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="w-full h-screen" data-lenis-prevent="true">
+      {children}
+    </div>
+  );
+}

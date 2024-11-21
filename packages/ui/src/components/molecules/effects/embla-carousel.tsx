@@ -9,8 +9,8 @@ import {
 import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
 import useEmblaCarousel from "embla-carousel-react";
 
-import { LoaderImage } from "@ui/molecules/ui-elements/loader-image";
-import { cn } from "@utils/tw";
+import { LoaderImage } from "@repo/design-system/components/molecules/ui-elements/loader-image";
+import { cn } from "@repo/design-system/utils/tw";
 
 const TWEEN_FACTOR_BASE = 0.2;
 const AUTOPLAY_INTERVAL = 1000;
@@ -80,6 +80,7 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
 
             const translate = diffToTarget * (-1 * tweenFactor.current) * 100;
             const tweenNode = tweenNodes.current[slideIndex];
+
             if (tweenNode)
               tweenNode.style.transform = `translateX(${translate}%)`;
           });
@@ -89,12 +90,16 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
   );
 
   const autoplay = useCallback(() => {
-    if (!emblaApi || !isBasic) return;
+    if (!emblaApi) return;
     if (autoplayRef.current) clearInterval(autoplayRef.current);
 
     autoplayRef.current = setInterval(() => {
       if (!emblaApi) return;
-      emblaApi.scrollNext();
+      if (!emblaApi.canScrollNext()) {
+        emblaApi.scrollTo(0);
+      } else {
+        emblaApi.scrollNext();
+      }
     }, AUTOPLAY_INTERVAL);
   }, [emblaApi]);
 
@@ -109,6 +114,7 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
       .on("reInit", setTweenNodes)
       .on("reInit", setTweenFactor)
       .on("reInit", tweenParallax)
+      .on("reInit", autoplay)
       .on("scroll", tweenParallax)
       .on("slideFocus", tweenParallax);
 
@@ -133,7 +139,7 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
             >
               <div
                 className={cn(
-                  "relative flex justify-center h-full overflow-hidden",
+                  "relative flex justify-center h-full overflow-hidden embla__parallax__layer",
                   isBasic ? "w-auto rounded-md" : "w-[350px] rounded-2xl",
                 )}
               >

@@ -1,13 +1,13 @@
 "use client";
 
 import React, { useState } from "react";
-import { cn } from "@utils/tw";
+import { cn } from "@repo/design-system/utils/tw";
 import { usePathname, useRouter } from "next/navigation";
 import { ArrowLeft, ArrowRight, X } from "lucide-react";
 
-import { RootState, useAppSelector } from "@store/index";
+import { RootState, useAppSelector } from "@repo/management-system";
 
-import MotionContainer from "@ui/molecules/frame/dynamic-contain";
+import MotionContainer from "@repo/design-system/components/molecules/frame/dynamic-contain";
 
 const BottomBarMenu = () => {
   const [isClose, setIsClose] = useState(false);
@@ -33,7 +33,7 @@ const BottomBarMenu = () => {
     if (pathname.startsWith("/blog")) {
       const currentSlug = pathname.split("/").pop() || "";
       const availableSlugs = blogs
-        .filter((blog) => blog.slug !== currentSlug)
+        .filter((blog: any) => blog.slug !== currentSlug)
         .map((blog) => blog.slug);
 
       const currentIndex = availableSlugs.indexOf(currentSlug);
