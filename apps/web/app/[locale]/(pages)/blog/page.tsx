@@ -25,7 +25,7 @@ export default function Page() {
   return (
     <div className="relative z-10 grid items-start justify-start w-full h-full grid-cols-1 gap-0 p-2 sm:p-4 md:gap-2 md:grid-cols-9 md:pt-0 md:px-6">
       <InteractiveGrid className="order-1 w-full h-auto col-span-1 pb-5 mx-auto md:order-2 md:col-span-8 md:py-5">
-        <div className="h-auto md:min-h-[25rem] [perspective:1000px] relative flex flex-col w-full items-start justify-start">
+        <div className="h-fit md:min-h-[25rem] [perspective:1000px] relative flex flex-col w-full items-start justify-start">
           <Tabs
             tabs={blogCategories.map(
               (
@@ -46,7 +46,7 @@ export default function Page() {
           />
         </div>
       </InteractiveGrid>
-      <div className="relative top-0 order-2 space-y-4 md:order-1 md:sticky">
+      <div className="relative top-0 order-2 w-full space-y-4 h-fit md:order-1 md:sticky">
         <div className="flex flex-col items-start justify-start order-1 w-full h-full col-span-1 gap-3 mx-auto mt-0 mb-5 overflow-hidden border-none md:mb-0 md:mt-6 md:border-r md:border-r-slate-400">
           <div className="hidden pb-2 border-b cursor-pointer md:block border-b-black dark:border-b-white">
             <p className="text-sm">{t("for_you")}</p>

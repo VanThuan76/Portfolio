@@ -175,7 +175,7 @@ export default function InteractiveGrid({
       )}
     >
       <Grid />
-      <div className={cn("relative w-full", contentClassName)}>
+      <div className={cn("relative w-full h-full", contentClassName)}>
         <MemoizedChildren>{children}</MemoizedChildren>
       </div>
     </div>

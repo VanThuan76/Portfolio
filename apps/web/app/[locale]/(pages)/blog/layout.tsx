@@ -39,14 +39,14 @@ export default function BlogLayout({
     <>
       <div
         className={cn(
-          "relative w-full h-full overflow-hidden pointer-events-none",
+          "relative w-full min-h-screen pointer-events-none",
           fontBlog.className,
         )}
         style={{ filter: "url(#grainy)" }}
         data-lenis-prevent="false"
       >
         <CurveTransition backgroundColor="#fff">
-          <div className="relative flex flex-col w-full h-full overflow-x-hidden overflow-y-auto pointer-events-auto bg-black/10">
+          <div className="relative w-full min-h-screen overflow-x-hidden overflow-y-auto pointer-events-auto bg-black/10">
             <Header />
             {children}
             <Footer />
