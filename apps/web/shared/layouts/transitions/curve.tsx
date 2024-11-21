@@ -3,101 +3,101 @@
 import React, { useEffect, useState } from "react";
 import { AnimatePresence, m } from "framer-motion";
 interface Dimensions {
-    width: number | null;
-    height: number | null;
+  width: number | null;
+  height: number | null;
 }
 
 interface CurveTransitionProps {
-    children: React.ReactNode;
-    backgroundColor: string;
+  children: React.ReactNode;
+  backgroundColor: string;
 }
 
 const anim = (variants: any) => {
-    return {
-        variants,
-        initial: "initial",
-        animate: "enter",
-        exit: "exit",
-    };
+  return {
+    variants,
+    initial: "initial",
+    animate: "enter",
+    exit: "exit",
+  };
 };
 
 export const curve = (initialPath, targetPath) => {
-    return {
-        initial: {
-            d: initialPath,
-        },
-        enter: {
-            d: targetPath,
-            transition: { duration: 0.75, delay: 0.35, ease: [0.76, 0, 0.24, 1] },
-        },
-        exit: {
-            d: initialPath,
-            transition: { duration: 0.75, ease: [0.76, 0, 0.24, 1] },
-        },
-    };
+  return {
+    initial: {
+      d: initialPath,
+    },
+    enter: {
+      d: targetPath,
+      transition: { duration: 0.75, delay: 0.35, ease: [0.76, 0, 0.24, 1] },
+    },
+    exit: {
+      d: initialPath,
+      transition: { duration: 0.75, ease: [0.76, 0, 0.24, 1] },
+    },
+  };
 };
 
 export const translate = {
-    initial: {
-        top: "-300px",
+  initial: {
+    top: "-300px",
+  },
+  enter: {
+    top: "-100vh",
+    transition: { duration: 0.75, delay: 0.35, ease: [0.76, 0, 0.24, 1] },
+    transitionEnd: {
+      top: "100vh",
     },
-    enter: {
-        top: "-100vh",
-        transition: { duration: 0.75, delay: 0.35, ease: [0.76, 0, 0.24, 1] },
-        transitionEnd: {
-            top: "100vh",
-        },
-    },
-    exit: {
-        top: "-300px",
-        transition: { duration: 0.75, ease: [0.76, 0, 0.24, 1] },
-    },
+  },
+  exit: {
+    top: "-300px",
+    transition: { duration: 0.75, ease: [0.76, 0, 0.24, 1] },
+  },
 };
 
 export default function CurveTransition({
-    children,
-    backgroundColor,
+  children,
+  backgroundColor,
 }: CurveTransitionProps) {
-    const [dimensions, setDimensions] = useState<Dimensions>({
-        width: null,
-        height: null,
-    });
+  const [dimensions, setDimensions] = useState<Dimensions>({
+    width: null,
+    height: null,
+  });
 
-    useEffect(() => {
-        function resize() {
-            setDimensions({
-                width: window.innerWidth,
-                height: window.innerHeight,
-            });
-        }
+  useEffect(() => {
+    function resize() {
+      setDimensions({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    }
 
-        resize();
-        window.addEventListener("resize", resize);
-        return () => {
-            window.removeEventListener("resize", resize);
-        };
-    }, []);
+    resize();
+    window.addEventListener("resize", resize);
+    return () => {
+      window.removeEventListener("resize", resize);
+    };
+  }, []);
 
-    return (
-        <div className="relative w-full h-full" style={{ backgroundColor }}>
-            {/* <motion.p className='route' {...anim(text)}>
+  return (
+    <div className="relative w-full h-full" style={{ backgroundColor }}>
+      {/* <motion.p className='route' {...anim(text)}>
                 {routes[router.route]}
             </motion.p> */}
-            {dimensions.width != null && dimensions.height != null && (
-                <SVG height={dimensions.height} width={dimensions.width} />
-            )}
-            {children}
-        </div>
-    );
+      {dimensions.width != null && dimensions.height != null && (
+        <SVG height={dimensions.height} width={dimensions.width} />
+      )}
+      {children}
+    </div>
+  );
 }
 
 interface SVGProps {
-    height: number;
-    width: number;
+  height: number;
+  width: number;
 }
 
 const SVG = ({ height, width }: SVGProps) => {
-    const initialPath = `
+  const initialPath = `
     M0 300
     Q${width / 2} 0 ${width} 300
     L${width} ${height + 300}
@@ -105,7 +105,7 @@ const SVG = ({ height, width }: SVGProps) => {
     L0 0
   `;
 
-    const targetPath = `
+  const targetPath = `
     M0 300
     Q${width / 2} 0 ${width} 300
     L${width} ${height}
@@ -113,12 +113,12 @@ const SVG = ({ height, width }: SVGProps) => {
     L0 0
   `;
 
-    return (
-        <m.svg
-            {...anim(translate)}
-            className="fixed top-0 left-0 w-[100w] h-[calc(100vh + 600px)] pointer-events-none"
-        >
-            <m.path {...anim(curve(initialPath, targetPath))} />
-        </m.svg>
-    );
+  return (
+    <m.svg
+      {...anim(translate)}
+      className="fixed top-0 left-0 w-[100w] h-[calc(100vh + 600px)] pointer-events-none"
+    >
+      <m.path {...anim(curve(initialPath, targetPath))} />
+    </m.svg>
+  );
 };
