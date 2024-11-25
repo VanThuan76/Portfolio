@@ -6,10 +6,6 @@ import { memo, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 import { cn } from "@repo/design-system/utils/tw";
-import {
-  Avatar,
-  AvatarImage,
-} from "@repo/design-system/components/molecules/ui-elements/avatar";
 import { Skeleton } from "@repo/design-system/components/molecules/ui-elements/skeleton";
 import { TextShimmer } from "@repo/design-system/components/molecules/effects/text-shimmer";
 import { Separator } from "@repo/design-system/components/molecules/other-utils/separator";
@@ -108,89 +104,71 @@ export const Tabs = memo(
             <div
               ref={tabsRef}
               className={cn(
-                "flex flex-row items-center justify-start [perspective:1000px] sticky top-0 bg-white rounded-sm py-1 md:py-0 md:bg-transparent z-[999] flex-nowrap no-visible-scrollbar max-w-full w-full pl-1 overflow-x-auto gap-1",
+                "flex flex-row items-center justify-start [perspective:1000px] sticky top-0 bg-white rounded-sm py-1 md:py-0 md:bg-transparent z-50 flex-nowrap no-visible-scrollbar max-w-full w-full pl-1 overflow-x-auto gap-1",
                 containerClassName,
               )}
             >
-              {/* //More */}
-              <Avatar className="mr-2 transition-all duration-75 ease-in-out">
-                <m.div
-                  key={currentIndex}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{
-                    duration: 0.5,
-                    ease: [0.76, 0, 0.24, 1],
-                  }}
+              <>
+                <div
+                  className="sticky -left-1 top-0 w-8 h-8 bg-gradient-to-t from-white via-white opacity-80 rounded-l-md z-[1000] flex items-center justify-center cursor-pointer"
+                  onClick={() => scrollToTab("left")}
                 >
-                  <AvatarImage
-                    src={`/images/blog/status_${currentIndex}.png`}
-                    alt="@status"
-                    className="transition-opacity duration-75 ease-in-out"
-                  />
-                </m.div>
-              </Avatar>
-              {propTabs.map((tab, idx) => (
-                <m.button
-                  key={idx}
-                  onMouseEnter={() => hoverRef.current === true}
-                  onMouseLeave={() => hoverRef.current === false}
-                  onClick={() => {
-                    moveSelectedTabToTop(idx);
-                  }}
-                  className={cn(
-                    "relative px-4 py-1 rounded-md flex-shrink-0",
-                    tabClassName,
-                  )}
-                  style={{
-                    transformStyle: "preserve-3d",
-                  }}
-                >
-                  {currentTabActive?.value === tab.value && (
-                    <m.div
-                      layoutId={`clickedbutton_${tab.value}`}
-                      initial={false}
-                      transition={{
-                        type: "spring",
-                        bounce: 0.3,
-                        duration: 0.6,
-                      }}
-                      className={cn(
-                        "absolute inset-0 bg-black/20 shadow-md rounded-md",
-                        activeTabClassName,
-                      )}
-                    />
-                  )}
-                  <m.p
+                  <ChevronLeft className="w-4 h-4 md:w-5 md:h-5 opacity-80" />
+                </div>
+                {propTabs.map((tab, idx) => (
+                  <m.button
+                    key={idx}
+                    onMouseEnter={() => hoverRef.current === true}
+                    onMouseLeave={() => hoverRef.current === false}
+                    onClick={() => {
+                      moveSelectedTabToTop(idx);
+                    }}
                     className={cn(
-                      "relative block text-slate-800 text-sm",
-                      currentTabActive?.value === tab.value && "text-black",
+                      "relative px-4 py-1 rounded-md flex-shrink-0",
+                      tabClassName,
                     )}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    transition={{ duration: 0.2 }}
+                    style={{
+                      transformStyle: "preserve-3d",
+                    }}
                   >
-                    {tab.title}
-                  </m.p>
-                </m.button>
-              ))}
+                    {currentTabActive?.value === tab.value && (
+                      <m.div
+                        layoutId={`clickedbutton_${tab.value}`}
+                        initial={false}
+                        transition={{
+                          type: "spring",
+                          bounce: 0.3,
+                          duration: 0.6,
+                        }}
+                        className={cn(
+                          "absolute inset-0 bg-black/20 shadow-md rounded-md",
+                          activeTabClassName,
+                        )}
+                      />
+                    )}
+                    <m.p
+                      className={cn(
+                        "relative block text-slate-800 text-sm",
+                        currentTabActive?.value === tab.value && "text-black",
+                      )}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      {tab.title}
+                    </m.p>
+                  </m.button>
+                ))}
+                <div
+                  className="sticky -right-1 top-0 w-8 h-8 bg-gradient-to-t from-white via-white opacity-80 rounded-r-md z-[1000] flex items-center justify-center cursor-pointer"
+                  onClick={() => scrollToTab("right")}
+                >
+                  <ChevronRight className="w-4 h-4 md:w-5 md:h-5 opacity-80" />
+                </div>
+              </>
             </div>
 
-            <div
-              className="fixed right-0 top-3 w-5 md:w-8 h-12 md:h-10 bg-gradient-to-t from-white via-white opacity-80 rounded-r-md z-[1000] flex items-center justify-center cursor-pointer"
-              onClick={() => scrollToTab("right")}
-            >
-              <ChevronRight className="w-4 h-4 md:w-5 md:h-5 opacity-80" />
-            </div>
-            <div
-              className="fixed left-0 top-3 w-5 md:w-8 h-12 md:h-10 bg-gradient-to-t from-white via-white opacity-80 rounded-l-md z-[1000] flex items-center justify-center cursor-pointer"
-              onClick={() => scrollToTab("left")}
-            >
-              <ChevronLeft className="w-4 h-4 md:w-5 md:h-5 opacity-80" />
-            </div>
-
-            <Separator className="w-full h-[1px] bg-black/10 md:bg-black mt-2 md:mt-4 mx-auto md:mx-3" />
+            <Separator className="w-full h-[1px] bg-black/30 mt-2 mx-auto" />
 
             <FadeInDiv
               tabs={currentTabs}

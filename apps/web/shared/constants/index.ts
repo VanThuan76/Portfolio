@@ -40,26 +40,26 @@ export const DATA_MENUS = [
     href: "/blog",
     icon: "/icon-navigation/icon-blog.png",
   },
-  {
-    name: "Project",
-    href: "/project",
-    icon: "/icon-navigation/icon-project.png",
-  },
+  //   {
+  //     name: "Project",
+  //     href: "/project",
+  //     icon: "/icon-navigation/icon-project.png",
+  //   },
   {
     name: "About Me",
     href: "/about-me",
     icon: "/icon-navigation/icon-about.png",
   },
-  {
-    name: "GitRoll",
-    href: "/extensions/git-roll",
-    icon: "/icon-navigation/icon-github.png",
-  },
-  {
-    name: "Resume",
-    href: "/extensions/resume",
-    icon: "/icon-navigation/icon-resume.png",
-  },
+  //   {
+  //     name: "GitRoll",
+  //     href: "/extensions/git-roll",
+  //     icon: "/icon-navigation/icon-github.png",
+  //   },
+  //   {
+  //     name: "Resume",
+  //     href: "/extensions/resume",
+  //     icon: "/icon-navigation/icon-resume.png",
+  //   },
   //   {
   //     name: "Setting",
   //     href: "/setting",

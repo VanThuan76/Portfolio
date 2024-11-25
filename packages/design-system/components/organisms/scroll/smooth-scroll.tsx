@@ -1,6 +1,13 @@
 "use client";
 
-import React, { createContext, useContext, useRef, useEffect } from "react";
+import React, {
+  createContext,
+  useContext,
+  useRef,
+  useEffect,
+  useCallback,
+} from "react";
+import { usePathname } from "next/navigation";
 import { ReactLenis } from "@studio-freight/react-lenis";
 
 interface SmoothScrollContextType {
@@ -23,16 +30,16 @@ export const useSmoothScrollContext = (): SmoothScrollContextType => {
 
 export const SmoothScroll: React.FC<{
   children: React.ReactNode;
-  pathname: string;
   className: string;
-}> = ({ children, pathname, className }) => {
+}> = ({ children, className }) => {
   const lenisRef = useRef<any>(null);
+  const pathName = usePathname();
 
-  const scrollToTop = () => {
+  const scrollToTop = useCallback(() => {
     if (lenisRef.current?.lenis) {
       lenisRef.current.lenis.scrollTo(0, { immediate: true, force: true });
     }
-  };
+  }, []);
 
   useEffect(() => {
     scrollToTop();
@@ -45,7 +52,7 @@ export const SmoothScroll: React.FC<{
       window.removeEventListener("popstate", handlePopState);
       window.removeEventListener("hashchange", handlePopState);
     };
-  }, [pathname, lenisRef]);
+  }, [pathName, lenisRef]);
 
   return (
     <SmoothScrollContext.Provider value={{ scrollToTop }}>

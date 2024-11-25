@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import { useLocale } from "next-intl";
 import { useMemo, useState } from "react";
 import { AnimatePresence, m } from "framer-motion";
@@ -10,13 +11,7 @@ import { queryClient } from "@providers/react-query";
 import { cn } from "@repo/design-system/utils/tw";
 import { useSupabaseBrowser } from "@repo/supabase/utils/client";
 
-import {
-  useModal,
-  useBreakpoint,
-  useOpenScreen,
-  useIsSafari,
-  useUser,
-} from "@repo/hooks";
+import { useModal, useBreakpoint, useOpenScreen, useUser } from "@repo/hooks";
 import {
   IBlog,
   IUserMetadata,
@@ -28,8 +23,8 @@ import {
 import { formatLocaleDate } from "@shared/helpers/get-time";
 import { calculateReadTime } from "@shared/helpers/calculate";
 
+import { Skeleton } from "@repo/design-system/components/molecules/ui-elements/skeleton";
 import { Badge } from "@repo/design-system/components/molecules/ui-elements/badge";
-import { LoaderImage } from "@repo/design-system/components/molecules/ui-elements/loader-image";
 import {
   Card,
   CardTitle,
@@ -45,6 +40,15 @@ import SaveIcon from "./icons/save";
 
 const ListComment = dynamic(() => import("../components/list-comment"), {
   ssr: false,
+  loading: () => (
+    <div className="flex items-start w-full gap-2 mt-4">
+      <Skeleton className="w-[32px] h-[32px] mt-1 rounded-full" />
+      <div className="flex flex-col items-start justify-start w-full gap-2">
+        <Skeleton className="w-[200px] h-[50px]" />
+        <Skeleton className="w-full h-[75px]" />
+      </div>
+    </div>
+  ),
 });
 
 const CardBlog = ({
@@ -55,7 +59,6 @@ const CardBlog = ({
   className?: string;
 }) => {
   const locale = useLocale();
-  const isSafari = useIsSafari();
   const breakpoint = useBreakpoint();
   const supabase = useSupabaseBrowser();
 
@@ -64,7 +67,7 @@ const CardBlog = ({
 
   const { onOpen } = useModal();
   const { data: user } = useUser();
-  const { handleOpenScreen } = useOpenScreen(isSafari);
+  const { handleOpenScreen } = useOpenScreen();
 
   function handleRedirect(e, card: IBlog) {
     setClickedSlug(card.slug);
@@ -100,6 +103,11 @@ const CardBlog = ({
   return (
     <div className={cn(className)}>
       {items.map((item: IBlog, index: number) => {
+        const isListComment =
+          ["xs", "sm"].includes(breakpoint) &&
+          item.comments &&
+          item.comments.length > 0;
+
         const readTime = useMemo(
           () => calculateReadTime(item.content),
           [item && item.content],
@@ -127,7 +135,7 @@ const CardBlog = ({
             <AnimatePresence>
               {hoveredIndex === index && (
                 <m.span
-                  className="absolute inset-0 h-full w-full bg-neutral-200 dark:bg-slate-800/[0.8] block rounded-md"
+                  className="absolute inset-0 min-h-[100px] h-full w-full bg-neutral-200 dark:bg-slate-800/[0.8] block rounded-md"
                   layoutId="hoverBackground"
                   initial={{ opacity: 0 }}
                   animate={{
@@ -153,8 +161,8 @@ const CardBlog = ({
             <Card className="relative p-0 m-0 dark:bg-[#393E46] bg-white border border-black/10 overflow-hidden shadow-lg rounded-lg">
               <div className="relative z-50 flex flex-col items-start justify-start w-full h-auto gap-2 px-2 pb-2 overflow-hidden">
                 <div className="flex items-center justify-start gap-2 mt-2">
-                  <LoaderImage
-                    isLoader={false}
+                  <Image
+                    priority
                     src={
                       userMetadata.avatar_url ?? "/images/blog/anonymous.png"
                     }
@@ -207,21 +215,19 @@ const CardBlog = ({
                       </span>
                     </div>
                   </div>
-                  {["xs", "sm"].includes(breakpoint) &&
-                    item.comments &&
-                    item.comments.length > 0 && (
-                      <>
-                        <ListComment
-                          blogId={item.id}
-                          slug={item.slug as string}
-                          comments={item.comments || []}
-                          isShowInteraction={false}
-                        />
-                        <div className="text-sm">
-                          See all {item.comments?.length} comments
-                        </div>
-                      </>
-                    )}
+                  {isListComment && (
+                    <>
+                      <ListComment
+                        blogId={item.id}
+                        slug={item.slug as string}
+                        comments={item.comments || []}
+                        isShowInteraction={false}
+                      />
+                      <div className="text-sm">
+                        See all {item.comments?.length} comments
+                      </div>
+                    </>
+                  )}
                 </div>
 
                 <div className="flex flex-wrap items-start justify-start order-2 w-full gap-2">
@@ -237,17 +243,15 @@ const CardBlog = ({
                       );
                     })}
                 </div>
-
-                <div className="py-1 sm:p-0 w-full sm:w-[50%] md:w-full h-[200px] order-3">
-                  <LoaderImage
-                    isLoader={false}
-                    src={item.image_url}
-                    alt={item.title as string}
-                    className="object-cover object-center w-full h-full"
-                    width={400}
-                    height={400}
-                  />
-                </div>
+                <Image
+                  priority
+                  src={item.image_url}
+                  alt={item.title as string}
+                  width={400}
+                  height={400}
+                  sizes="(max-width: 600px) 400px, (max-width: 1024px) 800px, 1200px"
+                  className="object-cover object-center py-1 sm:p-0 w-full sm:w-[50%] md:w-full h-[200px] order-3"
+                />
               </div>
               <SaveIcon
                 onClick={() => handleSave(item, isSaved)}

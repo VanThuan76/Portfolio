@@ -1,10 +1,9 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { m } from "framer-motion";
 
 interface PixelTransitionProps {
-  isActive: boolean;
   children: React.ReactNode;
 }
 
@@ -22,14 +21,32 @@ const anim = {
   }),
 };
 
-const PixelTransition: React.FC<PixelTransitionProps> = ({
-  children,
-  isActive,
-}) => {
+const PixelTransition: React.FC<PixelTransitionProps> = ({ children }) => {
+  const [windowDimensions, setWindowDimensions] = useState<{
+    innerWidth: number;
+    innerHeight: number;
+  } | null>(null);
+  const [didMount, setDidMount] = useState(true);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const { innerWidth, innerHeight } = window;
+      setWindowDimensions({ innerWidth, innerHeight });
+    }
+    const timer = setTimeout(() => {
+      setDidMount(false);
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (!windowDimensions) return null;
+
+  const { innerWidth, innerHeight } = windowDimensions;
+
   const shuffle = (a: any[]): number[] => {
     for (let i = a.length - 1; i > 0; i--) {
       const j: number = Math.floor(Math.random() * (i + 1));
-
       if (a[i] !== undefined && a[j] !== undefined) {
         [a[i], a[j]] = [a[j], a[i]];
       }
@@ -38,7 +55,6 @@ const PixelTransition: React.FC<PixelTransitionProps> = ({
   };
 
   const getBlocks = (indexOfColum: number) => {
-    const { innerWidth, innerHeight } = window;
     const blockSize = innerHeight * 0.1;
     const nbOfBlocks = Math.ceil(innerWidth / blockSize);
     const shuffledIndexes = shuffle(
@@ -51,7 +67,7 @@ const PixelTransition: React.FC<PixelTransitionProps> = ({
         className="w-[10vh] h-full bg-white"
         variants={anim}
         initial="initial"
-        animate={isActive ? "open" : "closed"}
+        animate={didMount ? "open" : "closed"}
         custom={[indexOfColum + randomIndex, 10 - indexOfColum + randomIndex]}
       />
     ));

@@ -1,6 +1,4 @@
 import type { Config } from "tailwindcss";
-import typography from "@tailwindcss/typography";
-import animate from "tailwindcss-animate";
 import svgToTinyDataUri from "mini-svg-data-uri";
 
 const {
@@ -10,15 +8,12 @@ const {
 export const config: Config = {
   darkMode: ["class"],
   content: [
-    "./node_modules/@repo/design-system/components/**/*.{ts,tsx}",
-    "./node_modules/@repo/design-system/lib/**/*.{ts,tsx}",
-    "./node_modules/@repo/design-system/index.tsx",
-    "./node_modules/@repo/editor/components/**/*.{ts,tsx}",
-    "./node_modules/@repo/editor/index.tsx",
-    "./node_modules/@repo/editor/content.tsx",
-    "../../apps/web/app/**/*.{ts,tsx}",
-    "../../apps/web/shared/**/*.{ts,tsx}",
+    "../../packages/design-system/components/**/*.{js,ts,jsx,tsx}",
+    "../../packages/editor/components/**/*.{js,ts,jsx,tsx}",
+    "../../apps/web/app/**/*.{js,ts,jsx,tsx}",
+    "../../apps/web/shared/**/*.{js,ts,jsx,tsx}",
   ],
+  prefix: "",
   theme: {
     container: {
       center: true,
@@ -113,8 +108,7 @@ export const config: Config = {
     },
   },
   plugins: [
-    animate,
-    typography,
+    require("tailwindcss-animate"),
     function ({ matchUtilities, theme }) {
       matchUtilities(
         {

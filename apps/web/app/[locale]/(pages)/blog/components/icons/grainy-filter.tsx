@@ -1,7 +1,7 @@
 import React, { SVGProps } from "react";
 
 const GrainyFilter = ({ ...rest }: SVGProps<SVGSVGElement>) => (
-  <svg width="0" height="100" {...rest}>
+  <svg width="100" height="100" {...rest}>
     <filter id="grainy">
       <feTurbulence
         type="fractalNoise"

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { AnimatePresence, m } from "framer-motion";
+import { m } from "framer-motion";
 interface Dimensions {
   width: number | null;
   height: number | null;
@@ -80,9 +80,6 @@ export default function CurveTransition({
 
   return (
     <div className="relative w-full h-full" style={{ backgroundColor }}>
-      {/* <motion.p className='route' {...anim(text)}>
-                {routes[router.route]}
-            </motion.p> */}
       {dimensions.width != null && dimensions.height != null && (
         <SVG height={dimensions.height} width={dimensions.width} />
       )}

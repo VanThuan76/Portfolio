@@ -7,9 +7,9 @@ export default function BlogNewLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen" data-lenis-prevent="false">
-      <OpenAIProvider>{children}</OpenAIProvider>
+    <OpenAIProvider>
+      {children}
       <Toaster />
-    </div>
+    </OpenAIProvider>
   );
 }

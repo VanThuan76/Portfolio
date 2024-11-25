@@ -2,16 +2,16 @@ import "@repo/design-system/styles/globals.css";
 
 // Next.js
 import type { Metadata } from "next";
-import Head from "next/head";
 import { getMessages } from "next-intl/server";
 import { ViewTransitions } from "next-view-transitions";
 // Utilities
+import { cn } from "@repo/design-system/utils/tw";
 import { mainFont } from "@shared/utils/font";
+import { routing } from "@/i18n/navigation";
 
 // Layouts and Providers
-import InitContainer from "@shared/layouts";
 import Providers from "@providers/index";
-import { cn } from "@repo/design-system/utils/tw";
+import LazyWrapper from "@repo/design-system/components/molecules/frame/lazy-wrapper";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.austinvu.tech"),
@@ -49,17 +49,24 @@ export const metadata: Metadata = {
   },
 };
 
-export const revalidate = 0;
+export async function generateStaticParams() {
+  return routing.locales.map((locale) => ({
+    locale,
+    messages: getMessages({ locale }),
+  }));
+}
+
+export const revalidate = 86400;
 
 export default async function RootLayout({
   children,
   params,
-  ...props
 }: Readonly<{
   children: React.ReactNode;
   params: Promise<{ locale: string }>;
 }>) {
   const { locale } = await params;
+
   const messages = await getMessages({ locale });
 
   return (
@@ -68,28 +75,13 @@ export default async function RootLayout({
       className={cn("antialiased", mainFont.className)}
       suppressHydrationWarning
     >
-      <Head>
-        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-        <link rel="shortcut icon" href="/favicon.ico" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="32x32"
-          href="/favicon-32x32.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="16x16"
-          href="/favicon-16x16.png"
-        />
-      </Head>
       <ViewTransitions>
         <body>
-          <Providers messages={messages} locale={locale}>
-            <InitContainer {...props}>{children}</InitContainer>
-          </Providers>
+          <LazyWrapper>
+            <Providers messages={messages} locale={locale}>
+              {children}
+            </Providers>
+          </LazyWrapper>
         </body>
       </ViewTransitions>
     </html>

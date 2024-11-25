@@ -1,3 +1,7 @@
+"use client";
+
+import { memo } from "react";
+
 import BorderTopLeftIcon from "./border-top-left-icon";
 import BorderBottomLeftIcon from "./border-bottom-left-icon";
 import BorderBottomRightIcon from "./border-bottom-right-icon";
@@ -14,4 +18,4 @@ const BorderCollapse = () => {
   );
 };
 
-export default BorderCollapse;
+export default memo(BorderCollapse);

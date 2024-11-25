@@ -1,14 +1,10 @@
-import { env } from "@repo/env";
-import config, { withAnalyzer, withSentry } from "@repo/next-config";
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  experimental: {
+    mdxRs: true,
+    swcMinify: true,
+    reactStrictMode: true,
+  },
+};
 
-let nextConfig = { ...config };
-
-if (env.VERCEL) {
-  nextConfig = withSentry(nextConfig);
-}
-
-if (env.ANALYZE === "true") {
-  nextConfig = withAnalyzer(nextConfig);
-}
-
-export default nextConfig;
+module.exports = nextConfig;

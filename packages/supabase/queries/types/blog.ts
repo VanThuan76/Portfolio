@@ -9,6 +9,8 @@ export type BlogReactionSupabase =
 export type BlogCommentSupabase =
   Database["public"]["Tables"]["blog_comment"]["Row"];
 export type BlogTagSupabase = Database["public"]["Tables"]["blog_tag"]["Row"];
+export type BlogCategorySuspbase =
+  Database["public"]["Tables"]["blog_category"]["Row"];
 
 export type CommentWithUser = {
   users: IUser | any;

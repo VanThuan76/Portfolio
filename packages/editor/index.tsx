@@ -10,7 +10,7 @@ const {
   usePlateEditor,
 } = require("@udecode/plate-common/react");
 
-import React, { forwardRef, useRef } from "react";
+import { forwardRef, useRef } from "react";
 import Prism from "prismjs";
 import { cn, withProps } from "@udecode/cn";
 import { AlignPlugin } from "@udecode/plate-alignment/react";

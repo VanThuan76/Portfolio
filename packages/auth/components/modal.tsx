@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 
-import { useIsSafari, useOpenScreen, useModal } from "@repo/hooks";
+import { useOpenScreen, useModal } from "@repo/hooks";
 
 import {
   Modal,
@@ -14,9 +14,8 @@ import { Button } from "@repo/design-system/components/atoms/button";
 
 const ModalAuth = () => {
   const t = useTranslations("pages.auth");
-  const isSafari = useIsSafari();
 
-  const { handleOpenScreen } = useOpenScreen(isSafari);
+  const { handleOpenScreen } = useOpenScreen();
   const { data, isOpen, type, onClose } = useModal();
 
   const [isModalOpen, setIsModalOpen] = useState(false);

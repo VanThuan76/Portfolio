@@ -1,34 +1,30 @@
 "use client";
 
 import { m } from "framer-motion";
+import { useMemo } from "react";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 
-import {
-  useBreakpoint,
-  useUser,
-  useIsSafari,
-  useModal,
-  useOpenScreen,
-} from "@repo/hooks";
+import { useBreakpoint, useUser, useModal, useOpenScreen } from "@repo/hooks";
 
 import { Button } from "@repo/design-system/components/atoms/button";
 
 const NavigateNewBlog = () => {
   const t = useTranslations("pages.blog");
-  const isSafari = useIsSafari();
   const pathName = usePathname();
   const breakpoint = useBreakpoint();
-  const isSlugBlog =
-    pathName.split("/").length >= 4 && !pathName.includes("new");
+
+  const isSlugBlog = useMemo(() => {
+    return pathName.split("/").length >= 4 && !pathName.includes("new");
+  }, [pathName]);
 
   const { onOpen } = useModal();
   const { data: user } = useUser();
-  const { handleOpenScreen, isPageChanging } = useOpenScreen(isSafari);
+  const { handleOpenScreen } = useOpenScreen();
 
   const handleNavigateCreateBlog = (e: React.MouseEvent) => {
     e.preventDefault();
-    if (user && user?.id) {
+    if (user?.id) {
       handleOpenScreen(e, "/blog/new");
     } else {
       onOpen("auth", "blog");

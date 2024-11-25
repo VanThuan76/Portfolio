@@ -1,17 +1,21 @@
 "use client";
 
+import Image from "next/image";
+import { useMemo } from "react";
 import { usePathname } from "next/navigation";
 
 import { GROUP_PEOPLE_STATIC } from "@shared/constants/pages/blog";
 
 import { useBreakpoint } from "@repo/hooks";
-import { LoaderImage } from "@repo/design-system/components/molecules/ui-elements/loader-image";
 
 const Footer = () => {
   const pathName = usePathname();
   const breakpoint = useBreakpoint();
-  const isSlugBlog =
-    pathName.split("/").length >= 4 || ["xs", "sm"].includes(breakpoint);
+
+  const isSlugBlog = useMemo(
+    () => pathName.split("/").length >= 4 || ["xs", "sm"].includes(breakpoint),
+    [pathName, breakpoint],
+  );
 
   return (
     <>
@@ -20,9 +24,9 @@ const Footer = () => {
           <div className="absolute z-0 flex -bottom-10 -left-5">
             {GROUP_PEOPLE_STATIC.map(
               ({ src, alt, translateX, translateY }, index) => (
-                <LoaderImage
+                <Image
+                  priority
                   key={index}
-                  isLoader={false}
                   width={150}
                   height={150}
                   alt={alt}
@@ -32,8 +36,8 @@ const Footer = () => {
               ),
             )}
           </div>
-          <LoaderImage
-            isLoader={false}
+          <Image
+            priority
             width={150}
             height={150}
             alt="@person_1"

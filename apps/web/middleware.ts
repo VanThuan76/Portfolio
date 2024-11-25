@@ -3,12 +3,9 @@ import { NextResponse } from "next/server";
 
 import { createMiddlewareClient } from "@repo/supabase/utils/middleware";
 
-const localeMiddleware = createMiddleware({
-  locales: ["en", "vi", "ja", "hi", "zh", "es", "fr", "de", "pt"],
-  defaultLocale: "en",
-  localeDetection: false,
-  localePrefix: "always",
-});
+import { routing } from "./i18n/navigation";
+
+const localeMiddleware = createMiddleware(routing);
 
 export async function middleware(request) {
   const localeResponse = localeMiddleware(request);
@@ -38,6 +35,7 @@ export const config = {
   matcher: [
     "/",
     "/(vi|en|ja|hi|zh|es|fr|de|pt)/:path*",
+    "/((?!_next|_vercel|.*\\..*).*)",
     "/((?!api|_next/static|_next/image|favicon.ico|draco|.*\\.(?:svg|png|jpg|jpeg|gif|webp|glb|drc|mp3|mp4)$).*)",
   ],
 };

@@ -23,12 +23,12 @@ export default function InitContainer({ children }: PropsWithChildren) {
         {Children.map(children, (child) => {
           if (React.isValidElement(child)) {
             return (
-              <LazyWrapper>
-                {React.cloneElement(child, { key: breakpoint })}
+              <LazyWrapper key={breakpoint}>
+                {React.cloneElement(child as any)}
               </LazyWrapper>
             );
           }
-          return child;
+          return null;
         })}
       </AnimatePresence>
     </ErrorBoundary>

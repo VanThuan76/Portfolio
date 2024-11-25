@@ -1,5 +1,7 @@
 "use client";
 
+import dynamic from "next/dynamic";
+import Image from "next/image";
 import { z } from "zod";
 import { X } from "lucide-react";
 import { cn } from "@repo/design-system/utils/tw";
@@ -24,7 +26,6 @@ import InputText from "@repo/design-system/components/molecules/forms/input-text
 import InputSelect from "@repo/design-system/components/molecules/forms/input-select";
 import InputFile from "@repo/design-system/components/molecules/forms/input-file";
 import InputMultiSelect from "@repo/design-system/components/molecules/forms/input-select-multiple";
-import PlateEditor from "@repo/editor/index";
 
 import { DEFAULT_VALUES } from "@shared/constants/pages/blog";
 import { LANGUAGE_CODES } from "@shared/constants";
@@ -32,7 +33,7 @@ import { generateSlug } from "@shared/helpers/generate-slug";
 import { calculateWordCount } from "@shared/helpers/calculate";
 
 import { Button } from "@repo/design-system/components/atoms/button";
-import { LoaderImage } from "@repo/design-system/components/molecules/ui-elements/loader-image";
+import { Skeleton } from "@repo/design-system/components/molecules/ui-elements/skeleton";
 import { Form } from "@repo/design-system/components/organisms/forms/form";
 import {
   FormControl,
@@ -46,6 +47,11 @@ import {
   TabsProvider,
 } from "@repo/design-system/components/molecules/tabs/tabs-animated";
 
+const PlateEditor = dynamic(() => import("@repo/editor/index"), {
+  ssr: false,
+  loading: () => <Skeleton className="w-full min-h-[500px]" />,
+});
+
 const BlogForm = () => {
   const user = useUser();
   const locale = useLocale();
@@ -54,7 +60,7 @@ const BlogForm = () => {
   const tBlog = useTranslations("pages.blog");
   const element = useRef<HTMLDivElement>(null);
   const supabase = useSupabaseBrowser();
-  const [isSticky] = useSticky(element, { nav: 0 });
+  const [isSticky] = useSticky(element, { axis: "y", nav: 0 });
 
   const [charCount, setCharCount] = useState<number>(0);
   const [optionTags, setOptionTags] = useState<{ value: any; label: any }[]>(
@@ -215,7 +221,7 @@ const BlogForm = () => {
       <form
         onSubmit={form.handleSubmit(onSubmit)}
         onError={onError}
-        className="relative flex flex-col items-start justify-start w-full gap-3"
+        className="relative flex flex-col items-start justify-start w-full h-full gap-3"
       >
         <InputFile
           form={form}
@@ -226,8 +232,8 @@ const BlogForm = () => {
         />
         {imageLocal && (
           <div className="relative w-full h-[200px] md:h-[250px]">
-            <LoaderImage
-              isLoader={false}
+            <Image
+              priority
               src={imageLocal}
               alt="Image_Blog"
               width={355}
@@ -244,7 +250,6 @@ const BlogForm = () => {
         <TabsProvider defaultValue={locale}>
           <AnimatePresence mode="wait">
             <m.div
-              layout
               className={cn(
                 "z-40 mt-2 flex items-center gap-2 max-w-xl overflow-x-auto",
                 isSticky ? "sticky top-10 left-0" : "",
@@ -254,7 +259,7 @@ const BlogForm = () => {
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
             >
-              <div className="max-w-md overflow-x-auto">
+              <div className="max-w-xs overflow-x-auto md:max-w-md">
                 <m.div
                   className="flex items-start p-1 bg-gray-200 border rounded-md w-fit"
                   animate={{ flexDirection: isSticky ? "column" : "row" }}
@@ -262,8 +267,13 @@ const BlogForm = () => {
                 >
                   {[...new Set([locale, ...LANGUAGE_CODES])].map((code) => (
                     <TabsBtn key={code} value={code}>
-                      <span className="relative z-[2] text-sm">
-                        {tLang(`${code}`)}
+                      <span
+                        className={cn(
+                          "relative z-[2] text-sm",
+                          isSticky ? "uppercase" : "",
+                        )}
+                      >
+                        {isSticky ? code : tLang(`${code}`)}
                       </span>
                     </TabsBtn>
                   ))}
@@ -312,7 +322,7 @@ const BlogForm = () => {
                 control={form?.control}
                 name={`contents.${code}.content`}
                 render={({ field }) => (
-                  <FormItem className="max-w-[calc(100vw-32px)] sm:max-w-[min(calc(100vw-64px),1336px)]">
+                  <FormItem className="max-w-[calc(100vw-32px)] sm:max-w-[min(calc(100vw-64px),1336px)] h-fit">
                     <FormControl>
                       <PlateEditor
                         {...field}

@@ -1,6 +1,5 @@
 "use client";
 
-import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 import { AbstractIntlMessages, NextIntlClientProvider } from "next-intl";
 
 import ReduxProvider from "@repo/management-system/provider";
@@ -17,22 +16,12 @@ export default function Providers({
   locale?: string;
 }) {
   return (
-    <GoogleReCaptchaProvider
-      reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string}
-      scriptProps={{
-        async: false,
-        defer: false,
-        appendTo: "head",
-        nonce: undefined,
-      }}
-    >
-      <NextIntlClientProvider messages={messages} locale={locale}>
-        <ReactQueryClientProvider>
-          <ReduxProvider>
-            <DesignSystemProvider>{children}</DesignSystemProvider>
-          </ReduxProvider>
-        </ReactQueryClientProvider>
-      </NextIntlClientProvider>
-    </GoogleReCaptchaProvider>
+    <NextIntlClientProvider messages={messages} locale={locale}>
+      <ReactQueryClientProvider>
+        <ReduxProvider>
+          <DesignSystemProvider>{children}</DesignSystemProvider>
+        </ReduxProvider>
+      </ReactQueryClientProvider>
+    </NextIntlClientProvider>
   );
 }

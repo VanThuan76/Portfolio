@@ -17,7 +17,7 @@ const HeadMain = ({ className }: Props) => {
         className,
       )}
     >
-      <AudioPlayer />
+      {/* <AudioPlayer /> */}
     </div>
   );
 };

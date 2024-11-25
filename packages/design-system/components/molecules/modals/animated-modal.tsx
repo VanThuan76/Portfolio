@@ -132,12 +132,12 @@ export const ModalBody = ({
             opacity: 0,
             backdropFilter: "blur(0px)",
           }}
-          transition={{ type: "spring", stiffness: 300, damping: 30 }}
+          transition={{ type: "tween", duration: 0.1, ease: "easeInOut" }}
           style={{
             willChange: "opacity, transform",
             ...style,
           }}
-          className="fixed [perspective:800px] [transform-style:preserve-3d] inset-0 h-fit w-full grid place-items-center z-[99999999999]"
+          className="fixed inset-0 h-full w-full flex justify-center items-center z-[9999999]"
         >
           <Overlay />
 
@@ -145,7 +145,7 @@ export const ModalBody = ({
             layoutId={`modal-body-${String(children)}`}
             ref={modalRef}
             className={cn(
-              "relative min-h-[50%] max-h-[90%] max-w-[80%] w-fit bg-white dark:bg-neutral-950 border border-transparent dark:border-neutral-800 rounded-2xl relative z-50 flex flex-col flex-1 overflow-hidden",
+              "relative h-fit w-fit bg-white dark:bg-neutral-950 border border-transparent dark:border-neutral-800 rounded-2xl relative z-50 flex flex-col overflow-hidden",
               className,
             )}
             initial={{ opacity: 0.5, y: 20 }}
@@ -221,7 +221,7 @@ const CloseIcon = () => {
         setOpen(false);
         setClose();
       }}
-      className="absolute cursor-pointer top-1 right-2 group"
+      className="absolute z-50 cursor-pointer top-1 right-2 group"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

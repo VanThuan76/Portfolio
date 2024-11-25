@@ -4,6 +4,7 @@ import { OpenAIProvider } from "@repo/editor/components/openai/openai-context";
 import { getBlogBySlug } from "@repo/supabase/queries/actions/blog/blog-actions";
 
 import { getSupabaseBrowserClient } from "@repo/supabase/utils/client";
+import ReCaptchaProvider from "@/providers/re-captcha";
 
 export async function generateMetadata({ params }): Promise<Metadata> {
   const { locale, slug } = await params;
@@ -46,5 +47,13 @@ export default function BlogSlugLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <OpenAIProvider>{children}</OpenAIProvider>;
+  return (
+    <ReCaptchaProvider>
+      <OpenAIProvider>
+        <div className="w-full h-full min-h-screen overflow-y-auto">
+          {children}
+        </div>
+      </OpenAIProvider>
+    </ReCaptchaProvider>
+  );
 }

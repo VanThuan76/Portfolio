@@ -5,7 +5,7 @@ import { useLocale } from "next-intl";
 
 import { useAppDispatch } from "@repo/management-system";
 
-export const useOpenScreen = (isSafari: boolean) => {
+export const useOpenScreen = () => {
   const dispatch = useAppDispatch();
   const routerNext = useRouter();
   const routerTrans = useTransitionRouter();
@@ -27,20 +27,9 @@ export const useOpenScreen = (isSafari: boolean) => {
 
       isPageChangingRef.current = true;
 
-      try {
-        const audio = new Audio("/audios/tap.mp3");
-        await audio.play();
-      } catch (error) {
-        console.error("Audio playback failed:", error);
-      }
+      await new Promise((resolve) => setTimeout(resolve, 300));
 
-      await new Promise((resolve) => setTimeout(resolve, 500));
-
-      if (isSafari) {
-        routerNext.push(localizedHref);
-      } else {
-        routerTrans.push(localizedHref);
-      }
+      routerTrans.push(localizedHref);
 
       isPageChangingRef.current = false;
 
@@ -48,20 +37,20 @@ export const useOpenScreen = (isSafari: boolean) => {
         callbackFinish();
       }
     },
-    [isSafari, dispatch, routerNext, routerTrans, locale],
+    [dispatch, routerNext, routerTrans, locale],
   );
 
-  useEffect(() => {
-    const handlePopState = () => {
-      const { pathname } = window.location;
-    };
+  // useEffect(() => {
+  //     const handlePopState = () => {
+  //         const { pathname } = window.location;
+  //     };
 
-    window.addEventListener("popstate", handlePopState);
+  //     window.addEventListener("popstate", handlePopState);
 
-    return () => {
-      window.removeEventListener("popstate", handlePopState);
-    };
-  }, [dispatch]);
+  //     return () => {
+  //         window.removeEventListener("popstate", handlePopState);
+  //     };
+  // }, [dispatch]);
 
   return {
     handleOpenScreen,

@@ -1,5 +1,7 @@
 "use client";
 
+import dynamic from "next/dynamic";
+import Image from "next/image";
 import React, { useCallback, useRef, useState } from "react";
 import { AnimatePresence, m } from "framer-motion";
 import { useLocale, useTranslations } from "next-intl";
@@ -19,15 +21,18 @@ import {
   likeComment,
 } from "@repo/supabase/queries";
 
-import { LoaderImage } from "@repo/design-system/components/molecules/ui-elements/loader-image";
-
-import PlateShowContent from "@repo/editor/content";
+import { Skeleton } from "@repo/design-system/components/molecules/ui-elements/skeleton";
 
 import CommentForm from "./forms/comment";
 import HeartGrowIcon from "./icons/heart-grow";
 import DotsIcon from "./icons/dots";
 import ChatAddIcon from "./icons/chat-add";
 import ChatDotsIcon from "./icons/chat-dots";
+
+const PlateShowContent = dynamic(() => import("@repo/editor/content"), {
+  ssr: false,
+  loading: () => <Skeleton className="w-full min-h-[100px]" />,
+});
 
 const MAX_LEVEL = 4;
 
@@ -117,8 +122,8 @@ const ListComment = ({
 
           return (
             <div key={i} className="flex items-start w-full gap-2 mt-2">
-              <LoaderImage
-                isLoader={false}
+              <Image
+                priority
                 src={userMetadata?.avatar_url ?? "/images/blog/anonymous.png"}
                 width={32}
                 height={32}

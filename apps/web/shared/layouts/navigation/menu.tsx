@@ -1,11 +1,12 @@
 "use client";
+
 import { memo, useState } from "react";
 import { AnimatePresence, m } from "framer-motion";
-import { DATA_MENUS } from "@shared/constants";
 
-import { useIsSafari, useOpenScreen } from "@repo/hooks";
-
+import { useBreakpoint, useOpenScreen } from "@repo/hooks";
 import { LoaderImage } from "@repo/design-system/components/molecules/ui-elements/loader-image";
+
+import { DATA_MENUS } from "@shared/constants";
 
 import MenuIcon from "../icons/menu-icon";
 
@@ -50,12 +51,14 @@ const fadeVariants = {
   },
 };
 
-const Menu = ({ isSmallScreen }: { isSmallScreen: boolean }) => {
+const Menu = () => {
+  const breakpoint = useBreakpoint();
+
+  const isSmallScreen = new Set(["xs", "sm"]).has(breakpoint);
+
   const [isOpen, setIsOpen] = useState(false);
 
-  const isSafari = useIsSafari();
-
-  const { handleOpenScreen, isPageChanging } = useOpenScreen(isSafari);
+  const { handleOpenScreen } = useOpenScreen();
 
   const menuVariants = {
     open: {
@@ -167,15 +170,11 @@ const Menu = ({ isSmallScreen }: { isSmallScreen: boolean }) => {
           <m.div
             animate={{
               scale: isOpen ? 1.1 : 1,
-              pointerEvents: isPageChanging ? "none" : "auto",
-              translateZ: isPageChanging ? "100%" : "0",
-              rotate: isPageChanging ? 360 : 0,
             }}
             transition={{
               duration: 0.75,
               type: "tween",
               ease: [0.76, 0, 0.24, 1],
-              repeat: isPageChanging ? Infinity : 0,
             }}
             className="w-[40px] h-[40px] md:w-[50px] md:h-[50px] z-50 absolute !top-0 !right-0"
             onClick={() => setIsOpen(!isOpen)}

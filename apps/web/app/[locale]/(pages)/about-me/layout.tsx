@@ -28,7 +28,7 @@ export default function AboutMeLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="w-full h-screen" data-lenis-prevent="true">
+    <div className="w-full h-full" data-lenis-prevent="true">
       {children}
     </div>
   );

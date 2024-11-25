@@ -1,5 +1,7 @@
 "use client";
 
+import dynamic from "next/dynamic";
+import Image from "next/image";
 import React from "react";
 import { useLocale, useTranslations } from "next-intl";
 
@@ -8,11 +10,14 @@ import { IUserMetadata, CommentWithUser } from "@repo/supabase/queries";
 import { formatLocaleDate } from "@shared/helpers/get-time";
 
 import { AnimatedList } from "@repo/design-system/components/molecules/effects/animated-list";
-import { LoaderImage } from "@repo/design-system/components/molecules/ui-elements/loader-image";
-
-import PlateShowContent from "@repo/editor/content";
+import { Skeleton } from "@repo/design-system/components/molecules/ui-elements/skeleton";
 
 import HeartGrowIcon from "./icons/heart-grow";
+
+const PlateShowContent = dynamic(() => import("@repo/editor/content"), {
+  ssr: false,
+  loading: () => <Skeleton className="w-full min-h-[200px]" />,
+});
 
 const TopComment = ({ comments }: { comments: CommentWithUser[] }) => {
   const t = useTranslations("pages.blog");
@@ -39,8 +44,8 @@ const TopComment = ({ comments }: { comments: CommentWithUser[] }) => {
             >
               <div className="flex flex-col items-start justify-start w-full gap-2">
                 <div className="flex items-center justify-start gap-2 mt-2">
-                  <LoaderImage
-                    isLoader={false}
+                  <Image
+                    priority
                     src={
                       userMetadata?.avatar_url ?? "/images/blog/anonymous.png"
                     }

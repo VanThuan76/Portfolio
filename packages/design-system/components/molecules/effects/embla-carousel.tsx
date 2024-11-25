@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef, useMemo } from "react";
 import {
   EmblaCarouselType,
   EmblaEventType,
@@ -125,13 +125,17 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
     };
   }, [emblaApi, tweenParallax, autoplay]);
 
+  const carouselStyles = useMemo(
+    () => ({
+      marginLeft: "calc(1rem * -1)",
+    }),
+    [],
+  );
+
   return (
     <div className={cn("max-w-2xl", isBasic ? "mr-auto" : "mx-auto")}>
       <div className="overflow-hidden" ref={emblaRef}>
-        <div
-          className="flex w-full gap-1"
-          style={{ marginLeft: "calc(1rem * -1)" }}
-        >
+        <div className="flex w-full gap-1" style={carouselStyles}>
           {slides.map((item, index) => (
             <div
               className={cn(

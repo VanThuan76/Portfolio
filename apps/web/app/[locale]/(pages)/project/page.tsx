@@ -39,7 +39,7 @@ export default function Page() {
   }, []);
 
   return (
-    <PixelTransition isActive={didMount}>
+    <PixelTransition>
       <div className="relative w-full h-full overflow-hidden">
         <MotionContainer
           type="blur"
