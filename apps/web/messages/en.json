@@ -162,7 +162,10 @@
       "fire": "Fire",
       "clapping": "Clapping",
       "des_footer_1": "My blog is a gathering place for famous materials and in-depth articles from various fields.",
-      "des_footer_2": "Created by AustinVu © 2024 with passion and dedication for those who love technology and knowledge."
+      "des_footer_2": "Created by AustinVu © 2024 with passion and dedication for those who love technology and knowledge.",
+      "notify_create_comment": "Create Comment Successfully",
+      "notify_create_blog": "Create Blog Successfully",
+      "see_all": "See all"
     },
     "project": {
       "title": "Project"

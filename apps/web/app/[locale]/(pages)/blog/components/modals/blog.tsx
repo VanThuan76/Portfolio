@@ -35,10 +35,8 @@ const ModalBody = dynamic(
 );
 const PlateShowContent = dynamic(() => import("@repo/editor/content"), {
   ssr: false,
-  loading: () => <Skeleton className="w-full min-h-[200px]" />,
+  loading: () => <Skeleton className="mt-2 w-full min-h-[200px]" />,
 });
-
-import GrainyFilter from "../icons/grainy-filter";
 
 const ModalBlog = () => {
   const tLang = useTranslations("languages");
@@ -157,9 +155,6 @@ const ModalBlog = () => {
             <Skeleton className="w-full h-32 mb-2" />
             <Skeleton className="w-full h-8 mb-2" />
           </div>
-        )}
-        {isModalOpen && (
-          <GrainyFilter className="absolute top-0 w-full h-full" />
         )}
       </ModalBody>
     </Modal>

@@ -2,11 +2,12 @@
 
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 import { AnimatePresence, m } from "framer-motion";
 import { useMutation } from "@tanstack/react-query";
 import { queryClient } from "@providers/react-query";
+import { LoaderCircle } from "lucide-react";
 
 import { cn } from "@repo/design-system/utils/tw";
 import { useSupabaseBrowser } from "@repo/supabase/utils/client";
@@ -58,6 +59,7 @@ const CardBlog = ({
   items: IBlog[];
   className?: string;
 }) => {
+  const t = useTranslations("pages.blog");
   const locale = useLocale();
   const breakpoint = useBreakpoint();
   const supabase = useSupabaseBrowser();
@@ -67,7 +69,7 @@ const CardBlog = ({
 
   const { onOpen } = useModal();
   const { data: user } = useUser();
-  const { handleOpenScreen } = useOpenScreen();
+  const { handleOpenScreen, isPageChanging } = useOpenScreen();
 
   function handleRedirect(e, card: IBlog) {
     setClickedSlug(card.slug);
@@ -224,7 +226,7 @@ const CardBlog = ({
                         isShowInteraction={false}
                       />
                       <div className="text-sm">
-                        See all {item.comments?.length} comments
+                        {t("see_all")} {item.comments?.length} {t("comment")}
                       </div>
                     </>
                   )}
@@ -260,6 +262,11 @@ const CardBlog = ({
                   isSaved ? "bg-yellow-100" : "",
                 )}
               />
+              {isPageChanging && (
+                <div className="absolute top-0 left-0 z-50 flex items-center justify-center w-full h-full bg-black/10">
+                  <LoaderCircle className="w-5 h-5 text-white animate-spin" />
+                </div>
+              )}
             </Card>
           </m.div>
         );

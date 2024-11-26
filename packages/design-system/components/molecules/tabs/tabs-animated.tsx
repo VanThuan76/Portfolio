@@ -76,97 +76,100 @@ export const TabsProvider = ({
   );
 };
 
-export const TabsBtn = React.memo(({ children, className, value }: any) => {
-  const {
-    activeTab,
-    setPrevIndex,
-    setActiveTab,
-    defaultValue,
-    hover,
-    wobbly,
-    tabsOrder,
-  } = useTabs();
+export const TabsBtn = React.memo(
+  ({ children, className, value, onSuccess }: any) => {
+    const {
+      activeTab,
+      setPrevIndex,
+      setActiveTab,
+      defaultValue,
+      hover,
+      wobbly,
+      tabsOrder,
+    } = useTabs();
 
-  const handleClick = () => {
-    setPrevIndex(tabsOrder.indexOf(activeTab));
-    setActiveTab(value);
-  };
+    const handleClick = () => {
+      setPrevIndex(tabsOrder.indexOf(activeTab));
+      setActiveTab(value);
+      onSuccess(value);
+    };
 
-  return (
-    <>
+    return (
       <>
-        <m.div
-          className={cn(
-            `cursor-pointer p-1 px-2 rounded-md relative`,
-            className,
-          )}
-          onFocus={() => {
-            hover && handleClick();
-          }}
-          onMouseEnter={() => {
-            hover && handleClick();
-          }}
-          onClick={handleClick}
-        >
-          {children}
+        <>
+          <m.div
+            className={cn(
+              `cursor-pointer p-1 px-2 rounded-md relative`,
+              className,
+            )}
+            onFocus={() => {
+              hover && handleClick();
+            }}
+            onMouseEnter={() => {
+              hover && handleClick();
+            }}
+            onClick={handleClick}
+          >
+            {children}
 
-          {activeTab === value && (
-            <AnimatePresence mode="wait">
-              <m.div
-                transition={{
-                  layout: {
-                    duration: 0.2,
-                    ease: "easeInOut",
-                    delay: 0.2,
-                  },
-                }}
-                layoutId={defaultValue}
-                className="absolute w-full h-full left-0 top-0 dark:bg-base-dark bg-white rounded-md z-[1]"
-              />
-            </AnimatePresence>
-          )}
+            {activeTab === value && (
+              <AnimatePresence mode="wait">
+                <m.div
+                  transition={{
+                    layout: {
+                      duration: 0.2,
+                      ease: "easeInOut",
+                      delay: 0.2,
+                    },
+                  }}
+                  layoutId={defaultValue}
+                  className="absolute w-full h-full left-0 top-0 dark:bg-base-dark bg-white rounded-md z-[1]"
+                />
+              </AnimatePresence>
+            )}
 
-          {wobbly ? (
-            <>
-              {activeTab === value && (
-                <AnimatePresence mode="wait">
-                  <m.div
-                    transition={{
-                      layout: {
-                        duration: 0.4,
-                        ease: "easeInOut",
-                        delay: 0.04,
-                      },
-                    }}
-                    layoutId={defaultValue}
-                    className="absolute w-full h-full left-0 top-0 dark:bg-base-dark bg-white rounded-md z-[1] tab-shadow"
-                  />
-                </AnimatePresence>
-              )}
-              {activeTab === value && (
-                <AnimatePresence mode="wait">
-                  <m.div
-                    transition={{
-                      layout: {
-                        duration: 0.4,
-                        ease: "easeOut",
-                        delay: 0.2,
-                      },
-                    }}
-                    layoutId={`${defaultValue}b`}
-                    className="absolute w-full h-full left-0 top-0 dark:bg-base-dark bg-white rounded-md  z-[1] tab-shadow"
-                  />
-                </AnimatePresence>
-              )}
-            </>
-          ) : (
-            <></>
-          )}
-        </m.div>
+            {wobbly ? (
+              <>
+                {activeTab === value && (
+                  <AnimatePresence mode="wait">
+                    <m.div
+                      transition={{
+                        layout: {
+                          duration: 0.4,
+                          ease: "easeInOut",
+                          delay: 0.04,
+                        },
+                      }}
+                      layoutId={defaultValue}
+                      className="absolute w-full h-full left-0 top-0 dark:bg-base-dark bg-white rounded-md z-[1] tab-shadow"
+                    />
+                  </AnimatePresence>
+                )}
+                {activeTab === value && (
+                  <AnimatePresence mode="wait">
+                    <m.div
+                      transition={{
+                        layout: {
+                          duration: 0.4,
+                          ease: "easeOut",
+                          delay: 0.2,
+                        },
+                      }}
+                      layoutId={`${defaultValue}b`}
+                      className="absolute w-full h-full left-0 top-0 dark:bg-base-dark bg-white rounded-md  z-[1] tab-shadow"
+                    />
+                  </AnimatePresence>
+                )}
+              </>
+            ) : (
+              <></>
+            )}
+          </m.div>
+        </>
       </>
-    </>
-  );
-});
+    );
+  },
+);
 
 export const TabsContent = React.memo(({ children, className, value }: any) => {
   const { activeTab } = useTabs();

@@ -42,6 +42,7 @@ const ListComment = ({
   blogId,
   level = 1,
   isShowInteraction = true,
+  refetch,
   className,
 }: {
   comments: CommentWithUser[];
@@ -49,6 +50,7 @@ const ListComment = ({
   slug: string;
   level?: number;
   isShowInteraction?: boolean;
+  refetch?: () => void;
   className?: string;
 }) => {
   const t = useTranslations("pages.blog");
@@ -237,6 +239,7 @@ const ListComment = ({
                         isCommentEditor={true}
                         isReplyComment={true}
                         toggleReplyForm={() => toggleReplyForm(i, comment)}
+                        refetch={refetch}
                       />
                     </m.div>
                   )}
@@ -251,6 +254,7 @@ const ListComment = ({
                       blogId={blogId}
                       comments={comment.interactions}
                       level={level + 1}
+                      refetch={refetch}
                     />
                   )}
               </div>

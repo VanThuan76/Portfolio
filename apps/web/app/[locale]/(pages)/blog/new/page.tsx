@@ -1,26 +1,58 @@
 "use client";
 
-import { useState } from "react";
-import { useTranslations } from "next-intl";
-import { AnimatePresence, m } from "framer-motion";
+import dynamic from "next/dynamic";
+import { m } from "framer-motion";
+import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 import { cn } from "@repo/design-system/utils/tw";
-import { Button } from "@repo/design-system/components/atoms/button";
+import { useSupabaseBrowser } from "@repo/supabase/utils/client";
+import { getTags, getBlogCategories } from "@repo/supabase/queries";
 
-import BlogForm from "../components/forms/blog";
+const BlogForm = dynamic(() => import("../components/forms/blog"), {
+  ssr: false,
+});
+const HintNewBlog = dynamic(() => import("../components/hint-new-blog"), {
+  ssr: false,
+});
 
-const hintVariants = {
-  initial: { opacity: 0, x: -20, y: 0 },
-  animate: { opacity: 1, x: 0, y: 0 },
-  exit: { opacity: 0, x: 0, y: 0 },
-};
+export default function Page() {
+  const supabase = useSupabaseBrowser();
+  const params = useParams<{ locale: string; slug: string }>();
 
-const Page = () => {
-  const t = useTranslations("pages.blog");
+  const [optionTags, setOptionTags] = useState<{ value: any; label: any }[]>(
+    [],
+  );
+  const [optionCategories, setOptionCategories] = useState<
+    { value: any; label: any }[]
+  >([]);
+  const [currentLocaleForm, setCurrentLocaleForm] = useState(params.locale);
   const [isMountHint, setIsMountHint] = useState(true);
 
+  useEffect(() => {
+    const fetchOptionsData = async () => {
+      const responseTags = await getTags(supabase);
+      const responseCategories = await getBlogCategories(
+        supabase,
+        currentLocaleForm,
+      );
+      if (responseTags.status === 200)
+        setOptionTags(
+          responseTags.data.map((tag) => ({ value: tag.id, label: tag.value })),
+        );
+      if (responseCategories.status === 200)
+        setOptionCategories(
+          responseCategories.data.map((category) => ({
+            value: category.id,
+            label: category.name,
+          })),
+        );
+    };
+    fetchOptionsData();
+  }, [currentLocaleForm]);
+
   return (
-    <AnimatePresence mode="wait">
+    <>
       <m.main
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -28,42 +60,26 @@ const Page = () => {
         transition={{ duration: 0.5 }}
         className={cn(
           "grid items-start justify-start w-full h-full gap-3 p-2 md:p-4 rounded-md bg-black/10",
-          isMountHint ? "md:grid-cols-3" : "md:grid-cols-1",
+          isMountHint
+            ? "grid-cols-1 md:grid-cols-3"
+            : "grid-cols-1 md:grid-cols-1",
         )}
       >
-        <m.div className="order-2 w-full min-h-screen col-span-1 p-2 mx-auto bg-white rounded-sm md:col-span-2 md:order-1">
-          <div className="h-full max-h-screen overflow-y-auto">
-            <BlogForm />
+        <m.div className="order-2 w-full h-full min-h-screen col-span-1 p-2 mx-auto bg-white rounded-sm md:col-span-2 md:order-1">
+          <div className="w-full h-full min-h-screen overflow-y-auto">
+            <BlogForm
+              optionTags={optionTags}
+              optionCategories={optionCategories}
+              currentLocaleForm={currentLocaleForm}
+              setCurrentLocaleForm={setCurrentLocaleForm}
+            />
           </div>
         </m.div>
-        {isMountHint && (
-          <m.div
-            initial="initial"
-            animate="animate"
-            exit="exit"
-            variants={hintVariants}
-            transition={{ duration: 0.3 }}
-            className="relative top-0 flex flex-col items-start justify-start order-1 col-span-1 gap-2 w-fit md:sticky md:order-2"
-          >
-            <h4 className="text-base font-bold md:text-lg">
-              {t("title_new_blog")}
-            </h4>
-            <ul className="list-disc list-inside !block">
-              <li className="!list-item !m-2">{t("description_new_blog_1")}</li>
-              <li className="!list-item !m-2">{t("description_new_blog_2")}</li>
-            </ul>
-            <Button
-              type="button"
-              className="self-start md:self-center"
-              onClick={() => setIsMountHint(false)}
-            >
-              {t("understand_new_blog")}
-            </Button>
-          </m.div>
-        )}
+        <HintNewBlog
+          isMountHint={isMountHint}
+          setIsMountHint={setIsMountHint}
+        />
       </m.main>
-    </AnimatePresence>
+    </>
   );
-};
-
-export default Page;
+}

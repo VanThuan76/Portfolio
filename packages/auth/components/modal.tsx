@@ -30,10 +30,7 @@ const ModalAuth = () => {
 
   return (
     <Modal open={isModalOpen} setClose={onClose}>
-      <ModalBody
-        className="relative flex flex-col items-center justify-start gap-2 p-4"
-        style={{ filter: data === "blog" && "url(#grainy)" }}
-      >
+      <ModalBody className="relative flex flex-col justify-start gap-2 p-4 rounded-none md:rounded-2xl">
         <h1 className="w-full pb-2 mb-2 text-xl font-bold border-b border-b-slate-300">
           {t("login_to_continue")}
         </h1>
@@ -68,9 +65,6 @@ const ModalAuth = () => {
             {t("create_account")}
           </div>
         </div>
-        {isModalOpen && data === "blog" && (
-          <div className="absolute top-0 w-full h-full" />
-        )}
       </ModalBody>
     </Modal>
   );

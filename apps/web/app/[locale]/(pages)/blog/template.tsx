@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { cn } from "@repo/design-system/utils/tw";
+import { useIsSafari } from "@repo/hooks";
 
 import { fontBlog } from "@shared/utils/font";
 
@@ -23,6 +24,8 @@ export default function BlogTemplate({
 }: {
   children: React.ReactNode;
 }) {
+  const isSafari = useIsSafari();
+
   return (
     <PixelTransition>
       <div
@@ -30,7 +33,11 @@ export default function BlogTemplate({
           "relative w-full h-full pointer-events-auto",
           fontBlog.className,
         )}
-        style={{ filter: "url(#grainy)" }}
+        style={
+          !isSafari
+            ? { filter: "url(#grainy)", WebkitFilter: "url(#grainy)" }
+            : {}
+        }
         data-lenis-prevent="false"
       >
         <Header />
@@ -38,7 +45,7 @@ export default function BlogTemplate({
         <Footer />
         <NavigateNewBlog />
       </div>
-      <GrainyFilter className="w-full h-auto" />
+      {!isSafari && <GrainyFilter className="w-full h-auto" />}
     </PixelTransition>
   );
 }

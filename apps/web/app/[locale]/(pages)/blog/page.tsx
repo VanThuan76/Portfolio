@@ -29,7 +29,7 @@ export default async function Page({ params }: { params: Params }) {
   ]);
 
   return (
-    <div className="relative z-10 grid items-start justify-start w-full h-full grid-cols-1 gap-0 p-2 overflow-y-auto sm:p-4 md:gap-2 md:grid-cols-9 md:pt-0 md:px-6 pb-28 md:pb-0">
+    <div className="relative z-10 grid items-start justify-start w-full h-full grid-cols-1 gap-0 p-1 overflow-y-auto sm:p-4 md:gap-2 md:grid-cols-9 md:pt-0 md:px-6 pb-28 md:pb-0">
       <div className="order-1 w-full col-span-1 pb-5 mx-auto h-fit md:order-2 md:col-span-8 md:py-5">
         <div className="h-full [perspective:1000px] relative flex flex-col w-full items-start justify-start">
           <Tabs

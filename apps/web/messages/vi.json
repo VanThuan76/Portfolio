@@ -162,7 +162,10 @@
       "fire": "Lửa",
       "clapping": "Vỗ tay",
       "des_footer_1": "Blog của tôi là nơi quy tụ những tài liệu nổi tiếng và những bài viết chuyên sâu từ nhiều lĩnh vực.",
-      "des_footer_2": "Được tạo bởi AustinVu © 2024 với sự đam mê và tâm huyết dành cho những người yêu công nghệ và kiến thức."
+      "des_footer_2": "Được tạo bởi AustinVu © 2024 với sự đam mê và tâm huyết dành cho những người yêu công nghệ và kiến thức.",
+      "notify_create_comment": "Tạo bình luận thành công",
+      "notify_create_blog": "Tạo bài viết thành công",
+      "see_all": "Xem tất cả"
     },
     "project": {
       "title": "Sản phẩm"

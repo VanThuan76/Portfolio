@@ -162,7 +162,10 @@
       "fire": "Feuer",
       "clapping": "Applaus",
       "des_footer_1": "Mein Blog ist ein Treffpunkt für berühmte Materialien und tiefgehende Artikel aus verschiedenen Bereichen.",
-      "des_footer_2": "Erstellt von AustinVu © 2024 mit Leidenschaft und Hingabe für all diejenigen, die Technologie und Wissen lieben."
+      "des_footer_2": "Erstellt von AustinVu © 2024 mit Leidenschaft und Hingabe für all diejenigen, die Technologie und Wissen lieben.",
+      "notify_create_comment": "Kommentar erfolgreich erstellt",
+      "notify_create_blog": "Blog erfolgreich erstellt",
+      "see_all": "Alle anzeigen"
     },
     "project": {
       "title": "Projekt"

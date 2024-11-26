@@ -20,7 +20,31 @@ export const metadata: Metadata = {
     template: `%s | Austin Vu`,
   },
   description:
-    "Welcome to the portfolio of Austin Vu, showcasing projects, skills, and achievements.",
+    "Explore Austin Vu's portfolio, showcasing innovative web development projects, cutting-edge designs, and technical expertise.",
+  keywords: [
+    "Austin Vu",
+    "Web Developer",
+    "Portfolio",
+    "UI/UX Design",
+    "Frontend Development",
+    "Web Design Projects",
+  ],
+  authors: [{ name: "Austin Vu", url: "https://www.austinvu.tech" }],
+  openGraph: {
+    title: "Austin Vu Portfolio",
+    description:
+      "Discover the professional journey of Austin Vu, a web developer specializing in creative designs and efficient web solutions.",
+    url: "https://www.austinvu.tech",
+    type: "website",
+    images: [
+      {
+        url: "https://www.austinvu.tech/logo.png",
+        width: 800,
+        height: 600,
+        alt: "Austin Vu Portfolio Logo",
+      },
+    ],
+  },
   icons: [
     {
       rel: "apple-touch-icon",

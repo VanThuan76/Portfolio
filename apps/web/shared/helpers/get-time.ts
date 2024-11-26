@@ -20,6 +20,15 @@ export function formatLocaleDate(dateString: string, locale: string) {
   }).format(new Date(dateString));
 }
 
+export function getTodayFormatted(locale: string) {
+  if (!locale) return;
+  return new Intl.DateTimeFormat(locale, {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  }).format(new Date());
+}
+
 export function formatRelativeDate(dateString: string, locale: string = "en") {
   const date = new Date(dateString);
   const now = new Date();

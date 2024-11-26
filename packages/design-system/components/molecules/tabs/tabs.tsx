@@ -104,7 +104,7 @@ export const Tabs = memo(
             <div
               ref={tabsRef}
               className={cn(
-                "flex flex-row items-center justify-start [perspective:1000px] sticky top-0 bg-white rounded-sm py-1 md:py-0 md:bg-transparent z-50 flex-nowrap no-visible-scrollbar max-w-full w-full pl-1 overflow-x-auto gap-1",
+                "flex flex-row items-center justify-start [perspective:1000px] sticky -top-2 bg-white rounded-sm py-1 md:py-0 md:bg-transparent z-50 flex-nowrap no-visible-scrollbar max-w-full w-full pl-1 overflow-x-auto gap-1",
                 containerClassName,
               )}
             >

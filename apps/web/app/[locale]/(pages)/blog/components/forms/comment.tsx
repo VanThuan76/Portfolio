@@ -1,20 +1,23 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { z } from "zod";
+import { toast } from "sonner";
 import { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { AnimatePresence, m } from "framer-motion";
 import { useLocale, useTranslations } from "next-intl";
+import { AnimatePresence, m } from "framer-motion";
 import { queryClient } from "@providers/react-query";
 
 import { cn } from "@repo/design-system/utils/tw";
+import { getTodayFormatted } from "@/shared/helpers/get-time";
 import { createComment } from "@repo/supabase/queries";
 import { useSupabaseBrowser } from "@repo/supabase/utils/client";
 import { useModal, useUser } from "@repo/hooks";
 
-import { zodResolver } from "@hookform/resolvers/zod";
 import { ICreateComment } from "@repo/supabase/queries/types/comment";
 
 import {
@@ -25,13 +28,18 @@ import {
 } from "@repo/design-system/components/organisms/forms/form";
 import { Form } from "@repo/design-system/components/organisms/forms/form";
 import { Button } from "@repo/design-system/components/atoms/button";
+import { Skeleton } from "@repo/design-system/components/molecules/ui-elements/skeleton";
 import { LoaderImage } from "@repo/design-system/components/molecules/ui-elements/loader-image";
 
-import PlateEditor from "@repo/editor/index";
+const PlateEditor = dynamic(() => import("@repo/editor/index"), {
+  ssr: false,
+  loading: () => <Skeleton className="w-full min-h-[300px]" />,
+});
 
 interface Props {
   blogId: string;
   slug: string;
+  refetch?: () => void;
   orderComment?: number;
   commentParentId?: string | null;
   isReplyComment?: boolean;
@@ -46,6 +54,7 @@ const commentCreateSchema = z.object({
 const CommentForm = ({
   slug,
   blogId,
+  refetch,
   commentParentId,
   orderComment,
   isReplyComment = false,
@@ -104,6 +113,10 @@ const CommentForm = ({
       toggleReplyForm;
       setIsDiscuss(false);
       form.reset();
+      toast(t("notify_create_comment"), {
+        description: getTodayFormatted(locale),
+      });
+      refetch && refetch();
     },
   });
 

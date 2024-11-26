@@ -91,7 +91,7 @@ export default function Page() {
                 sizes="(max-width: 600px) 400px, (max-width: 1024px) 800px, 1200px"
                 className="object-cover object-center w-full max-h-[350px] md:rounded-t-md"
               />
-              <section className="relative w-full px-4 pt-3 transition-all duration-150 ease-in-out h-fit md:px-10 rounded-t-3xl md:rounded-none">
+              <section className="relative w-full px-2 pt-3 transition-all duration-150 ease-in-out md:px-4 h-fit lg:px-10 rounded-t-3xl md:rounded-none">
                 <div className="flex items-start flex-1 mb-3">
                   <div className="relative">
                     <Image
@@ -156,11 +156,13 @@ export default function Page() {
                 isCommentEditor={true}
                 slug={params.slug}
                 blogId={article.data.id}
+                refetch={refetch}
               />
               <ListComment
                 blogId={article.data.id}
                 slug={params.slug}
                 comments={article.data.comments || []}
+                refetch={refetch}
               />
             </section>
             <ActionsBlog

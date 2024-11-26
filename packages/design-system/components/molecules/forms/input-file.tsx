@@ -51,10 +51,7 @@ export default function InputFile({
                 className={`flex cursor-pointer items-center ${className}`}
               >
                 <CloudUpload className="w-5 h-5 mr-2" />
-                <TypographyP
-                  className="!m-0"
-                  title={fileName ? fileName : "Nhập liệu"}
-                />
+                <p className="text-sm">{fileName ? fileName : "Nhập liệu"}</p>
               </label>
               <Input
                 id="upload_input"

@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { Toaster } from "sonner";
 
 import { OpenAIProvider } from "@repo/editor/components/openai/openai-context";
 import { getBlogBySlug } from "@repo/supabase/queries/actions/blog/blog-actions";
@@ -53,6 +54,7 @@ export default function BlogSlugLayout({
         <div className="w-full h-full min-h-screen overflow-y-auto">
           {children}
         </div>
+        <Toaster />
       </OpenAIProvider>
     </ReCaptchaProvider>
   );

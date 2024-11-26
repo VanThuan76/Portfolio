@@ -85,11 +85,151 @@ export const DEFAULT_VALUES = [
         id: "2",
         type: "p",
         children: [
-          { text: "AI機能を持つリッチテキストエディターです。" },
+          {
+            text: "AI機能を備えたリッチテキストエディターです。試してみてください ",
+          },
           { text: "AIコマンド", bold: true },
-          { text: "を試すか、" },
+          { text: " または " },
           { text: "Cmd+J", kbd: true },
-          { text: "でAIメニューを開いてください。" },
+          { text: " を使用してAIメニューを開いてください。" },
+        ],
+      },
+    ],
+  },
+  {
+    language_code: "hi",
+    content: [
+      {
+        id: "1",
+        type: "h1",
+        children: [{ text: "ऑस्टिन के संपादक में आपका स्वागत है" }],
+      },
+      {
+        id: "2",
+        type: "p",
+        children: [
+          {
+            text: "एक समृद्ध पाठ संपादक जिसमें AI क्षमताएं हैं। आज़माएं ",
+          },
+          { text: "AI कमांड", bold: true },
+          { text: " या उपयोग करें " },
+          { text: "Cmd+J", kbd: true },
+          { text: " एआई मेनू खोलने के लिए।" },
+        ],
+      },
+    ],
+  },
+  {
+    language_code: "zh",
+    content: [
+      {
+        id: "1",
+        type: "h1",
+        children: [{ text: "欢迎来到奥斯汀编辑器" }],
+      },
+      {
+        id: "2",
+        type: "p",
+        children: [
+          {
+            text: "一个功能丰富的文本编辑器，具有AI功能。试试 ",
+          },
+          { text: "AI命令", bold: true },
+          { text: " 或使用 " },
+          { text: "Cmd+J", kbd: true },
+          { text: " 打开AI菜单。" },
+        ],
+      },
+    ],
+  },
+  {
+    language_code: "es",
+    content: [
+      {
+        id: "1",
+        type: "h1",
+        children: [{ text: "Bienvenido al editor de Austin" }],
+      },
+      {
+        id: "2",
+        type: "p",
+        children: [
+          {
+            text: "Un editor de texto enriquecido con capacidades de IA. Prueba ",
+          },
+          { text: "los comandos de IA", bold: true },
+          { text: " o utiliza " },
+          { text: "Cmd+J", kbd: true },
+          { text: " para abrir el menú de IA." },
+        ],
+      },
+    ],
+  },
+  {
+    language_code: "fr",
+    content: [
+      {
+        id: "1",
+        type: "h1",
+        children: [{ text: "Bienvenue dans l'éditeur Austin" }],
+      },
+      {
+        id: "2",
+        type: "p",
+        children: [
+          {
+            text: "Un éditeur de texte riche avec des capacités d'IA. Essayez ",
+          },
+          { text: "les commandes d'IA", bold: true },
+          { text: " ou utilisez " },
+          { text: "Cmd+J", kbd: true },
+          { text: " pour ouvrir le menu IA." },
+        ],
+      },
+    ],
+  },
+  {
+    language_code: "de",
+    content: [
+      {
+        id: "1",
+        type: "h1",
+        children: [{ text: "Willkommen beim Austin-Editor" }],
+      },
+      {
+        id: "2",
+        type: "p",
+        children: [
+          {
+            text: "Ein Rich-Text-Editor mit KI-Funktionen. Probieren Sie ",
+          },
+          { text: "KI-Befehle", bold: true },
+          { text: " oder verwenden Sie " },
+          { text: "Cmd+J", kbd: true },
+          { text: ", um das KI-Menü zu öffnen." },
+        ],
+      },
+    ],
+  },
+  {
+    language_code: "pt",
+    content: [
+      {
+        id: "1",
+        type: "h1",
+        children: [{ text: "Bem-vindo ao Editor Austin" }],
+      },
+      {
+        id: "2",
+        type: "p",
+        children: [
+          {
+            text: "Um editor de texto rico com recursos de IA. Experimente ",
+          },
+          { text: "os comandos de IA", bold: true },
+          { text: " ou use " },
+          { text: "Cmd+J", kbd: true },
+          { text: " para abrir o menu de IA." },
         ],
       },
     ],

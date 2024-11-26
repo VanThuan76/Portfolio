@@ -1,17 +1,12 @@
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useState } from "react";
 import { useTransitionRouter } from "next-view-transitions";
-import { useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
 
-import { useAppDispatch } from "@repo/management-system";
-
 export const useOpenScreen = () => {
-  const dispatch = useAppDispatch();
-  const routerNext = useRouter();
   const routerTrans = useTransitionRouter();
   const locale = useLocale();
 
-  const isPageChangingRef = useRef(false);
+  const [isPageChanging, setPageChanging] = useState(false);
 
   const handleOpenScreen = useCallback(
     async (
@@ -20,40 +15,25 @@ export const useOpenScreen = () => {
       callbackFinish?: () => void,
       newLocale?: string,
     ) => {
-      e.preventDefault();
-      const localizedHref = newLocale
-        ? `/${newLocale}${href}`
-        : `/${locale}${href}`;
+      e?.preventDefault();
 
-      isPageChangingRef.current = true;
+      const localizedHref = `/${newLocale || locale}${href}`;
+      setPageChanging(true);
 
-      await new Promise((resolve) => setTimeout(resolve, 300));
+      await new Promise((res) => setTimeout(res, 300));
 
       routerTrans.push(localizedHref);
+      setPageChanging(false);
 
-      isPageChangingRef.current = false;
-
-      if (callbackFinish) {
+      if (typeof callbackFinish === "function") {
         callbackFinish();
       }
     },
-    [dispatch, routerNext, routerTrans, locale],
+    [locale, routerTrans],
   );
-
-  // useEffect(() => {
-  //     const handlePopState = () => {
-  //         const { pathname } = window.location;
-  //     };
-
-  //     window.addEventListener("popstate", handlePopState);
-
-  //     return () => {
-  //         window.removeEventListener("popstate", handlePopState);
-  //     };
-  // }, [dispatch]);
 
   return {
     handleOpenScreen,
-    isPageChanging: isPageChangingRef.current,
+    isPageChanging,
   };
 };

@@ -162,7 +162,10 @@
       "fire": "Fogo",
       "clapping": "Aplauso",
       "des_footer_1": "Meu blog é um ponto de encontro para materiais famosos e artigos profundos de diversas áreas.",
-      "des_footer_2": "Criado por AustinVu © 2024 com paixão e dedicação para aqueles que amam tecnologia e conhecimento."
+      "des_footer_2": "Criado por AustinVu © 2024 com paixão e dedicação para aqueles que amam tecnologia e conhecimento.",
+      "notify_create_comment": "Comentário criado com sucesso",
+      "notify_create_blog": "Blog criado com sucesso",
+      "see_all": "Ver todos"
     },
     "project": {
       "title": "Projeto"
