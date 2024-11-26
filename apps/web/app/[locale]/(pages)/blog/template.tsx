@@ -12,40 +12,40 @@ import Header from "./components/layout/header";
 import GrainyFilter from "./components/icons/grainy-filter";
 
 const Footer = dynamic(() => import("./components/layout/footer"), {
-  ssr: false,
+    ssr: false,
 });
 const NavigateNewBlog = dynamic(
-  () => import("./components/navigate-new-blog"),
-  { ssr: false },
+    () => import("./components/navigate-new-blog"),
+    { ssr: false },
 );
 
 export default function BlogTemplate({
-  children,
+    children,
 }: {
-  children: React.ReactNode;
+    children: React.ReactNode;
 }) {
-  const isSafari = useIsSafari();
+    const isSafari = useIsSafari();
 
-  return (
-    <PixelTransition>
-      <div
-        className={cn(
-          "relative w-full h-full pointer-events-auto",
-          fontBlog.className,
-        )}
-        style={
-          !isSafari
-            ? { filter: "url(#grainy)", WebkitFilter: "url(#grainy)" }
-            : {}
-        }
-        data-lenis-prevent="false"
-      >
-        <Header />
-        {children}
-        <Footer />
-        <NavigateNewBlog />
-      </div>
-      {!isSafari && <GrainyFilter className="w-full h-auto" />}
-    </PixelTransition>
-  );
+    return (
+        <PixelTransition>
+            <div
+                className={cn(
+                    "relative w-full min-h-screen h-full pointer-events-auto",
+                    fontBlog.className,
+                )}
+                style={
+                    !isSafari
+                        ? { filter: "url(#grainy)", WebkitFilter: "url(#grainy)" }
+                        : {}
+                }
+                data-lenis-prevent="false"
+            >
+                <GrainyFilter className="absolute top-0 left-0 w-full h-full pointer-events-none" />
+                <Header />
+                {children}
+                <Footer />
+                <NavigateNewBlog />
+            </div>
+        </PixelTransition>
+    );
 }

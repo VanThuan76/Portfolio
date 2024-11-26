@@ -1,13 +1,13 @@
 export function generateSlug(title: string) {
-  return title
-    .toLowerCase()
-    .replace(/á|à|ả|ã|ạ/g, "a")
-    .replace(/é|è|ẻ|ẽ|ẹ/g, "e")
-    .replace(/i/g, "i")
-    .replace(/ó|ò|ỏ|õ|ọ/g, "o")
-    .replace(/ú|ù|ủ|ũ|ụ/g, "u")
-    .replace(/ý|ỳ|ỷ|ỹ|ỵ/g, "y")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-|-$/g, "")
-    .trim();
-}
+    return title
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/đ/g, "d")
+      .replace(/ñ/g, "n")
+      .replace(/ç/g, "c")
+      .replace(/[^\w\s-]/g, "")
+      .replace(/\s+/g, "-")
+      .replace(/^-|-$/g, "")
+      .trim();
+  }

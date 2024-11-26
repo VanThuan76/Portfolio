@@ -44,10 +44,9 @@ const ListComment = dynamic(() => import("../components/list-comment"), {
 });
 
 export default function Page() {
-  const params = useParams<{ locale: string; slug: string }>();
-
   const supabase = useSupabaseBrowser();
   const tBlog = useTranslations("pages.blog");
+  const params = useParams<{ locale: string; slug: string }>();
 
   const [optionsQuery, setOptionsQuery] = useState({
     language_code: params.locale,
@@ -78,7 +77,7 @@ export default function Page() {
           exit={{ opacity: 0, scale: 0.9 }}
           transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1], delay: 0.2 }}
           onAnimationComplete={handleAnimationComplete}
-          className="grid w-full grid-cols-1 gap-0 rounded-none min-h-fit md:pt-4 md:gap-2 md:rounded-lg md:grid-cols-11 md:px-4"
+          className="grid w-full grid-cols-1 gap-0 mb-20 rounded-none min-h-fit md:pt-4 md:gap-2 md:rounded-lg md:grid-cols-11 md:px-4 md:mb-10"
         >
           <main className="relative w-full h-full col-span-1 bg-white md:col-span-8 md:rounded-t-md">
             <article className="flex flex-col items-center justify-start w-full border-none h-fit">

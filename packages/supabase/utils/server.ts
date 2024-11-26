@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 
 import { Database } from "./types";
 
-export async function supabaseServer() {
+export async function useSupabaseServer() {
   const cookieStore = await cookies();
 
   return createServerClient<Database>(

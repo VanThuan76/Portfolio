@@ -1,6 +1,7 @@
 {
   "intro": "欢迎来到Austin Vu",
   "languages": {
+    "select_language": "选择语言",
     "languages": "语言",
     "vi": "越南语",
     "en": "英语",
@@ -165,7 +166,9 @@
       "des_footer_2": "由AustinVu © 2024创建，怀着对技术和知识热爱的激情与承诺。",
       "notify_create_comment": "成功创建评论",
       "notify_create_blog": "博客创建成功",
-      "see_all": "查看全部"
+      "see_all": "查看全部",
+      "no_data": "这里没有数据",
+      "become_blogger": "立即成为博主"
     },
     "project": {
       "title": "项目"

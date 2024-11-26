@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 
 import { cn } from "@repo/design-system/utils/tw";
-import { useModal, useOpenScreen, useUser } from "@repo/hooks";
+import { useIsSafari, useModal, useOpenScreen, useUser } from "@repo/hooks";
 import { queryClient } from "@/providers/react-query";
 import { useSupabaseBrowser } from "@repo/supabase/utils/client";
 import { createReaction, IBlog, ICreateReaction } from "@repo/supabase/queries";
@@ -45,6 +45,7 @@ const ActionsBlog = ({
   const tBlog = useTranslations("pages.blog");
   const tLang = useTranslations("languages");
   const supabase = useSupabaseBrowser();
+  const isSafari = useIsSafari()
 
   const { handleOpenScreen } = useOpenScreen();
   const { executeRecaptcha } = useGoogleReCaptcha();
@@ -185,7 +186,7 @@ const ActionsBlog = ({
   };
 
   return (
-    <div className="sticky w-fit z-50 bottom-20 md:bottom-32 flex flex-row items-center justify-center gap-4 px-2 md:px-4 py-1 md:py-2 rounded-md bg-[#EAE1D6] mx-auto md:left-[28%]">
+    <div className={cn("sticky w-fit z-50 flex flex-row items-center justify-center gap-4 px-2 md:px-4 py-1 md:py-2 rounded-md bg-[#EAE1D6] mx-auto md:left-[28%]", isSafari ? "bottom-32" : "bottom-20 md:bottom-32")}>
       {actions(article).map((item, index) => (
         <PopoverRoot key={index} className="relative">
           <PopoverTrigger className="bg-transparent">

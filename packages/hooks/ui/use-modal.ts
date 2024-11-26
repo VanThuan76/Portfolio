@@ -6,7 +6,7 @@ import {
   useAppSelector,
 } from "@repo/management-system";
 
-export type ModalType = "blog" | "auth";
+export type ModalType = "blog" | "auth" | "switch-languages";
 export type ModalData = any;
 
 export type ModalProps = {

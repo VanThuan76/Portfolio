@@ -1,13 +1,13 @@
 "use server";
 
-import { supabaseServer } from "@repo/supabase/utils/server";
+import { useSupabaseServer } from "@repo/supabase/utils/server";
 
 export const verifyOtp = async (data: {
   email: string;
   otp: string;
   type: string;
 }) => {
-  const supabase = await supabaseServer();
+  const supabase = await useSupabaseServer();
 
   const res = await supabase.auth.verifyOtp({
     email: data.email,

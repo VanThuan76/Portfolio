@@ -1,6 +1,7 @@
 {
   "intro": "オースティン・ヴーへようこそ",
   "languages": {
+    "select_language": "言語を選択",
     "languages": "言語",
     "vi": "ベトナム語",
     "en": "英語",
@@ -163,7 +164,9 @@
       "des_footer_2": "AustinVu © 2024によって作成され、テクノロジーと知識を愛する人々への情熱と献身を込めています。",
       "notify_create_comment": "コメントを正常に作成しました",
       "notify_create_blog": "ブログを正常に作成しました",
-      "see_all": "すべてを見る"
+      "see_all": "すべてを見る",
+      "no_data": "データがありません",
+      "become_blogger": "今すぐブロガーになる"
     },
     "project": {
       "title": "プロジェクト"

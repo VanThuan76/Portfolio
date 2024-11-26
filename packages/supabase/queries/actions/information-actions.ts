@@ -1,4 +1,3 @@
-import { cache } from "react";
 import { SupabaseClient } from "@supabase/supabase-js";
 import { Database } from "@repo/supabase/utils/types";
 
@@ -7,8 +6,7 @@ import {
   createResponse,
 } from "@repo/supabase/queries/types/base";
 
-export const getInformations = cache(
-  async (
+export const getInformations = async (
     supabase: SupabaseClient<Database>,
     locale: string,
   ): Promise<
@@ -23,5 +21,4 @@ export const getInformations = cache(
     if (error) return createResponse(500, [], "Failed to fetch information");
 
     return createResponse(200, data || [], "Successfully fetched information");
-  },
-);
+}

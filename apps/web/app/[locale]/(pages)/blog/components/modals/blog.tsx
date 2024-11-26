@@ -54,7 +54,7 @@ const ModalBlog = () => {
     } else {
       setIsModalOpen(false);
     }
-  }, [isOpen]);
+  }, [isOpen, type]);
 
   const filteredContent =
     data && data.content
@@ -75,7 +75,6 @@ const ModalBlog = () => {
     <Modal open={isModalOpen} setClose={onClose}>
       <ModalBody
         className={cn("relative p-3 md:p-6 max-w-[50%]", fontBlog.className)}
-        style={{ filter: "url(#grainy)" }}
       >
         <div className="flex items-center justify-between">
           <TypographyH3 title={data?.title} />
@@ -150,7 +149,7 @@ const ModalBlog = () => {
             content={filteredContent as string}
           />
         ) : (
-          <div className="flex flex-col">
+          <div className="flex flex-col w-full">
             <Skeleton className="w-full h-8 mb-2" />
             <Skeleton className="w-full h-32 mb-2" />
             <Skeleton className="w-full h-8 mb-2" />

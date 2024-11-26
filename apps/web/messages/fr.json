@@ -1,6 +1,7 @@
 {
   "intro": "Bienvenue sur Austin Vu",
   "languages": {
+    "select_language": "Choisir la langue",
     "languages": "Langues",
     "vi": "Vietnamien",
     "en": "Anglais",
@@ -165,7 +166,9 @@
       "des_footer_2": "Créé par AustinVu © 2024 avec passion et dévouement pour ceux qui aiment la technologie et le savoir.",
       "notify_create_comment": "Commentaire créé avec succès",
       "notify_create_blog": "Blog créé avec succès",
-      "see_all": "Voir tout"
+      "see_all": "Voir tout",
+      "no_data": "Aucune donnée ici",
+      "become_blogger": "Devenez un blogueur maintenant"
     },
     "project": {
       "title": "Projet"

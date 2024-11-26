@@ -145,7 +145,7 @@ export const ModalBody = ({
             layoutId={`modal-body-${String(children)}`}
             ref={modalRef}
             className={cn(
-              "relative h-fit w-fit bg-white dark:bg-neutral-950 border border-transparent dark:border-neutral-800 rounded-2xl z-50 flex flex-col overflow-hidden",
+              "relative h-fit w-fit bg-white dark:bg-neutral-950 border border-transparent dark:border-neutral-800 rounded-none md:rounded-2xl z-50 flex flex-col overflow-hidden",
               className,
             )}
             initial={{ opacity: 0.5, y: 20 }}
