@@ -3,49 +3,48 @@ import { Database } from "@repo/supabase/utils/types";
 
 import { IProject } from "@repo/supabase/queries/types/project";
 import {
-    IBaseResponse,
-    createResponse,
+  IBaseResponse,
+  createResponse,
 } from "@repo/supabase/queries/types/base";
 
 export const getProjects = async (
-    supabase: SupabaseClient<Database>,
-    locale: string,
+  supabase: SupabaseClient<Database>,
+  locale: string,
 ): Promise<IBaseResponse<IProject[] | []>> => {
-    const { data: projects, error: projectError } = await supabase
-        .from("project")
-        .select("*")
-        .eq("language_code", locale)
-        .order("finished_date", { ascending: true });
+  const { data: projects, error: projectError } = await supabase
+    .from("project")
+    .select("*")
+    .eq("language_code", locale)
+    .order("finished_date", { ascending: true });
 
-    if (projectError) createResponse(500, [], "Failed to fetch projects");
+  if (projectError) createResponse(500, [], "Failed to fetch projects");
 
-    const projectIds = projects!.map((project) => project.id);
+  const projectIds = projects!.map((project) => project.id);
 
-    const { data: projectTagsData, error: projectTagsDataError } =
-        await supabase
-            .from("project_tag")
-            .select("*")
-            .in("project_id", projectIds);
+  const { data: projectTagsData, error: projectTagsDataError } = await supabase
+    .from("project_tag")
+    .select("*")
+    .in("project_id", projectIds);
 
-    if (projectTagsDataError)
-        createResponse(500, [], "Failed to fetch project tags");
+  if (projectTagsDataError)
+    createResponse(500, [], "Failed to fetch project tags");
 
-    const { data: projectImagesData, error: projectImagessDataError } =
-        await supabase
-            .from("project_image")
-            .select("*")
-            .in("project_id", projectIds);
+  const { data: projectImagesData, error: projectImagessDataError } =
+    await supabase
+      .from("project_image")
+      .select("*")
+      .in("project_id", projectIds);
 
-    if (projectImagessDataError)
-        createResponse(500, [], "Failed to fetch project images");
+  if (projectImagessDataError)
+    createResponse(500, [], "Failed to fetch project images");
 
-    const result = projects!.map((project) => ({
-        ...project,
-        tags: projectTagsData!.filter((tag) => tag.project_id === project.id),
-        images: projectImagesData!.filter(
-            (image) => image.project_id === project.id,
-        ),
-    }));
+  const result = projects!.map((project) => ({
+    ...project,
+    tags: projectTagsData!.filter((tag) => tag.project_id === project.id),
+    images: projectImagesData!.filter(
+      (image) => image.project_id === project.id,
+    ),
+  }));
 
-    return createResponse(200, result || [], "Successfully fetched projects");
-}
+  return createResponse(200, result || [], "Successfully fetched projects");
+};

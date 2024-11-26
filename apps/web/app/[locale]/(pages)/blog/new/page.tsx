@@ -10,72 +10,69 @@ import { useSupabaseBrowser } from "@repo/supabase/utils/client";
 import { getTags, getBlogCategories } from "@repo/supabase/queries";
 
 const BlogForm = dynamic(() => import("../components/forms/blog"), {
-    ssr: false,
+  ssr: false,
 });
 const HintNewBlog = dynamic(() => import("../components/hint-new-blog"), {
-    ssr: false,
+  ssr: false,
 });
 
 export default function Page() {
-    const supabase = useSupabaseBrowser();
-    const params = useParams<{ locale: string; slug: string }>();
+  const supabase = useSupabaseBrowser();
+  const params = useParams<{ locale: string; slug: string }>();
 
-    const [optionTags, setOptionTags] = useState<{ value: any; label: any }[]>(
-        [],
-    );
-    const [optionCategories, setOptionCategories] = useState<
-        { value: any; label: any }[]
-    >([]);
-    const [currentLocaleForm, setCurrentLocaleForm] = useState(params.locale);
-    const [isMountHint, setIsMountHint] = useState(true);
+  const [optionTags, setOptionTags] = useState<{ value: any; label: any }[]>(
+    [],
+  );
+  const [optionCategories, setOptionCategories] = useState<
+    { value: any; label: any }[]
+  >([]);
+  const [currentLocaleForm, setCurrentLocaleForm] = useState(params.locale);
+  const [isMountHint, setIsMountHint] = useState(true);
 
-    useEffect(() => {
-        const fetchOptionsData = async () => {
-            const responseTags = await getTags(supabase);
-            const responseCategories = await getBlogCategories(
-                supabase,
-                currentLocaleForm,
-            );
-            if (responseTags.status === 200)
-                setOptionTags(
-                    responseTags.data.map((tag) => ({ value: tag.id, label: tag.value })),
-                );
-            if (responseCategories.status === 200)
-                setOptionCategories(
-                    responseCategories.data.map((category) => ({
-                        value: category.id,
-                        label: category.name,
-                    })),
-                );
-        };
-        fetchOptionsData();
-    }, [currentLocaleForm]);
+  useEffect(() => {
+    const fetchOptionsData = async () => {
+      const responseTags = await getTags(supabase);
+      const responseCategories = await getBlogCategories(
+        supabase,
+        currentLocaleForm,
+      );
+      if (responseTags.status === 200)
+        setOptionTags(
+          responseTags.data.map((tag) => ({ value: tag.id, label: tag.value })),
+        );
+      if (responseCategories.status === 200)
+        setOptionCategories(
+          responseCategories.data.map((category) => ({
+            value: category.id,
+            label: category.name,
+          })),
+        );
+    };
+    fetchOptionsData();
+  }, [currentLocaleForm]);
 
-    return (
-        <m.main
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
-            className={cn(
-                "grid items-start justify-start w-full h-full gap-3 p-2 md:p-4 rounded-md bg-black/10",
-                isMountHint
-                    ? "grid-cols-1 md:grid-cols-3"
-                    : "grid-cols-1 md:grid-cols-1",
-            )}
-        >
-            <m.div className="order-2 w-full h-full col-span-1 p-2 mx-auto overflow-y-auto bg-white rounded-sm md:col-span-2 md:order-1">
-                <BlogForm
-                    optionTags={optionTags}
-                    optionCategories={optionCategories}
-                    currentLocaleForm={currentLocaleForm}
-                    setCurrentLocaleForm={setCurrentLocaleForm}
-                />
-            </m.div>
-            <HintNewBlog
-                isMountHint={isMountHint}
-                setIsMountHint={setIsMountHint}
-            />
-        </m.main>
-    );
+  return (
+    <m.main
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+      className={cn(
+        "grid items-start justify-start w-full h-full gap-3 p-2 md:p-4 rounded-md bg-black/10",
+        isMountHint
+          ? "grid-cols-1 md:grid-cols-3"
+          : "grid-cols-1 md:grid-cols-1",
+      )}
+    >
+      <m.div className="order-2 w-full h-full col-span-1 p-2 mx-auto overflow-y-auto bg-white rounded-sm md:col-span-2 md:order-1">
+        <BlogForm
+          optionTags={optionTags}
+          optionCategories={optionCategories}
+          currentLocaleForm={currentLocaleForm}
+          setCurrentLocaleForm={setCurrentLocaleForm}
+        />
+      </m.div>
+      <HintNewBlog isMountHint={isMountHint} setIsMountHint={setIsMountHint} />
+    </m.main>
+  );
 }

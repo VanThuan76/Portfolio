@@ -45,7 +45,7 @@ const ActionsBlog = ({
   const tBlog = useTranslations("pages.blog");
   const tLang = useTranslations("languages");
   const supabase = useSupabaseBrowser();
-  const isSafari = useIsSafari()
+  const isSafari = useIsSafari();
 
   const { handleOpenScreen } = useOpenScreen();
   const { executeRecaptcha } = useGoogleReCaptcha();
@@ -186,7 +186,12 @@ const ActionsBlog = ({
   };
 
   return (
-    <div className={cn("sticky w-fit z-50 flex flex-row items-center justify-center gap-4 px-2 md:px-4 py-1 md:py-2 rounded-md bg-[#EAE1D6] mx-auto md:left-[28%]", isSafari ? "bottom-32" : "bottom-20 md:bottom-32")}>
+    <div
+      className={cn(
+        "sticky w-fit z-50 flex flex-row items-center justify-center gap-4 px-2 md:px-4 py-1 md:py-2 rounded-md bg-[#EAE1D6] mx-auto md:left-[28%]",
+        isSafari ? "bottom-32" : "bottom-20 md:bottom-32",
+      )}
+    >
       {actions(article).map((item, index) => (
         <PopoverRoot key={index} className="relative">
           <PopoverTrigger className="bg-transparent">
