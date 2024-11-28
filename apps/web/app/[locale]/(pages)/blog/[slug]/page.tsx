@@ -9,7 +9,7 @@ import { AnimatePresence, m } from "framer-motion";
 import { useTranslations } from "next-intl";
 
 import { useSupabaseBrowser } from "@repo/supabase/utils/client";
-import { useScrollProgress } from "@repo/design-system/components/organisms/scroll/smooth-scroll"
+import { useScrollProgress } from "@repo/design-system/components/organisms/scroll/smooth-scroll";
 import { IUserMetadata, getBlogBySlug } from "@repo/supabase/queries";
 
 import { formatLocaleDate } from "@shared/helpers/get-time";
@@ -50,7 +50,7 @@ export default function Page() {
   const tBlog = useTranslations("pages.blog");
   const params = useParams<{ locale: string; slug: string }>();
 
-  const { scrollProgress } = useScrollProgress()
+  const { scrollProgress } = useScrollProgress();
 
   const [optionsQuery, setOptionsQuery] = useState({
     language_code: params.locale,

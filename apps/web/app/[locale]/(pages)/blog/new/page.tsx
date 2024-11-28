@@ -16,8 +16,8 @@ const HintNewBlog = dynamic(() => import("../components/hint-new-blog"), {
   ssr: false,
 });
 const LanguagesBlog = dynamic(() => import("../components/languages-blog"), {
-    ssr: false,
-  });
+  ssr: false,
+});
 
 export default function Page() {
   const supabase = useSupabaseBrowser();
@@ -78,10 +78,13 @@ export default function Page() {
           )}
         />
         <div className="absolute top-8 right-5">
-            <LanguagesBlog />
-       </div>
+          <LanguagesBlog />
+        </div>
       </div>
-      <HintNewBlog isMountHint={isMountHint} setIsMountHint={useCallback((state) => setIsMountHint(state), [])} />
+      <HintNewBlog
+        isMountHint={isMountHint}
+        setIsMountHint={useCallback((state) => setIsMountHint(state), [])}
+      />
     </m.main>
   );
 }

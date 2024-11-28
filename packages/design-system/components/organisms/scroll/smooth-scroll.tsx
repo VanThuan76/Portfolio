@@ -60,7 +60,12 @@ export const SmoothScroll: React.FC<{
         root
         ref={lenisRef}
         autoRaf={false}
-        options={{ lerp: 0.1, smoothWheel: true, duration: 1, easing: (t: number) => 1 - Math.pow(1 - t, 3) }}
+        options={{
+          lerp: 0.1,
+          smoothWheel: true,
+          duration: 1,
+          easing: (t: number) => 1 - Math.pow(1 - t, 3),
+        }}
         className={className}
       >
         <>{children}</>
@@ -70,12 +75,12 @@ export const SmoothScroll: React.FC<{
 };
 
 export const useScrollProgress = () => {
-    const [scrollProgress, setScrollProgress] = React.useState(0);
+  const [scrollProgress, setScrollProgress] = React.useState(0);
 
-    useLenis(({ scroll }) => {
-      const scrollPercentage = scroll * 100;
-      setScrollProgress(scrollPercentage);
-    });
+  useLenis(({ scroll }) => {
+    const scrollPercentage = scroll * 100;
+    setScrollProgress(scrollPercentage);
+  });
 
-    return { scrollProgress };
-  };
+  return { scrollProgress };
+};
