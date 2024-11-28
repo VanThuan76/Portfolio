@@ -63,6 +63,7 @@ const CardBlog = ({
   const locale = useLocale();
   const breakpoint = useBreakpoint();
   const supabase = useSupabaseBrowser();
+  const isMobile = ["xs", "sm"].includes(breakpoint);
 
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [clickedSlug, setClickedSlug] = useState<string | null>(null);
@@ -135,7 +136,7 @@ const CardBlog = ({
             onClick={(e) => handleRedirect(e, item)}
           >
             <AnimatePresence>
-              {hoveredIndex === index && (
+              {hoveredIndex === index && !isMobile && (
                 <m.span
                   className="absolute inset-0 min-h-[100px] h-full w-full bg-neutral-200 dark:bg-slate-800/[0.8] block rounded-md"
                   layoutId="hoverBackground"
@@ -249,6 +250,8 @@ const CardBlog = ({
                   priority
                   src={item.image_url}
                   alt={item.title as string}
+                  placeholder="blur"
+                  blurDataURL={item.image_url}
                   width={400}
                   height={400}
                   sizes="(max-width: 600px) 400px, (max-width: 1024px) 800px, 1200px"

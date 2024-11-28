@@ -95,7 +95,8 @@
     "simplifyLanguage": "भाषा सरल करें",
     "summarize": "सारांश जोड़ें",
     "tryAgain": "फिर से प्रयास करें",
-    "custom": "कस्टम"
+    "custom": "कस्टम",
+    "copied": "कॉपी किया गया"
   },
   "form": {
     "required": "यह फ़ील्ड आवश्यक है"

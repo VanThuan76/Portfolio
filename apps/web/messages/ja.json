@@ -95,7 +95,8 @@
     "simplifyLanguage": "言語を簡素化する",
     "summarize": "要約を追加する",
     "tryAgain": "再試行する",
-    "custom": "カスタム"
+    "custom": "カスタム",
+    "copied": "コピーしました"
   },
   "form": {
     "required": "この項目は必須です"

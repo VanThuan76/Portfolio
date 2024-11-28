@@ -95,7 +95,8 @@
     "simplifyLanguage": "简化语言",
     "summarize": "添加摘要",
     "tryAgain": "重试",
-    "custom": "自定义"
+    "custom": "自定义",
+    "copied": "已复制"
   },
   "form": {
     "required": "此字段是必填的"

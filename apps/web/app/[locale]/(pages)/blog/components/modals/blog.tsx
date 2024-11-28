@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { LoaderIcon } from "lucide-react";
+import { LoaderCircle } from "lucide-react";
 
 import { cn } from "@repo/design-system/utils/tw";
 import { fontBlog } from "@shared/utils/font";
@@ -79,7 +79,7 @@ const ModalBlog = () => {
         <div className="flex items-center justify-between">
           <TypographyH3 title={data?.title} />
           {isPageChanging ? (
-            <LoaderIcon className="w-6 h-6 animate-spin" />
+            <LoaderCircle className="w-6 h-6 animate-spin" />
           ) : (
             <Button
               className="relative z-50 pr-4 cursor-pointer"

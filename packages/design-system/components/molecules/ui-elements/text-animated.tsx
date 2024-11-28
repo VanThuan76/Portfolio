@@ -176,7 +176,6 @@ export function TextAnimated({
     : { container: defaultContainerVariants, item: defaultItemVariants };
   const containerVariants = variants?.container || selectedVariants.container;
   const itemVariants = variants?.item || selectedVariants.item;
-  const ariaLabel = per === "line" ? undefined : children;
 
   const stagger = defaultStaggerTimes[per];
 
@@ -203,7 +202,6 @@ export function TextAnimated({
           initial="hidden"
           animate="visible"
           exit="exit"
-          aria-label={ariaLabel}
           variants={delayedContainerVariants}
           className={cn("whitespace-pre-wrap", className)}
           onAnimationComplete={onAnimationComplete}

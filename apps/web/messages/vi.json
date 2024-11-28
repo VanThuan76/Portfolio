@@ -95,7 +95,8 @@
     "simplifyLanguage": "Đơn giản hóa ngôn ngữ",
     "summarize": "Thêm tóm tắt",
     "tryAgain": "Thử lại",
-    "custom": "Tùy chỉnh"
+    "custom": "Tùy chỉnh",
+    "copied": "Đã sao chép"
   },
   "form": {
     "required": "Trường này là bắt buộc"

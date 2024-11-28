@@ -9,6 +9,7 @@ import { AnimatePresence, m } from "framer-motion";
 import { useTranslations } from "next-intl";
 
 import { useSupabaseBrowser } from "@repo/supabase/utils/client";
+import { useScrollProgress } from "@repo/design-system/components/organisms/scroll/smooth-scroll"
 import { IUserMetadata, getBlogBySlug } from "@repo/supabase/queries";
 
 import { formatLocaleDate } from "@shared/helpers/get-time";
@@ -30,6 +31,7 @@ const PlateShowContent = dynamic(() => import("@repo/editor/content"), {
   ssr: false,
   loading: () => <Skeleton className="w-full min-h-[500px]" />,
 });
+
 const ListComment = dynamic(() => import("../components/list-comment"), {
   ssr: false,
   loading: () => (
@@ -47,6 +49,8 @@ export default function Page() {
   const supabase = useSupabaseBrowser();
   const tBlog = useTranslations("pages.blog");
   const params = useParams<{ locale: string; slug: string }>();
+
+  const { scrollProgress } = useScrollProgress()
 
   const [optionsQuery, setOptionsQuery] = useState({
     language_code: params.locale,
@@ -71,11 +75,12 @@ export default function Page() {
     <AnimatePresence mode="wait">
       {article && article.data ? (
         <m.div
+          layout
           key={article.data.id}
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.9 }}
-          transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1], delay: 0.2 }}
+          transition={{ duration: 0.4, ease: "easeInOut" }}
           onAnimationComplete={handleAnimationComplete}
           className="grid w-full grid-cols-1 gap-0 mb-20 rounded-none min-h-fit md:pt-4 md:gap-2 md:rounded-lg md:grid-cols-11 md:px-4 md:mb-10"
         >

@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic";
 import { m } from "framer-motion";
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 import { cn } from "@repo/design-system/utils/tw";
 import { useSupabaseBrowser } from "@repo/supabase/utils/client";
@@ -15,6 +15,9 @@ const BlogForm = dynamic(() => import("../components/forms/blog"), {
 const HintNewBlog = dynamic(() => import("../components/hint-new-blog"), {
   ssr: false,
 });
+const LanguagesBlog = dynamic(() => import("../components/languages-blog"), {
+    ssr: false,
+  });
 
 export default function Page() {
   const supabase = useSupabaseBrowser();
@@ -64,15 +67,21 @@ export default function Page() {
           : "grid-cols-1 md:grid-cols-1",
       )}
     >
-      <m.div className="order-2 w-full h-full col-span-1 p-2 mx-auto overflow-y-auto bg-white rounded-sm md:col-span-2 md:order-1">
+      <div className="relative order-2 w-full h-full col-span-1 p-2 mx-auto overflow-y-auto bg-white rounded-sm md:col-span-2 md:order-1">
         <BlogForm
           optionTags={optionTags}
           optionCategories={optionCategories}
           currentLocaleForm={currentLocaleForm}
-          setCurrentLocaleForm={setCurrentLocaleForm}
+          setCurrentLocaleForm={useCallback(
+            (locale) => setCurrentLocaleForm(locale),
+            [],
+          )}
         />
-      </m.div>
-      <HintNewBlog isMountHint={isMountHint} setIsMountHint={setIsMountHint} />
+        <div className="absolute top-8 right-5">
+            <LanguagesBlog />
+       </div>
+      </div>
+      <HintNewBlog isMountHint={isMountHint} setIsMountHint={useCallback((state) => setIsMountHint(state), [])} />
     </m.main>
   );
 }

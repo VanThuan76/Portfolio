@@ -95,7 +95,8 @@
     "simplifyLanguage": "Simplificar lenguaje",
     "summarize": "Añadir resumen",
     "tryAgain": "Intentar de nuevo",
-    "custom": "Personalizado"
+    "custom": "Personalizado",
+    "copied": "Copiado"
   },
   "form": {
     "required": "Este campo es obligatorio"

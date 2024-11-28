@@ -50,6 +50,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           buttonVariants({ variant, size, className }),
           "hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition duration-200",
         )}
+        aria-label={props["aria-label"] || props.children?.toString() || "Button"}
+        role={asChild ? "button" : undefined}
+        tabIndex={asChild ? 0 : undefined}
         ref={ref}
         {...props}
       />

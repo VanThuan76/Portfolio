@@ -49,8 +49,8 @@ const ModalAuth = () => {
           <Button
             className="relative z-50 w-full"
             onClick={(e) => {
-              setIsModalOpen(false);
               handleOpenScreen(e, "/auth/signin");
+              setIsModalOpen(false);
             }}
           >
             {t("login")}

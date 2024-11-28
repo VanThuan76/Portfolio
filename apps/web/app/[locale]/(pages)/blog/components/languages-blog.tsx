@@ -20,6 +20,7 @@ const LanguagesBlog = () => {
             svg
             key={index}
             cdnSuffix="svg"
+            crossOrigin="anonymous"
             countryCode={LANGUAGE_CODES_COUNTRY[item] as string}
             cdnUrl="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/1x1/"
             title={LANGUAGE_CODES_COUNTRY[item] as string}
