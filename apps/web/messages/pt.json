@@ -174,5 +174,84 @@
     "project": {
       "title": "Projeto"
     }
-  }
+  },
+  "privacy-policy": {
+    "title": "Política de Privacidade",
+    "lastUpdated": "01-01-2025",
+    "sections": [
+      {
+        "title": "Introdução",
+        "content": "Bem-vindo à nossa Política de Privacidade. Esta política descreve como coletamos, usamos e gerenciamos suas informações pessoais quando você utiliza nossos serviços."
+      },
+      {
+        "title": "Informações que coletamos",
+        "content": "Coletamos informações fornecidas diretamente por você, como quando você cria uma conta, se inscreve em nosso boletim informativo ou entra em contato conosco para suporte."
+      },
+      {
+        "title": "Como usamos suas informações",
+        "content": "Usamos as informações coletadas para fornecer, manter e melhorar nossos serviços, desenvolver novos serviços e proteger nossa empresa e usuários."
+      },
+      {
+        "title": "Como compartilhamos informações",
+        "content": "Não compartilhamos suas informações pessoais com terceiros, exceto quando necessário por motivos legais, com sua permissão ou para proteger nossos direitos e segurança."
+      },
+      {
+        "title": "Segurança",
+        "content": "Implementamos medidas de segurança razoáveis para proteger suas informações contra acesso, alteração, divulgação ou destruição não autorizados."
+      },
+      {
+        "title": "Alterações na política",
+        "content": "Nossa Política de Privacidade pode ser atualizada de tempos em tempos. Qualquer alteração será publicada nesta página."
+      },
+      {
+        "title": "Contate-nos",
+        "content": "Se você tiver dúvidas sobre nossa Política de Privacidade, entre em contato conosco: info@austinvu.tech"
+      }
+    ]
+  },
+  "terms-of-service": {
+    "title": "Termos de Serviço",
+    "lastUpdated": "01-01-2025",
+    "sections": [
+      {
+        "title": "Aceitação dos termos",
+        "content": "Ao acessar e usar este site, você concorda com estes termos e condições."
+      },
+      {
+        "title": "Licença de uso",
+        "content": "Concedemos a você uma licença temporária para baixar uma cópia dos materiais (informações ou software) no nosso site para uso pessoal e não comercial."
+      },
+      {
+        "title": "Isenção de responsabilidade",
+        "content": "Os materiais no nosso site são fornecidos 'como estão'. Não fornecemos nenhuma garantia expressa ou implícita e rejeitamos todas as outras garantias."
+      },
+      {
+        "title": "Limitação de responsabilidade",
+        "content": "Em nenhum caso seremos responsáveis por danos decorrentes do uso ou da impossibilidade de usar os materiais no nosso site."
+      },
+      {
+        "title": "Correções e erros",
+        "content": "Os materiais no nosso site podem conter erros técnicos, tipográficos ou fotográficos."
+      },
+      {
+        "title": "Links",
+        "content": "Não revisamos todos os sites vinculados ao nosso site e não nos responsabilizamos pelo conteúdo de qualquer site vinculado."
+      },
+      {
+        "title": "Alterações",
+        "content": "Podemos modificar estes Termos de Serviço a qualquer momento, sem aviso prévio. Ao usar este site, você concorda em estar vinculado à versão mais recente destes termos."
+      },
+      {
+        "title": "Lei aplicável",
+        "content": "Esses termos serão regidos e interpretados de acordo com as leis de Portugal."
+      }
+    ]
+  },
+  "cookie-consent": {
+    "title": "Consentimento de Cookies",
+    "description": "Usamos cookies para melhorar sua experiência de navegação e analisar nosso tráfego. Por favor, escolha sua preferência abaixo.",
+    "by_accepting_cookies": "Ao aceitar os cookies, você nos permite coletar informações para melhorar nossos serviços e fornecer conteúdo personalizado.",
+    "reject": "Rejeitar todos",
+    "accept": "Aceitar todos"
+}
 }

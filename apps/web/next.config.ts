@@ -15,6 +15,10 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
+        hostname: "static.cdn.austinvu.tech",
+      },
+      {
+        protocol: "https",
         hostname: "ocjaxgkaarttotpzrodh.supabase.co",
       },
       {
@@ -38,6 +42,27 @@ const nextConfig = {
         hostname: "cdnjs.cloudflare.com",
       },
     ],
+  },
+//   async rewrites() {
+//     return [
+//       {
+//         source: '/:path*',
+//         destination: 'https://static.cdn.austinvu.tech/:path*',
+//       },
+//     ];
+//   },
+  async headers() {
+    return [
+      {
+        source: '/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+    ];
   },
   webpack(config, { isServer }) {
     if (!isServer) {
@@ -90,7 +115,7 @@ module.exports = (_phase, { defaultConfig }) => {
     {
       ...defaultConfig,
       ...nextConfig,
-    },
+    }
   );
 
   const finalConfig = {};

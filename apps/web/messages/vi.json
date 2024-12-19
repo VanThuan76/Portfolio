@@ -174,5 +174,77 @@
     "project": {
       "title": "Sản phẩm"
     }
+  },
+  "privacy-policy": {
+    "title": "Chính Sách Bảo Mật",
+    "lastUpdated": "01-01-2025",
+    "sections": [
+      {
+        "title": "Giới Thiệu",
+        "content": "Chào mừng bạn đến với Chính Sách Bảo Mật của chúng tôi. Chính sách này mô tả cách chúng tôi thu thập, sử dụng và xử lý thông tin cá nhân của bạn khi bạn sử dụng dịch vụ của chúng tôi."
+      },
+      {
+        "title": "Thông Tin Chúng Tôi Thu Thập",
+        "content": "Chúng tôi thu thập thông tin mà bạn cung cấp trực tiếp cho chúng tôi, chẳng hạn như khi bạn tạo tài khoản, đăng ký nhận bản tin, hoặc liên hệ với chúng tôi để được hỗ trợ."
+      },
+      {
+        "title": "Cách Chúng Tôi Sử Dụng Thông Tin Của Bạn",
+        "content": "Chúng tôi sử dụng thông tin thu thập được để cung cấp, duy trì và cải thiện dịch vụ của chúng tôi, phát triển các dịch vụ mới, và bảo vệ công ty cũng như người dùng của chúng tôi."
+      },
+      {
+        "title": "Chia Sẻ Thông Tin",
+        "content": "Chúng tôi không chia sẻ thông tin cá nhân với các công ty, tổ chức, hoặc cá nhân ngoài công ty của chúng tôi, trừ những trường hợp sau: có sự đồng ý của bạn, vì lý do pháp lý, hoặc để bảo vệ quyền lợi, tài sản, hoặc sự an toàn."
+      },
+      {
+        "title": "Bảo Mật",
+        "content": "Chúng tôi nỗ lực hết mình để bảo vệ người dùng khỏi việc truy cập trái phép hoặc thay đổi, tiết lộ, hoặc phá hủy thông tin mà chúng tôi đang nắm giữ."
+      },
+      {
+        "title": "Thay Đổi Chính Sách",
+        "content": "Chúng tôi có thể thay đổi chính sách bảo mật này theo thời gian. Mọi thay đổi sẽ được đăng trên trang này."
+      },
+      {
+        "title": "Liên Hệ Với Chúng Tôi",
+        "content": "Nếu bạn có bất kỳ câu hỏi nào về Chính Sách Bảo Mật này, vui lòng liên hệ với chúng tôi qua: info@austinvu.tech"
+      }
+    ]
+  },
+  "terms-of-service": {
+    "title": "Điều Khoản Dịch Vụ",
+    "lastUpdated": "01-01-2025",
+    "sections": [
+      {
+        "title": "Chấp Nhận Điều Khoản",
+        "content": "Bằng cách truy cập và sử dụng website này, bạn chấp nhận và đồng ý bị ràng buộc bởi các điều khoản và quy định của thỏa thuận này."
+      },
+      {
+        "title": "Giấy Phép Sử Dụng",
+        "content": "Chúng tôi cấp phép tạm thời cho bạn tải xuống một bản sao tài liệu (thông tin hoặc phần mềm) trên website của chúng tôi để sử dụng cá nhân, không phải thương mại."
+      },
+      {
+        "title": "Tuyên Bố Miễn Trách Nhiệm",
+        "content": "Tài liệu trên website của chúng tôi được cung cấp 'như hiện tại'. Chúng tôi không đưa ra bất kỳ bảo đảm nào, dù là rõ ràng hay ngụ ý, và từ chối mọi bảo đảm khác bao gồm, nhưng không giới hạn, bảo đảm ngụ ý về khả năng bán được, phù hợp cho một mục đích cụ thể, hoặc không vi phạm quyền sở hữu trí tuệ hoặc vi phạm quyền lợi."
+      },
+      {
+        "title": "Giới Hạn Trách Nhiệm",
+        "content": "Trong bất kỳ trường hợp nào, công ty chúng tôi hoặc các nhà cung cấp của chúng tôi sẽ không chịu trách nhiệm về bất kỳ thiệt hại nào (bao gồm, nhưng không giới hạn, thiệt hại về mất mát dữ liệu hoặc lợi nhuận, hoặc gián đoạn kinh doanh) phát sinh từ việc sử dụng hoặc không thể sử dụng tài liệu trên website của chúng tôi."
+      },
+      {
+        "title": "Sửa Đổi và Lỗi",
+        "content": "Các tài liệu xuất hiện trên website của chúng tôi có thể bao gồm lỗi kỹ thuật, đánh máy, hoặc hình ảnh. Chúng tôi không đảm bảo rằng bất kỳ tài liệu nào trên website của mình là chính xác, đầy đủ hoặc cập nhật."
+      },
+      {
+        "title": "Liên Kết",
+        "content": "Chúng tôi không xem xét tất cả các trang web liên kết với website của mình và không chịu trách nhiệm về nội dung của bất kỳ trang web liên kết nào. Việc đưa liên kết vào không đồng nghĩa với việc công ty chúng tôi tán thành trang web đó. Việc sử dụng bất kỳ trang web liên kết nào là do người dùng tự chịu trách nhiệm."
+      },
+      {
+        "title": "Sửa Đổi",
+        "content": "Chúng tôi có thể sửa đổi các điều khoản dịch vụ này cho website của mình bất cứ lúc nào mà không thông báo trước. Bằng cách sử dụng website này, bạn đồng ý bị ràng buộc bởi phiên bản hiện hành của các điều khoản dịch vụ này."
+      },
+      {
+        "title": "Luật Áp Dụng",
+        "content": "Các điều khoản và điều kiện này được điều chỉnh và giải thích theo pháp luật của Việt Nam, và bạn không thể rút lại quyền tài phán độc quyền của các tòa án tại quốc gia hoặc địa điểm đó."
+      }
+    ]
   }
 }

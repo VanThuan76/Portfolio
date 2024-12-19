@@ -174,5 +174,84 @@
     "project": {
       "title": "Proyecto"
     }
+  },
+  "privacy-policy": {
+    "title": "Política de privacidad",
+    "lastUpdated": "01-01-2025",
+    "sections": [
+      {
+        "title": "Introducción",
+        "content": "Bienvenido a nuestra Política de Privacidad. Esta política describe cómo recopilamos, usamos y gestionamos su información personal cuando utiliza nuestros servicios."
+      },
+      {
+        "title": "Información que recopilamos",
+        "content": "Recopilamos información que usted nos proporciona directamente, como cuando crea una cuenta, se suscribe a nuestro boletín o se pone en contacto con nosotros para obtener asistencia."
+      },
+      {
+        "title": "Cómo usamos su información",
+        "content": "Utilizamos la información recopilada para proporcionar, mantener y mejorar nuestros servicios, desarrollar nuevos servicios y proteger nuestra empresa y usuarios."
+      },
+      {
+        "title": "Cómo compartimos la información",
+        "content": "No compartimos su información personal con terceros, excepto cuando sea necesario por razones legales, con su consentimiento o para proteger nuestros derechos y seguridad."
+      },
+      {
+        "title": "Seguridad",
+        "content": "Implementamos medidas de seguridad razonables para evitar el acceso no autorizado, modificación, divulgación o destrucción de su información."
+      },
+      {
+        "title": "Cambios en la política",
+        "content": "Nuestra Política de Privacidad puede actualizarse de vez en cuando. Cualquier cambio se publicará en esta página."
+      },
+      {
+        "title": "Contáctenos",
+        "content": "Si tiene alguna pregunta sobre nuestra Política de Privacidad, póngase en contacto con nosotros: info@austinvu.tech"
+      }
+    ]
+  },
+  "terms-of-service": {
+    "title": "Términos de servicio",
+    "lastUpdated": "01-01-2025",
+    "sections": [
+      {
+        "title": "Aceptación de términos",
+        "content": "Al acceder y utilizar este sitio web, usted acepta y se compromete a cumplir con estos términos y condiciones."
+      },
+      {
+        "title": "Licencia de uso",
+        "content": "Le otorgamos una licencia temporal para descargar una copia de los materiales (información o software) en nuestro sitio web para uso personal y no comercial."
+      },
+      {
+        "title": "Descargo de responsabilidad",
+        "content": "Los materiales en nuestro sitio web se proporcionan 'tal como están'. No ofrecemos garantías, ya sean expresas o implícitas, y rechazamos todas las demás garantías."
+      },
+      {
+        "title": "Limitación de responsabilidad",
+        "content": "En ningún caso nuestra empresa o sus proveedores serán responsables por ningún daño derivado del uso o la imposibilidad de usar los materiales en nuestro sitio web."
+      },
+      {
+        "title": "Correcciones y errores",
+        "content": "Los materiales en nuestro sitio web pueden contener errores técnicos, tipográficos o fotográficos."
+      },
+      {
+        "title": "Enlaces",
+        "content": "No revisamos todas las páginas web enlazadas a nuestro sitio web y no somos responsables del contenido de cualquier página enlazada."
+      },
+      {
+        "title": "Modificaciones",
+        "content": "Podemos modificar estos términos de servicio en cualquier momento sin previo aviso. Al usar este sitio web, usted acepta estar vinculado por la versión más reciente de estos términos."
+      },
+      {
+        "title": "Ley aplicable",
+        "content": "Estos términos serán regidos e interpretados de acuerdo con las leyes de España."
+      }
+    ]
+  },
+  "cookie-consent": {
+    "title": "Consentimiento de cookies",
+    "description": "Usamos cookies para mejorar su experiencia de navegación y analizar nuestro tráfico. Por favor, elija su preferencia a continuación.",
+    "by_accepting_cookies": "Al aceptar las cookies, nos permite recopilar información para mejorar nuestros servicios y ofrecer contenido personalizado.",
+    "reject": "Rechazar todo",
+    "accept": "Aceptar todo"
   }
 }

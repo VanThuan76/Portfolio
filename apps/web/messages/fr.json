@@ -174,5 +174,84 @@
     "project": {
       "title": "Projet"
     }
+  },
+  "privacy-policy": {
+    "title": "Politique de confidentialité",
+    "lastUpdated": "01-01-2025",
+    "sections": [
+      {
+        "title": "Introduction",
+        "content": "Bienvenue dans notre politique de confidentialité. Cette politique décrit comment nous recueillons, utilisons et gérons vos informations personnelles lorsque vous utilisez nos services."
+      },
+      {
+        "title": "Informations que nous recueillons",
+        "content": "Nous recueillons des informations que vous nous fournissez directement, comme lorsque vous créez un compte, vous abonnez à notre newsletter ou contactez notre support."
+      },
+      {
+        "title": "Comment nous utilisons vos informations",
+        "content": "Nous utilisons les informations recueillies pour fournir, maintenir et améliorer nos services, développer de nouveaux services et protéger notre entreprise et nos utilisateurs."
+      },
+      {
+        "title": "Comment nous partageons vos informations",
+        "content": "Nous ne partageons pas vos informations personnelles avec des tiers, sauf dans des cas légaux, avec votre consentement ou pour protéger nos droits et notre sécurité."
+      },
+      {
+        "title": "Sécurité",
+        "content": "Nous mettons en place des mesures de sécurité raisonnables pour protéger vos informations contre tout accès non autorisé, modification, divulgation ou destruction."
+      },
+      {
+        "title": "Modifications de la politique",
+        "content": "Notre politique de confidentialité peut être mise à jour à tout moment. Toute modification sera publiée sur cette page."
+      },
+      {
+        "title": "Nous contacter",
+        "content": "Si vous avez des questions concernant notre politique de confidentialité, veuillez nous contacter : info@austinvu.tech"
+      }
+    ]
+  },
+  "terms-of-service": {
+    "title": "Conditions d'utilisation",
+    "lastUpdated": "01-01-2025",
+    "sections": [
+      {
+        "title": "Acceptation des conditions",
+        "content": "En accédant et en utilisant ce site Web, vous acceptez et vous engagez à respecter ces termes et conditions."
+      },
+      {
+        "title": "Licence d'utilisation",
+        "content": "Nous vous accordons une licence temporaire pour télécharger une copie des matériaux (informations ou logiciels) de notre site Web pour un usage personnel et non commercial."
+      },
+      {
+        "title": "Déni de responsabilité",
+        "content": "Les matériaux sur notre site Web sont fournis 'tels quels'. Nous n'offrons aucune garantie, expresse ou implicite, et rejetons toutes les autres garanties."
+      },
+      {
+        "title": "Limitation de responsabilité",
+        "content": "En aucun cas, notre société ou nos fournisseurs ne pourront être tenus responsables des dommages résultant de l'utilisation ou de l'incapacité d'utiliser les matériaux de notre site Web."
+      },
+      {
+        "title": "Corrections et erreurs",
+        "content": "Les matériaux de notre site Web peuvent contenir des erreurs techniques, typographiques ou d'image."
+      },
+      {
+        "title": "Liens",
+        "content": "Nous ne vérifions pas toutes les pages liées à notre site Web et ne sommes pas responsables du contenu des pages liées."
+      },
+      {
+        "title": "Modifications",
+        "content": "Nous pouvons modifier ces conditions d'utilisation à tout moment sans préavis. En utilisant ce site Web, vous acceptez d'être lié par la version la plus récente de ces termes."
+      },
+      {
+        "title": "Loi applicable",
+        "content": "Ces termes sont régis et interprétés conformément aux lois de la France."
+      }
+    ]
+  },
+  "cookie-consent": {
+    "title": "Consentement aux cookies",
+    "description": "Nous utilisons des cookies pour améliorer votre expérience de navigation et analyser notre trafic. Veuillez choisir votre préférence ci-dessous.",
+    "by_accepting_cookies": "En acceptant les cookies, vous nous autorisez à collecter des informations pour améliorer nos services et fournir du contenu personnalisé.",
+    "reject": "Tout refuser",
+    "accept": "Tout accepter"
   }
 }

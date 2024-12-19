@@ -174,5 +174,84 @@
     "project": {
       "title": "Projekt"
     }
+  },
+  "privacy-policy": {
+    "title": "Datenschutzerklärung",
+    "lastUpdated": "01-01-2025",
+    "sections": [
+      {
+        "title": "Einführung",
+        "content": "Willkommen zu unserer Datenschutzerklärung. Diese Erklärung beschreibt, wie wir Ihre persönlichen Daten sammeln, verwenden und verwalten, wenn Sie unsere Dienste nutzen."
+      },
+      {
+        "title": "Gesammelte Informationen",
+        "content": "Wir sammeln Informationen, die Sie uns direkt zur Verfügung stellen, wie z. B. beim Erstellen eines Kontos, Abonnieren unseres Newsletters oder bei der Kontaktaufnahme mit unserem Support."
+      },
+      {
+        "title": "Wie wir Ihre Informationen verwenden",
+        "content": "Wir verwenden die gesammelten Informationen, um unsere Dienste bereitzustellen, zu warten und zu verbessern, neue Dienste zu entwickeln und unser Unternehmen sowie unsere Nutzer zu schützen."
+      },
+      {
+        "title": "Wie wir Informationen teilen",
+        "content": "Wir teilen Ihre persönlichen Informationen nicht mit Dritten, es sei denn, dies ist aus rechtlichen Gründen erforderlich, mit Ihrer Zustimmung oder zum Schutz unserer Rechte und Sicherheit."
+      },
+      {
+        "title": "Sicherheit",
+        "content": "Wir setzen angemessene Sicherheitsmaßnahmen ein, um Ihre Informationen vor unbefugtem Zugriff, Änderung, Offenlegung oder Zerstörung zu schützen."
+      },
+      {
+        "title": "Änderungen der Richtlinie",
+        "content": "Unsere Datenschutzerklärung kann von Zeit zu Zeit aktualisiert werden. Änderungen werden auf dieser Seite veröffentlicht."
+      },
+      {
+        "title": "Kontaktieren Sie uns",
+        "content": "Wenn Sie Fragen zu unserer Datenschutzerklärung haben, kontaktieren Sie uns bitte unter: info@austinvu.tech"
+      }
+    ]
+  },
+  "terms-of-service": {
+    "title": "Nutzungsbedingungen",
+    "lastUpdated": "01-01-2025",
+    "sections": [
+      {
+        "title": "Akzeptanz der Bedingungen",
+        "content": "Durch den Zugriff auf und die Nutzung dieser Website erklären Sie sich mit diesen Nutzungsbedingungen einverstanden."
+      },
+      {
+        "title": "Nutzungsrecht",
+        "content": "Wir gewähren Ihnen eine temporäre Lizenz, eine Kopie der Materialien (Informationen oder Software) auf unserer Website herunterzuladen, ausschließlich für den persönlichen und nicht kommerziellen Gebrauch."
+      },
+      {
+        "title": "Haftungsausschluss",
+        "content": "Die Materialien auf unserer Website werden 'wie sie sind' bereitgestellt. Wir übernehmen keine ausdrückliche oder stillschweigende Garantie und lehnen alle anderen Garantien ab."
+      },
+      {
+        "title": "Haftungsbeschränkung",
+        "content": "In keinem Fall haften wir oder unsere Lieferanten für Schäden, die sich aus der Nutzung oder der Unfähigkeit zur Nutzung der Materialien auf unserer Website ergeben."
+      },
+      {
+        "title": "Korrekturen und Fehler",
+        "content": "Die Materialien auf unserer Website können technische Fehler, Druckfehler oder Bildfehler enthalten."
+      },
+      {
+        "title": "Links",
+        "content": "Wir haben nicht alle auf unserer Website verlinkten Seiten überprüft und übernehmen keine Verantwortung für deren Inhalt."
+      },
+      {
+        "title": "Änderungen",
+        "content": "Wir können diese Nutzungsbedingungen jederzeit ohne vorherige Ankündigung ändern. Durch die Nutzung dieser Website erklären Sie sich mit der neuesten Version dieser Bedingungen einverstanden."
+      },
+      {
+        "title": "Anwendbares Recht",
+        "content": "Diese Bedingungen unterliegen den Gesetzen von der Türkei und sind nach diesen Gesetzen auszulegen."
+      }
+    ]
+  },
+  "cookie-consent": {
+    "title": "Cookie-Zustimmung",
+    "description": "Wir verwenden Cookies, um Ihr Surferlebnis zu verbessern und unseren Verkehr zu analysieren. Bitte wählen Sie unten Ihre Präferenz.",
+    "by_accepting_cookies": "Indem Sie Cookies akzeptieren, erlauben Sie uns, Informationen zu sammeln, um unsere Dienste zu verbessern und personalisierte Inhalte bereitzustellen.",
+    "reject": "Alle ablehnen",
+    "accept": "Alle akzeptieren"
   }
 }
