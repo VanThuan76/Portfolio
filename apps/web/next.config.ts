@@ -43,22 +43,22 @@ const nextConfig = {
       },
     ],
   },
-//   async rewrites() {
-//     return [
-//       {
-//         source: '/:path*',
-//         destination: 'https://static.cdn.austinvu.tech/:path*',
-//       },
-//     ];
-//   },
+  //   async rewrites() {
+  //     return [
+  //       {
+  //         source: '/:path*',
+  //         destination: 'https://static.cdn.austinvu.tech/:path*',
+  //       },
+  //     ];
+  //   },
   async headers() {
     return [
       {
-        source: '/:path*',
+        source: "/:path*",
         headers: [
           {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
           },
         ],
       },
@@ -115,7 +115,7 @@ module.exports = (_phase, { defaultConfig }) => {
     {
       ...defaultConfig,
       ...nextConfig,
-    }
+    },
   );
 
   const finalConfig = {};
