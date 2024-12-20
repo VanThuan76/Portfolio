@@ -4,14 +4,13 @@ import Image from "next/image";
 import { m } from "framer-motion";
 import { useMemo } from "react";
 import { usePathname } from "next/navigation";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 
 import { cn } from "@repo/design-system/utils/tw";
 import { useOpenScreen } from "@repo/hooks";
 
 const Header = () => {
   const t = useTranslations("pages.blog");
-  const locale = useLocale();
   const pathName = usePathname();
 
   const isSlugBlog = useMemo(
@@ -51,7 +50,7 @@ const Header = () => {
       >
         <div
           className="flex items-center justify-start w-full gap-2 cursor-pointer"
-          onClick={(e) => handleOpenScreen(e, "/blog")}
+          onClick={(e) => handleOpenScreen(e, "/blog", "")}
         >
           <Image
             priority

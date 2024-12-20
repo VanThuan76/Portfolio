@@ -1,12 +1,13 @@
 "use client";
+
+import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import { AnimatePresence, m } from "framer-motion";
-import Link from "next/link";
 
 import { cn } from "@repo/design-system/utils/tw";
 
 import { Badge } from "@repo/design-system/components/molecules/ui-elements/badge";
-import { LoaderImage } from "@repo/design-system/components/molecules/ui-elements/loader-image";
 
 export const HoverEffect = ({
   items,
@@ -57,10 +58,11 @@ export const HoverEffect = ({
             )}
           </AnimatePresence>
           <Card className="relative p-0 m-0 overflow-hidden shadow-lg bg-black/30 dark:bg-white">
-            <LoaderImage
-              isLoader={false}
+            <Image
+              priority
               src={item.image_url}
               alt={item.title}
+              sizes="100vw"
               className="w-full h-[100px] object-cover object-center border-b border-b-gray-400"
               width={355}
               height={355}

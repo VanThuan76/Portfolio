@@ -24,7 +24,6 @@ export async function uploadImageToStorage(file: File): Promise<string | null> {
       return `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/${filePath}`;
     }
 
-    // Upload file nếu chưa tồn tại
     const { data, error } = await bucket.upload(filePath, file);
     if (error) throw error;
 
