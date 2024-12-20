@@ -8,24 +8,24 @@ import DesignSystemProvider from "@repo/design-system";
 import ReactQueryClientProvider from "@providers/react-query";
 
 export default function Providers({
-    children,
-    messages,
-    locale = "en",
+  children,
+  messages,
+  locale = "en",
 }: {
-    children: React.ReactNode;
-    messages: AbstractIntlMessages;
-    locale?: string;
+  children: React.ReactNode;
+  messages: AbstractIntlMessages;
+  locale?: string;
 }) {
-    return (
-        <NextIntlClientProvider messages={messages} locale={locale}>
-            <ReactQueryClientProvider>
-                <ReduxProvider>
-                    <DesignSystemProvider>
-                        {children}
-                        <Toaster />
-                    </DesignSystemProvider>
-                </ReduxProvider>
-            </ReactQueryClientProvider>
-        </NextIntlClientProvider>
-    );
+  return (
+    <NextIntlClientProvider messages={messages} locale={locale}>
+      <ReactQueryClientProvider>
+        <ReduxProvider>
+          <DesignSystemProvider>
+            {children}
+            <Toaster />
+          </DesignSystemProvider>
+        </ReduxProvider>
+      </ReactQueryClientProvider>
+    </NextIntlClientProvider>
+  );
 }

@@ -3,128 +3,127 @@ const createNextIntlPlugin = require("next-intl/plugin");
 const withNextIntl = createNextIntlPlugin();
 
 const nextConfig = {
-    experimental: {
-        mdxRs: true,
-        swcMinify: true,
-        reactStrictMode: true,
-        scrollRestoration: true,
-    },
-    images: {
-        deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-        formats: ["image/avif", "image/webp"],
-        remotePatterns: [
-            {
-                protocol: "https",
-                hostname: "static.cdn.austinvu.tech",
-            },
-            {
-                protocol: "https",
-                hostname: "ocjaxgkaarttotpzrodh.supabase.co",
-            },
-            {
-                protocol: "https",
-                hostname: "avatars.githubusercontent.com",
-            },
-            {
-                protocol: "https",
-                hostname: "assets.aceternity.com",
-            },
-            {
-                protocol: "https",
-                hostname: "aceternity.com",
-            },
-            {
-                protocol: "https",
-                hostname: "res.cloudinary.com",
-            },
-            {
-                protocol: "https",
-                hostname: "cdnjs.cloudflare.com",
-            },
+  experimental: {
+    mdxRs: true,
+    swcMinify: true,
+    reactStrictMode: true,
+    scrollRestoration: true,
+  },
+  images: {
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    formats: ["image/avif", "image/webp"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "static.cdn.austinvu.tech",
+      },
+      {
+        protocol: "https",
+        hostname: "ocjaxgkaarttotpzrodh.supabase.co",
+      },
+      {
+        protocol: "https",
+        hostname: "avatars.githubusercontent.com",
+      },
+      {
+        protocol: "https",
+        hostname: "assets.aceternity.com",
+      },
+      {
+        protocol: "https",
+        hostname: "aceternity.com",
+      },
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+      },
+      {
+        protocol: "https",
+        hostname: "cdnjs.cloudflare.com",
+      },
+    ],
+  },
+  async rewrites() {
+    return [
+      // {
+      //     source: '/:path*',
+      //     destination: 'https://static.cdn.austinvu.tech/:path*',
+      // },
+    ];
+  },
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
         ],
-    },
-    async rewrites() {
-        return [
-            // {
-            //     source: '/:path*',
-            //     destination: 'https://static.cdn.austinvu.tech/:path*',
-            // },
-        ];
-    },
-    async headers() {
-        return [
-            {
-                source: "/:path*",
-                headers: [
-                    {
-                        key: "Cache-Control",
-                        value: "public, max-age=31536000, immutable",
-                    },
-                ],
-            },
+      },
+    ];
+  },
+  webpack(config, { isServer }) {
+    if (!isServer) {
+      config.externals.push("sharp");
+    }
 
-        ];
-    },
-    webpack(config, { isServer }) {
-        if (!isServer) {
-            config.externals.push("sharp");
-        }
+    config.module.rules.push({
+      test: /\.(ogg|mp3|wav|mpe?g)$/i,
+      exclude: config.exclude,
+      use: [
+        {
+          loader: require.resolve("url-loader"),
+          options: {
+            limit: config.inlineImageLimit,
+            fallback: require.resolve("file-loader"),
+            publicPath: `${config.assetPrefix}/_next/static/images/`,
+            outputPath: `${isServer ? "../" : ""}static/images/`,
+            name: "[name]-[hash].[ext]",
+            esModule: config.esModule || false,
+          },
+        },
+      ],
+    });
 
-        config.module.rules.push({
-            test: /\.(ogg|mp3|wav|mpe?g)$/i,
-            exclude: config.exclude,
-            use: [
-                {
-                    loader: require.resolve("url-loader"),
-                    options: {
-                        limit: config.inlineImageLimit,
-                        fallback: require.resolve("file-loader"),
-                        publicPath: `${config.assetPrefix}/_next/static/images/`,
-                        outputPath: `${isServer ? "../" : ""}static/images/`,
-                        name: "[name]-[hash].[ext]",
-                        esModule: config.esModule || false,
-                    },
-                },
-            ],
-        });
+    config.module.rules.push({
+      test: /\.(glsl|vs|fs|vert|frag)$/,
+      exclude: /node_modules/,
+      use: ["raw-loader", "glslify-loader"],
+    });
 
-        config.module.rules.push({
-            test: /\.(glsl|vs|fs|vert|frag)$/,
-            exclude: /node_modules/,
-            use: ["raw-loader", "glslify-loader"],
-        });
-
-        return config;
-    },
+    return config;
+  },
 };
 
 const KEYS_TO_OMIT = [
-    "webpackDevMiddleware",
-    "configOrigin",
-    "target",
-    "analyticsId",
-    "webpack5",
-    "amp",
-    "assetPrefix",
+  "webpackDevMiddleware",
+  "configOrigin",
+  "target",
+  "analyticsId",
+  "webpack5",
+  "amp",
+  "assetPrefix",
 ];
 
 module.exports = (_phase, { defaultConfig }) => {
-    const plugins = [[withNextIntl]];
+  const plugins = [[withNextIntl]];
 
-    const wConfig = plugins.reduce(
-        (acc, [plugin, config]) => plugin({ ...acc, ...config }),
-        {
-            ...defaultConfig,
-            ...nextConfig,
-        },
-    );
+  const wConfig = plugins.reduce(
+    (acc, [plugin, config]) => plugin({ ...acc, ...config }),
+    {
+      ...defaultConfig,
+      ...nextConfig,
+    },
+  );
 
-    const finalConfig = {};
-    Object.keys(wConfig).forEach((key) => {
-        if (!KEYS_TO_OMIT.includes(key)) {
-            finalConfig[key] = wConfig[key];
-        }
-    });
+  const finalConfig = {};
+  Object.keys(wConfig).forEach((key) => {
+    if (!KEYS_TO_OMIT.includes(key)) {
+      finalConfig[key] = wConfig[key];
+    }
+  });
 
-    return finalConfig;
+  return finalConfig;
 };

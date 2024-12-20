@@ -72,9 +72,7 @@ const ModalBlog = () => {
 
   return (
     <Modal open={isModalOpen} setClose={onClose}>
-      <ModalBody
-        className={cn("relative p-3 md:p-6 max-w-[50%]")}
-      >
+      <ModalBody className={cn("relative p-3 md:p-6 max-w-[50%]")}>
         <div className="flex items-center justify-between">
           <TypographyH3 title={data?.title} />
           {isPageChanging ? (

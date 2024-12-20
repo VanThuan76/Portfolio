@@ -7,7 +7,7 @@ export const routing = defineRouting({
   locales: appConfig.locales,
   localePrefix: appConfig.localePrefix,
   defaultLocale: appConfig.defaultLocale,
-  localeDetection: appConfig.localeDetection
+  localeDetection: appConfig.localeDetection,
 });
 
 export const { usePathname, useRouter } = createNavigation(routing);

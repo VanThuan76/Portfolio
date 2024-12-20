@@ -36,10 +36,9 @@ import { headers } from "next/headers";
 //     { ssr: false },
 // );
 
-
 export default async function Page() {
-    const headerNext = await headers()
-    const locale = headerNext.get('x-my-locale') || 'en';
+  const headerNext = await headers();
+  const locale = headerNext.get("x-my-locale") || "en";
 
   return (
     <div className="grid w-full h-full place-items-center">Comming soon</div>
