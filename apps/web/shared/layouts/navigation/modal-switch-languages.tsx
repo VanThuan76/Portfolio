@@ -41,7 +41,7 @@ const ModalSwitchLanguages = () => {
 
   const { mutate: changeLanguage } = useMutation({
     mutationFn: async (newLocale: string) => {
-      return await axiosOwnInstanceNoAuth.post("/update-locale", {
+      return await axiosOwnInstanceNoAuth.post("/api/update-locale", {
         locale: newLocale,
       });
     },
