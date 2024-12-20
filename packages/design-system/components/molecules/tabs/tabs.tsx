@@ -217,7 +217,7 @@ export const FadeInDiv = ({
         <p>{t("no_data")}</p>
         <span
           className="underline cursor-pointer"
-          onClick={(e) => handleOpenScreen(e, "/blog/new", 'blog-new')}
+          onClick={(e) => handleOpenScreen(e, "/blog/new", "blog-new")}
         >
           {t("become_blogger")}
         </span>
