@@ -1,6 +1,8 @@
 {
   "intro": "Chào mừng đến với Austin Vu",
   "languages": {
+    "switch_language": "Đang chuyển ngôn ngữ...",
+    "switch_language_successful": "Chuyển ngôn ngữ thành công!",
     "select_language": "Chọn ngôn ngữ",
     "languages": "Ngôn ngữ",
     "vi": "Tiếng Việt",
@@ -20,7 +22,8 @@
     "tr": "Tiếng Thổ Nhĩ Kỳ"
   },
   "menu": {
-    "blog": "Blog",
+    "home": "Trang chủ",
+    "blog": "Bài viết",
     "project": "Sản phẩm",
     "aboutMe": "Thông tin về tôi"
   },
@@ -246,5 +249,27 @@
         "content": "Các điều khoản và điều kiện này được điều chỉnh và giải thích theo pháp luật của Việt Nam, và bạn không thể rút lại quyền tài phán độc quyền của các tòa án tại quốc gia hoặc địa điểm đó."
       }
     ]
+  },
+  "cookie-consent": {
+    "title": "Chấp nhận Cookie",
+    "description": "Chúng tôi sử dụng cookie để nâng cao trải nghiệm duyệt web và phân tích lưu lượng truy cập của bạn. Vui lòng chọn tùy chọn của bạn bên dưới.",
+    "by_accepting_cookies": "Bằng cách chấp nhận cookie, bạn cho phép chúng tôi thu thập thông tin để cải thiện dịch vụ và cung cấp nội dung cá nhân hóa.",
+    "reject": "Từ chối Tất Cả",
+    "accept": "Chấp Nhận Tất Cả"
+  },
+  "metadata": {
+    "blog": {
+      "blogTitle": "Blog",
+      "blogDescription": "Khám phá các bài viết và thông tin trên blog của chúng tôi.",
+      "openGraphTitle": "Blog",
+      "openGraphDescription": "Khám phá các bài viết, mẹo vặt và thông tin mới nhất.",
+      "twitterDescription": "Khám phá các bài viết, mẹo vặt và thông tin mới nhất."
+    },
+    "aboutMe": {
+      "pageTitle": "Về Tôi",
+      "pageDescription": "Tìm hiểu thêm về hành trình, kỹ năng và đam mê của tôi, điều gì thúc đẩy công việc của tôi.",
+      "openGraphTitle": "Về Tôi",
+      "openGraphDescription": "Khám phá nền tảng, chuyên môn và những gì truyền cảm hứng cho công việc của tôi."
+    }
   }
 }

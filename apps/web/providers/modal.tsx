@@ -20,7 +20,7 @@ const ModalSwitchLanguages = dynamic(
 );
 
 const ModalBlog = dynamic(
-  () => import("../app/[locale]/(pages)/blog/components/modals/blog"),
+  () => import("../app/(locale)/(pages)/blog/components/modals/blog"),
   { ssr: false },
 );
 

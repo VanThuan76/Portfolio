@@ -1,6 +1,8 @@
 {
   "intro": "オースティン・ヴーへようこそ",
   "languages": {
+    "switch_language": "言語を切り替えています...",
+    "switch_language_successful": "言語が正常に切り替わりました！",
     "select_language": "言語を選択",
     "languages": "言語",
     "vi": "ベトナム語",
@@ -20,6 +22,7 @@
     "tr": "トルコ語"
   },
   "menu": {
+    "home": "ホーム",
     "blog": "ブログ",
     "project": "プロジェクト",
     "aboutMe": "私について"
@@ -244,5 +247,27 @@
         "content": "本規約は、日本の法令に準拠し、それに従って解釈されます。"
       }
     ]
+  },
+  "cookie-consent": {
+    "title": "クッキーの同意",
+    "description": "私たちは、ウェブブラウジング体験を向上させ、トラフィックを分析するためにクッキーを使用しています。以下からお好みの設定を選んでください。",
+    "by_accepting_cookies": "クッキーを受け入れることで、サービスを改善し、パーソナライズされたコンテンツを提供するために情報を収集することを許可します。",
+    "reject": "すべて拒否",
+    "accept": "すべて受け入れる"
+  },
+  "metadata": {
+    "blog": {
+      "blogTitle": "ブログ",
+      "blogDescription": "私たちのブログでさまざまな記事や洞察を探索してください。",
+      "openGraphTitle": "ブログ",
+      "openGraphDescription": "最新の記事、ヒント、洞察を発見してください。",
+      "twitterDescription": "最新の記事、ヒント、洞察を発見してください。"
+    },
+    "aboutMe": {
+      "pageTitle": "私について",
+      "pageDescription": "私の旅路、スキル、そして私の仕事を駆り立てる情熱についてもっと知ってください。",
+      "openGraphTitle": "私について",
+      "openGraphDescription": "私の背景、専門知識、そして私の仕事にインスピレーションを与えるものを発見してください。"
+    }
   }
 }

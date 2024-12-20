@@ -1,10 +1,8 @@
 import { useCallback, useState, useEffect } from "react";
 import { useTransitionRouter } from "next-view-transitions";
-import { useLocale } from "next-intl";
 
 export const useOpenScreen = () => {
   const routerTrans = useTransitionRouter();
-  const locale = useLocale();
 
   const [isPageChanging, setPageChanging] = useState(false);
 
@@ -17,7 +15,7 @@ export const useOpenScreen = () => {
     ) => {
       e?.preventDefault();
 
-      const localizedHref = `/${newLocale || locale}${href}`;
+      const localizedHref = `${href}`;
       setPageChanging(true);
 
       await new Promise((res) => setTimeout(res, 300));
@@ -28,7 +26,7 @@ export const useOpenScreen = () => {
         callbackFinish();
       }
     },
-    [locale, routerTrans],
+    [routerTrans],
   );
 
   useEffect(() => {

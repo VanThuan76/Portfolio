@@ -1,6 +1,8 @@
 {
   "intro": "欢迎来到Austin Vu",
   "languages": {
+    "switch_language": "正在切换语言...",
+    "switch_language_successful": "语言切换成功！",
     "select_language": "选择语言",
     "languages": "语言",
     "vi": "越南语",
@@ -20,6 +22,7 @@
     "tr": "土耳其语"
   },
   "menu": {
+     "home": "主页",
     "blog": "博客",
     "project": "项目",
     "aboutMe": "关于我"
@@ -253,5 +256,20 @@
     "by_accepting_cookies": "通过接受 cookies，您允许我们收集信息，以改善我们的服务并提供个性化内容。",
     "reject": "拒绝所有",
     "accept": "接受所有"
+  },
+  "metadata": {
+    "blog": {
+      "blogTitle": "博客",
+      "blogDescription": "在我们的博客上探索各种文章和见解。",
+      "openGraphTitle": "博客",
+      "openGraphDescription": "发现最新的文章、技巧和见解。",
+      "twitterDescription": "发现最新的文章、技巧和见解。"
+    },
+    "aboutMe": {
+      "pageTitle": "关于我",
+      "pageDescription": "了解更多关于我的旅程、技能以及激励我工作的激情。",
+      "openGraphTitle": "关于我",
+      "openGraphDescription": "探索我的背景、专业知识，以及激励我工作的源泉。"
+    }
   }
 }

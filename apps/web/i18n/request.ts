@@ -1,19 +1,16 @@
+import { headers } from "next/headers";
 import { getRequestConfig } from "next-intl/server";
-import { routing } from "./navigation";
 
-export default getRequestConfig(async ({ requestLocale }) => {
-  let locale = await requestLocale;
+export default getRequestConfig(async () => {
+    const headerNext = await headers()
+    const locale = headerNext.get('x-my-locale') || 'en';
 
-  if (!locale || !routing.locales.includes(locale as any)) {
-    locale = routing.defaultLocale;
-  }
-
-  return {
-    locale,
-    messages: (
-      await (locale === "en"
-        ? import("../messages/en.json")
-        : import(`../messages/${locale}.json`))
-    ).default,
-  };
+    return {
+        locale,
+        messages: (
+            await (locale === "en"
+                ? import("../messages/en.json")
+                : import(`../messages/${locale}.json`))
+        ).default,
+    };
 });

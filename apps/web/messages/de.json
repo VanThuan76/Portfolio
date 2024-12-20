@@ -1,6 +1,8 @@
 {
   "intro": "Willkommen bei Austin Vu",
   "languages": {
+    "switch_language": "Sprache wird gewechselt...",
+    "switch_language_successful": "Sprache erfolgreich gewechselt!",
     "select_language": "Sprache auswählen",
     "languages": "Sprachen",
     "vi": "Vietnamesisch",
@@ -20,6 +22,7 @@
     "tr": "Türkisch"
   },
   "menu": {
+    "home": "Startseite",
     "blog": "Blog",
     "project": "Projekt",
     "aboutMe": "Über mich"
@@ -253,5 +256,20 @@
     "by_accepting_cookies": "Indem Sie Cookies akzeptieren, erlauben Sie uns, Informationen zu sammeln, um unsere Dienste zu verbessern und personalisierte Inhalte bereitzustellen.",
     "reject": "Alle ablehnen",
     "accept": "Alle akzeptieren"
+  },
+  "metadata": {
+    "blog": {
+      "blogTitle": "Blog",
+      "blogDescription": "Entdecken Sie eine Vielzahl von Artikeln und Einblicken in unserem Blog.",
+      "openGraphTitle": "Blog",
+      "openGraphDescription": "Entdecken Sie die neuesten Artikel, Tipps und Einblicke.",
+      "twitterDescription": "Entdecken Sie die neuesten Artikel, Tipps und Einblicke."
+    },
+    "aboutMe": {
+      "pageTitle": "Über mich",
+      "pageDescription": "Erfahren Sie mehr über meine Reise, Fähigkeiten und Leidenschaften, die meine Arbeit antreiben.",
+      "openGraphTitle": "Über mich",
+      "openGraphDescription": "Entdecken Sie meinen Hintergrund, meine Expertise und was mich in meiner Arbeit inspiriert."
+    }
   }
 }
