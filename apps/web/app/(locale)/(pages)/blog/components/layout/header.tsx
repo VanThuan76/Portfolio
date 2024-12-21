@@ -50,7 +50,7 @@ const Header = () => {
       >
         <div
           className="flex items-center justify-start w-full gap-2 cursor-pointer"
-          onClick={(e) => handleOpenScreen(e, "/blog", "")}
+          onClick={(e) => handleOpenScreen(e, "/blog", "blog")}
         >
           <Image
             priority
