@@ -75,7 +75,7 @@ const ModalBlog = () => {
       <ModalBody className={cn("relative p-3 md:p-6 max-w-[50%]")}>
         <div className="flex items-center justify-between">
           <TypographyH3 title={data?.title} />
-          {changingPageInfo?.itemId === data.id ? (
+          {changingPageInfo?.itemId === data?.id ? (
             <LoaderCircle className="w-6 h-6 animate-spin" />
           ) : (
             <Button

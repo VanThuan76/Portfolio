@@ -265,7 +265,7 @@ const CardBlog = ({
                   isSaved ? "bg-yellow-100" : "",
                 )}
               />
-              {changingPageInfo?.itemId === item.id && (
+              {changingPageInfo?.itemId === item?.id && (
                 <div className="absolute top-0 left-0 z-50 flex items-center justify-center w-full h-full bg-black/10">
                   <LoaderCircle className="w-5 h-5 text-white animate-spin" />
                 </div>
