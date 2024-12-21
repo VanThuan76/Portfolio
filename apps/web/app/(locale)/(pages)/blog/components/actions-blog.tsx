@@ -190,7 +190,7 @@ const ActionsBlog = ({
   const handleNavigateCreateBlog = (e: React.MouseEvent) => {
     e.preventDefault();
     if (user && user?.id) {
-      handleOpenScreen(e, "/blog/new", 'blog-new');
+      handleOpenScreen(e, "/blog/new", "blog-new");
     } else {
       onOpen("auth", "blog");
     }
