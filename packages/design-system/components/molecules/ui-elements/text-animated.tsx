@@ -114,18 +114,18 @@ const AnimationComponent: React.FC<{
       <motion.span
         aria-hidden="true"
         variants={variants}
-        className="inline-block whitespace-pre"
+        className="inline-block leading-snug whitespace-pre"
       >
         {segment}
       </motion.span>
     ) : (
-      <motion.span className="inline-block whitespace-pre">
+      <motion.span className="inline-block leading-snug whitespace-pre">
         {segment.split("").map((char, charIndex) => (
           <motion.span
             key={`char-${charIndex}`}
             aria-hidden="true"
             variants={variants}
-            className="inline-block whitespace-pre"
+            className="inline-block leading-snug whitespace-pre"
           >
             {char}
           </motion.span>
@@ -203,7 +203,7 @@ export function TextAnimated({
           animate="visible"
           exit="exit"
           variants={delayedContainerVariants}
-          className={cn("whitespace-pre-wrap", className)}
+          className={cn("leading-snug", className)}
           onAnimationComplete={onAnimationComplete}
         >
           {segments.map((segment, index) => (

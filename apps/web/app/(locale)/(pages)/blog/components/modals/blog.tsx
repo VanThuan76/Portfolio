@@ -9,7 +9,7 @@ import { LoaderCircle } from "lucide-react";
 import { cn } from "@repo/design-system/utils/tw";
 import { formatLocaleDate } from "@shared/helpers/get-time";
 
-import { useModal, useOpenScreen } from "@repo/hooks";
+import { useIsSafari, useModal, useOpenScreen } from "@repo/hooks";
 
 import { IUserMetadata, IBlog } from "@repo/supabase/queries";
 
@@ -17,6 +17,8 @@ import { Button } from "@repo/design-system/components/atoms/button";
 import { Skeleton } from "@repo/design-system/components/molecules/ui-elements/skeleton";
 import { Separator } from "@repo/design-system/components/molecules/other-utils/separator";
 import { TypographyH3 } from "@repo/design-system/components/molecules/ui-elements/typography-h3";
+
+import GrainyFilter from "../icons/grainy-filter";
 
 const Modal = dynamic(
   () =>
@@ -41,6 +43,7 @@ const ModalBlog = () => {
   const tLang = useTranslations("languages");
   const tBlog = useTranslations("pages.blog");
   const locale = useLocale();
+  const isSafari = useIsSafari();
 
   const { isOpen, type, onClose, data } = useModal();
   const { handleOpenScreen, changingPageInfo } = useOpenScreen();
@@ -72,7 +75,15 @@ const ModalBlog = () => {
 
   return (
     <Modal open={isModalOpen} setClose={onClose}>
-      <ModalBody className={cn("relative p-3 md:p-6 max-w-[50%]")}>
+      <ModalBody
+        style={
+          !isSafari
+            ? { filter: "url(#grainy)", WebkitFilter: "url(#grainy)" }
+            : {}
+        }
+        className={cn("relative p-3 md:p-6 max-w-[50%]")}
+      >
+        <GrainyFilter className="absolute top-0 left-0 w-full h-full pointer-events-none" />
         <div className="flex items-center justify-between">
           <TypographyH3 title={data?.title} />
           {changingPageInfo?.itemId === data?.id ? (

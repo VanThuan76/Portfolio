@@ -48,7 +48,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       <Comp
         className={cn(
           buttonVariants({ variant, size, className }),
-          "hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition duration-200",
+          "hover:shadow-[4px_4px_0px_0px_rgba(50,50,50,0.5)] transition duration-200",
         )}
         aria-label={
           props["aria-label"] || props.children?.toString() || "Button"

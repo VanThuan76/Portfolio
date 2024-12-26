@@ -55,11 +55,7 @@ export default function BlogSlugLayout({
 }) {
   return (
     <ReCaptchaProvider>
-      <OpenAIProvider>
-        <div className="w-full h-full min-h-screen overflow-y-auto">
-          {children}
-        </div>
-      </OpenAIProvider>
+      <OpenAIProvider>{children}</OpenAIProvider>
     </ReCaptchaProvider>
   );
 }

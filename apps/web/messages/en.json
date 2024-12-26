@@ -105,6 +105,9 @@
     "required": "This field is required"
   },
   "pages": {
+    "home": {
+      "slogan": "Success is not final, failure is not fatal"
+    },
     "auth": {
       "sign_in": "Sign in to Austin Blog",
       "signin_description": "Welcome back! Please sign in to continue",

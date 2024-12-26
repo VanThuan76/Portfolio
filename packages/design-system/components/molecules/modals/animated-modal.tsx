@@ -194,22 +194,34 @@ export const ModalFooter = ({
   );
 };
 
-const Overlay = ({ className }: { className?: string }) => {
+export const Overlay = ({
+  style,
+  className,
+}: {
+  style?: any;
+  className?: string;
+}) => {
   return (
-    <m.div
-      initial={{
-        opacity: 0,
-      }}
-      animate={{
-        opacity: 1,
-        backdropFilter: "blur(10px)",
-      }}
-      exit={{
-        opacity: 0,
-        backdropFilter: "blur(0px)",
-      }}
-      className={`fixed inset-0 h-full w-full bg-black/50 bg-opacity-50 z-50 ${className}`}
-    />
+    <>
+      <m.div
+        initial={{
+          opacity: 0,
+        }}
+        animate={{
+          opacity: 1,
+          backdropFilter: "blur(10px)",
+        }}
+        exit={{
+          opacity: 0,
+          backdropFilter: "blur(0px)",
+        }}
+        className={cn(
+          "fixed inset-0 h-full w-full bg-black/70 bg-opacity-70 z-50",
+          className,
+        )}
+        style={style}
+      />
+    </>
   );
 };
 
@@ -221,7 +233,7 @@ const CloseIcon = () => {
         setOpen(false);
         setClose();
       }}
-      className="absolute z-50 cursor-pointer top-1 right-2 group"
+      className="absolute z-50 cursor-pointer top-3 right-3 group"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

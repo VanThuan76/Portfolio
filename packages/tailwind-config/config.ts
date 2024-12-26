@@ -107,6 +107,16 @@ export const config: Config = {
           "50%": { transform: "scale(1.5)" },
           "100%": { transform: "scale(1)" },
         },
+        spotlight: {
+          "0%": {
+            opacity: "0",
+            transform: "translate(-72%, -62%) scale(0.5)",
+          },
+          "100%": {
+            opacity: "1",
+            transform: "translate(-50%,-40%) scale(1)",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -114,6 +124,7 @@ export const config: Config = {
         "scale-up": "scale-up 1s infinite",
         grid: "grid 15s linear infinite",
         marquee: "marquee var(--duration, 30s) linear infinite",
+        spotlight: "spotlight 2s ease .75s 1 forwards",
       },
     },
   },

@@ -105,6 +105,9 @@
     "required": "Ce champ est requis"
   },
   "pages": {
+    "home": {
+      "slogan": "Le succès n'est pas final, l'échec n'est pas fatal"
+    },
     "auth": {
       "sign_in": "Se connecter à Austin Blog",
       "signin_description": "Content de vous revoir ! Veuillez vous connecter pour continuer",

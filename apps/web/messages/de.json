@@ -105,6 +105,9 @@
     "required": "Dieses Feld ist erforderlich"
   },
   "pages": {
+    "home": {
+      "slogan": "Erfolg ist nicht endgültig, Misserfolg ist nicht tödlich"
+    },
     "auth": {
       "sign_in": "Melden Sie sich bei Austin Blog an",
       "signin_description": "Willkommen zurück! Bitte melden Sie sich an, um fortzufahren",

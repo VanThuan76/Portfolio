@@ -105,6 +105,9 @@
     "required": "この項目は必須です"
   },
   "pages": {
+    "home": {
+      "slogan": "成功は終わりではなく、失敗は致命的ではありません"
+    },
     "auth": {
       "sign_in": "Austin Blog にサインイン",
       "signin_description": "お帰りなさい！ 続行するにはサインインしてください",

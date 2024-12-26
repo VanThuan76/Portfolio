@@ -9,7 +9,6 @@ import { AnimatePresence, m } from "framer-motion";
 import { useLocale, useTranslations } from "next-intl";
 
 import { useSupabaseBrowser } from "@repo/supabase/utils/client";
-import { useScrollProgress } from "@repo/design-system/components/organisms/scroll/smooth-scroll";
 import { IUserMetadata, getBlogBySlug } from "@repo/supabase/queries";
 
 import { formatLocaleDate } from "@shared/helpers/get-time";
@@ -51,8 +50,6 @@ export default function Page() {
   const locale = useLocale();
   const params = useParams<{ locale: string; slug: string }>();
 
-  const { scrollProgress } = useScrollProgress();
-
   const [optionsQuery, setOptionsQuery] = useState({
     language_code: locale,
     slug: params.slug,
@@ -83,7 +80,7 @@ export default function Page() {
           exit={{ opacity: 0, scale: 0.9 }}
           transition={{ duration: 0.4, ease: "easeInOut" }}
           onAnimationComplete={handleAnimationComplete}
-          className="grid w-full grid-cols-1 gap-0 mb-20 rounded-none min-h-fit md:pt-4 md:gap-2 md:rounded-lg md:grid-cols-11 md:px-4 md:mb-10"
+          className="grid w-full h-full min-h-screen grid-cols-1 gap-0 mb-20 overflow-y-auto rounded-none md:pt-4 md:gap-2 md:rounded-lg md:grid-cols-11 md:px-4 md:mb-10"
         >
           <main className="relative w-full h-full col-span-1 bg-white md:col-span-8 md:rounded-t-md">
             <article className="flex flex-col items-center justify-start w-full border-none h-fit">

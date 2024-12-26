@@ -105,6 +105,9 @@
     "required": "Trường này là bắt buộc"
   },
   "pages": {
+    "home": {
+      "slogan": "Thành công không phải là đích cuối cùng, thất bại cũng không phải là dấu chấm hết"
+    },
     "auth": {
       "sign_in": "Đăng nhập vào Austin Blog",
       "signin_description": "Chào mừng trở lại! Vui lòng đăng nhập để tiếp tục",

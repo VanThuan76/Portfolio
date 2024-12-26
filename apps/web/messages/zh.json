@@ -105,6 +105,9 @@
     "required": "此字段是必填的"
   },
   "pages": {
+    "home": {
+      "slogan": "成功不是终点，失败也不是终结"
+    },
     "auth": {
       "sign_in": "登录Austin博客",
       "signin_description": "欢迎回来！请登录继续",

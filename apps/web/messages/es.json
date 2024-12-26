@@ -105,6 +105,9 @@
     "required": "Este campo es obligatorio"
   },
   "pages": {
+    "home": {
+      "slogan": "El éxito no es definitivo, el fracaso no es fatal"
+    },
     "auth": {
       "sign_in": "Iniciar sesión en Austin Blog",
       "signin_description": "¡Bienvenido de nuevo! Por favor inicia sesión para continuar",

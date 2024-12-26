@@ -77,9 +77,9 @@ export const SmoothScroll: React.FC<{
 export const useScrollProgress = () => {
   const [scrollProgress, setScrollProgress] = React.useState(0);
 
-  useLenis(({ scroll }) => {
-    const scrollPercentage = scroll * 100;
-    setScrollProgress(scrollPercentage);
+  useLenis(({ scroll, limit }) => {
+    const progress = limit > 0 ? (scroll / limit) * 100 : 0;
+    setScrollProgress(progress);
   });
 
   return { scrollProgress };
