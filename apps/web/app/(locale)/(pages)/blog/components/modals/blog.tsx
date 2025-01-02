@@ -1,7 +1,6 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { LoaderCircle } from "lucide-react";
@@ -9,16 +8,16 @@ import { LoaderCircle } from "lucide-react";
 import { cn } from "@repo/design-system/utils/tw";
 import { formatLocaleDate } from "@shared/helpers/get-time";
 
-import { useIsSafari, useModal, useOpenScreen } from "@repo/hooks";
+import { useModal, useOpenScreen } from "@repo/hooks";
 
 import { IUserMetadata, IBlog } from "@repo/supabase/queries";
 
 import { Button } from "@repo/design-system/components/atoms/button";
 import { Skeleton } from "@repo/design-system/components/molecules/ui-elements/skeleton";
 import { Separator } from "@repo/design-system/components/molecules/other-utils/separator";
+import { BlurImage } from "@repo/design-system/components/molecules/ui-elements/blur-image";
 import { TypographyH3 } from "@repo/design-system/components/molecules/ui-elements/typography-h3";
-
-import GrainyFilter from "../icons/grainy-filter";
+import { PLACE_HOLDER_BLUR_HASH } from "@/shared/constants";
 
 const Modal = dynamic(
   () =>
@@ -43,7 +42,6 @@ const ModalBlog = () => {
   const tLang = useTranslations("languages");
   const tBlog = useTranslations("pages.blog");
   const locale = useLocale();
-  const isSafari = useIsSafari();
 
   const { isOpen, type, onClose, data } = useModal();
   const { handleOpenScreen, changingPageInfo } = useOpenScreen();
@@ -75,15 +73,7 @@ const ModalBlog = () => {
 
   return (
     <Modal open={isModalOpen} setClose={onClose}>
-      <ModalBody
-        style={
-          !isSafari
-            ? { filter: "url(#grainy)", WebkitFilter: "url(#grainy)" }
-            : {}
-        }
-        className={cn("relative p-3 md:p-6 max-w-[50%]")}
-      >
-        <GrainyFilter className="absolute top-0 left-0 w-full h-full pointer-events-none" />
+      <ModalBody className={cn("relative p-3 md:p-6 max-w-[50%]")}>
         <div className="flex items-center justify-between">
           <TypographyH3 title={data?.title} />
           {changingPageInfo?.itemId === data?.id ? (
@@ -100,26 +90,30 @@ const ModalBlog = () => {
         <Separator className="w-full h-[1px] my-2" />
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div className="order-2 w-full h-full md:order-1">
-            <Image
+            <BlurImage
               priority
+              alt={data?.title ?? ("@image_modal" as string)}
+              src={data?.image_url}
+              blurDataURL={data?.image_url ?? PLACE_HOLDER_BLUR_HASH}
+              className="object-cover rounded-md w-full h-[150px]"
               width={300}
               height={300}
-              alt="@image_url"
-              src={data?.image_url as string}
+              placeholder="blur"
               sizes="(max-width: 768px) 100vw, 300px"
-              className="object-cover rounded-md w-full h-[150px]"
             />
           </div>
           <div className="flex flex-col items-start justify-start order-1 w-full h-full md:order-2">
             <div className="flex items-center justify-start gap-2">
-              <Image
+              <BlurImage
                 priority
-                src={userMetadata?.avatar_url ?? "/images/blog/anonymous.png"}
+                alt={userMetadata?.user_name ?? "@user_image"}
+                blurDataURL={userMetadata?.avatar_url ?? PLACE_HOLDER_BLUR_HASH}
+                className="overflow-hidden rounded-full"
                 width={42}
                 height={42}
-                alt="@avatar"
-                sizes="42px"
-                className="overflow-hidden rounded-full"
+                placeholder="blur"
+                src={userMetadata?.avatar_url ?? "/images/blog/anonymous.png"}
+                sizes="(max-width: 42px) 42px, 42px"
               />
               <div className="flex flex-col items-start justify-start">
                 <p className="text-black">

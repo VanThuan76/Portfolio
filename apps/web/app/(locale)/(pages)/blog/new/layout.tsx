@@ -16,7 +16,6 @@ export default async function BlogNewLayout({
 
   if (!session) {
     redirect("/auth/signin");
-    return null;
   }
 
   return <OpenAIProvider>{children}</OpenAIProvider>;

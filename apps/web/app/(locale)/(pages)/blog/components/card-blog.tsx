@@ -1,13 +1,11 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 import { AnimatePresence, m } from "framer-motion";
 import { useMutation } from "@tanstack/react-query";
 import { queryClient } from "@providers/react-query";
-import { LoaderCircle } from "lucide-react";
 
 import { cn } from "@repo/design-system/utils/tw";
 import { useSupabaseBrowser } from "@repo/supabase/utils/client";
@@ -24,6 +22,7 @@ import {
 import { formatLocaleDate } from "@shared/helpers/get-time";
 import { calculateReadTime } from "@shared/helpers/calculate";
 
+import { BlurImage } from "@repo/design-system/components/molecules/ui-elements/blur-image";
 import { Skeleton } from "@repo/design-system/components/molecules/ui-elements/skeleton";
 import { Badge } from "@repo/design-system/components/molecules/ui-elements/badge";
 import {
@@ -38,6 +37,7 @@ import FireIcon from "./icons/fire";
 import ClappingHandsIcon from "./icons/clapping-hands";
 import ChatDotsIcon from "./icons/chat-dots";
 import SaveIcon from "./icons/save";
+import { PLACE_HOLDER_BLUR_HASH } from "@/shared/constants";
 
 const ListComment = dynamic(() => import("./list-comment"), {
   ssr: false,
@@ -68,14 +68,15 @@ const CardBlog = ({
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [clickedSlug, setClickedSlug] = useState<string | null>(null);
 
-  const { onOpen } = useModal();
+  const { onOpen, onClose } = useModal();
   const { data: user } = useUser();
-  const { handleOpenScreen, changingPageInfo } = useOpenScreen();
+  const { handleOpenScreen } = useOpenScreen();
 
   function handleRedirect(e, card: IBlog) {
     setClickedSlug(card.slug);
     if (["xs", "sm"].includes(breakpoint)) {
-      handleOpenScreen(e, `/blog/${card.slug}`, card.id);
+      onOpen("loading");
+      handleOpenScreen(e, `/blog/${card.slug}`, card.id, () => onClose());
     } else {
       onOpen("blog", card);
     }
@@ -164,15 +165,20 @@ const CardBlog = ({
             <Card className="relative p-0 m-0 dark:bg-[#393E46] bg-white border border-black/10 overflow-hidden shadow-lg rounded-lg">
               <div className="relative z-50 flex flex-col items-start justify-start w-full h-auto gap-2 px-2 pb-2 overflow-hidden">
                 <div className="flex items-center justify-start gap-2 mt-2">
-                  <Image
+                  <BlurImage
                     priority
+                    alt={userMetadata?.user_name ?? ("@user_image" as string)}
                     src={
-                      userMetadata.avatar_url ?? "/images/blog/anonymous.png"
+                      userMetadata?.avatar_url ?? "/images/blog/anonymous.png"
                     }
+                    blurDataURL={
+                      userMetadata?.avatar_url ?? PLACE_HOLDER_BLUR_HASH
+                    }
+                    className="overflow-hidden rounded-full"
                     width={32}
                     height={32}
-                    alt="@avatar"
-                    className="overflow-hidden rounded-full"
+                    placeholder="blur"
+                    sizes="(max-width: 32px) 32px, 32px"
                   />
                   <div className="flex flex-col items-start justify-start">
                     <p className="text-xs text-black">
@@ -246,16 +252,16 @@ const CardBlog = ({
                       );
                     })}
                 </div>
-                <Image
+                <BlurImage
                   priority
-                  src={item.image_url}
                   alt={item.title as string}
-                  placeholder="blur"
-                  blurDataURL={item.image_url}
+                  src={item.image_url}
+                  blurDataURL={item.image_url ?? PLACE_HOLDER_BLUR_HASH}
+                  className="object-cover object-center py-1 sm:p-0 w-full sm:w-[50%] md:w-full h-[200px] order-3"
                   width={400}
                   height={400}
+                  placeholder="blur"
                   sizes="(max-width: 600px) 400px, (max-width: 1024px) 800px, 1200px"
-                  className="object-cover object-center py-1 sm:p-0 w-full sm:w-[50%] md:w-full h-[200px] order-3"
                 />
               </div>
               <SaveIcon
@@ -265,11 +271,6 @@ const CardBlog = ({
                   isSaved ? "bg-yellow-100" : "",
                 )}
               />
-              {changingPageInfo?.itemId === item?.id && (
-                <div className="absolute top-0 left-0 z-50 flex items-center justify-center w-full h-full bg-black/10">
-                  <LoaderCircle className="w-5 h-5 text-white animate-spin" />
-                </div>
-              )}
             </Card>
           </m.div>
         );

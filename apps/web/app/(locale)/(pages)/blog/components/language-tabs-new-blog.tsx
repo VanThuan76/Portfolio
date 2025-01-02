@@ -31,6 +31,9 @@ import {
   TabsProvider,
 } from "@repo/design-system/components/molecules/tabs/tabs-animated";
 
+import LockIcon from "./icons/lock";
+import PencilIcon from "./icons/pencil";
+
 const PlateEditor = dynamic(() => import("@repo/editor/index"), {
   ssr: false,
   loading: () => <Skeleton className="w-full min-h-[500px]" />,
@@ -86,14 +89,21 @@ const LanguageTabsNewBlog = ({
                       value={code}
                       onSuccess={setCurrentLocaleForm}
                     >
-                      <span
+                      <div
                         className={cn(
                           "relative z-[2] text-sm",
                           isSticky ? "uppercase" : "",
                         )}
                       >
                         {isSticky ? code : tLang(`${code}`)}
-                      </span>
+                        <div className="absolute -top-1 -right-3">
+                          {form.getValues("contents")?.[code] ? (
+                            <PencilIcon className="w-3 h-3" />
+                          ) : (
+                            <LockIcon className="w-3 h-3" />
+                          )}
+                        </div>
+                      </div>
                     </TabsBtn>
                   ),
                 )}

@@ -1,7 +1,6 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import Image from "next/image";
 import { z } from "zod";
 import { toast } from "sonner";
 import { useState } from "react";
@@ -29,7 +28,9 @@ import {
 } from "@repo/design-system/components/organisms/forms/form";
 import { Form } from "@repo/design-system/components/organisms/forms/form";
 import { Button } from "@repo/design-system/components/atoms/button";
+import { BlurImage } from "@repo/design-system/components/molecules/ui-elements/blur-image";
 import { Skeleton } from "@repo/design-system/components/molecules/ui-elements/skeleton";
+import { PLACE_HOLDER_BLUR_HASH } from "@/shared/constants";
 
 const PlateEditor = dynamic(() => import("@repo/editor/index"), {
   ssr: false,
@@ -140,16 +141,20 @@ const CommentForm = ({
         className="relative flex flex-col items-center justify-center w-full gap-5"
       >
         <div className="flex items-start justify-center w-full h-full gap-2">
-          <Image
+          <BlurImage
             priority
+            alt={user?.user_metadata?.full_name ?? "@user_image"}
+            blurDataURL={
+              user?.user_metadata?.avatar_url ?? PLACE_HOLDER_BLUR_HASH
+            }
             src={
               user?.user_metadata?.avatar_url ?? "/images/blog/anonymous.png"
             }
+            className="flex-shrink-0 overflow-hidden rounded-full"
             width={32}
             height={32}
-            sizes="32px"
-            alt="@avatar"
-            className="flex-shrink-0 overflow-hidden rounded-full"
+            placeholder="blur"
+            sizes="(max-width: 32px) 32px, 32px"
           />
           <AnimatePresence mode="wait">
             {isDiscuss ? (

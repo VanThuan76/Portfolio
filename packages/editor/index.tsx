@@ -218,7 +218,11 @@ export const useMyEditor: (
       // ...(!isCommentEditor ? copilotPlugins : []),
       // Nodes
       HeadingPlugin,
-      TocPlugin,
+      TocPlugin.configure({
+        options: {
+          topOffset: 80,
+        },
+      }),
       BlockquotePlugin,
       CodeBlockPlugin.configure({
         options: {

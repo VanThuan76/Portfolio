@@ -3,6 +3,10 @@
 import React from "react";
 import dynamic from "next/dynamic";
 
+const LoadingModal = dynamic(() => import("@/shared/utils/loading-modal"), {
+  ssr: false,
+});
+
 const CookieConsentModal = dynamic(
   () => import("@/shared/utils/cookie-consent-modal"),
   { ssr: false },
@@ -36,6 +40,7 @@ const ModalProvider = () => {
   }
   return (
     <React.Fragment>
+      <LoadingModal />
       <CookieConsentModal />
       <ModalBlog />
       <ModalSwitchLanguages />

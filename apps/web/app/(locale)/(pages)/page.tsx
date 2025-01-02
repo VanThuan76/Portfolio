@@ -2,13 +2,15 @@
 
 import Image from "next/image";
 import Lenis from "@studio-freight/lenis";
+import { useTranslations } from "next-intl";
+import { useEffect, useRef, useState } from "react";
+import { m, useScroll, useTransform } from "framer-motion";
 
 import { cn } from "@repo/design-system/utils/tw";
 
 import { TextAnimated } from "@repo/design-system/components/molecules/ui-elements/text-animated";
 
 import SwitchLanguages from "./(home)/components/switch-languages";
-import { useTranslations } from "next-intl";
 
 type SpotlightProps = {
   className?: string;
@@ -66,37 +68,75 @@ const Spotlight = ({ className, fill }: SpotlightProps) => {
 
 export default function Page() {
   const t = useTranslations("pages.home");
-  const lenis = new Lenis();
+  const ref = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [height, setHeight] = useState(0);
 
-  lenis.on("scroll", (e) => {
-    console.log(e);
+  useEffect(() => {
+    if (ref.current) {
+      const rect = ref.current.getBoundingClientRect();
+      setHeight(rect.height);
+    }
+  }, [ref]);
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start 10%", "end 50%"],
   });
 
+  const heightTransform = useTransform(scrollYProgress, [0, 1], [0, height]);
+  const opacityTransform = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
+
+  // const lenis = new Lenis();
+
+  // lenis.on("scroll", (e) => {
+  //     console.log(e);
+  // });
+
   return (
-    <div className="bg-black/[0.1] antialiased relative grid w-full min-h-screen overflow-x-hidden overflow-y-auto text-black place-items-center">
+    <div
+      className="bg-black/[0.1] antialiased relative grid w-full min-h-screen overflow-x-hidden overflow-y-auto text-black place-items-center"
+      ref={containerRef}
+    >
       <div className="absolute top-[-7rem] right-0 w-full h-full scale-x-[-1] z-[100]">
         <Spotlight fill="#FFF2C2" />
       </div>
-      <div className="flex flex-col-reverse items-center justify-center w-full max-w-full gap-0 px-0 mx-auto xl:max-h-none xl:px-40 md:flex-row xl:gap-16">
-        <div className="flex flex-col px-5 text-center xl:px-0 xl:flex-1 xl:justify-center xl:text-left">
-          <TextAnimated
-            as="h1"
-            per="char"
-            preset="fade"
-            className="text-2xl italic font-bold text-black md:text-4xl dark:text-white"
-          >
-            {t("slogan")}
-          </TextAnimated>
+      <div ref={ref} className="relative">
+        <div className="flex flex-col-reverse items-center justify-center w-full max-w-full gap-0 px-0 mx-auto xl:max-h-none xl:px-40 md:flex-row xl:gap-16">
+          <div className="flex flex-col px-5 text-center xl:px-0 xl:flex-1 xl:justify-center xl:text-left">
+            <TextAnimated
+              as="h1"
+              per="char"
+              preset="fade"
+              className="text-2xl italic font-bold text-black md:text-4xl dark:text-white"
+            >
+              {t("slogan")}
+            </TextAnimated>
+          </div>
+          <div className="px-[50px] xl:px-0 mb-[33px] xl:mb-0 xl:flex-1 flex justify-end xl:justify-center">
+            <Image
+              priority
+              src="/images/home/portrait.png"
+              alt="@portrait"
+              width={400}
+              height={400}
+              sizes="(max-width: 600px) 400px, (max-width: 1024px) 800px, 1200px"
+              className="object-cover object-center rounded-full"
+            />
+          </div>
         </div>
-        <div className="px-[50px] xl:px-0 mb-[33px] xl:mb-0 xl:flex-1 flex justify-end xl:justify-center">
-          <Image
-            priority
-            src="/images/home/portrait.png"
-            alt="@portrait"
-            width={400}
-            height={400}
-            sizes="(max-width: 600px) 400px, (max-width: 1024px) 800px, 1200px"
-            className="object-cover object-center rounded-full"
+        <div
+          style={{
+            height: `${height}px`,
+          }}
+          className="absolute left-1/2 transform -translate-x-1/2 top-0 overflow-hidden w-[2px] bg-[linear-gradient(to_bottom,var(--tw-gradient-stops))] from-transparent from-[0%] via-gray-500 to-transparent to-[99%] [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)]"
+        >
+          <m.div
+            style={{
+              height: heightTransform,
+              opacity: opacityTransform,
+            }}
+            className="absolute inset-x-0 top-0 w-[2px] bg-gradient-to-t from-black via-white to-transparent from-[0%] via-[10%] rounded-full"
           />
         </div>
       </div>

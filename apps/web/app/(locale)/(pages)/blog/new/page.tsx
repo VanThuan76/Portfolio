@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { m } from "framer-motion";
-import { useParams } from "next/navigation";
+import { useLocale } from "next-intl";
 import { useEffect, useState, useCallback } from "react";
 
 import { cn } from "@repo/design-system/utils/tw";
@@ -21,7 +21,7 @@ const LanguagesBlog = dynamic(() => import("../components/languages-blog"), {
 
 export default function Page() {
   const supabase = useSupabaseBrowser();
-  const params = useParams<{ locale: string; slug: string }>();
+  const locale = useLocale();
 
   const [optionTags, setOptionTags] = useState<{ value: any; label: any }[]>(
     [],
@@ -29,7 +29,7 @@ export default function Page() {
   const [optionCategories, setOptionCategories] = useState<
     { value: any; label: any }[]
   >([]);
-  const [currentLocaleForm, setCurrentLocaleForm] = useState(params.locale);
+  const [currentLocaleForm, setCurrentLocaleForm] = useState(locale);
   const [isMountHint, setIsMountHint] = useState(true);
 
   useEffect(() => {

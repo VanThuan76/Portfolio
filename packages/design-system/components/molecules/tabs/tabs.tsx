@@ -148,7 +148,7 @@ export const Tabs = memo(
                           duration: 0.6,
                         }}
                         className={cn(
-                          "absolute inset-0 bg-black/20 shadow-md rounded-md",
+                          "absolute inset-0 bg-black/90 shadow-md rounded-md",
                           activeTabClassName,
                         )}
                       />
@@ -156,7 +156,7 @@ export const Tabs = memo(
                     <m.p
                       className={cn(
                         "relative block text-slate-800 text-sm",
-                        currentTabActive?.value === tab.value && "text-black",
+                        currentTabActive?.value === tab.value && "text-white",
                       )}
                       whileHover={!isMobile ? { scale: 1.05 } : undefined}
                       whileTap={{ scale: 0.95 }}

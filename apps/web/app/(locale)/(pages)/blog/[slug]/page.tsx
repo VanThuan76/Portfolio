@@ -1,19 +1,21 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { AnimatePresence, m } from "framer-motion";
 import { useLocale, useTranslations } from "next-intl";
 
+import { PLACE_HOLDER_BLUR_HASH } from "@/shared/constants";
+import { formatLocaleDate } from "@shared/helpers/get-time";
+
 import { useSupabaseBrowser } from "@repo/supabase/utils/client";
 import { IUserMetadata, getBlogBySlug } from "@repo/supabase/queries";
 
-import { formatLocaleDate } from "@shared/helpers/get-time";
 import { Button } from "@repo/design-system/components/atoms/button";
 import { Skeleton } from "@repo/design-system/components/molecules/ui-elements/skeleton";
+import { BlurImage } from "@repo/design-system/components/molecules/ui-elements/blur-image";
 import { TextAnimated } from "@repo/design-system/components/molecules/ui-elements/text-animated";
 
 const ActionsBlog = dynamic(() => import("../components/actions-blog"), {
@@ -84,27 +86,34 @@ export default function Page() {
         >
           <main className="relative w-full h-full col-span-1 bg-white md:col-span-8 md:rounded-t-md">
             <article className="flex flex-col items-center justify-start w-full border-none h-fit">
-              <Image
+              <BlurImage
                 priority
+                alt={article.data.title as string}
                 src={article.data.image_url}
-                alt="@bg_blog"
+                blurDataURL={article.data.image_url ?? PLACE_HOLDER_BLUR_HASH}
+                className="object-cover object-center w-full max-h-[350px] md:rounded-t-md"
                 width={1280}
                 height={350}
+                placeholder="blur"
                 sizes="(max-width: 600px) 400px, (max-width: 1024px) 800px, 1200px"
-                className="object-cover object-center w-full max-h-[350px] md:rounded-t-md"
               />
               <section className="relative w-full px-2 pt-3 transition-all duration-150 ease-in-out md:px-4 h-fit lg:px-10 rounded-t-3xl md:rounded-none">
                 <div className="flex items-start flex-1 mb-3">
                   <div className="relative">
-                    <Image
+                    <BlurImage
                       priority
-                      src={
-                        userMetadata.avatar_url ?? "/images/blog/anonymous.png"
+                      alt={userMetadata?.user_name ?? "@user_image"}
+                      blurDataURL={
+                        userMetadata?.avatar_url ?? PLACE_HOLDER_BLUR_HASH
                       }
+                      src={
+                        userMetadata?.avatar_url ?? "/images/blog/anonymous.png"
+                      }
+                      className="rounded-md"
                       width={50}
                       height={50}
-                      alt="@avatar"
-                      className="rounded-md"
+                      placeholder="blur"
+                      sizes="(max-width: 50px) 50px, 50px"
                     />
                   </div>
                   <div className="flex-1 pl-3">
@@ -117,7 +126,7 @@ export default function Page() {
                         userMetadata.preferred_username ??
                         tBlog("anonymous")}
                     </TextAnimated>
-                    <TextAnimated per="char" preset="fade">
+                    <TextAnimated per="char" as="time" preset="fade">
                       {tBlog("posted_on") +
                         " " +
                         formatLocaleDate(
@@ -129,6 +138,7 @@ export default function Page() {
                 </div>
                 <TextAnimated
                   per="char"
+                  as="h1"
                   preset="fade"
                   className="mb-3 text-3xl font-bold leading-7 md:text-5xl"
                 >
@@ -186,15 +196,20 @@ export default function Page() {
                 <div className="w-full h-5 bg-[#d0bca3] md:h-8"></div>
                 <div className="flex flex-col w-full px-2 pt-2">
                   <div className="relative flex items-end justify-start gap-2 -translate-y-1/2">
-                    <Image
+                    <BlurImage
                       priority
+                      alt={userMetadata?.user_name ?? ("@user_image" as string)}
                       src={
-                        userMetadata.avatar_url ?? "/images/blog/anonymous.png"
+                        userMetadata?.avatar_url ?? "/images/blog/anonymous.png"
                       }
+                      blurDataURL={
+                        userMetadata?.avatar_url ?? PLACE_HOLDER_BLUR_HASH
+                      }
+                      className="rounded-full"
                       width={50}
                       height={50}
-                      alt="@avatar"
-                      className="rounded-full"
+                      placeholder="blur"
+                      sizes="(max-width: 50px) 50px, 50px"
                     />
                     <TextAnimated
                       per="char"
@@ -206,18 +221,18 @@ export default function Page() {
                         tBlog("anonymous")}
                     </TextAnimated>
                   </div>
-                  <Button className="mb-2 text-black bg-[#EAE1D6]">
+                  <Button className="mb-2 text-black bg-[#EAE1D6] hover:bg-[#d0bca3]">
                     {tBlog("follow")}
                   </Button>
                   <ul>
                     <li>
                       <div className="font-semibold">{tBlog("joined")}</div>
-                      <div>
+                      <time>
                         {formatLocaleDate(
                           article.data.users.created_at,
                           locale,
                         )}
-                      </div>
+                      </time>
                     </li>
                   </ul>
                 </div>

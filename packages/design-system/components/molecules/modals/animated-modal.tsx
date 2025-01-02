@@ -145,7 +145,7 @@ export const ModalBody = ({
             layoutId={`modal-body-${String(children)}`}
             ref={modalRef}
             className={cn(
-              "relative h-fit w-fit bg-white dark:bg-neutral-950 border border-transparent dark:border-neutral-800 rounded-none md:rounded-2xl z-50 flex flex-col overflow-hidden",
+              "relative h-fit w-fit bg-white backdrop-blur-[4px] backdrop-saturate-[100%] shadow-[0px_0px_30px_0px_rgba(0,0,0,0.3)_inset] dark:bg-neutral-950 border border-transparent dark:border-neutral-800 rounded-none md:rounded-2xl z-50 flex flex-col overflow-hidden",
               className,
             )}
             initial={{ opacity: 0.5, y: 20 }}
@@ -233,7 +233,7 @@ const CloseIcon = () => {
         setOpen(false);
         setClose();
       }}
-      className="absolute z-50 cursor-pointer top-3 right-3 group"
+      className="absolute z-50 cursor-pointer top-3 right-2 group"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

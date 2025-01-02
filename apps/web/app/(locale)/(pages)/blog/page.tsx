@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { headers } from "next/headers";
 import { getTranslations } from "next-intl/server";
 
@@ -15,7 +16,6 @@ import { Tabs } from "@repo/design-system/components/molecules/tabs/tabs";
 
 import CardBlog from "./components/card-blog";
 import LanguagesBlog from "./components/languages-blog";
-import Link from "next/link";
 
 export default async function Page() {
   const headerNext = await headers();

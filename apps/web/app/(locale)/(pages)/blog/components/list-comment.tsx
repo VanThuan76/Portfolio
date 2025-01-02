@@ -1,7 +1,6 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import Image from "next/image";
 import React, { useCallback, useRef, useState } from "react";
 import { AnimatePresence, m } from "framer-motion";
 import { useLocale, useTranslations } from "next-intl";
@@ -13,6 +12,7 @@ import { cn } from "@repo/design-system/utils/tw";
 import { useUser } from "@repo/hooks";
 import { useSupabaseBrowser } from "@repo/supabase/utils/client";
 import { formatRelativeDate } from "@shared/helpers/get-time";
+import { PLACE_HOLDER_BLUR_HASH } from "@/shared/constants";
 
 import {
   ILikeComment,
@@ -21,6 +21,7 @@ import {
   likeComment,
 } from "@repo/supabase/queries";
 
+import { BlurImage } from "@repo/design-system/components/molecules/ui-elements/blur-image";
 import { Skeleton } from "@repo/design-system/components/molecules/ui-elements/skeleton";
 
 import HeartGrowIcon from "./icons/heart-grow";
@@ -127,13 +128,16 @@ const ListComment = ({
 
           return (
             <div key={i} className="flex items-start w-full gap-2 mt-2">
-              <Image
+              <BlurImage
                 priority
+                alt={userMetadata?.user_name ?? "@user_image"}
+                blurDataURL={userMetadata?.avatar_url ?? PLACE_HOLDER_BLUR_HASH}
                 src={userMetadata?.avatar_url ?? "/images/blog/anonymous.png"}
+                className="flex-shrink-0 mt-1 overflow-hidden rounded-full"
                 width={32}
                 height={32}
-                alt="@avatar"
-                className="flex-shrink-0 mt-1 overflow-hidden rounded-full"
+                placeholder="blur"
+                sizes="(max-width: 32px) 32px, 32px"
               />
               <div className="flex flex-col w-full gap-2">
                 <div

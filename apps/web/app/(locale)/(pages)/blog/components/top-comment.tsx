@@ -1,7 +1,6 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import Image from "next/image";
 import React from "react";
 import { useLocale, useTranslations } from "next-intl";
 
@@ -10,9 +9,11 @@ import { IUserMetadata, CommentWithUser } from "@repo/supabase/queries";
 import { formatLocaleDate } from "@shared/helpers/get-time";
 
 import { AnimatedList } from "@repo/design-system/components/molecules/effects/animated-list";
+import { BlurImage } from "@repo/design-system/components/molecules/ui-elements/blur-image";
 import { Skeleton } from "@repo/design-system/components/molecules/ui-elements/skeleton";
 
 import HeartGrowIcon from "./icons/heart-grow";
+import { PLACE_HOLDER_BLUR_HASH } from "@/shared/constants";
 
 const PlateShowContent = dynamic(() => import("@repo/editor/content"), {
   ssr: false,
@@ -44,15 +45,20 @@ const TopComment = ({ comments }: { comments: CommentWithUser[] }) => {
             >
               <div className="flex flex-col items-start justify-start w-full gap-2">
                 <div className="flex items-center justify-start gap-2 mt-2">
-                  <Image
+                  <BlurImage
                     priority
+                    alt={userMetadata?.user_name ?? "@user_image"}
+                    blurDataURL={
+                      userMetadata?.avatar_url ?? PLACE_HOLDER_BLUR_HASH
+                    }
                     src={
                       userMetadata?.avatar_url ?? "/images/blog/anonymous.png"
                     }
+                    className="overflow-hidden rounded-full"
                     width={32}
                     height={32}
-                    alt="@avatar"
-                    className="overflow-hidden rounded-full"
+                    placeholder="blur"
+                    sizes="(max-width: 32px) 32px, 32px"
                   />
                   <div>
                     <p className="text-black">
