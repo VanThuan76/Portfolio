@@ -1,6 +1,9 @@
-# robots.txt for https://www.austinvu.tech/
-
+# *
 User-agent: *
-Disallow:
+Allow: /
 
-Sitemap: https://www.austinvu.tech/sitemap.xml
+# Host
+Host: http://localhost:3001
+
+# Sitemaps
+Sitemap: http://localhost:3001/sitemap.xml
