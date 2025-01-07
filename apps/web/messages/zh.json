@@ -1,5 +1,11 @@
 {
   "intro": "欢迎来到Austin Vu",
+  "intro_detail": {
+    "durable": "耐用",
+    "determination": "决心",
+    "commitment": "承诺",
+    "creativity": "创造力"
+  },
   "languages": {
     "switch_language": "正在切换语言...",
     "switch_language_successful": "语言切换成功！",

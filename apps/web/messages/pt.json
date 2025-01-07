@@ -1,5 +1,11 @@
 {
   "intro": "Bem-vindo a Austin Vu",
+  "intro_detail": {
+    "durable": "Durável",
+    "determination": "Determinação",
+    "commitment": "Compromisso",
+    "creativity": "Criatividade"
+  },
   "languages": {
     "switch_language": "Mudando o idioma...",
     "switch_language_successful": "Idioma alterado com sucesso!",

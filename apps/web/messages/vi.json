@@ -1,5 +1,11 @@
 {
   "intro": "Chào mừng đến với Austin Vu",
+  "intro_detail": {
+    "durable": "Bền bỉ",
+    "determination": "Quyết tâm",
+    "commitment": "Cam kết",
+    "creativity": "Sáng tạo"
+  },
   "languages": {
     "switch_language": "Đang chuyển ngôn ngữ...",
     "switch_language_successful": "Chuyển ngôn ngữ thành công!",

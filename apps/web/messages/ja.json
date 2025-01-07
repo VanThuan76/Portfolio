@@ -1,5 +1,11 @@
 {
   "intro": "オースティン・ヴーへようこそ",
+  "intro_detail": {
+    "durable": "耐久性",
+    "determination": "決意",
+    "commitment": "コミットメント",
+    "creativity": "創造性"
+  },
   "languages": {
     "switch_language": "言語を切り替えています...",
     "switch_language_successful": "言語が正常に切り替わりました！",

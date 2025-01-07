@@ -1,5 +1,11 @@
 {
   "intro": "ऑस्टिन वू में आपका स्वागत है",
+  "intro_detail": {
+    "durable": "दृढ़",
+    "determination": "दृढ़ संकल्प",
+    "commitment": "प्रतिबद्धता",
+    "creativity": "रचनात्मकता"
+  },
   "languages": {
     "switch_language": "भाषा बदल रही है...",
     "switch_language_successful": "भाषा सफलतापूर्वक बदल दी गई!",
