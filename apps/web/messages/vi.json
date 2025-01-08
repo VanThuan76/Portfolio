@@ -112,7 +112,11 @@
   },
   "pages": {
     "home": {
-      "slogan": "Thành công không phải là đích cuối cùng, thất bại cũng không phải là dấu chấm hết"
+      "slogan": "Thành công không phải là đích cuối cùng, thất bại cũng không phải là dấu chấm hết",
+      "means": "Điều quan trọng là lòng can đảm để tiếp tục",
+      "connect_with_us": "Liên hệ với chúng tôi",
+      "title_section_project": "AustinVu® – Kiến Tạo Thiết Kế Ý Nghĩa, Biến Tầm Nhìn Thành Hiện Thực",
+      "description_section_project": "Chúng tôi chuyển mình thương hiệu với mục đích nhân văn và ý nghĩa, định hình bản sắc biểu tượng và khơi dậy cảm xúc mãnh liệt thông qua sự giao tiếp rõ ràng bằng những thiết kế sâu sắc và được trau chuốt tỉ mỉ để mang thương hiệu đến với cuộc sống."
     },
     "auth": {
       "sign_in": "Đăng nhập vào Austin Blog",

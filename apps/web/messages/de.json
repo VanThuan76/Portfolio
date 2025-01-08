@@ -112,7 +112,11 @@
   },
   "pages": {
     "home": {
-      "slogan": "Erfolg ist nicht endgültig, Misserfolg ist nicht tödlich"
+      "slogan": "Erfolg ist nicht endgültig, Misserfolg ist nicht tödlich",
+      "means": "Wichtig ist der Mut, weiterzumachen",
+      "connect_with_us": "Kontaktieren Sie uns",
+      "title_section_project": "AustinVu® – Bedeutungsvolle Designs schaffen, Visionen in die Realität umsetzen",
+      "description_section_project": "Wir transformieren Marken mit Zweck und Bedeutung, formen ikonische Identitäten und wecken tiefe Emotionen durch klare Kommunikation mit durchdachten und sorgfältig gestalteten Designs, um die Marke zum Leben zu erwecken."
     },
     "auth": {
       "sign_in": "Melden Sie sich bei Austin Blog an",

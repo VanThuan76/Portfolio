@@ -112,7 +112,11 @@
   },
   "pages": {
     "home": {
-      "slogan": "El éxito no es definitivo, el fracaso no es fatal"
+      "slogan": "El éxito no es definitivo, el fracaso no es fatal",
+      "means": "Lo importante es tener el coraje de continuar",
+      "connect_with_us": "Conéctate con nosotros",
+      "title_section_project": "AustinVu® – Creando Diseños Significativos, Transformando la Visión en Realidad",
+      "description_section_project": "Transformamos marcas con propósito y significado, dando forma a identidades icónicas y evocando emociones profundas a través de una comunicación clara con diseños pensados y meticulosamente elaborados para dar vida a la marca."
     },
     "auth": {
       "sign_in": "Iniciar sesión en Austin Blog",

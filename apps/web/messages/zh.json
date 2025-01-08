@@ -112,7 +112,11 @@
   },
   "pages": {
     "home": {
-      "slogan": "成功不是终点，失败也不是终结"
+      "slogan": "成功不是终点，失败也不是终结",
+      "means": "重要的是继续前行的勇气",
+      "connect_with_us": "联系我们",
+      "title_section_project": "AustinVu® – 创造有意义的设计，将愿景变为现实",
+      "description_section_project": "我们通过清晰的沟通、深思熟虑且精心设计的作品，赋予品牌以生命，转变品牌的目标与意义，塑造标志性的身份，唤起深刻的情感。"
     },
     "auth": {
       "sign_in": "登录Austin博客",

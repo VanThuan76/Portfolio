@@ -112,7 +112,11 @@
   },
   "pages": {
     "home": {
-      "slogan": "Le succès n'est pas final, l'échec n'est pas fatal"
+      "slogan": "Le succès n'est pas final, l'échec n'est pas fatal",
+      "means": "L'important, c'est le courage de continuer",
+      "connect_with_us": "Connectez-vous avec nous",
+      "title_section_project": "AustinVu® – Création de Designs Significatifs, Transformant la Vision en Réalité",
+      "description_section_project": "Nous transformons les marques avec un objectif et un sens, façonnons des identités iconiques et suscitons des émotions profondes grâce à une communication claire et des designs réfléchis et méticuleusement élaborés pour donner vie à la marque."
     },
     "auth": {
       "sign_in": "Se connecter à Austin Blog",

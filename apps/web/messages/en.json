@@ -112,7 +112,11 @@
   },
   "pages": {
     "home": {
-      "slogan": "Success is not final, failure is not fatal"
+      "slogan": "Success is not final, failure is not fatal",
+      "means": "The important thing is the courage to continue",
+      "connect_with_us": "Connect with us",
+      "title_section_project": "AustinVu® – Creating Meaningful Designs, Turning Vision into Reality",
+      "description_section_project": "We transform brands with purpose and meaning, shaping iconic identities and evoking profound emotions through clear communication with thoughtful and meticulously crafted designs to bring the brand to life."
     },
     "auth": {
       "sign_in": "Sign in to Austin Blog",
