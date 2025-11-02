@@ -131,7 +131,7 @@ export const Tabs = memo(
                       moveSelectedTabToTop(idx);
                     }}
                     className={cn(
-                      "relative px-4 py-1 rounded-md flex-shrink-0",
+                      "relative pr-6 pl-4 py-1 rounded-md flex-shrink-0",
                       tabClassName,
                     )}
                     style={{
@@ -148,7 +148,7 @@ export const Tabs = memo(
                           duration: 0.6,
                         }}
                         className={cn(
-                          "absolute inset-0 bg-black/90 shadow-md rounded-md",
+                          "absolute inset-0 bg-black shadow-md rounded-md",
                           activeTabClassName,
                         )}
                       />
@@ -164,6 +164,16 @@ export const Tabs = memo(
                     >
                       {tab.title}
                     </m.p>
+                    <m.div
+                      className={cn(
+                        "absolute right-1 px-1 text-[10px] rounded-sm top-1",
+                        currentTabActive?.value === tab.value
+                          ? "text-white bg-slate-600 border border-slate-400"
+                          : "text-black bg-white/50 border border-slate-400",
+                      )}
+                    >
+                      {tab.content.props.items.length}
+                    </m.div>
                   </m.button>
                 ))}
                 <div

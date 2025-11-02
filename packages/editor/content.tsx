@@ -1,7 +1,7 @@
 "use client";
 const { Plate, PlateContent } = require("@udecode/plate-common/react");
 
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 
 import { useMyEditor } from "./index";
 
@@ -11,6 +11,7 @@ type PlateShowContentProps = {
 };
 
 const PlateShowContent = ({ content, className }: PlateShowContentProps) => {
+  // Memoize editor to prevent recreation on every render
   const editor = useMyEditor(content, false);
 
   useEffect(() => {
@@ -19,8 +20,18 @@ const PlateShowContent = ({ content, className }: PlateShowContentProps) => {
     }
   }, [editor, content]);
 
+  // Memoize the editor instance key based on content to prevent unnecessary re-renders
+  const editorKey = useMemo(() => {
+    try {
+      return content ? JSON.stringify(content).slice(0, 100) : "default";
+    } catch (error) {
+      // Handle circular reference errors
+      return content ? String(content).slice(0, 100) : "default";
+    }
+  }, [content]);
+
   return (
-    <Plate editor={editor} readOnly>
+    <Plate key={editorKey} editor={editor} readOnly>
       <PlateContent className={className} />
     </Plate>
   );

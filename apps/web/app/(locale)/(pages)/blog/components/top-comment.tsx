@@ -46,7 +46,7 @@ const TopComment = ({ comments }: { comments: CommentWithUser[] }) => {
               <div className="flex flex-col items-start justify-start w-full gap-2">
                 <div className="flex items-center justify-start gap-2 mt-2">
                   <BlurImage
-                    priority
+                    loading="lazy"
                     alt={userMetadata?.user_name ?? "@user_image"}
                     blurDataURL={
                       userMetadata?.avatar_url ?? PLACE_HOLDER_BLUR_HASH

@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { AnimatePresence, m } from "framer-motion";
-import { useState } from "react";
+import { useState, Suspense } from "react";
 
 const Menu = dynamic(() => import("@shared/layouts/navigation/menu"), {
   ssr: false,
@@ -31,6 +31,11 @@ const FadeInContainer = dynamic(
 const Intro = dynamic(() => import("./(home)/components/intro"), {
   ssr: false,
 });
+
+const UserWelcomeCard = dynamic(
+  () => import("@shared/utils/user-welcome-card"),
+  { ssr: false },
+);
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -64,6 +69,9 @@ export default function Layout({ children }: LayoutProps) {
               </FadeInItem>
             </FadeInContainer>
             <ModalProvider />
+            <Suspense fallback={null}>
+              <UserWelcomeCard />
+            </Suspense>
           </div>
           <div className="fixed top-0 right-0">
             <Menu />

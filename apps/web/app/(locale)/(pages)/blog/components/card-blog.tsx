@@ -67,6 +67,8 @@ const CardBlog = ({
 
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [clickedSlug, setClickedSlug] = useState<string | null>(null);
+  const [isRedirectImmediately, setIsRedirectImmediately] =
+    useState<boolean>(false);
 
   const { onOpen, onClose } = useModal();
   const { data: user } = useUser();
@@ -74,12 +76,17 @@ const CardBlog = ({
 
   function handleRedirect(e, card: IBlog) {
     setClickedSlug(card.slug);
-    if (["xs", "sm"].includes(breakpoint)) {
+    if (["xs", "sm"].includes(breakpoint) && !isRedirectImmediately) {
       onOpen("loading");
       handleOpenScreen(e, `/blog/${card.slug}`, card.id, () => onClose());
     } else {
       onOpen("blog", card);
     }
+  }
+
+  function handleRedirectImmediately(e, card: IBlog) {
+    handleOpenScreen(e, `/blog/${card.slug}`, card.id, onClose);
+    setIsRedirectImmediately(true);
   }
 
   const { mutate: saveBlog } = useMutation<any, Error, ISaveReaction>({
@@ -131,16 +138,19 @@ const CardBlog = ({
             initial="initial"
             animate={clickedSlug === item.slug ? "click" : "initial"}
             transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+            style={{
+              willChange: clickedSlug === item.slug ? "transform" : "auto",
+            }}
             className="relative block w-full p-0 cursor-pointer md:p-2 group"
             onMouseEnter={() => setHoveredIndex(index)}
             onMouseLeave={() => setHoveredIndex(null)}
-            onClick={(e) => handleRedirect(e, item)}
           >
             <AnimatePresence>
               {hoveredIndex === index && !isMobile && (
                 <m.span
                   className="absolute inset-0 min-h-[100px] h-full w-full bg-neutral-200 dark:bg-slate-800/[0.8] block rounded-md"
                   layoutId="hoverBackground"
+                  style={{ willChange: "opacity, transform" }}
                   initial={{ opacity: 0 }}
                   animate={{
                     opacity: 1,
@@ -162,11 +172,14 @@ const CardBlog = ({
                 />
               )}
             </AnimatePresence>
-            <Card className="relative p-0 m-0 dark:bg-[#393E46] bg-white border border-black/10 overflow-hidden shadow-lg rounded-lg">
+            <Card
+              className="relative p-0 m-0 dark:bg-[#393E46] bg-white border border-black/10 overflow-hidden shadow-lg rounded-lg group"
+              onClick={(e) => handleRedirect(e, item)}
+            >
               <div className="relative z-50 flex flex-col items-start justify-start w-full h-auto gap-2 px-2 pb-2 overflow-hidden">
                 <div className="flex items-center justify-start gap-2 mt-2">
                   <BlurImage
-                    priority
+                    loading="lazy"
                     alt={userMetadata?.user_name ?? ("@user_image" as string)}
                     src={
                       userMetadata?.avatar_url ?? "/images/blog/anonymous.png"
@@ -217,7 +230,18 @@ const CardBlog = ({
                         </span>
                       </div>
                     </div>
+
                     <div className="flex flex-wrap items-center justify-center gap-1">
+                      <SaveIcon
+                        onClick={() => handleSave(item, isSaved)}
+                        className={cn(
+                          "w-4 h-4",
+                          isSaved ? "bg-yellow-100" : "",
+                        )}
+                      />
+                    </div>
+
+                    <div className="flex flex-wrap items-center justify-center gap-1 ml-2">
                       <ClockIcon className="w-[16px] h-[16px]" />
                       <span className="text-xs font-normal text-black">
                         {readTime}
@@ -253,7 +277,7 @@ const CardBlog = ({
                     })}
                 </div>
                 <BlurImage
-                  priority
+                  loading="lazy"
                   alt={item.title as string}
                   src={item.image_url}
                   blurDataURL={item.image_url ?? PLACE_HOLDER_BLUR_HASH}
@@ -264,13 +288,12 @@ const CardBlog = ({
                   sizes="(max-width: 600px) 400px, (max-width: 1024px) 800px, 1200px"
                 />
               </div>
-              <SaveIcon
-                onClick={() => handleSave(item, isSaved)}
-                className={cn(
-                  "absolute z-50 w-4 h-4 top-3 right-2",
-                  isSaved ? "bg-yellow-100" : "",
-                )}
-              />
+              <div
+                className="z-[100000] hidden md:block absolute top-0 right-0 px-2 py-1 text-sm text-white transition-opacity duration-300 rounded-bl-lg opacity-0 hover:text-white/80 hover:bg-black/70 bg-black/80 group-hover:opacity-100"
+                onClick={(e) => handleRedirectImmediately(e, item)}
+              >
+                {t("read_post")}
+              </div>
             </Card>
           </m.div>
         );

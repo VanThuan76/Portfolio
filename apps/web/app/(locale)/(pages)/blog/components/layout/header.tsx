@@ -67,7 +67,7 @@ const Header = () => {
       </m.div>
 
       <Image
-        priority
+        loading="lazy"
         width={700}
         height={600}
         alt="@all"

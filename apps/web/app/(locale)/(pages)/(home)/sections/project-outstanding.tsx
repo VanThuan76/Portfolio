@@ -13,7 +13,7 @@ const ProjectOutstanding = () => {
   return (
     <section
       id="project-outstanding"
-      className="flex flex-col items-center justify-center px-4 pb-6 mt-0 lg:mt-24 md:p-12 lg:px-24 lg:pb-24 max-h-none h-[80svh]"
+      className="flex flex-col items-center justify-center px-4 pb-6 mt-0 lg:mt-24 md:p-12 lg:px-24 lg:pb-24 max-h-none h-[80svh] rounded-t-[50px] bg-[#E2E0C8]"
     >
       <div className="flex flex-col items-center justify-center gap-2 max-w-fit">
         <h2 className="text-xl font-bold md:text-3xl">

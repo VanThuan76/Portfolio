@@ -134,7 +134,8 @@
       "doesnt_already_account": "Chưa có tài khoản?",
       "login_to_continue": "Đăng nhập để tiếp tục",
       "modal_auth_description": "Chúng tôi là nơi các lập trình viên chia sẻ, cập nhật và phát triển sự nghiệp.",
-      "login": "Đăng nhập"
+      "login": "Đăng nhập",
+      "login_success": "Đăng nhập thành công! Chào mừng trở lại."
     },
     "blog": {
       "title": "Blog của Austin",
@@ -185,7 +186,9 @@
       "notify_create_blog": "Tạo bài viết thành công",
       "see_all": "Xem tất cả",
       "no_data": "Không có dữ liệu",
-      "become_blogger": "Trở thành blogger ngay"
+      "become_blogger": "Trở thành blogger ngay",
+      "error_loading_content": "Không thể tải nội dung",
+      "error_loading_content_description": "Không thể tải nội dung bài viết. Vui lòng thử lại sau."
     },
     "project": {
       "title": "Sản phẩm"

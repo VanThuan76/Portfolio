@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { AnimatePresence, m } from "framer-motion";
 import { useLocale, useTranslations } from "next-intl";
+import { useBreakpoint } from "@repo/hooks";
 
 import { PLACE_HOLDER_BLUR_HASH } from "@/shared/constants";
 import { formatLocaleDate } from "@shared/helpers/get-time";
@@ -51,6 +52,8 @@ export default function Page() {
   const tBlog = useTranslations("pages.blog");
   const locale = useLocale();
   const params = useParams<{ locale: string; slug: string }>();
+  const breakpoint = useBreakpoint();
+  const isMobile = ["xs", "sm"].includes(breakpoint);
 
   const [optionsQuery, setOptionsQuery] = useState({
     language_code: locale,
@@ -64,8 +67,28 @@ export default function Page() {
     enabled: !!optionsQuery.slug,
   });
 
-  const userMetadata: IUserMetadata =
-    article && article.data && JSON.parse(article.data.users?.user_metadata);
+  // Safely parse user metadata
+  let userMetadata: IUserMetadata | null = null;
+  try {
+    userMetadata =
+      article && article.data && article.data.users?.user_metadata
+        ? JSON.parse(article.data.users.user_metadata)
+        : null;
+  } catch (error) {
+    console.error("Error parsing user metadata:", error);
+  }
+
+  // Safely parse blog content
+  let parsedContent: any = null;
+  try {
+    parsedContent =
+      article && article.data && article.data.content
+        ? JSON.parse(article.data.content as string)
+        : null;
+  } catch (error) {
+    console.error("Error parsing blog content:", error);
+    parsedContent = null;
+  }
 
   const handleAnimationComplete = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -82,12 +105,13 @@ export default function Page() {
           exit={{ opacity: 0, scale: 0.9 }}
           transition={{ duration: 0.4, ease: "easeInOut" }}
           onAnimationComplete={handleAnimationComplete}
+          style={{ willChange: "transform, opacity" }}
           className="grid w-full h-full min-h-screen grid-cols-1 gap-0 mb-20 overflow-y-auto rounded-none md:pt-4 md:gap-2 md:rounded-lg md:grid-cols-11 md:px-4 md:mb-10"
         >
           <main className="relative w-full h-full col-span-1 bg-white md:col-span-8 md:rounded-t-md">
             <article className="flex flex-col items-center justify-start w-full border-none h-fit">
               <BlurImage
-                priority
+                loading={isMobile ? "lazy" : "eager"}
                 alt={article.data.title as string}
                 src={article.data.image_url}
                 blurDataURL={article.data.image_url ?? PLACE_HOLDER_BLUR_HASH}
@@ -101,7 +125,7 @@ export default function Page() {
                 <div className="flex items-start flex-1 mb-3">
                   <div className="relative">
                     <BlurImage
-                      priority
+                      loading="lazy"
                       alt={userMetadata?.user_name ?? "@user_image"}
                       blurDataURL={
                         userMetadata?.avatar_url ?? PLACE_HOLDER_BLUR_HASH
@@ -118,15 +142,21 @@ export default function Page() {
                   </div>
                   <div className="flex-1 pl-3">
                     <TextAnimated
-                      per="char"
+                      per={isMobile ? "word" : "char"}
                       preset="fade"
                       className="font-bold"
+                      trigger={!isMobile}
                     >
-                      {userMetadata.full_name ??
-                        userMetadata.preferred_username ??
+                      {userMetadata?.full_name ??
+                        userMetadata?.preferred_username ??
                         tBlog("anonymous")}
                     </TextAnimated>
-                    <TextAnimated per="char" as="time" preset="fade">
+                    <TextAnimated
+                      per={isMobile ? "word" : "char"}
+                      as="time"
+                      preset="fade"
+                      trigger={!isMobile}
+                    >
                       {tBlog("posted_on") +
                         " " +
                         formatLocaleDate(
@@ -137,10 +167,11 @@ export default function Page() {
                   </div>
                 </div>
                 <TextAnimated
-                  per="char"
+                  per={isMobile ? "word" : "char"}
                   as="h1"
                   preset="fade"
                   className="mb-3 text-3xl font-bold leading-7 md:text-5xl"
+                  trigger={!isMobile}
                 >
                   {article.data.title as string}
                 </TextAnimated>
@@ -150,10 +181,21 @@ export default function Page() {
                   })}
                 </div>
                 <div className="w-full h-fit dark:bg-grid-small-white/[0.1] md:bg-grid-small-black/20">
-                  <PlateShowContent
-                    className="w-full h-fit"
-                    content={JSON.parse(article.data.content as string)}
-                  />
+                  {parsedContent ? (
+                    <PlateShowContent
+                      className="w-full h-fit"
+                      content={parsedContent}
+                    />
+                  ) : (
+                    <div className="p-4 text-center text-red-600 bg-red-50 dark:bg-red-900/20 rounded-md">
+                      <p className="font-semibold">
+                        {tBlog("error_loading_content")}
+                      </p>
+                      <p className="text-sm mt-2">
+                        {tBlog("error_loading_content_description")}
+                      </p>
+                    </div>
+                  )}
                 </div>
               </section>
             </article>
@@ -191,13 +233,14 @@ export default function Page() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 20 }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
+              style={{ willChange: "transform, opacity" }}
             >
               <div className="w-full max-h-[500px] bg-white rounded-md border border-slate-200 shadow-sm overflow-hidden">
                 <div className="w-full h-5 bg-[#d0bca3] md:h-8"></div>
                 <div className="flex flex-col w-full px-2 pt-2">
                   <div className="relative flex items-end justify-start gap-2 -translate-y-1/2">
                     <BlurImage
-                      priority
+                      loading="lazy"
                       alt={userMetadata?.user_name ?? ("@user_image" as string)}
                       src={
                         userMetadata?.avatar_url ?? "/images/blog/anonymous.png"
@@ -212,12 +255,13 @@ export default function Page() {
                       sizes="(max-width: 50px) 50px, 50px"
                     />
                     <TextAnimated
-                      per="char"
+                      per={isMobile ? "word" : "char"}
                       preset="fade"
                       className="font-bold cursor-pointer hover:text-black/80"
+                      trigger={!isMobile}
                     >
-                      {userMetadata.full_name ??
-                        userMetadata.preferred_username ??
+                      {userMetadata?.full_name ??
+                        userMetadata?.preferred_username ??
                         tBlog("anonymous")}
                     </TextAnimated>
                   </div>

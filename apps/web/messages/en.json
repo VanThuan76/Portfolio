@@ -134,7 +134,8 @@
       "doesnt_already_account": "Doest not have account yet?",
       "login_to_continue": "Log in to continue",
       "modal_auth_description": "We're a place where coders share, stay up-to-date and grow their careers.",
-      "login": "Log in"
+      "login": "Log in",
+      "login_success": "Login successful! Welcome back."
     },
     "blog": {
       "title": "Austin's Blog",
@@ -185,7 +186,9 @@
       "notify_create_blog": "Create Blog Successfully",
       "see_all": "See all",
       "no_data": "No data here",
-      "become_blogger": "Become a blogger now"
+      "become_blogger": "Become a blogger now",
+      "error_loading_content": "Unable to load content",
+      "error_loading_content_description": "The blog content could not be loaded. Please try again later."
     },
     "project": {
       "title": "Project"

@@ -54,7 +54,10 @@ export default function SignInForm({ redirectTo }: { redirectTo: string }) {
         if (error) {
           toast.error(error.message);
         } else {
-          router.push(redirectTo);
+          // Thêm query parameter để trigger UserWelcomeCard
+          const redirectUrl = new URL(redirectTo, window.location.origin);
+          redirectUrl.searchParams.set("login", "success");
+          router.push(redirectUrl.pathname + redirectUrl.search);
         }
       });
     }

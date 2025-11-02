@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import { Suspense } from "react";
 import { cn } from "@repo/design-system/utils/tw";
 import { useIsSafari } from "@repo/hooks";
 
@@ -14,6 +15,10 @@ const Footer = dynamic(() => import("./components/layout/footer"), {
 });
 const NavigateNewBlog = dynamic(
   () => import("./components/navigate-new-blog"),
+  { ssr: false },
+);
+const UserWelcomeCard = dynamic(
+  () => import("@shared/utils/user-welcome-card"),
   { ssr: false },
 );
 
@@ -42,6 +47,9 @@ export default function BlogTemplate({
         {children}
         <Footer />
         <NavigateNewBlog />
+        <Suspense fallback={null}>
+          <UserWelcomeCard />
+        </Suspense>
       </div>
     </PixelTransition>
   );

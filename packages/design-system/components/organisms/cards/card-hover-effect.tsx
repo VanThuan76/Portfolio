@@ -95,16 +95,21 @@ export const HoverEffect = ({
 export const Card = ({
   className,
   children,
+  onClick,
+  ...props
 }: {
   className?: string;
   children: React.ReactNode;
+  onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
 }) => {
   return (
     <div
+      onClick={onClick}
       className={cn(
         "rounded-sm h-full w-full p-4 overflow-hidden bg-black border border-transparent dark:border-white/[0.2] group-hover:shadow-xl group-hover:bg-white/50 relative z-20 transition-all ease-in-out duration-300",
         className,
       )}
+      {...props}
     >
       {children}
     </div>

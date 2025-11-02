@@ -409,7 +409,7 @@ const allLogos = [
 
 export default function TechnologyCarousel() {
   return (
-    <div className="py-24 space-y-8">
+    <section className="py-24 space-y-8 bg-[#A7B49E]">
       <div className="flex flex-col items-center w-full max-w-screen-lg mx-auto space-y-8">
         <div className="flex flex-col items-center justify-center gap-2 max-w-fit">
           <h2 className="text-xl font-bold md:text-3xl">
@@ -421,6 +421,6 @@ export default function TechnologyCarousel() {
         </div>
         <LogoCarousel columnCount={3} logos={allLogos} />
       </div>
-    </div>
+    </section>
   );
 }

@@ -77,7 +77,7 @@ export default async function Page() {
                   <div className="relative h-full w-[50px] rounded-2xl border border-white/5 bg-white/5">
                     <div className="flex items-center gap-4 mt-auto">
                       <Image
-                        priority
+                        loading="lazy"
                         src={item.url}
                         alt={item.alt as string}
                         width={50}

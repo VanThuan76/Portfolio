@@ -27,6 +27,7 @@ const PixelTransition: React.FC<PixelTransitionProps> = ({ children }) => {
     innerHeight: number;
   } | null>(null);
   const [didMount, setDidMount] = useState(true);
+  const [shouldRender, setShouldRender] = useState(true);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -37,10 +38,18 @@ const PixelTransition: React.FC<PixelTransitionProps> = ({ children }) => {
       setDidMount(false);
     }, 100);
 
-    return () => clearTimeout(timer);
+    // Cleanup after animation
+    const cleanupTimer = setTimeout(() => {
+      setShouldRender(false);
+    }, 500);
+
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(cleanupTimer);
+    };
   }, []);
 
-  if (!windowDimensions) return null;
+  if (!windowDimensions || !shouldRender) return <>{children}</>;
 
   const { innerWidth, innerHeight } = windowDimensions;
 
@@ -56,7 +65,7 @@ const PixelTransition: React.FC<PixelTransitionProps> = ({ children }) => {
 
   const getBlocks = (indexOfColum: number) => {
     const blockSize = innerHeight * 0.1;
-    const nbOfBlocks = Math.ceil(innerWidth / blockSize);
+    const nbOfBlocks = Math.min(Math.ceil(innerWidth / blockSize), 30); // Limit to 30 blocks
     const shuffledIndexes = shuffle(
       Array.from({ length: nbOfBlocks }, (_, i) => i),
     );
@@ -69,6 +78,7 @@ const PixelTransition: React.FC<PixelTransitionProps> = ({ children }) => {
         initial="initial"
         animate={didMount ? "open" : "closed"}
         custom={[indexOfColum + randomIndex, 10 - indexOfColum + randomIndex]}
+        style={{ willChange: "opacity" }}
       />
     ));
   };
