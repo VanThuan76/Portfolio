@@ -194,29 +194,32 @@ export function TextAnimated({
     exit: containerVariants.exit as any,
   };
 
+  // If trigger is false, render plain text without animation
+  if (!trigger) {
+    return React.createElement(as, { className }, children);
+  }
+
   return (
     <AnimatePresence mode="popLayout">
-      {trigger && (
-        <MotionTag
-          key={children}
-          initial="hidden"
-          animate="visible"
-          exit="exit"
-          variants={delayedContainerVariants}
-          className={cn("leading-snug", className)}
-          onAnimationComplete={onAnimationComplete}
-        >
-          {segments.map((segment, index) => (
-            <AnimationComponent
-              key={`${per}-${index}-${segment}`}
-              segment={segment}
-              variants={itemVariants}
-              per={per}
-              segmentWrapperClassName={segmentWrapperClassName}
-            />
-          ))}
-        </MotionTag>
-      )}
+      <MotionTag
+        key={children}
+        initial="hidden"
+        animate="visible"
+        exit="exit"
+        variants={delayedContainerVariants}
+        className={cn("leading-snug", className)}
+        onAnimationComplete={onAnimationComplete}
+      >
+        {segments.map((segment, index) => (
+          <AnimationComponent
+            key={`${per}-${index}-${segment}`}
+            segment={segment}
+            variants={itemVariants}
+            per={per}
+            segmentWrapperClassName={segmentWrapperClassName}
+          />
+        ))}
+      </MotionTag>
     </AnimatePresence>
   );
 }

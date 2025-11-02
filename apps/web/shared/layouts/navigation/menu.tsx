@@ -18,7 +18,7 @@ const InfiniteSlider = lazy(() =>
 );
 
 import { BlurImage } from "@repo/design-system/components/molecules/ui-elements/blur-image";
-import { useBreakpoint, useOpenScreen } from "@repo/hooks";
+import { useBreakpoint, useOpenScreen, useModal } from "@repo/hooks";
 
 import { DATA_MENUS, PLACE_HOLDER_BLUR_HASH } from "@shared/constants";
 
@@ -69,6 +69,7 @@ const Menu = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [shouldRenderContent, setShouldRenderContent] = useState(false);
   const { handleOpenScreen } = useOpenScreen();
+  const { onOpen, onClose } = useModal();
 
   // Lazy mount content when menu opens, keep it mounted during transition
   useEffect(() => {
@@ -162,8 +163,18 @@ const Menu = () => {
     if (isOpen) {
       setIsOpen(false);
 
+      // Show loading modal with blur and spinner on mobile
+      if (isSmallScreen) {
+        onOpen("loading");
+      }
+
       setTimeout(() => {
-        handleOpenScreen(e, href, name);
+        handleOpenScreen(e, href, name, () => {
+          // Close loading modal after navigation completes
+          if (isSmallScreen) {
+            onClose();
+          }
+        });
       }, 750);
     } else {
       setIsOpen(true);

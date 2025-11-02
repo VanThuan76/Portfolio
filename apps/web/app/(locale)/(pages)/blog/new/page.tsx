@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic";
 import { m } from "framer-motion";
 import { useLocale } from "next-intl";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 
 import { cn } from "@repo/design-system/utils/tw";
 import { useSupabaseBrowser } from "@repo/supabase/utils/client";
@@ -52,7 +52,7 @@ export default function Page() {
         );
     };
     fetchOptionsData();
-  }, [currentLocaleForm]);
+  }, [currentLocaleForm, supabase]);
 
   return (
     <m.main
@@ -72,10 +72,7 @@ export default function Page() {
           optionTags={optionTags}
           optionCategories={optionCategories}
           currentLocaleForm={currentLocaleForm}
-          setCurrentLocaleForm={useCallback(
-            (locale) => setCurrentLocaleForm(locale),
-            [],
-          )}
+          setCurrentLocaleForm={setCurrentLocaleForm}
         />
         <div className="absolute top-8 right-5">
           <LanguagesBlog />
@@ -83,7 +80,7 @@ export default function Page() {
       </div>
       <HintNewBlog
         isMountHint={isMountHint}
-        setIsMountHint={useCallback((state) => setIsMountHint(state), [])}
+        setIsMountHint={setIsMountHint}
       />
     </m.main>
   );

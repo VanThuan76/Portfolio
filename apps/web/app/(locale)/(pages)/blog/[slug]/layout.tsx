@@ -2,11 +2,10 @@ import { Metadata } from "next";
 import { headers } from "next/headers";
 import { getTranslations } from "next-intl/server";
 
-import { OpenAIProvider } from "@repo/editor/components/openai/openai-context";
 import { getBlogBySlug } from "@repo/supabase/queries/actions/blog/blog-actions";
 
 import { getSupabaseBrowserClient } from "@repo/supabase/utils/client";
-import ReCaptchaProvider from "@/providers/re-captcha";
+import { BlogSlugProviders } from "./providers";
 
 export async function generateMetadata({ params }): Promise<Metadata> {
   const headerNext = await headers();
@@ -53,9 +52,5 @@ export default function BlogSlugLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <ReCaptchaProvider>
-      <OpenAIProvider>{children}</OpenAIProvider>
-    </ReCaptchaProvider>
-  );
+  return <BlogSlugProviders>{children}</BlogSlugProviders>;
 }
