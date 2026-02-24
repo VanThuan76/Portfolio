@@ -16,7 +16,7 @@
     "prepare": "husky"
   },
   "devDependencies": {
-    "@next/eslint-plugin-next": "^15.0.3",
+    "@next/eslint-plugin-next": "^15.1.7",
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "husky": "^9.1.6",
