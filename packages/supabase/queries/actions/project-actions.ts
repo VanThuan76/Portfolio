@@ -14,7 +14,6 @@ export const getProjects = async (
   const { data: projects, error: projectError } = await supabase
     .from("project")
     .select("*")
-    .eq("language_code", locale)
     .order("finished_date", { ascending: true });
 
   if (projectError) createResponse(500, [], "Failed to fetch projects");

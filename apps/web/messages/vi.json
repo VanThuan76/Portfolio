@@ -112,11 +112,15 @@
   },
   "pages": {
     "home": {
-      "slogan": "Thành công không phải là đích cuối cùng, thất bại cũng không phải là dấu chấm hết",
-      "means": "Điều quan trọng là lòng can đảm để tiếp tục",
+      "slogan": "Hãy bản lĩnh bước đi.",
+      "slogan_1": "Theo dấu bước chân.",
+      "slogan_2": "Dừng một nhịp -",
+      "means": "để hiểu mình giữa bao điều muốn trở thành.",
       "connect_with_us": "Liên hệ với chúng tôi",
       "title_section_project": "AustinVu® – Kiến Tạo Thiết Kế Ý Nghĩa, Biến Tầm Nhìn Thành Hiện Thực",
-      "description_section_project": "Chúng tôi chuyển mình thương hiệu với mục đích nhân văn và ý nghĩa, định hình bản sắc biểu tượng và khơi dậy cảm xúc mãnh liệt thông qua sự giao tiếp rõ ràng bằng những thiết kế sâu sắc và được trau chuốt tỉ mỉ để mang thương hiệu đến với cuộc sống."
+      "description_section_project": "Nơi bản lĩnh được thử thách, ý tưởng được hiện thực hóa, và mỗi bước chân đều để lại dấu ấn rõ nét.",
+      "title_technology_section": "Cùng những người bạn đồng hành",
+      "des_technology_section": "Theo từng cửa ngõ"
     },
     "auth": {
       "sign_in": "Đăng nhập vào Austin Blog",

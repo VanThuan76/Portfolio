@@ -112,11 +112,15 @@
   },
   "pages": {
     "home": {
-      "slogan": "Erfolg ist nicht endgültig, Misserfolg ist nicht tödlich",
-      "means": "Wichtig ist der Mut, weiterzumachen",
+      "slogan": "Geh mutig voran.",
+      "slogan_1": "Folge den Spuren der Schritte.",
+      "slogan_2": "Halte einen Moment inne —",
+      "means": "um dich selbst zu erkennen inmitten all dessen, was du werden möchtest.",
       "connect_with_us": "Kontaktieren Sie uns",
       "title_section_project": "AustinVu® – Bedeutungsvolle Designs schaffen, Visionen in die Realität umsetzen",
-      "description_section_project": "Wir transformieren Marken mit Zweck und Bedeutung, formen ikonische Identitäten und wecken tiefe Emotionen durch klare Kommunikation mit durchdachten und sorgfältig gestalteten Designs, um die Marke zum Leben zu erwecken."
+      "description_section_project": "Wo Mut auf die Probe gestellt wird, Ideen verwirklicht werden und jeder Schritt eine klare Spur hinterlässt.",
+      "title_technology_section": "The best are already here",
+      "des_technology_section": "Join new cult"
     },
     "auth": {
       "sign_in": "Melden Sie sich bei Austin Blog an",

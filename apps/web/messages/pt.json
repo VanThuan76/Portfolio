@@ -112,11 +112,15 @@
   },
   "pages": {
     "home": {
-      "slogan": "O sucesso não é definitivo, o fracasso não é fatal",
-      "means": "O importante é a coragem de continuar",
+      "slogan": "Caminhe com coragem.",
+      "slogan_1": "Siga os rastros do caminho.",
+      "slogan_2": "Pause por um momento —",
+      "means": "para se conhecer em meio a tudo que você deseja se tornar.",
       "connect_with_us": "Conecte-se conosco",
       "title_section_project": "AustinVu® – Criando Designs Significativos, Transformando Visões em Realidade",
-      "description_section_project": "Transformamos marcas com propósito e significado, moldando identidades icônicas e evocando emoções profundas através de uma comunicação clara com designs pensados e meticulosamente elaborados para dar vida à marca."
+      "description_section_project": "Onde a coragem é testada, as ideias ganham vida e cada passo deixa uma marca clara.",
+      "title_technology_section": "The best are already here",
+      "des_technology_section": "Join new cult"
     },
     "auth": {
       "sign_in": "Entrar no Austin Blog",

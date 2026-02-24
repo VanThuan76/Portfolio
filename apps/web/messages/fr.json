@@ -112,11 +112,15 @@
   },
   "pages": {
     "home": {
-      "slogan": "Le succès n'est pas final, l'échec n'est pas fatal",
-      "means": "L'important, c'est le courage de continuer",
+      "slogan": "Avance avec audace.",
+      "slogan_1": "Suis les traces du chemin.",
+      "slogan_2": "Marque une pause —",
+      "means": "pour te connaître toi-même parmi tout ce que tu aspires à devenir.",
       "connect_with_us": "Connectez-vous avec nous",
       "title_section_project": "AustinVu® – Création de Designs Significatifs, Transformant la Vision en Réalité",
-      "description_section_project": "Nous transformons les marques avec un objectif et un sens, façonnons des identités iconiques et suscitons des émotions profondes grâce à une communication claire et des designs réfléchis et méticuleusement élaborés pour donner vie à la marque."
+      "description_section_project": "Là où le courage est mis à l'épreuve, les idées prennent vie et chaque pas laisse une trace nette.",
+      "title_technology_section": "The best are already here",
+      "des_technology_section": "Join new cult"
     },
     "auth": {
       "sign_in": "Se connecter à Austin Blog",

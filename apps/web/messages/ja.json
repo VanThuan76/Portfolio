@@ -112,11 +112,15 @@
   },
   "pages": {
     "home": {
-      "slogan": "成功は終わりではなく、失敗は致命的ではありません",
-      "means": "重要なのは続ける勇気です",
+      "slogan": "勇気をもって歩み続けよう。",
+      "slogan_1": "足跡をたどれ。",
+      "slogan_2": "一息ついて —",
+      "means": "なりたい自分の姿の中で、今の自分を見つめ直そう。",
       "connect_with_us": "お問い合わせ",
       "title_section_project": "AustinVu® – 意味のあるデザインを創造し、ビジョンを現実に",
-      "description_section_project": "私たちは、目的と意味を持つブランドを変革し、象徴的なアイデンティティを形成し、深い感情を呼び起こすために、明確なコミュニケーションと熟練されたデザインを通じてブランドを生き生きとさせます。"
+      "description_section_project": "勇気が試され、アイデアが形になり、すべての一歩が確かな足跡を残す場所。",
+      "title_technology_section": "The best are already here",
+      "des_technology_section": "Join new cult"
     },
     "auth": {
       "sign_in": "Austin Blog にサインイン",
