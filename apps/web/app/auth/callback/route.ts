@@ -38,5 +38,7 @@ export async function GET(request: Request) {
     }
   }
 
-  return NextResponse.redirect(`${origin}/auth/signin?error=authentication_failed`);
+  return NextResponse.redirect(
+    `${origin}/auth/signin?error=authentication_failed`,
+  );
 }

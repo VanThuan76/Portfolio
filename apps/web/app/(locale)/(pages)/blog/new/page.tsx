@@ -78,10 +78,7 @@ export default function Page() {
           <LanguagesBlog />
         </div>
       </div>
-      <HintNewBlog
-        isMountHint={isMountHint}
-        setIsMountHint={setIsMountHint}
-      />
+      <HintNewBlog isMountHint={isMountHint} setIsMountHint={setIsMountHint} />
     </m.main>
   );
 }
