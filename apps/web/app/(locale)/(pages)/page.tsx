@@ -14,170 +14,172 @@ import ProjectOutstanding from "./(home)/sections/project-outstanding";
 import { FloatingNav } from "./(home)/components/floating-navbar";
 
 export default function Page() {
-    const t = useTranslations("pages.home");
-    const ref = useRef<HTMLDivElement>(null);
-    const containerRef = useRef<HTMLDivElement>(null);
+  const t = useTranslations("pages.home");
+  const ref = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-    const navItems = [
-        {
-            name: "Home",
-            link: "/",
-        },
-        {
-            name: "About",
-            link: "/about",
-        },
-        {
-            name: "Contact",
-            link: "/contact",
-        },
-    ];
+  const navItems = [
+    {
+      name: "Home",
+      link: "/",
+    },
+    {
+      name: "About",
+      link: "/about",
+    },
+    {
+      name: "Contact",
+      link: "/contact",
+    },
+  ];
 
-    return (
-        <m.div
-            key="main-content"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
-            className="bg-black/[0.1] relative w-full min-h-screen h-full pointer-events-auto overflow-x-hidden overflow-y-auto"
-            ref={containerRef}
-        >
-            {/* <FloatingNav navItems={navItems} /> */}
-            <div className="absolute inset-0 opacity-20">
+  return (
+    <m.div
+      key="main-content"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+      className="bg-black/[0.1] relative w-full min-h-screen h-full pointer-events-auto overflow-x-hidden overflow-y-auto"
+      ref={containerRef}
+    >
+      {/* <FloatingNav navItems={navItems} /> */}
+      <div className="absolute inset-0 opacity-20">
+        <div
+          className="w-full h-full"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgb(66, 86, 59) 1px, transparent 1px), linear-gradient(90deg, rgb(66, 86, 59) 1px, transparent 1px)",
+            backgroundSize: "40px 40px",
+          }}
+        />
+      </div>
+      <div className="absolute top-[-7rem] right-0 w-full h-full scale-x-[-1] z-[100]">
+        <Spotlight fill="#FFF2C2" />
+      </div>
+      <section ref={ref} className="relative mt-12 md:mt-24">
+        <div className="flex flex-col items-center justify-center w-full max-w-full max-h-none h-[70svh] gap-[20px] px-0 mx-auto xl:max-h-none xl:px-32 md:flex-row xl:gap-16">
+          <div className="relative px-[50px] xl:px-0 mb-[10px] xl:mb-0 xl:flex-1 flex justify-center w-full h-full md:h-auto">
+            <Image
+              priority
+              src="/images/home/portrait.png"
+              alt="@portrait"
+              width={400}
+              height={400}
+              sizes="(max-width: 600px) 400px, (max-width: 1024px) 800px, 1200px"
+              className="object-contain object-center rounded-full w-full max-w-[400px] xl:max-w-[749px] w-1920:w-[749px]"
+            />
+
+            <div className="md:hidden absolute top-6 right-3 md:right-10 max-w-[200px] z-10">
+              <div className="relative bg-white/80 backdrop-blur-md rounded-2xl p-3 shadow-2xl border border-white/50">
                 <div
-                    className="w-full h-full"
-                    style={{
-                        backgroundImage:
-                            "linear-gradient(rgb(66, 86, 59) 1px, transparent 1px), linear-gradient(90deg, rgb(66, 86, 59) 1px, transparent 1px)",
-                        backgroundSize: "40px 40px",
-                    }}
+                  className="absolute -bottom-[13px] left-5 w-0 h-0"
+                  style={{
+                    borderLeft: "10px solid transparent",
+                    borderRight: "18px solid transparent",
+                    borderTop: "14px solid rgba(255,255,255,0.8)",
+                  }}
                 />
+                <span className="text-black/20 text-3xl font-serif leading-none select-none">
+                  "
+                </span>
+                <TextAnimated
+                  as="h1"
+                  per="char"
+                  preset="fade"
+                  className="text-[15px] leading-snug text-left italic font-bold text-black"
+                >
+                  {t("slogan")}
+                </TextAnimated>
+                <TextAnimated
+                  as="h1"
+                  per="char"
+                  preset="fade"
+                  className="text-[15px] leading-snug text-left italic font-bold text-black"
+                >
+                  {t("slogan_1")}
+                </TextAnimated>
+                <TextAnimated
+                  as="h1"
+                  per="char"
+                  preset="fade"
+                  className="text-[15px] leading-snug text-left italic font-bold text-black"
+                >
+                  {t("slogan_2")}
+                </TextAnimated>
+                <TextAnimated
+                  as="p"
+                  per="char"
+                  preset="fade"
+                  className="text-[11px] italic font-bold text-black/70 mt-1.5"
+                >
+                  {t("means")}
+                </TextAnimated>
+                <TextAnimated
+                  as="p"
+                  per="char"
+                  preset="fade"
+                  className="text-[11px] italic font-bold text-black mt-1"
+                >
+                  Austin Vu
+                </TextAnimated>
+              </div>
             </div>
-            <div className="absolute top-[-7rem] right-0 w-full h-full scale-x-[-1] z-[100]">
-                <Spotlight fill="#FFF2C2" />
+          </div>
+
+          <div className="hidden md:flex md:flex-col px-5 text-center xl:px-0 xl:flex-1 xl:justify-center xl:text-left">
+            <div>
+              <TextAnimated
+                as="h1"
+                per="char"
+                preset="fade"
+                className="text-2xl text-left italic font-bold text-black xl:text-5xl"
+              >
+                {t("slogan")}
+              </TextAnimated>
             </div>
-            <section ref={ref} className="relative mt-12 md:mt-24">
-                <div className="flex flex-col items-center justify-center w-full max-w-full max-h-none h-[70svh] gap-[20px] px-0 mx-auto xl:max-h-none xl:px-32 md:flex-row xl:gap-16">
-                    <div className="relative px-[50px] xl:px-0 mb-[10px] xl:mb-0 xl:flex-1 flex justify-center w-full h-full md:h-auto">
-                        <Image
-                            priority
-                            src="/images/home/portrait.png"
-                            alt="@portrait"
-                            width={400}
-                            height={400}
-                            sizes="(max-width: 600px) 400px, (max-width: 1024px) 800px, 1200px"
-                            className="object-contain object-center rounded-full w-full max-w-[400px] xl:max-w-[749px] w-1920:w-[749px]"
-                        />
-
-                        <div className="md:hidden absolute top-6 right-3 md:right-10 max-w-[200px] z-10">
-                            <div className="relative bg-white/80 backdrop-blur-md rounded-2xl p-3 shadow-2xl border border-white/50">
-                                <div
-                                    className="absolute -bottom-[13px] left-5 w-0 h-0"
-                                    style={{
-                                        borderLeft: "10px solid transparent",
-                                        borderRight: "18px solid transparent",
-                                        borderTop: "14px solid rgba(255,255,255,0.8)",
-                                    }}
-                                />
-                                <span className="text-black/20 text-3xl font-serif leading-none select-none">"</span>
-                                <TextAnimated
-                                    as="h1"
-                                    per="char"
-                                    preset="fade"
-                                    className="text-[15px] leading-snug text-left italic font-bold text-black"
-                                >
-                                    {t("slogan")}
-                                </TextAnimated>
-                                <TextAnimated
-                                    as="h1"
-                                    per="char"
-                                    preset="fade"
-                                    className="text-[15px] leading-snug text-left italic font-bold text-black"
-                                >
-                                    {t("slogan_1")}
-                                </TextAnimated>
-                                <TextAnimated
-                                    as="h1"
-                                    per="char"
-                                    preset="fade"
-                                    className="text-[15px] leading-snug text-left italic font-bold text-black"
-                                >
-                                    {t("slogan_2")}
-                                </TextAnimated>
-                                <TextAnimated
-                                    as="p"
-                                    per="char"
-                                    preset="fade"
-                                    className="text-[11px] italic font-bold text-black/70 mt-1.5"
-                                >
-                                    {t("means")}
-                                </TextAnimated>
-                                <TextAnimated
-                                    as="p"
-                                    per="char"
-                                    preset="fade"
-                                    className="text-[11px] italic font-bold text-black mt-1"
-                                >
-                                    Austin Vu
-                                </TextAnimated>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="hidden md:flex md:flex-col px-5 text-center xl:px-0 xl:flex-1 xl:justify-center xl:text-left">
-                        <div>
-                            <TextAnimated
-                                as="h1"
-                                per="char"
-                                preset="fade"
-                                className="text-2xl text-left italic font-bold text-black xl:text-5xl"
-                            >
-                                {t("slogan")}
-                            </TextAnimated>
-                        </div>
-                        <div>
-                            <TextAnimated
-                                as="h1"
-                                per="char"
-                                preset="fade"
-                                className="text-2xl text-left italic font-bold text-black xl:text-5xl"
-                            >
-                                {t("slogan_1")}
-                            </TextAnimated>
-                        </div>
-                        <div>
-                            <TextAnimated
-                                as="h1"
-                                per="char"
-                                preset="fade"
-                                className="text-2xl text-left italic font-bold text-black xl:text-5xl"
-                            >
-                                {t("slogan_2")}
-                            </TextAnimated>
-                        </div>
-                        <TextAnimated
-                            as="p"
-                            per="char"
-                            preset="fade"
-                            className="text-sm text-center md:text-left italic font-bold text-left text-black xl:text-lg mt-2 md:mt-4"
-                        >
-                            {t("means")}
-                        </TextAnimated>
-                        <TextAnimated
-                            as="p"
-                            per="char"
-                            preset="fade"
-                            className="text-sm text-center md:text-left italic font-bold text-left text-black xl:text-lg mt-4 md:mt-8"
-                        >
-                            "Austin Vu"
-                        </TextAnimated>
-                    </div>
-                </div>
-            </section>
-            <ProjectOutstanding />
-            <TechnologyCarousel />
-            <SwitchLanguages />
-        </m.div>
-    );
+            <div>
+              <TextAnimated
+                as="h1"
+                per="char"
+                preset="fade"
+                className="text-2xl text-left italic font-bold text-black xl:text-5xl"
+              >
+                {t("slogan_1")}
+              </TextAnimated>
+            </div>
+            <div>
+              <TextAnimated
+                as="h1"
+                per="char"
+                preset="fade"
+                className="text-2xl text-left italic font-bold text-black xl:text-5xl"
+              >
+                {t("slogan_2")}
+              </TextAnimated>
+            </div>
+            <TextAnimated
+              as="p"
+              per="char"
+              preset="fade"
+              className="text-sm text-center md:text-left italic font-bold text-left text-black xl:text-lg mt-2 md:mt-4"
+            >
+              {t("means")}
+            </TextAnimated>
+            <TextAnimated
+              as="p"
+              per="char"
+              preset="fade"
+              className="text-sm text-center md:text-left italic font-bold text-left text-black xl:text-lg mt-4 md:mt-8"
+            >
+              "Austin Vu"
+            </TextAnimated>
+          </div>
+        </div>
+      </section>
+      <ProjectOutstanding />
+      <TechnologyCarousel />
+      <SwitchLanguages />
+    </m.div>
+  );
 }
