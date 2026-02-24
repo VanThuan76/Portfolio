@@ -6,9 +6,9 @@ import { FileText } from "lucide-react";
 import { cn } from "@repo/design-system/utils/tw";
 
 export default function Page() {
-  return (
-    <div className="relative grid items-center justify-center w-full h-full grid-cols-1 px-4 pt-6 bg-transparent md:grid-cols-3 md:gap-0 md:py-6 md:px-12">
-      {/* <div className="flex flex-wrap items-start justify-start order-2 w-full h-full gap-2 md:order-1">
+    return (
+        <div className="relative grid items-center justify-center w-full h-full grid-cols-1 px-4 pt-6 bg-transparent md:grid-cols-3 md:gap-0 md:py-6 md:px-12">
+            {/* <div className="flex flex-wrap items-start justify-start order-2 w-full h-full gap-2 md:order-1">
         <div className="space-y-2">
           <LinkedinScript />
           <Link
@@ -88,6 +88,6 @@ export default function Page() {
           )}
         </BentoGrid>
       </div> */}
-    </div>
-  );
+        </div>
+    );
 }

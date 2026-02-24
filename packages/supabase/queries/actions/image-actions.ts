@@ -1,35 +1,36 @@
 import { getSupabaseBrowserClient } from "@repo/supabase/utils/client";
 
-const supabase = getSupabaseBrowserClient();
-
 export async function uploadImageToStorage(file: File): Promise<string | null> {
-  try {
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
+    try {
+        // Client phải được tạo bên trong function để có session/cookies của browser
+        const supabase = getSupabaseBrowserClient();
 
-    if (!user) throw new Error("User not authenticated for photo upload");
+        const {
+            data: { user },
+        } = await supabase.auth.getUser();
 
-    const filePath = `images/${user.id}/${file.name}`;
-    const bucket = supabase.storage.from("images");
+        if (!user) throw new Error("User not authenticated for photo upload");
 
-    const { data: existingFiles, error: listError } = await bucket.list(
-      `images/${user.id}`,
-      { search: file.name },
-    );
+        const filePath = `images/${user.id}/${file.name}`;
+        const bucket = supabase.storage.from("images");
 
-    if (listError) throw listError;
+        const { data: existingFiles, error: listError } = await bucket.list(
+            `images/${user.id}`,
+            { search: file.name },
+        );
 
-    if (existingFiles?.length) {
-      return `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/${filePath}`;
+        if (listError) throw listError;
+
+        if (existingFiles?.length) {
+            return `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/${filePath}`;
+        }
+
+        const { data, error } = await bucket.upload(filePath, file);
+        if (error) throw error;
+
+        return `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/${data.path}`;
+    } catch (error) {
+        console.error("Image upload failed:", error);
+        return null;
     }
-
-    const { data, error } = await bucket.upload(filePath, file);
-    if (error) throw error;
-
-    return `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/${data.path}`;
-  } catch (error) {
-    console.error("Image upload failed:", error);
-    return null;
-  }
 }
